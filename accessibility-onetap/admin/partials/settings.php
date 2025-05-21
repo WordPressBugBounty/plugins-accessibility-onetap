@@ -43,6 +43,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 		</div>
 	</header>
 	<section class="box-button-navigation">
+		<div class="separator"></div>
 		<ul>
 			<li>
 				<a class="button" href="#anchorDesign">

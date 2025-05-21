@@ -1,3 +1,6 @@
+@use '../variables/colors' as *;
+@use '../variables/size' as *;
+
 @mixin accessibility_onetap_template_front_end() {
 
 	// Roboto
@@ -206,6 +209,22 @@
 			right: -$width !important;
 		}
 
+		header {
+			padding: 0 !important;
+			margin: 0 !important;
+			top: unset !important;
+			text-transform: unset !important;
+			overflow: unset !important;
+			width: auto !important;
+			height: auto !important;
+			z-index: unset !important;
+		}
+
+		section {
+			padding: 0 !important;
+			margin: 0 !important;
+		}	
+
 		.onetap-container {
 			width: 100% !important;
 
@@ -216,6 +235,7 @@
 				// Header top.
 				header.onetap-header-top {
 					position: relative !important;
+					display: block !important;
 
 					&::before {
 						content: "" !important;
@@ -392,6 +412,7 @@
 
 							.onetap-title {
 								margin-bottom: 20px !important;
+								text-align: center !important;
 
 								h2 {
 									color: $light-color !important;
@@ -440,6 +461,7 @@
 						flex-wrap: wrap !important;
 						gap: 18px !important;
 						position: relative !important;
+						z-index: 999 !important;
 
 						.onetap-box-feature {
 							// fix inherit on theme block {fix}.
@@ -1665,6 +1687,45 @@
 			text-align: center;
 		}
 
+		a[href="admin.php?page=accessibility-onetap-settings"] {
+
+			.wp-menu-image {
+
+				content: url(../images/admin/menu.svg);
+				padding: 7px 0;
+				padding-left: 8px;
+				transition: all .1s ease-in-out;
+				width: 20px;
+				height: 20px;
+
+				img {
+					display: none;
+				}
+			}
+
+			&:hover {
+
+				.wp-menu-image {
+					content: url(../images/admin/menu-hover.svg);
+				}
+			}
+
+		}
+
+		a[href="admin.php?page=accessibility-onetap-settings"].wp-menu-open {
+
+			.wp-menu-image {
+				content: url(../images/admin/menu-active.svg);
+			}
+
+			&:hover {
+
+				.wp-menu-image {
+					content: url(../images/admin/menu-active.svg);
+				}
+			}
+		}		
+
 		.wp-submenu {
 
 			a[href="admin.php?page=accessibility-onetap-pro"]:hover,
@@ -1835,9 +1896,31 @@
 
 			.box-button-navigation {
 				position: sticky;
-				top: 33px;
+				top: 32px;
 				background: $light-bg;
 				z-index: 9999999999999999;
+
+				.separator {
+					position: relative;
+
+					&::before,
+					&::after {
+						content: '';
+						background: $light-bg;
+						position: absolute;
+						height: 71px;
+						width: 32px;
+						top: 0;
+					}
+
+					&::before {
+						left: -32px;
+					}
+
+					&::after {
+						right: -32px;
+					}
+				}				
 
 				ul {
 					margin: 0;
@@ -1946,7 +2029,7 @@
 								margin-bottom: 20px;
 
 								a {
-									color: $dark-color;
+									color: $primary-color;
 								}
 							}
 
@@ -3012,6 +3095,10 @@
 
 				header.top {
 
+					&::before {
+						height: calc(100% + 116px);
+					}
+
 					.mycontainer {
 
 						.myrow1 {
@@ -3026,6 +3113,14 @@
 					background: $light-bg;
 					z-index: 9999999999999999;
 
+					.separator {
+
+						&::before,
+						&::after {
+							height: 64px;
+						}
+					}
+
 					ul {
 						gap: 5px;
 
@@ -3033,6 +3128,7 @@
 
 							a {
 								height: auto;
+								margin-bottom: 0;
 							}
 						}
 					}
@@ -3077,6 +3173,40 @@
 
 						td {
 							padding-top: 30px;
+						}
+					}
+				}
+			}
+		}
+	}
+
+	@media only screen and (max-width: 600px) {
+
+		body.onetap_page_accessibility-onetap-modules,
+		body.toplevel_page_accessibility-onetap-settings {
+
+			.wrap {
+
+				.box-button-navigation {
+					top: 0;
+				}
+			}
+		}
+	}	
+
+	@media only screen and (max-width: 474px) {
+
+		body.onetap_page_accessibility-onetap-modules {
+
+			.wrap {
+
+				.box-button-navigation {
+
+					.separator {
+
+						&::before,
+						&::after {
+							height: 108px;
 						}
 					}
 				}

@@ -372,7 +372,7 @@ class Accessibility_Onetap_Settings_Manager {
 
 		$html  = '<div class="box-setting-option ' . esc_attr( $args['id'] ) . '">';
 		$html .= '<span id="anchorDesign" class="site-title">' . esc_html( $site_title ) . '</span>';
-		$html .= '<span class="site-description">' . esc_html( $site_description ) . '</span>';
+		$html .= '<span class="site-description">' . $site_description . '</span>';
 		$html .= '<div class="box-control">';
 		$html .= '<span class="title-label">' . esc_html( $label_checkbox ) . '</span>';
 		$html .= '<div class="boxes">';
@@ -424,6 +424,10 @@ class Accessibility_Onetap_Settings_Manager {
 			),
 			'button' => array(
 				'class' => array(),
+			),
+			'a'      => array(
+				'href'   => array(),
+				'target' => array(),
 			),
 		);
 
@@ -604,7 +608,7 @@ class Accessibility_Onetap_Settings_Manager {
 
 		$html  = '<div class="box-setting-option ' . esc_attr( $args['id'] ) . '">';
 		$html .= '<span id="anchorPosition" class="site-title">' . esc_html( $site_title ) . '</span>';
-		$html .= '<span class="site-description">' . esc_html( $site_description ) . '</span>';
+		$html .= '<span class="site-description">' . $site_description . '</span>';
 		$html .= '<div class="box-device">';
 		$html .= '<div class="boxes">';
 		$html .= '<button type="button" class="desktop active">';
@@ -667,6 +671,10 @@ class Accessibility_Onetap_Settings_Manager {
 			'button' => array(
 				'type'  => array(),
 				'class' => array(),
+			),
+			'a'      => array(
+				'href'   => array(),
+				'target' => array(),
 			),
 		);
 
@@ -887,7 +895,7 @@ class Accessibility_Onetap_Settings_Manager {
 		$name             = isset( $args['name'] ) ? esc_html( $args['name'] ) : '';
 		$label_for        = isset( $args['label_for'] ) ? esc_attr( $args['label_for'] ) : '';
 		$site_title       = isset( $args['site_title'] ) ? esc_html( $args['site_title'] ) : '';
-		$site_description = isset( $args['site_description'] ) ? esc_html( $args['site_description'] ) : '';
+		$site_description = isset( $args['site_description'] ) ? $args['site_description'] : '';
 
 		$html  = '<div class="box-setting-option ' . esc_attr( $args['id'] ) . '">';
 		$html .= '<span id="anchorLanguage" class="site-title">' . $site_title . '</span>';
@@ -931,6 +939,10 @@ class Accessibility_Onetap_Settings_Manager {
 			),
 			'button' => array(
 				'class' => array(),
+			),
+			'a'      => array(
+				'href'   => array(),
+				'target' => array(),
 			),
 		);
 
@@ -1177,7 +1189,7 @@ class Accessibility_Onetap_Settings_Manager {
 
 		$html  = '<div class="box-setting-option ' . esc_attr( $args['id'] ) . '">';
 		$html .= '<span id="anchorColors" class="site-title">' . esc_html( $site_title ) . '</span>';
-		$html .= '<span class="site-description">' . esc_html( $site_description ) . '</span>';
+		$html .= '<span class="site-description">' . $site_description . '</span>';
 		$html .= '<div class="box-control">';
 		$html .= '<label class="label" id="' . esc_attr( $label_for ) . '">' . esc_html( $name ) . '</label>';
 		$html .= '<input type="text" class="' . esc_attr( $size ) . '-text wp-color-picker-field" id="' . esc_attr( $args['section'] ) . '[' . esc_attr( $args['id'] ) . ']" name="' . esc_attr( $args['section'] ) . '[' . esc_attr( $args['id'] ) . ']" value="' . esc_attr( $value ) . '" data-default-color="' . esc_attr( $args['std'] ) . '" />';
@@ -1209,6 +1221,10 @@ class Accessibility_Onetap_Settings_Manager {
 			),
 			'button' => array(
 				'class' => array(),
+			),
+			'a'      => array(
+				'href'   => array(),
+				'target' => array(),
 			),
 		);
 

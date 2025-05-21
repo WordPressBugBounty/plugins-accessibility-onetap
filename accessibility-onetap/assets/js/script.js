@@ -130,7 +130,7 @@
 		muteSounds: false,
 		stopAnimations: false,
 		information: {
-			updated: 'onetap-version-12',
+			updated: 'onetap-version-13',
 			language: accessibilityOnetapAjaxObject.getSettings.language,
 			developer: 'Yuky Hendiawan',
 			startDate: accessibilityOnetapStartDate,
@@ -146,10 +146,10 @@
 		// Retrieve the existing data from localStorage
 		const accessibilityData = JSON.parse( localStorage.getItem( accessibilityOnetapLocalStorage ) );
 
-		// Check if 'information.updated' exists and whether its value is 'onetap-version-12'
+		// Check if 'information.updated' exists and whether its value is 'onetap-version-13'
 		if ( typeof accessibilityData.information === 'undefined' ||
 			typeof accessibilityData.information.updated === 'undefined' ||
-			accessibilityData.information.updated !== 'onetap-version-12' ) {
+			accessibilityData.information.updated !== 'onetap-version-13' ) {
 			localStorage.removeItem( accessibilityOnetapLocalStorage );
 			localStorage.setItem( accessibilityOnetapLocalStorage, JSON.stringify( accessibilityOnetapDefault ) );
 		}
@@ -203,7 +203,7 @@
 	accessibilityOnetapUpdateContentBasedOnLanguage( accessibilityOnetapGetData().information.language );
 	function accessibilityOnetapUpdateContentBasedOnLanguage( language ) {
 		// Define a list of valid languages
-		const validLanguages = [ 'en', 'de', 'es', 'fr', 'it', 'pl', 'se', 'fi', 'pt', 'ro', 'si', 'sk', 'nl', 'dk', 'gr', 'cz', 'hu', 'lt', 'lv', 'ee', 'hr', 'ie', 'bg' ];
+		const validLanguages = [ 'en', 'de', 'es', 'fr', 'it', 'pl', 'se', 'fi', 'pt', 'ro', 'si', 'sk', 'nl', 'dk', 'gr', 'cz', 'hu', 'lt', 'lv', 'ee', 'hr', 'ie', 'bg', 'no', 'tr', 'id', 'pt-br', 'ja', 'ko', 'zh', 'ar', 'ru', 'hi', 'uk', 'sr' ];
 
 		// Check if the provided language is valid
 		if ( validLanguages.includes( language ) ) {
@@ -860,19 +860,19 @@
 					// Handle background
 					if ( /background:\s*[^;]+;?/.test( currentStyle ) ) {
 						// If it exists, replace the existing background with the new value
-						currentStyle = currentStyle.replace( /background:\s*[^;]+;?/, 'background: #000 !important;' );
+						currentStyle = currentStyle.replace( /background:\s*[^;]+;?/, 'background: #f7ff00 !important;' );
 					} else {
 						// If background is not present, append it to the style attribute
-						currentStyle += ' background: #000 !important;';
+						currentStyle += ' background: #f7ff00 !important;';
 					}
 
 					// Handle color
 					if ( /color:\s*[^;]+;?/.test( currentStyle ) ) {
 						// If it exists, replace the existing color with the new value
-						currentStyle = currentStyle.replace( /color:\s*[^;]+;?/, 'color: #f7ff00 !important;' );
+						currentStyle = currentStyle.replace( /color:\s*[^;]+;?/, 'color: #000 !important;' );
 					} else {
 						// If color is not present, append it to the style attribute
-						currentStyle += ' color: #f7ff00 !important;';
+						currentStyle += ' color: #000 !important;';
 					}
 				}
 

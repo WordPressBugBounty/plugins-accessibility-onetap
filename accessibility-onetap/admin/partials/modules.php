@@ -45,10 +45,16 @@ if ( ! defined( 'ABSPATH' ) ) {
 		</div>
 	</header>
 	<section class="box-button-navigation">
+		<div class="separator"></div>
 		<ul>
 			<li>
-				<a class="button" href="#anchorGeneralModules">
-					<?php esc_html_e( 'General Modules', 'accessibility-onetap' ); ?>
+				<a class="button" href="#anchorAccessibilityProfiles">
+					<?php esc_html_e( 'Accessibility Profiles', 'accessibility-onetap' ); ?>
+				</a>
+			</li>
+			<li>
+				<a class="button" href="#anchorContentlModules">
+					<?php esc_html_e( 'Content Modules', 'accessibility-onetap' ); ?>
 				</a>
 			</li>
 			<li>
@@ -57,8 +63,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 				</a>
 			</li>
 			<li>
-				<a class="button" href="#anchorNavigation">
-					<?php esc_html_e( 'Navigation', 'accessibility-onetap' ); ?>
+				<a class="button" href="#anchorOrientation">
+					<?php esc_html_e( 'Orientation', 'accessibility-onetap' ); ?>
 				</a>
 			</li>
 		</ul>

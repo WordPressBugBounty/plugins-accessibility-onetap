@@ -1,2 +1,2 @@
-@import "abstracts/abstracts";
+@use './abstracts/mixins/mixins' as *;
 @include accessibility_onetap_admin_menu;
