@@ -121,6 +121,24 @@ class Accessibility_Onetap_Settings_Options {
 		);
 
 		add_submenu_page(
+			null, // Parent menu slug.
+			__( 'Module Labels', 'accessibility-onetap' ), // Page title.
+			__( 'Module Labels', 'accessibility-onetap' ), // Menu title.
+			'manage_options', // Capability required.
+			'onetap-module-labels', // Menu slug.
+			array( $this, 'callback_template_for_module_labels' ) // Callback function.
+		);
+
+		add_submenu_page(
+			'accessibility-onetap-settings', // Parent menu slug.
+			__( 'Statement', 'accessibility-onetap' ), // Page title.
+			__( 'Statement', 'accessibility-onetap' ), // Menu title.
+			'manage_options', // Capability required.
+			'accessibility-onetap-accessibility-status', // Menu slug.
+			array( $this, 'callback_template_for_accessibility_status' ) // Callback function.
+		);
+
+		add_submenu_page(
 			'accessibility-onetap-settings', // Parent menu slug.
 			__( 'Get PRO', 'accessibility-onetap' ), // Page title.
 			__( 'Get PRO', 'accessibility-onetap' ), // Menu title.
@@ -165,6 +183,40 @@ class Accessibility_Onetap_Settings_Options {
 	}
 
 	/**
+	 * Loads the template for the 'Module Labels' menu page in the plugin.
+	 *
+	 * This function constructs the path to the template file located
+	 * in the plugin directory and includes it if it exists.
+	 */
+	public function callback_template_for_module_labels() {
+		// Define the path to the template file.
+		$template_path = plugin_dir_path( __FILE__ ) . 'partials/module-labels.php';
+
+		// Check if the template file exists.
+		if ( file_exists( $template_path ) ) {
+			// Include the template file if it exists.
+			include $template_path;
+		}
+	}
+
+	/**
+	 * Loads the template for the 'Accessibility Status' menu page in the plugin.
+	 *
+	 * This function constructs the path to the template file located
+	 * in the plugin directory and includes it if it exists.
+	 */
+	public function callback_template_for_accessibility_status() {
+		// Define the path to the template file.
+		$template_path = plugin_dir_path( __FILE__ ) . 'partials/accessibility-status.php';
+
+		// Check if the template file exists.
+		if ( file_exists( $template_path ) ) {
+			// Include the template file if it exists.
+			include $template_path;
+		}
+	}
+
+	/**
 	 * Loads the template for the 'Get PRO' menu page in the plugin.
 	 *
 	 * This function constructs the path to the template file located
@@ -178,7 +230,9 @@ class Accessibility_Onetap_Settings_Options {
 	 * Remove notifications.
 	 */
 	public function hide_notifications_for_onetap_page() {
-		if ( is_admin() && get_admin_page_parent() === 'accessibility-onetap-settings' ) {
+		global $plugin_page;
+
+		if ( ( is_admin() && get_admin_page_parent() === 'accessibility-onetap-settings' ) || 'onetap-module-labels' === $plugin_page || 'accessibility-onetap-accessibility-status' === $plugin_page ) {
 			remove_all_actions( 'admin_notices' );
 		}
 	}
@@ -218,6 +272,10 @@ class Accessibility_Onetap_Settings_Options {
 				'id'    => 'onetap_modules',
 				'title' => __( 'Modules', 'accessibility-onetap' ),
 			),
+			array(
+				'id'    => 'onetap_module_labels',
+				'title' => __( 'Module Labels', 'accessibility-onetap' ),
+			),
 		);
 		return $sections;
 	}
@@ -229,7 +287,7 @@ class Accessibility_Onetap_Settings_Options {
 	 */
 	public function get_settings_api_fields() {
 		$settings_fields = array(
-			'onetap_settings' => array(
+			'onetap_settings'      => array(
 				array(
 					'name'              => 'icons',
 					'label'             => __( 'Icons', 'accessibility-onetap' ),
@@ -448,7 +506,7 @@ class Accessibility_Onetap_Settings_Options {
 						'hi'    => __( 'हिन्दी', 'accessibility-onetap' ),
 						'uk'    => __( 'Українська', 'accessibility-onetap' ),
 						'sr'    => __( 'Srpski', 'accessibility-onetap' ),
-					),			
+					),
 				),
 				array(
 					'name'              => 'hide-powered-by-onetap',
@@ -462,7 +520,7 @@ class Accessibility_Onetap_Settings_Options {
 					'sanitize_callback' => 'sanitize_text_field',
 				),
 			),
-			'onetap_modules'  => array(
+			'onetap_modules'       => array(
 				array(
 					'name'              => 'accessibility-profiles-title',
 					'group_title'       => __( 'Accessibility Profiles', 'accessibility-onetap' ),
@@ -771,6 +829,303 @@ class Accessibility_Onetap_Settings_Options {
 					'status'            => false,
 					'callback'          => 'callback_template_checkbox',
 					'default'           => Accessibility_Onetap_Config::get_module( 'stop_animations' ),
+					'sanitize_callback' => 'sanitize_text_field',
+				),
+				array(
+					'name'     => 'orientation-modules-save-changes',
+					'type'     => 'text',
+					'callback' => 'callback_template_save_changes',
+				),
+			),
+			'onetap_module_labels' => array(
+				array(
+					'name'              => 'content-modules-title',
+					'group_title'       => __( 'Content Modules', 'accessibility-onetap' ),
+					'group_description' => __( 'Versatile tools to customize and enhance overall accessibility and usability.', 'accessibility-onetap' ),
+					'type'              => 'text',
+					'callback'          => 'callback_template_general_module_title',
+					'anchor'            => 'anchorContentModules',
+					'default'           => true,
+				),
+				array(
+					'name'              => 'bigger-text',
+					'label'             => __( 'Bigger Text', 'accessibility-onetap' ),
+					'desc'              => __( 'Easily enlarge text for improved readability and accessibility for all', 'accessibility-onetap' ),
+					'icon'              => ACCESSIBILITY_ONETAP_PLUGINS_URL . 'assets/images/admin/bigger-text.svg',
+					'type'              => 'checkbox',
+					'status'            => true,
+					'callback'          => 'callback_template_custom_input_text',
+					'default'           => '',
+					'sanitize_callback' => 'sanitize_text_field',
+				),
+				array(
+					'name'              => 'cursor',
+					'label'             => __( 'Cursor', 'accessibility-onetap' ),
+					'desc'              => __( 'Enhance visibility with a larger cursor for easier navigation and control', 'accessibility-onetap' ),
+					'icon'              => ACCESSIBILITY_ONETAP_PLUGINS_URL . 'assets/images/admin/cursor.svg',
+					'type'              => 'checkbox',
+					'status'            => true,
+					'callback'          => 'callback_template_custom_input_text',
+					'default'           => '',
+					'sanitize_callback' => 'sanitize_text_field',
+				),
+				array(
+					'name'              => 'line-height',
+					'label'             => __( 'Line Height', 'accessibility-onetap' ),
+					'desc'              => __( 'Adjust line spacing for better readability and improved text clarity', 'accessibility-onetap' ),
+					'icon'              => ACCESSIBILITY_ONETAP_PLUGINS_URL . 'assets/images/admin/line-height.svg',
+					'type'              => 'checkbox',
+					'status'            => true,
+					'callback'          => 'callback_template_custom_input_text',
+					'default'           => '',
+					'sanitize_callback' => 'sanitize_text_field',
+				),
+				array(
+					'name'              => 'letter-spacing',
+					'label'             => __( 'Letter Spacing', 'accessibility-onetap' ),
+					'desc'              => __( 'Adjust letter spacing for improved readability', 'accessibility-onetap' ),
+					'icon'              => ACCESSIBILITY_ONETAP_PLUGINS_URL . 'assets/images/admin/letter-spacing.svg',
+					'type'              => 'checkbox',
+					'status'            => true,
+					'callback'          => 'callback_template_custom_input_text',
+					'default'           => '',
+					'sanitize_callback' => 'sanitize_text_field',
+				),
+				array(
+					'name'              => 'readable-font',
+					'label'             => __( 'Readable Font', 'accessibility-onetap' ),
+					'desc'              => __( 'Switch to a clearer, easy-to-read font for improved text accessibility', 'accessibility-onetap' ),
+					'icon'              => ACCESSIBILITY_ONETAP_PLUGINS_URL . 'assets/images/admin/readable-font.svg',
+					'type'              => 'checkbox',
+					'status'            => true,
+					'callback'          => 'callback_template_custom_input_text',
+					'default'           => '',
+					'sanitize_callback' => 'sanitize_text_field',
+				),
+				array(
+					'name'              => 'dyslexic-font',
+					'label'             => __( 'Dyslexic Font', 'accessibility-onetap' ),
+					'desc'              => __( 'Use a specialized font designed to enhance readability for dyslexic users', 'accessibility-onetap' ),
+					'icon'              => ACCESSIBILITY_ONETAP_PLUGINS_URL . 'assets/images/admin/dyslexic-font.svg',
+					'type'              => 'checkbox',
+					'status'            => true,
+					'callback'          => 'callback_template_custom_input_text',
+					'default'           => '',
+					'sanitize_callback' => 'sanitize_text_field',
+				),
+				array(
+					'name'              => 'text-align',
+					'label'             => __( 'Text Align', 'accessibility-onetap' ),
+					'desc'              => __( 'Adjust text alignment for improved structure and readability', 'accessibility-onetap' ),
+					'icon'              => ACCESSIBILITY_ONETAP_PLUGINS_URL . 'assets/images/admin/text-align.svg',
+					'type'              => 'checkbox',
+					'status'            => true,
+					'callback'          => 'callback_template_custom_input_text',
+					'default'           => '',
+					'sanitize_callback' => 'sanitize_text_field',
+				),
+				array(
+					'name'              => 'text-magnifier',
+					'label'             => __( 'Text Magnifier', 'accessibility-onetap' ),
+					'desc'              => __( 'Magnify selected text for enhanced readability and accessibility', 'accessibility-onetap' ),
+					'icon'              => ACCESSIBILITY_ONETAP_PLUGINS_URL . 'assets/images/admin/text-magnifier.svg',
+					'type'              => 'checkbox',
+					'status'            => true,
+					'callback'          => 'callback_template_custom_input_text',
+					'default'           => '',
+					'sanitize_callback' => 'sanitize_text_field',
+				),
+				array(
+					'name'              => 'highlight-links',
+					'label'             => __( 'Highlight Links', 'accessibility-onetap' ),
+					'desc'              => __( 'Easily identify clickable links with visual enhancements for better navigation', 'accessibility-onetap' ),
+					'icon'              => ACCESSIBILITY_ONETAP_PLUGINS_URL . 'assets/images/admin/highlight-links.svg',
+					'type'              => 'checkbox',
+					'status'            => true,
+					'callback'          => 'callback_template_custom_input_text',
+					'default'           => '',
+					'sanitize_callback' => 'sanitize_text_field',
+				),
+				array(
+					'name'     => 'content-modules-title-save-changes',
+					'type'     => 'text',
+					'callback' => 'callback_template_save_changes',
+				),
+				array(
+					'name'              => 'color-modules',
+					'group_title'       => __( 'Colors', 'accessibility-onetap' ),
+					'group_description' => __( 'Options to adjust color settings for improved visibility and comfort.', 'accessibility-onetap' ),
+					'type'              => 'text',
+					'callback'          => 'callback_template_general_module_title',
+					'anchor'            => 'anchorModulesColors',
+					'default'           => true,
+				),
+				array(
+					'name'              => 'invert-colors',
+					'label'             => __( 'Invert Colors', 'accessibility-onetap' ),
+					'desc'              => __( 'Swap text and background colors for better contrast and readability', 'accessibility-onetap' ),
+					'icon'              => ACCESSIBILITY_ONETAP_PLUGINS_URL . 'assets/images/admin/invert-colors.svg',
+					'type'              => 'checkbox',
+					'status'            => true,
+					'callback'          => 'callback_template_custom_input_text',
+					'default'           => '',
+					'sanitize_callback' => 'sanitize_text_field',
+				),
+				array(
+					'name'              => 'brightness',
+					'label'             => __( 'Brightness', 'accessibility-onetap' ),
+					'desc'              => __( 'Adjust screen brightness to reduce glare and enhance text visibility', 'accessibility-onetap' ),
+					'icon'              => ACCESSIBILITY_ONETAP_PLUGINS_URL . 'assets/images/admin/brightness.svg',
+					'type'              => 'checkbox',
+					'status'            => true,
+					'callback'          => 'callback_template_custom_input_text',
+					'default'           => '',
+					'sanitize_callback' => 'sanitize_text_field',
+				),
+				array(
+					'name'              => 'contrast',
+					'label'             => __( 'Contrast', 'accessibility-onetap' ),
+					'desc'              => __( 'Fine-tune color contrast for clearer text and improved readability', 'accessibility-onetap' ),
+					'icon'              => ACCESSIBILITY_ONETAP_PLUGINS_URL . 'assets/images/admin/contrast.svg',
+					'type'              => 'checkbox',
+					'status'            => true,
+					'callback'          => 'callback_template_custom_input_text',
+					'default'           => '',
+					'sanitize_callback' => 'sanitize_text_field',
+				),
+				array(
+					'name'              => 'grayscale',
+					'label'             => __( 'Grayscale', 'accessibility-onetap' ),
+					'desc'              => __( 'Convert display to black and white for reduced visual clutter and better focus', 'accessibility-onetap' ),
+					'icon'              => ACCESSIBILITY_ONETAP_PLUGINS_URL . 'assets/images/admin/grayscale.svg',
+					'type'              => 'checkbox',
+					'status'            => true,
+					'callback'          => 'callback_template_custom_input_text',
+					'default'           => '',
+					'sanitize_callback' => 'sanitize_text_field',
+				),
+				array(
+					'name'              => 'saturation',
+					'label'             => __( 'Saturation', 'accessibility-onetap' ),
+					'desc'              => __( 'Adjust color saturation for a more vivid or subdued visual experience', 'accessibility-onetap' ),
+					'icon'              => ACCESSIBILITY_ONETAP_PLUGINS_URL . 'assets/images/admin/saturnation.svg',
+					'type'              => 'checkbox',
+					'status'            => true,
+					'callback'          => 'callback_template_custom_input_text',
+					'default'           => '',
+					'sanitize_callback' => 'sanitize_text_field',
+				),
+				array(
+					'name'     => 'color-modules-save-changes',
+					'type'     => 'text',
+					'callback' => 'callback_template_save_changes',
+				),
+				array(
+					'name'              => 'orientation-modules',
+					'group_title'       => __( 'Orientation', 'accessibility-onetap' ),
+					'group_description' => __( 'Tools to enhance ease of movement and accessibility across the site.', 'accessibility-onetap' ),
+					'type'              => 'text',
+					'callback'          => 'callback_template_general_module_title',
+					'anchor'            => 'anchorOrientation',
+					'default'           => true,
+				),
+				array(
+					'name'              => 'reading-line',
+					'label'             => __( 'Reading Line', 'accessibility-onetap' ),
+					'desc'              => __( 'Highlight the current line to track reading progress and improve focus', 'accessibility-onetap' ),
+					'icon'              => ACCESSIBILITY_ONETAP_PLUGINS_URL . 'assets/images/admin/reading-line.svg',
+					'type'              => 'checkbox',
+					'status'            => true,
+					'callback'          => 'callback_template_custom_input_text',
+					'default'           => '',
+					'sanitize_callback' => 'sanitize_text_field',
+				),
+				array(
+					'name'              => 'keyboard-navigation',
+					'label'             => __( 'Keyboard Navigation', 'accessibility-onetap' ),
+					'desc'              => __( 'Navigate the site using only the keyboard', 'accessibility-onetap' ),
+					'icon'              => ACCESSIBILITY_ONETAP_PLUGINS_URL . 'assets/images/admin/keyboard-navigation.svg',
+					'type'              => 'checkbox',
+					'status'            => true,
+					'callback'          => 'callback_template_custom_input_text',
+					'default'           => '',
+					'sanitize_callback' => 'sanitize_text_field',
+				),
+				array(
+					'name'              => 'highlight-titles',
+					'label'             => __( 'Highlight Titles', 'accessibility-onetap' ),
+					'desc'              => __( 'Highlight titles for better recognition', 'accessibility-onetap' ),
+					'icon'              => ACCESSIBILITY_ONETAP_PLUGINS_URL . 'assets/images/admin/highlight-titles.svg',
+					'type'              => 'checkbox',
+					'status'            => true,
+					'callback'          => 'callback_template_custom_input_text',
+					'default'           => '',
+					'sanitize_callback' => 'sanitize_text_field',
+				),
+				array(
+					'name'              => 'reading-mask',
+					'label'             => __( 'Reading Mask', 'accessibility-onetap' ),
+					'desc'              => __( 'Use a mask to focus on a specific area of text and reduce distractions', 'accessibility-onetap' ),
+					'icon'              => ACCESSIBILITY_ONETAP_PLUGINS_URL . 'assets/images/admin/reading-mask.svg',
+					'type'              => 'checkbox',
+					'status'            => true,
+					'callback'          => 'callback_template_custom_input_text',
+					'default'           => '',
+					'sanitize_callback' => 'sanitize_text_field',
+				),
+				array(
+					'name'              => 'hide-images',
+					'label'             => __( 'Hide Images', 'accessibility-onetap' ),
+					'desc'              => __( 'Remove distracting images for a cleaner, more focused browsing experience', 'accessibility-onetap' ),
+					'icon'              => ACCESSIBILITY_ONETAP_PLUGINS_URL . 'assets/images/admin/hide-images.svg',
+					'type'              => 'checkbox',
+					'status'            => true,
+					'callback'          => 'callback_template_custom_input_text',
+					'default'           => '',
+					'sanitize_callback' => 'sanitize_text_field',
+				),
+				array(
+					'name'              => 'highlight-all',
+					'label'             => __( 'Highlight All', 'accessibility-onetap' ),
+					'desc'              => __( 'Highlight elements when hovered over', 'accessibility-onetap' ),
+					'icon'              => ACCESSIBILITY_ONETAP_PLUGINS_URL . 'assets/images/admin/highlight-all.svg',
+					'type'              => 'checkbox',
+					'status'            => true,
+					'callback'          => 'callback_template_custom_input_text',
+					'default'           => '',
+					'sanitize_callback' => 'sanitize_text_field',
+				),
+				array(
+					'name'              => 'read-page',
+					'label'             => __( 'Read Page', 'accessibility-onetap' ),
+					'desc'              => __( 'Automatically read aloud the page content for hands-free accessibility', 'accessibility-onetap' ),
+					'icon'              => ACCESSIBILITY_ONETAP_PLUGINS_URL . 'assets/images/admin/read-page.svg',
+					'type'              => 'checkbox',
+					'status'            => true,
+					'callback'          => 'callback_template_custom_input_text',
+					'default'           => '',
+					'sanitize_callback' => 'sanitize_text_field',
+				),
+				array(
+					'name'              => 'mute-sounds',
+					'label'             => __( 'Mute Sounds', 'accessibility-onetap' ),
+					'desc'              => __( 'Easily mute website sounds for a distraction-free browsing experience', 'accessibility-onetap' ),
+					'icon'              => ACCESSIBILITY_ONETAP_PLUGINS_URL . 'assets/images/admin/mute-sounds.svg',
+					'type'              => 'checkbox',
+					'status'            => true,
+					'callback'          => 'callback_template_custom_input_text',
+					'default'           => '',
+					'sanitize_callback' => 'sanitize_text_field',
+				),
+				array(
+					'name'              => 'stop-animations',
+					'label'             => __( 'Stop Animations', 'accessibility-onetap' ),
+					'desc'              => __( 'Disable animations to reduce distractions', 'accessibility-onetap' ),
+					'icon'              => ACCESSIBILITY_ONETAP_PLUGINS_URL . 'assets/images/admin/stop-animations.svg',
+					'type'              => 'checkbox',
+					'status'            => true,
+					'callback'          => 'callback_template_custom_input_text',
+					'default'           => '',
 					'sanitize_callback' => 'sanitize_text_field',
 				),
 				array(

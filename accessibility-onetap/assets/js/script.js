@@ -4,6 +4,8 @@
 
 	const accessibilityOnetapToggleClose = $( '.onetap-accessibility-plugin .onetap-close' );
 	const accessibilityOnetapToggleOpen = $( '.onetap-accessibility-plugin .onetap-toggle' );
+	const accessibilityOnetapToggleOpenStatement = $( '.onetap-accessibility-plugin .onetap-statement button' );
+	const accessibilityOnetapToggleCloseStatement = $( '.accessibility-status-text button' );
 	const accessibilityOnetapAccessibility = $( '.onetap-accessibility-plugin .onetap-accessibility' );
 	const accessibilityOnetapLanguageList = $( '.onetap-accessibility-plugin .onetap-list-of-languages' );
 	const accessibilityOnetapToggleLanguages = $( '.onetap-accessibility-plugin .onetap-languages' );
@@ -15,6 +17,27 @@
 		event.stopPropagation();
 		accessibilityOnetapAccessibility.removeClass( 'onetap-toggle-close' ).addClass( 'onetap-toggle-open' );
 		accessibilityOnetapToggleClose.show( 100 );
+		accessibilityOnetapToggleLanguages.focus();
+	} );
+
+	$( document ).on( 'keydown', function( e ) {
+		// Detect if the platform is macOS
+		const isMac = navigator.platform.toUpperCase().indexOf( 'MAC' ) >= 0;
+		const isShortcut = (
+			( isMac && e.metaKey && e.key === '.' ) ||
+			( ! isMac && e.ctrlKey && e.key === '.' )
+		);
+
+		// Trigger the accessibility panel if the correct shortcut is pressed
+		if ( isShortcut ) {
+			e.stopPropagation(); // Stop the event from bubbling up
+			e.preventDefault(); // Prevent default behavior (optional)
+
+			// Open the accessibility panel
+			accessibilityOnetapAccessibility.removeClass( 'onetap-toggle-close' ).addClass( 'onetap-toggle-open' );
+			accessibilityOnetapToggleClose.show( 100 );
+			accessibilityOnetapToggleLanguages.focus();
+		}
 	} );
 
 	// Close Accessibility.
@@ -22,6 +45,43 @@
 		event.stopPropagation();
 		accessibilityOnetapAccessibility.removeClass( 'onetap-toggle-open' ).addClass( 'onetap-toggle-close' );
 		accessibilityOnetapToggleClose.hide( 100 );
+		accessibilityOnetapToggleOpen.focus();
+	} );
+
+	$( document ).on( 'keydown', function( e ) {
+		// Close the accessibility panel with Escape key
+		if ( e.key === 'Escape' ) {
+			e.stopPropagation();
+			e.preventDefault();
+
+			accessibilityOnetapAccessibility.removeClass( 'onetap-toggle-open' ).addClass( 'onetap-toggle-close' );
+			accessibilityOnetapToggleClose.hide( 100 );
+			accessibilityOnetapToggleOpen.focus();
+		}
+	} );
+
+	// When the close button of the language popup gains focus
+	accessibilityOnetapToggleClose.on( 'focus', function( event ) {
+		event.stopPropagation();
+		$( this ).attr( 'aria-expanded', false );
+
+		$( this ).removeClass( 'onetap-active' );
+		accessibilityOnetapToggleLanguages.removeClass( 'onetap-active' );
+		accessibilityOnetapLanguageList.fadeOut( 350 );
+	} );
+
+	// Open Statement
+	accessibilityOnetapToggleOpenStatement.click( function() {
+		$( '.onetap-accessibility' ).addClass( 'active-statement' );
+		$( '.accessibility-status-wrapper' ).show();
+		$( '.accessibility-status-text button' ).focus();
+	} );
+
+	// Close Statement
+	accessibilityOnetapToggleCloseStatement.click( function() {
+		$( '.onetap-accessibility' ).removeClass( 'active-statement' );
+		$( '.accessibility-status-wrapper' ).hide();
+		$( '.apop-statement button' ).focus();
 	} );
 
 	// Prevent auto-close when clicking inside accessibility panel.
@@ -130,7 +190,7 @@
 		muteSounds: false,
 		stopAnimations: false,
 		information: {
-			updated: 'onetap-version-13',
+			updated: 'onetap-version-14',
 			language: accessibilityOnetapAjaxObject.getSettings.language,
 			developer: 'Yuky Hendiawan',
 			startDate: accessibilityOnetapStartDate,
@@ -146,10 +206,10 @@
 		// Retrieve the existing data from localStorage
 		const accessibilityData = JSON.parse( localStorage.getItem( accessibilityOnetapLocalStorage ) );
 
-		// Check if 'information.updated' exists and whether its value is 'onetap-version-13'
+		// Check if 'information.updated' exists and whether its value is 'onetap-version-14'
 		if ( typeof accessibilityData.information === 'undefined' ||
 			typeof accessibilityData.information.updated === 'undefined' ||
-			accessibilityData.information.updated !== 'onetap-version-13' ) {
+			accessibilityData.information.updated !== 'onetap-version-14' ) {
 			localStorage.removeItem( accessibilityOnetapLocalStorage );
 			localStorage.setItem( accessibilityOnetapLocalStorage, JSON.stringify( accessibilityOnetapDefault ) );
 		}
@@ -213,12 +273,12 @@
 			const updates = [
 				// Header.
 				{ selector: 'nav.onetap-accessibility header.onetap-header-top .onetap-languages .onetap-text span', text: languageData.header.language },
-				{ selector: 'nav.onetap-accessibility header.onetap-header-top .onetap-site-container .onetap-site-info .onetap-title h2', text: languageData.header.title },
+				{ selector: 'nav.onetap-accessibility header.onetap-header-top .onetap-site-container .onetap-site-info .onetap-title span', text: languageData.header.title },
 				{ selector: 'nav.onetap-accessibility header.onetap-header-top .onetap-site-container .onetap-site-info .onetap-desc p span', text: languageData.header.desc },
 				{ selector: 'nav.onetap-accessibility header.onetap-header-top .onetap-site-container .onetap-site-info .onetap-desc p a', text: languageData.header.anchor },
 
 				// Multi Functions Title.
-				{ selector: 'nav.onetap-accessibility .onetap-container .onetap-accessibility-settings .onetap-multi-functional-feature .onetap-box-functions .onetap-box-title h2', text: languageData.multiFunctionalFeature.title },
+				{ selector: 'nav.onetap-accessibility .onetap-container .onetap-accessibility-settings .onetap-multi-functional-feature .onetap-box-functions .onetap-box-title span', text: languageData.multiFunctionalFeature.title },
 
 				// Vision Impaired Mode.
 				{ selector: 'nav.onetap-accessibility .onetap-container .onetap-accessibility-settings .onetap-multi-functional-feature .onetap-box-functions .onetap-box-vision-impaired-mode .onetap-left .onetap-text .onetap-title span', text: languageData.multiFunctionalFeature.visionImpairedMode.title },
@@ -251,37 +311,37 @@
 				{ selectorOff: 'nav.onetap-accessibility .onetap-container .onetap-accessibility-settings .onetap-multi-functional-feature .onetap-box-functions .onetap-box-epilepsy-safe-mode .onetap-right .onetap-toggle-container .label-mode-switch .label-mode-switch-inner', off: languageData.multiFunctionalFeature.epilepsySafeMode.off },
 
 				// Content.
-				{ selector: 'nav.onetap-accessibility .onetap-features .onetap-bigger-text .onetap-title h3', text: languageData.content.biggerText },
-				{ selector: 'nav.onetap-accessibility .onetap-features .onetap-cursor .onetap-title h3', text: languageData.content.cursor },
-				{ selector: 'nav.onetap-accessibility .onetap-features .onetap-line-height .onetap-title h3', text: languageData.content.lineHeight },
-				{ selector: 'nav.onetap-accessibility .onetap-features .onetap-letter-spacing .onetap-title h3', text: languageData.content.letterSpacing },
-				{ selector: 'nav.onetap-accessibility .onetap-features .onetap-readable-font .onetap-title h3', text: languageData.content.readableFont },
-				{ selector: 'nav.onetap-accessibility .onetap-features .onetap-dyslexic-font .onetap-title h3', text: languageData.content.dyslexicFont },
+				{ selector: 'nav.onetap-accessibility .onetap-features .onetap-bigger-text .onetap-title > span', text: languageData.content.biggerText },
+				{ selector: 'nav.onetap-accessibility .onetap-features .onetap-cursor .onetap-title > span', text: languageData.content.cursor },
+				{ selector: 'nav.onetap-accessibility .onetap-features .onetap-line-height .onetap-title > span', text: languageData.content.lineHeight },
+				{ selector: 'nav.onetap-accessibility .onetap-features .onetap-letter-spacing .onetap-title > span', text: languageData.content.letterSpacing },
+				{ selector: 'nav.onetap-accessibility .onetap-features .onetap-readable-font .onetap-title > span', text: languageData.content.readableFont },
+				{ selector: 'nav.onetap-accessibility .onetap-features .onetap-dyslexic-font .onetap-title > span', text: languageData.content.dyslexicFont },
 
 				// Content Bottom.
-				{ selector: 'nav.onetap-accessibility .onetap-features .onetap-text-align .onetap-title h3', text: languageData.contentBottom.textAlign },
-				{ selector: 'nav.onetap-accessibility .onetap-features .onetap-text-magnifier .onetap-title h3', text: languageData.contentBottom.textMagnifier },
-				{ selector: 'nav.onetap-accessibility .onetap-features .onetap-highlight-links .onetap-title h3', text: languageData.contentBottom.highlightLinks },
+				{ selector: 'nav.onetap-accessibility .onetap-features .onetap-text-align .onetap-title > span', text: languageData.contentBottom.textAlign },
+				{ selector: 'nav.onetap-accessibility .onetap-features .onetap-text-magnifier .onetap-title > span', text: languageData.contentBottom.textMagnifier },
+				{ selector: 'nav.onetap-accessibility .onetap-features .onetap-highlight-links .onetap-title > span', text: languageData.contentBottom.highlightLinks },
 
 				// Colors.
-				{ selector: 'nav.onetap-accessibility .onetap-features .onetap-invert-colors .onetap-title h3', text: languageData.colors.invertColors },
-				{ selector: 'nav.onetap-accessibility .onetap-features .onetap-brightness .onetap-title h3', text: languageData.colors.brightness },
-				{ selector: 'nav.onetap-accessibility .onetap-features .onetap-contrast .onetap-title h3', text: languageData.colors.contrast },
-				{ selector: 'nav.onetap-accessibility .onetap-features .onetap-grayscale .onetap-title h3', text: languageData.colors.grayscale },
-				{ selector: 'nav.onetap-accessibility .onetap-features .onetap-saturation .onetap-title h3', text: languageData.colors.saturation },
+				{ selector: 'nav.onetap-accessibility .onetap-features .onetap-invert-colors .onetap-title > span', text: languageData.colors.invertColors },
+				{ selector: 'nav.onetap-accessibility .onetap-features .onetap-brightness .onetap-title > span', text: languageData.colors.brightness },
+				{ selector: 'nav.onetap-accessibility .onetap-features .onetap-contrast .onetap-title > span', text: languageData.colors.contrast },
+				{ selector: 'nav.onetap-accessibility .onetap-features .onetap-grayscale .onetap-title > span', text: languageData.colors.grayscale },
+				{ selector: 'nav.onetap-accessibility .onetap-features .onetap-saturation .onetap-title > span', text: languageData.colors.saturation },
 
 				// Orientation.
-				{ selector: 'nav.onetap-accessibility .onetap-features .onetap-reading-line .onetap-title h3', text: languageData.orientation.readingLine },
-				{ selector: 'nav.onetap-accessibility .onetap-features .onetap-keyboard-navigation .onetap-title h3', text: languageData.orientation.keyboardNavigation },
-				{ selector: 'nav.onetap-accessibility .onetap-features .onetap-highlight-titles .onetap-title h3', text: languageData.orientation.highlightTitles },
-				{ selector: 'nav.onetap-accessibility .onetap-features .onetap-reading-mask .onetap-title h3', text: languageData.orientation.readingMask },
-				{ selector: 'nav.onetap-accessibility .onetap-features .onetap-hide-images .onetap-title h3', text: languageData.orientation.hideImages },
-				{ selector: 'nav.onetap-accessibility .onetap-features .onetap-highlight-all .onetap-title h3', text: languageData.orientation.highlightAll },
+				{ selector: 'nav.onetap-accessibility .onetap-features .onetap-reading-line .onetap-title > span', text: languageData.orientation.readingLine },
+				{ selector: 'nav.onetap-accessibility .onetap-features .onetap-keyboard-navigation .onetap-title > span', text: languageData.orientation.keyboardNavigation },
+				{ selector: 'nav.onetap-accessibility .onetap-features .onetap-highlight-titles .onetap-title > span', text: languageData.orientation.highlightTitles },
+				{ selector: 'nav.onetap-accessibility .onetap-features .onetap-reading-mask .onetap-title > span', text: languageData.orientation.readingMask },
+				{ selector: 'nav.onetap-accessibility .onetap-features .onetap-hide-images .onetap-title > span', text: languageData.orientation.hideImages },
+				{ selector: 'nav.onetap-accessibility .onetap-features .onetap-highlight-all .onetap-title > span', text: languageData.orientation.highlightAll },
 
 				// Content Bottom.
-				{ selector: 'nav.onetap-accessibility .onetap-features .onetap-read-page .onetap-title h3', text: languageData.orientationBottom.readPage },
-				{ selector: 'nav.onetap-accessibility .onetap-features .onetap-mute-sounds .onetap-title h3', text: languageData.orientationBottom.muteSounds },
-				{ selector: 'nav.onetap-accessibility .onetap-features .onetap-stop-animations .onetap-title h3', text: languageData.orientationBottom.stopAnimations },
+				{ selector: 'nav.onetap-accessibility .onetap-features .onetap-read-page .onetap-title > span', text: languageData.orientationBottom.readPage },
+				{ selector: 'nav.onetap-accessibility .onetap-features .onetap-mute-sounds .onetap-title > span', text: languageData.orientationBottom.muteSounds },
+				{ selector: 'nav.onetap-accessibility .onetap-features .onetap-stop-animations .onetap-title > span', text: languageData.orientationBottom.stopAnimations },
 
 				// Divider.
 				{ selector: 'nav.onetap-accessibility .onetap-divider-separator .onetap-content', text: languageData.divider.content },
@@ -289,7 +349,7 @@
 				{ selector: 'nav.onetap-accessibility .onetap-divider-separator .onetap-orientation', text: languageData.divider.navigation },
 
 				// ResetSettings.
-				{ selector: 'nav.onetap-accessibility .onetap-accessibility-settings .onetap-reset-settings span', text: languageData.resetSettings },
+				{ selector: 'nav.onetap-accessibility .onetap-accessibility-settings .onetap-reset-settings button', text: languageData.resetSettings },
 
 				// Footer.
 				{ selector: 'nav.onetap-accessibility .onetap-footer-bottom .onetap-icon-list-text', text: languageData.footer.accessibilityStatement },
@@ -415,6 +475,21 @@
 
 				// Skip <li> elements that are inside another <li>.
 				if ( tag === 'li' && $( this ).parents( 'li' ).length > 0 ) {
+					return;
+				}
+
+				// Skip <li> that contains both <a> and <span> (any depth)
+				if ( tag === 'li' && $( this ).find( 'a' ).length > 0 && $( this ).find( 'span' ).length > 0 ) {
+					return;
+				}
+
+				// Skip <a> that contains any other element (child or descendant)
+				if ( tag === 'a' && $( this ).find( '*' ).length > 0 ) {
+					return;
+				}
+
+				// Skip <span> that contains any other element (child or descendant)
+				if ( tag === 'span' && $( this ).find( '*' ).length > 0 ) {
 					return;
 				}
 
@@ -844,7 +919,7 @@
 		// Check if the key is 'highlightLinks'. If it is, the function will proceed with font size adjustments.
 		if ( 'highlightLinks' === key ) {
 			// Update style for all elements except specific ones
-			$( 'a' ).not( accessibilityOnetapSkipElements ).each( function() {
+			$( 'a, a *' ).not( accessibilityOnetapSkipElements ).each( function() {
 				let currentStyle = $( this ).attr( 'style' ) || '';
 
 				if ( ! accessibilityDataKey ) {
@@ -852,6 +927,10 @@
 					currentStyle = currentStyle.replace( /background:\s*[^;]+;?/, '' );
 					currentStyle = currentStyle.replace( /color:\s*[^;]+;?/, '' );
 				} else if ( accessibilityDataKey ) {
+					// Remove the background and color
+					currentStyle = currentStyle.replace( /background:\s*[^;]+;?/, '' );
+					currentStyle = currentStyle.replace( /color:\s*[^;]+;?/, '' );
+
 					// Check if the element has a style attribute and if it ends with a semicolon
 					if ( currentStyle.trim() && ! /;$/.test( currentStyle.trim() ) ) {
 						currentStyle += ';';
@@ -1479,6 +1558,21 @@
 					// Prevent bubbling to avoid selecting the whole page's text
 					event.stopPropagation();
 
+					const isClickInsideAccessibility = $( event.target ).closest( '.onetap-accessibility' ).length > 0;
+					const isClickInsideLanguages = $( event.target ).closest( '.onetap-languages, .onetap-list-of-languages' ).length > 0;
+
+					// If clicking outside the accessibility panel, close accessibility
+					if ( ! isClickInsideAccessibility ) {
+						accessibilityOnetapAccessibility.removeClass( 'onetap-toggle-open' ).addClass( 'onetap-toggle-close' );
+						accessibilityOnetapToggleClose.hide( 100 );
+					}
+
+					// If clicking outside the language list, close the language list
+					if ( ! isClickInsideLanguages ) {
+						accessibilityOnetapLanguageList.fadeOut( 350 );
+						accessibilityOnetapToggleLanguages.removeClass( 'onetap-active' );
+					}
+
 					if ( ! accessibilityOnetapGetData()[ key ] ) {
 						return;
 					}
@@ -1680,6 +1774,8 @@
 	function accessibilityOnetapHandleClick( $element, key, accessibilityData, useActiveBorder ) {
 		$element.on( 'click', function() {
 			accessibilityData = accessibilityOnetapGetData();
+			const kebabKey = key.replace( /([a-z])([A-Z])/g, '$1-$2' ).toLowerCase();
+
 			if ( useActiveBorder ) {
 				activeStagedValue = accessibilityData.activeBorders[ key ] = ( accessibilityData.activeBorders[ key ] + 1 ) % 4;
 				accessibilityData[ key ] = activeStagedValue !== 0;
@@ -1695,6 +1791,13 @@
 				accessibilityOnetapContrast( key, activeStagedValue );
 				accessibilityOnetapGrayscale( key, activeStagedValue );
 				accessibilityOnetapSaturation( key, activeStagedValue );
+
+				// Changes attr aria pressed
+				if ( 0 !== activeStagedValue ) {
+					$( '.onetap-' + kebabKey ).attr( 'aria-pressed', true );
+				} else {
+					$( '.onetap-' + kebabKey ).attr( 'aria-pressed', false );
+				}
 			} else {
 				accessibilityData[ key ] = ! accessibilityData[ key ];
 				toggleActiveClass( $element, accessibilityData[ key ] );
@@ -1711,6 +1814,13 @@
 				accessibilityOnetapReadPage( key, accessibilityData[ key ] );
 				accessibilityOnetapMuteSounds( key, accessibilityData[ key ] );
 				accessibilityOnetapStopAnimations( key, accessibilityData[ key ] );
+
+				// Changes attr aria pressed
+				if ( accessibilityData[ key ] ) {
+					$( '.onetap-' + kebabKey ).attr( 'aria-pressed', true );
+				} else {
+					$( '.onetap-' + kebabKey ).attr( 'aria-pressed', false );
+				}
 			}
 
 			localStorage.setItem( accessibilityOnetapLocalStorage, JSON.stringify( accessibilityData ) );
@@ -1748,6 +1858,7 @@
 	function handleAccessibilityFeatures() {
 		accessibilityOnetapGetTlements.forEach( ( { selector, key } ) => {
 			const $element = $( `nav.onetap-accessibility.onetap-plugin-onetap .onetap-accessibility-settings ${ selector }` );
+			const kebabKey = key.replace( /([a-z])([A-Z])/g, '$1-$2' ).toLowerCase();
 			if ( $element.length && accessibilityOnetapGetData()[ key ] !== undefined ) {
 				const useActiveBorder = ! [
 					'readableFont',
@@ -1779,6 +1890,13 @@
 							accessibilityOnetapGrayscale( key, accessibilityOnetapGetData().activeBorders[ key ] );
 							accessibilityOnetapSaturation( key, accessibilityOnetapGetData().activeBorders[ key ] );
 							accessibilityOnetapTextAlign( key, accessibilityOnetapGetData().activeBorders[ key ] );
+
+							// Changes attr aria pressed
+							if ( accessibilityOnetapGetData().activeBorders[ key ] ) {
+								$( '.onetap-' + kebabKey ).attr( 'aria-pressed', true );
+							} else {
+								$( '.onetap-' + kebabKey ).attr( 'aria-pressed', false );
+							}
 						}
 					}
 				} else if ( accessibilityOnetapGetData()[ key ] !== undefined ) {
@@ -1797,6 +1915,13 @@
 						accessibilityOnetapReadingMask( key, accessibilityOnetapGetData()[ key ] );
 						accessibilityOnetapKeyboardNavigation( key, accessibilityOnetapGetData()[ key ] );
 						accessibilityOnetapMuteSounds( key, accessibilityOnetapGetData()[ key ] );
+
+						// Changes attr aria pressed
+						if ( accessibilityOnetapGetData()[ key ] ) {
+							$( '.onetap-' + kebabKey ).attr( 'aria-pressed', true );
+						} else {
+							$( '.onetap-' + kebabKey ).attr( 'aria-pressed', false );
+						}
 					}
 				}
 			}
@@ -1808,7 +1933,7 @@
 	handleAccessibilityFeatures();
 
 	// Reset settings
-	$( document ).on( 'click', 'nav.onetap-accessibility.onetap-plugin-onetap .onetap-reset-settings span', function( event ) {
+	$( document ).on( 'click', 'nav.onetap-accessibility.onetap-plugin-onetap .onetap-reset-settings button', function( event ) {
 		event.stopPropagation(); // Ensure this doesn't trigger auto-close
 
 		// Select all elements with the class .onetap-box-feature

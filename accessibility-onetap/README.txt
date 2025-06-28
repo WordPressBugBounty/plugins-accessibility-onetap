@@ -1,9 +1,9 @@
-=== OneTap (One Click Accessibility) ===
+=== Accessibility Widget by OneTap – Easy One-Click Accessibility Toolbar ===
 Contributors: wponetap, yukyhendiawan
 Tags: onetap, accessibility, navigation, a11y, accessibility, Alt Text, wcag, Read Page, toolbar, ada, accessibility widget, elementor accessibility, gutenberg accessibility
 Requires at least: 6.6
 Tested up to:      6.7
-Stable tag:        2.2.0
+Stable tag:        2.3.0
 Requires PHP:      7.4
 License:           GPL-2.0-or-later
 License URI:       https://www.gnu.org/licenses/gpl-2.0.html
@@ -27,12 +27,12 @@ No coding, setup or account necessary→ install and start. OneTap is the best W
 **Set Modules –** Enable or disable specific accessibility modules based on your design needs.
 **Responsive Design –** Optimized for all devices, ensuring accessibility on mobile, tablet, and desktop.
 **Lightweight & Fast –** Keeps your site’s speed top-notch while adding powerful accessibility features.
-**21 Languages –** OneTap accessibility module supports 23 languages – all of the EU and English. More coming soon.
-**Translate into Your Language –** Make your website accessible to everyone with automatic language translation.
+**35 Languages –** OneTap accessibility module supports 35 languages – all of the EU and English. More coming soon.
 **Modern Design –** Enhance your site’s appeal with a sleek, modern design that fits seamlessly into any layout.
 **Toolbar Customization –** Adjust the toolbar’s position on desktop, tablet, and smartphone.
 **Icon Customization –** Choose your preferred accessibility icon, adjust its size, and enable or disable a border.
 **GDPR-Compliant –** 100% data protection: OneTap collects no user data and is fully compliant with GDPR regulations.
+**Accessibility Statement Generator –** Instantly generate a professional accessibility statement tailored to your site—compliance made simple.
 
 **Unlock Full Accessibility → [Get OneTap Pro!](https://wponetap.com/pricing/)**
 
@@ -73,11 +73,11 @@ No coding, setup or account necessary→ install and start. OneTap is the best W
 
 ### 🆕 Multiselect and Predefined Accessibility Profiles
 
-* **(PRO) Vision Impaired Mode –** Enhances website's visuals.
+* **(PRO) Vision Impaired Mode –** Enhances website’s visuals.
 * **(PRO) Seizure Safe Profile –** Clears flashes & reduces color.
-* **(PRO) ADHD Friendly Mode – Focused browsing.
-* **(PRO) Blindness Mode – Reduces distractions.
-* **(PRO) Epilepsy Safe Mode – Dims colors.
+* **(PRO) ADHD Friendly Mode –** Focused browsing.
+* **(PRO) Blindness Mode –** Reduces distractions.
+* **(PRO) Epilepsy Safe Mode –** Dims colors.
 
 ### 🌍 Languages of the Toolbar
 
@@ -107,13 +107,13 @@ No coding, setup or account necessary→ install and start. OneTap is the best W
 
 ### ⭐ See What Our Users Have to Say
 
-*“OneTap Accessibility has greatly improved our site’s usability—super easy to install with so many helpful features!”* ★★★★★ (Aisha Patel)
+*OneTap Accessibility has greatly improved our site’s usability—super easy to install with so many helpful features!”* ★★★★★ (Aisha Patel)
 
-*“The user-friendly interface made setup a breeze. Our visitors love the new accessibility options”* ★★★★★ (Dejan Manovic)
+*The user-friendly interface made setup a breeze. Our visitors love the new accessibility options”* ★★★★★ (Dejan Manovic)
 
-*“Fantastic plugin! The accessibility options are extensive and simple to configure. Perfect for any professional website.”* ★★★★★ (Ralf Grünberger)
+*Fantastic plugin! The accessibility options are extensive and simple to configure. Perfect for any professional website.”* ★★★★★ (Ralf Grünberger)
 
-*“Love how dependable this plugin is! No issues, just consistent performance and powerful accessibility options”* ★★★★★ (Rafael Silva JR)
+*Love how dependable this plugin is! No issues, just consistent performance and powerful accessibility options”* ★★★★★ (Rafael Silva JR)
 
 **Unlock Full Accessibility → [Get OneTap Pro!](https://wponetap.com/pricing/)**
 
@@ -129,18 +129,18 @@ Log in to your WordPress dashboard.
 2. Access Plugin Menu:
 On the left panel, click "Plugins" and select "Add New."
 
-3. Search for "OneTap (One Click Accessibility)":
+3. Search for "Accessibility Widget by OneTap – Easy One-Click Accessibility Toolbar":
 On the Add Plugin page, locate the search box in the top right corner.
-Type "OneTap (One Click Accessibility)" in the search box.
+Type "Accessibility Widget by OneTap – Easy One-Click Accessibility Toolbar" in the search box.
 
 4. Install the Plugin:
-After finding the "OneTap (One Click Accessibility)" plugin, click the "Install Now" button below it.
+After finding the "Accessibility Widget by OneTap – Easy One-Click Accessibility Toolbar" plugin, click the "Install Now" button below it.
 
 5. Activate the Plugin:
 Once the installation is complete, click the "Activate" button that appears.
 
 6. You're Ready to Use the Plugin:
-After activation, navigate to the "OneTap (One Click Accessibility)" section in your WordPress dashboard to start importing and exporting menus.
+After activation, navigate to the "Accessibility Widget by OneTap – Easy One-Click Accessibility Toolbar" section in your WordPress dashboard to start importing and exporting menus.
 
 == Frequently Asked Questions ==
 
@@ -167,6 +167,12 @@ Absolutely! Excellent customer support is vital for a quality product, and we’
 4. Screenshot 4.
 
 == Changelog ==
+
+= 2.3.0 =
+* Minor bug fixes
+* Change symbol to rounded
+* Statement generator
+* Design changes
 
 = 2.2.0 =
 * Add new languages

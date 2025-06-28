@@ -64,7 +64,7 @@ class Accessibility_Onetap_Settings_Manager {
 		wp_enqueue_script( 'jquery' );
 
 		// Conditionally enqueue the settings manager script for specific plugin admin pages.
-		if ( 'toplevel_page_accessibility-onetap-settings' === $hook || 'onetap_page_accessibility-onetap-modules' === $hook ) {
+		if ( 'toplevel_page_accessibility-onetap-settings' === $hook || 'onetap_page_accessibility-onetap-modules' === $hook || 'admin_page_onetap-module-labels' === $hook ) {
 			wp_enqueue_script( 'accessibility-onetap-settings-manager', ACCESSIBILITY_ONETAP_PLUGINS_URL . 'assets/js/settings-manager.min.js', array( 'jquery' ), ACCESSIBILITY_ONETAP_VERSION, true );
 		}
 	}
@@ -768,6 +768,63 @@ class Accessibility_Onetap_Settings_Manager {
 				'id'    => array(),
 				'name'  => array(),
 				'value' => array(),
+			),
+		);
+
+		echo wp_kses( $html, $allowed_html );
+	}
+
+	/**
+	 * Displays a custom input text for a settings field.
+	 *
+	 * @param array $args settings field args.
+	 */
+	public function callback_template_custom_input_text( $args ) {
+
+		$value  = esc_attr( $this->get_option( $args['id'], $args['section'], $args['std'] ) );
+		$status = $args['status'] ? ' onetap-pro' : ' onetap-free';
+		$html   = '<div class="box-custom-input-text' . esc_attr( $status ) . '">';
+		$html  .= '<div class="left">';
+		$html  .= '<div class="icon">';
+		$html  .= '<img src="' . esc_url( $args['icon'] ) . '" alt="icon">';
+		$html  .= '</div>';
+		$html  .= '<div class="text">';
+		if ( $args['status'] ) {
+			$value = false;
+			$html .= '<span class="status-pro">' . esc_html__( 'PRO', 'accessibility-onetap' ) . '</span>';
+		}
+		$html .= '<span class="title">' . esc_html( $args['name'] ) . '</span>';
+		$html .= '<span class="desc">' . esc_html( $args['desc'] ) . '</span>';
+		$html .= '</div>';
+		$html .= '</div>';
+		$html .= '<div class="right">';
+		$html .= '<label for="wpuf-' . esc_attr( $args['section'] ) . '[' . esc_attr( $args['id'] ) . ']">';
+		$html .= esc_html__( 'Custom Label', 'accessibility-onetap' );
+		$html .= '</label>';
+		$html .= '<input type="hidden" name="' . esc_attr( $args['section'] ) . '[' . esc_attr( $args['id'] ) . ']" value="off" />';
+		$html .= '<input type="text" class="text" id="wpuf-' . esc_attr( $args['section'] ) . '[' . esc_attr( $args['id'] ) . ']" name="' . esc_attr( $args['section'] ) . '[' . esc_attr( $args['id'] ) . ']" value=" ' . esc_attr( $value ) . '"/>';
+		$html .= '</div>';
+		$html .= '</div>';
+
+		// List of allowed HTML elements.
+		$allowed_html = array(
+			'div'   => array( 'class' => array() ),
+			'img'   => array(
+				'src' => array(),
+				'alt' => array(),
+			),
+			'span'  => array( 'class' => array() ),
+			'label' => array(
+				'class' => array(),
+				'for'   => array(),
+			),
+			'input' => array(
+				'type'    => array(),
+				'class'   => array(),
+				'id'      => array(),
+				'name'    => array(),
+				'value'   => array(),
+				'checked' => array(),
 			),
 		);
 

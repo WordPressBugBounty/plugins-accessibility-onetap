@@ -157,4 +157,137 @@
 				.classList.add( 'active' );
 		} );
 	} );
+
+	/**
+	 * Copy content from a TinyMCE editor or textarea and give visual feedback.
+	 *
+	 * @param {string} editorId - The ID of the TinyMCE editor or textarea.
+	 * @param {jQuery} $button  - The jQuery object for the copy button.
+	 */
+	$( '.copy' ).on( 'click', function() {
+		const editorId = 'onetap_editor_generator';
+		let content = '';
+
+		// Try to get content from TinyMCE editor if available
+		if ( typeof tinymce !== 'undefined' && tinymce.get( editorId ) ) {
+			content = tinymce.get( editorId ).getContent();
+		} else {
+			// Fallback to plain textarea value if TinyMCE is not available
+			content = $( '#' + editorId ).val();
+		}
+
+		const $button = $( this ); // The copy button element
+		const $textElement = $button.find( '.copy-text' ); // The span that holds the button text
+		const originalText = $button.data( 'default-text' ) || 'Copy'; // Default button text
+		const copiedText = $button.data( 'copied-text' ) || 'Copied!'; // Text shown after copying
+
+		// Copy the editor content to clipboard
+		navigator.clipboard.writeText( content ).then( () => {
+			// Update the button UI to show 'Copied!' and apply visual feedback
+			$textElement.text( copiedText );
+			$button.addClass( 'copied' );
+
+			// Reset the button UI after 2 seconds
+			setTimeout( () => {
+				$textElement.text( originalText );
+				$button.removeClass( 'copied' );
+			}, 2000 );
+		} );
+	} );
+
+	/**
+	 * Initialize form validation and interactivity for the Accessibility Statement form.
+	 *
+	 * This function:
+	 * - Caches relevant form elements.
+	 * - Validates input fields and checkbox in real-time.
+	 * - Enables or disables the submit button based on validation.
+	 * - Prevents form submission if validation fails.
+	 *
+	 * Assumes the DOM is already loaded before this function is called.
+	 */
+	function handleAccessibilityStatusForm() {
+		// Cache selectors to avoid querying the DOM repeatedly
+		const $selectLanguage = $( 'select[name="onetap_select_language"]' );
+		const $companyName = $( 'input[name="onetap_company_name"]' );
+		const $companyWebsite = $( 'input[name="onetap_company_website"]' );
+		const $businessEmail = $( 'input[name="onetap_business_email"]' );
+		const $confirmationCheckbox = $( 'input[name="onetap_confirmation_checkbox"]' );
+		const $submitButton = $( 'button.save-changes.generate-accessibility-statement' );
+
+		// Function to check if all form fields are valid
+		function checkFormFields() {
+			const selectLanguage = ( $selectLanguage.val() || '' ).trim();
+			const companyName = ( $companyName.val() || '' ).trim();
+			const companyWebsite = ( $companyWebsite.val() || '' ).trim();
+			const businessEmail = ( $businessEmail.val() || '' ).trim();
+			const confirm = $confirmationCheckbox.is( ':checked' );
+
+			// Enable or disable the submit button based on input validation
+			if ( selectLanguage && companyName && companyWebsite && businessEmail && confirm ) {
+				$submitButton.addClass( 'active' );
+			} else {
+				$submitButton.removeClass( 'active' );
+			}
+		}
+
+		// Attach event listeners for inputs and checkbox
+		$selectLanguage.on( 'input', checkFormFields );
+		$companyName.on( 'input', checkFormFields );
+		$companyWebsite.on( 'input', checkFormFields );
+		$businessEmail.on( 'input', checkFormFields );
+		$confirmationCheckbox.on( 'change', checkFormFields );
+
+		// Initial check on page load
+		checkFormFields();
+
+		// Prevent form submission if fields are not valid
+		$submitButton.on( 'click', function( e ) {
+			const selectLanguage = ( $selectLanguage.val() || '' ).trim();
+			const companyName = ( $companyName.val() || '' ).trim();
+			const companyWebsite = ( $companyWebsite.val() || '' ).trim();
+			const businessEmail = ( $businessEmail.val() || '' ).trim();
+			const confirm = $confirmationCheckbox.is( ':checked' );
+
+			// Validate that all required fields are filled before proceeding
+			if ( ! selectLanguage || ! companyName || ! companyWebsite || ! businessEmail || ! confirm ) {
+				e.preventDefault();
+				// Show warning using SweetAlert
+				swal( {
+					title: 'Warning!',
+					text: 'Please complete all fields.',
+					icon: 'info',
+					showCloseButton: true,
+				} );
+				return;
+			}
+
+			// Find the status message element that matches the selected language
+			const $matchingStatusMessage = $( '.status-message-accessibility[data-content-lang="' + selectLanguage + '"]' );
+
+			// Generate current date in localized format: [MonthName Day, Year]
+			const now = new Date();
+			const options = { year: 'numeric', month: 'long', day: 'numeric' };
+			const locale = selectLanguage || 'en'; // fallback to 'en' if not selected
+			const formattedDate = `${ now.toLocaleDateString( locale, options ) }`;
+
+			// Get the HTML content of the matching status message
+			let htmlContent = $matchingStatusMessage.html(); // Use html() to preserve HTML formatting
+
+			// Replace placeholders in the HTML with actual values
+			htmlContent = htmlContent.replace( /\[Company Name\]/g, companyName )
+				.replace( /\[Company Website\]/g, companyWebsite )
+				.replace( /\[Company E-Mail\]/g, businessEmail )
+				.replace( /\[March 9, 2025\]/g, formattedDate );
+
+			// Set the final content into the TinyMCE editor if it's initialized
+			const editor = tinymce.get( 'onetap_editor_generator' );
+			if ( editor ) {
+				editor.setContent( htmlContent );
+			}
+
+			e.preventDefault();
+		} );
+	}
+	handleAccessibilityStatusForm();
 }( jQuery ) );

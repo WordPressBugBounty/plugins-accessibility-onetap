@@ -183,6 +183,7 @@ class Accessibility_Onetap {
 			$this->loader->add_action( 'admin_init', $plugin_admin, 'onetap_redirect_admin_page_to_pricing', 999999 );
 			$this->loader->add_action( 'wp_ajax_onetap_action_dismiss_notice', $plugin_admin, 'dismiss_notice_ajax_callback' );
 			$this->loader->add_filter( 'plugin_row_meta', $plugin_admin, 'add_row_meta', 10, 2 );
+			$this->loader->add_action( 'admin_init', $plugin_admin, 'register_settings_for_accessibility_status' );
 
 		}
 	}

@@ -89,12 +89,15 @@ class Accessibility_Onetap_Public {
 			fill: {$setting_color} !important;
 		}
 		nav.onetap-accessibility.onetap-plugin-onetap .onetap-container .onetap-accessibility-settings header.onetap-header-top::before,
-		nav.onetap-accessibility.onetap-plugin-onetap .onetap-container .onetap-accessibility-settings .onetap-reset-settings span,
+		nav.onetap-accessibility.onetap-plugin-onetap .onetap-container .onetap-accessibility-settings .onetap-reset-settings button,
 		nav.onetap-accessibility.onetap-plugin-onetap .onetap-container .onetap-accessibility-settings .onetap-features-container .onetap-features .onetap-box-feature.onetap-lv1 .onetap-title p.onetap-option-levels span.onetap-level.onetap-level1,
-		nav.onetap-accessibility.onetap-plugin-onetap .onetap-container .onetap-accessibility-settings header.onetap-header-top::before, nav.onetap-accessibility.onetap-plugin-onetap .onetap-container .onetap-accessibility-settings .onetap-reset-settings span, nav.onetap-accessibility.onetap-plugin-onetap .onetap-container .onetap-accessibility-settings .onetap-features-container .onetap-features .onetap-box-feature.onetap-lv2 .onetap-title p.onetap-option-levels span.onetap-level.onetap-level1, nav.onetap-accessibility.onetap-plugin-onetap .onetap-container .onetap-accessibility-settings .onetap-features-container .onetap-features .onetap-box-feature.onetap-lv2 .onetap-title p.onetap-option-levels span.onetap-level.onetap-level2,
+		nav.onetap-accessibility.onetap-plugin-onetap .onetap-container .onetap-accessibility-settings header.onetap-header-top::before, nav.onetap-accessibility.onetap-plugin-onetap .onetap-container .onetap-accessibility-settings .onetap-reset-settings button, nav.onetap-accessibility.onetap-plugin-onetap .onetap-container .onetap-accessibility-settings .onetap-features-container .onetap-features .onetap-box-feature.onetap-lv2 .onetap-title p.onetap-option-levels span.onetap-level.onetap-level1, nav.onetap-accessibility.onetap-plugin-onetap .onetap-container .onetap-accessibility-settings .onetap-features-container .onetap-features .onetap-box-feature.onetap-lv2 .onetap-title p.onetap-option-levels span.onetap-level.onetap-level2,
 		nav.onetap-accessibility.onetap-plugin-onetap .onetap-container .onetap-accessibility-settings .onetap-features-container .onetap-features .onetap-box-feature.onetap-lv3 .onetap-title p.onetap-option-levels span.onetap-level.onetap-level1, nav.onetap-accessibility.onetap-plugin-onetap .onetap-container .onetap-accessibility-settings .onetap-features-container .onetap-features .onetap-box-feature.onetap-lv3 .onetap-title p.onetap-option-levels span.onetap-level.onetap-level2, nav.onetap-accessibility.onetap-plugin-onetap .onetap-container .onetap-accessibility-settings .onetap-features-container .onetap-features .onetap-box-feature.onetap-lv3 .onetap-title p.onetap-option-levels span.onetap-level.onetap-level3,
 		.onetap-container-toggle .onetap-toggle img {
 			background: {$setting_color} !important;
+		}
+		nav.onetap-accessibility.onetap-plugin-onetap .onetap-container .onetap-accessibility-settings .onetap-reset-settings button {
+			border-color: {$setting_color} !important;
 		}
 		.onetap-container-toggle .onetap-toggle img.design-border1 {
 			box-shadow: 0 0 0 4px {$setting_color};
@@ -103,10 +106,17 @@ class Accessibility_Onetap_Public {
 			border-color: {$setting_color} !important;
 			box-shadow: 0 0 0 1px {$setting_color} !important;
 		}
-		nav.onetap-accessibility.onetap-plugin-onetap .onetap-container .onetap-accessibility-settings .onetap-features-container .onetap-features .onetap-box-feature:hover .onetap-title h3,
-		nav.onetap-accessibility.onetap-plugin-onetap .onetap-container .onetap-accessibility-settings .onetap-features-container .onetap-features .onetap-box-feature.onetap-active .onetap-title h3,
-		nav.onetap-accessibility.onetap-plugin-onetap .onetap-container .onetap-accessibility-settings .onetap-features-container .onetap-features .onetap-box-feature.onetap-lv1 .onetap-title h3, nav.onetap-accessibility.onetap-plugin-onetap .onetap-container .onetap-accessibility-settings .onetap-features-container .onetap-features .onetap-box-feature.onetap-lv2 .onetap-title h3, nav.onetap-accessibility.onetap-plugin-onetap .onetap-container .onetap-accessibility-settings .onetap-features-container .onetap-features .onetap-box-feature.onetap-lv3 .onetap-title h3 {
+		nav.onetap-accessibility.onetap-plugin-onetap .onetap-container .onetap-accessibility-settings .onetap-features-container .onetap-features .onetap-box-feature:focus {
+			border-width: 2px !important;
+			outline: none !important;
+		}
+		nav.onetap-accessibility.onetap-plugin-onetap .onetap-container .onetap-accessibility-settings .onetap-features-container .onetap-features .onetap-box-feature:hover .onetap-title span,
+		nav.onetap-accessibility.onetap-plugin-onetap .onetap-container .onetap-accessibility-settings .onetap-features-container .onetap-features .onetap-box-feature.onetap-active .onetap-title span,
+		nav.onetap-accessibility.onetap-plugin-onetap .onetap-container .onetap-accessibility-settings .onetap-features-container .onetap-features .onetap-box-feature.onetap-lv1 .onetap-title span, nav.onetap-accessibility.onetap-plugin-onetap .onetap-container .onetap-accessibility-settings .onetap-features-container .onetap-features .onetap-box-feature.onetap-lv2 .onetap-title span, nav.onetap-accessibility.onetap-plugin-onetap .onetap-container .onetap-accessibility-settings .onetap-features-container .onetap-features .onetap-box-feature.onetap-lv3 .onetap-title span {
 			color: {$setting_color} !important;
+		}
+		nav.onetap-accessibility.onetap-plugin-onetap .onetap-container .onetap-accessibility-settings .onetap-features-container .onetap-features .onetap-box-feature:focus {
+			border-color: {$setting_color} !important;
 		}
 		";
 
@@ -606,7 +616,7 @@ class Accessibility_Onetap_Public {
 			'hi'    => 'हिन्दी',
 			'uk'    => 'Українська',
 			'sr'    => 'Srpski',
-		);						
+		);
 
 		wp_localize_script(
 			$this->plugin_name,
@@ -3852,7 +3862,12 @@ class Accessibility_Onetap_Public {
 	public function render_accessibility_template() {
 		?>
 		<section class="onetap-container-toggle">
-			<div class="onetap-toggle">
+			<?php
+			$settings = get_option( 'onetap_settings' );
+			$border   = ! empty( $settings['border'] ) ? $settings['border'] : '';
+			?>
+
+			<button type="button" aria-label="Toggle Accessibility Toolbar" class="onetap-toggle <?php echo esc_attr( $border ); ?>">
 				<?php
 				// Define SVG paths for each icon type.
 				$icon_paths = array(
@@ -3886,14 +3901,14 @@ class Accessibility_Onetap_Public {
 					echo '<img class="design-size2 design-border2" src="' . esc_url( ACCESSIBILITY_ONETAP_PLUGINS_URL . 'assets/images/admin/Original_Logo_Icon.svg' ) . '" alt="toggle icon" />';
 				}
 				?>
-			</div>			
+			</button>			
 		</section>
-		<nav class="onetap-accessibility onetap-plugin-onetap">
+		<nav class="onetap-accessibility onetap-plugin-onetap" aria-label="Accessibility Options">
 			<section class="onetap-container">
-				<div class="onetap-accessibility-settings">
+				<div class="onetap-accessibility-settings" data-lenis-prevent="true">
 					<header class="onetap-header-top">
 						<!-- Languages -->
-						<div class="onetap-languages">
+						<button type="button" role="combobox" aria-expanded="false" aria-haspopup="listbox" class="onetap-languages" aria-label="Select language">							
 							<div class="onetap-icon">
 								<img src="<?php echo esc_url( ACCESSIBILITY_ONETAP_PLUGINS_URL . 'assets/images/english.png' ); ?>" class="onetap-active" alt="en">							
 								<img src="<?php echo esc_url( ACCESSIBILITY_ONETAP_PLUGINS_URL . 'assets/images/german.png' ); ?>" alt="de">								
@@ -3937,200 +3952,290 @@ class Accessibility_Onetap_Public {
 								</span>
 								<img src="<?php echo esc_url( ACCESSIBILITY_ONETAP_PLUGINS_URL . '/assets/images/icon-drop-down-menu.png' ); ?>" width="10" height="10" alt="<?php echo esc_attr__( 'icon drop down menu', 'accessibility-onetap' ); ?>">
 							</p>
-						</div>
+						</button>
 
 						<!-- List of languages -->
 						<div class="onetap-list-of-languages" style="display: none;">
 							<ul>
 								<li data-language="en">
-									<?php esc_html_e( 'English', 'accessibility-onetap' ); ?>
-									<img src="<?php echo esc_url( ACCESSIBILITY_ONETAP_PLUGINS_URL . 'assets/images/english.png' ); ?>" alt="flag">				
+									<button type="button">
+										<?php esc_html_e( 'English', 'accessibility-onetap' ); ?>
+										<img src="<?php echo esc_url( ACCESSIBILITY_ONETAP_PLUGINS_URL . 'assets/images/english.png' ); ?>" alt="flag">
+									</button>				
 								</li>
 								<li data-language="de">
-									<?php esc_html_e( 'Deutsch', 'accessibility-onetap' ); ?>
-									<img src="<?php echo esc_url( ACCESSIBILITY_ONETAP_PLUGINS_URL . 'assets/images/german.png' ); ?>" alt="flag">	
+									<button type="button">
+										<?php esc_html_e( 'Deutsch', 'accessibility-onetap' ); ?>
+										<img src="<?php echo esc_url( ACCESSIBILITY_ONETAP_PLUGINS_URL . 'assets/images/german.png' ); ?>" alt="flag">
+									</button>	
 								</li>
 								<li data-language="es">
-									<?php esc_html_e( 'Español', 'accessibility-onetap' ); ?>
-									<img src="<?php echo esc_url( ACCESSIBILITY_ONETAP_PLUGINS_URL . 'assets/images/spanish.png' ); ?>" alt="flag">	
+									<button type="button">
+										<?php esc_html_e( 'Español', 'accessibility-onetap' ); ?>
+										<img src="<?php echo esc_url( ACCESSIBILITY_ONETAP_PLUGINS_URL . 'assets/images/spanish.png' ); ?>" alt="flag">
+									</button>	
 								</li>
 								<li data-language="fr">
-									<?php esc_html_e( 'Français', 'accessibility-onetap' ); ?>
-									<img src="<?php echo esc_url( ACCESSIBILITY_ONETAP_PLUGINS_URL . 'assets/images/french.png' ); ?>" alt="flag">	
+									<button type="button">
+										<?php esc_html_e( 'Français', 'accessibility-onetap' ); ?>
+										<img src="<?php echo esc_url( ACCESSIBILITY_ONETAP_PLUGINS_URL . 'assets/images/french.png' ); ?>" alt="flag">
+									</button>	
 								</li>
 								<li data-language="it">
-									<?php esc_html_e( 'Italiano', 'accessibility-onetap' ); ?>
-									<img src="<?php echo esc_url( ACCESSIBILITY_ONETAP_PLUGINS_URL . 'assets/images/italia.png' ); ?>" alt="flag">	
+									<button type="button">
+										<?php esc_html_e( 'Italiano', 'accessibility-onetap' ); ?>
+										<img src="<?php echo esc_url( ACCESSIBILITY_ONETAP_PLUGINS_URL . 'assets/images/italia.png' ); ?>" alt="flag">
+									</button>	
 								</li>
 								<li data-language="pl">
-									<?php esc_html_e( 'Polski', 'accessibility-onetap' ); ?>
-									<img src="<?php echo esc_url( ACCESSIBILITY_ONETAP_PLUGINS_URL . 'assets/images/poland.png' ); ?>" alt="flag">	
+									<button type="button">
+										<?php esc_html_e( 'Polski', 'accessibility-onetap' ); ?>
+										<img src="<?php echo esc_url( ACCESSIBILITY_ONETAP_PLUGINS_URL . 'assets/images/poland.png' ); ?>" alt="flag">
+									</button>	
 								</li>
 								<li data-language="se">
-									<?php esc_html_e( 'Svenska', 'accessibility-onetap' ); ?>
-									<img src="<?php echo esc_url( ACCESSIBILITY_ONETAP_PLUGINS_URL . 'assets/images/swedish.png' ); ?>" alt="flag">	
+									<button type="button">
+										<?php esc_html_e( 'Svenska', 'accessibility-onetap' ); ?>
+										<img src="<?php echo esc_url( ACCESSIBILITY_ONETAP_PLUGINS_URL . 'assets/images/swedish.png' ); ?>" alt="flag">
+									</button>	
 								</li>
 								<li data-language="fi">
-									<?php esc_html_e( 'Suomi', 'accessibility-onetap' ); ?>
-									<img src="<?php echo esc_url( ACCESSIBILITY_ONETAP_PLUGINS_URL . 'assets/images/finnland.png' ); ?>" alt="flag">	
+									<button type="button">
+										<?php esc_html_e( 'Suomi', 'accessibility-onetap' ); ?>
+										<img src="<?php echo esc_url( ACCESSIBILITY_ONETAP_PLUGINS_URL . 'assets/images/finnland.png' ); ?>" alt="flag">
+									</button>	
 								</li>
 								<li data-language="pt">
-									<?php esc_html_e( 'Português', 'accessibility-onetap' ); ?>
-									<img src="<?php echo esc_url( ACCESSIBILITY_ONETAP_PLUGINS_URL . 'assets/images/portugal.png' ); ?>" alt="flag">	
+									<button type="button">
+										<?php esc_html_e( 'Português', 'accessibility-onetap' ); ?>
+										<img src="<?php echo esc_url( ACCESSIBILITY_ONETAP_PLUGINS_URL . 'assets/images/portugal.png' ); ?>" alt="flag">
+									</button>	
 								</li>
 								<li data-language="ro">
-									<?php esc_html_e( 'Română', 'accessibility-onetap' ); ?>
-									<img src="<?php echo esc_url( ACCESSIBILITY_ONETAP_PLUGINS_URL . 'assets/images/rumania.png' ); ?>" alt="flag">	
+									<button type="button">
+										<?php esc_html_e( 'Română', 'accessibility-onetap' ); ?>
+										<img src="<?php echo esc_url( ACCESSIBILITY_ONETAP_PLUGINS_URL . 'assets/images/rumania.png' ); ?>" alt="flag">
+									</button>	
 								</li>
 								<li data-language="si">
-									<?php esc_html_e( 'Slovenščina', 'accessibility-onetap' ); ?>
-									<img src="<?php echo esc_url( ACCESSIBILITY_ONETAP_PLUGINS_URL . 'assets/images/slowakia.png' ); ?>" alt="flag">	
+									<button type="button">
+										<?php esc_html_e( 'Slovenščina', 'accessibility-onetap' ); ?>
+										<img src="<?php echo esc_url( ACCESSIBILITY_ONETAP_PLUGINS_URL . 'assets/images/slowakia.png' ); ?>" alt="flag">
+									</button>	
 								</li>
 								<li data-language="sk">
-									<?php esc_html_e( 'Slovenčina', 'accessibility-onetap' ); ?>
-									<img src="<?php echo esc_url( ACCESSIBILITY_ONETAP_PLUGINS_URL . 'assets/images/slowenien.png' ); ?>" alt="flag">	
+									<button type="button">
+										<?php esc_html_e( 'Slovenčina', 'accessibility-onetap' ); ?>
+										<img src="<?php echo esc_url( ACCESSIBILITY_ONETAP_PLUGINS_URL . 'assets/images/slowenien.png' ); ?>" alt="flag">
+									</button>	
 								</li>					
 								<li data-language="nl">
-									<?php esc_html_e( 'Nederlands', 'accessibility-onetap' ); ?>
-									<img src="<?php echo esc_url( ACCESSIBILITY_ONETAP_PLUGINS_URL . 'assets/images/netherland.png' ); ?>" alt="flag">	
+									<button type="button">
+										<?php esc_html_e( 'Nederlands', 'accessibility-onetap' ); ?>
+										<img src="<?php echo esc_url( ACCESSIBILITY_ONETAP_PLUGINS_URL . 'assets/images/netherland.png' ); ?>" alt="flag">
+									</button>	
 								</li>
 								<li data-language="dk">
-									<?php esc_html_e( 'Dansk', 'accessibility-onetap' ); ?>
-									<img src="<?php echo esc_url( ACCESSIBILITY_ONETAP_PLUGINS_URL . 'assets/images/danish.png' ); ?>" alt="flag">	
+									<button type="button">
+										<?php esc_html_e( 'Dansk', 'accessibility-onetap' ); ?>
+										<img src="<?php echo esc_url( ACCESSIBILITY_ONETAP_PLUGINS_URL . 'assets/images/danish.png' ); ?>" alt="flag">
+									</button>	
 								</li>
 								<li data-language="gr">
-									<?php esc_html_e( 'Ελληνικά', 'accessibility-onetap' ); ?>
-									<img src="<?php echo esc_url( ACCESSIBILITY_ONETAP_PLUGINS_URL . 'assets/images/greece.png' ); ?>" alt="flag">	
+									<button type="button">
+										<?php esc_html_e( 'Ελληνικά', 'accessibility-onetap' ); ?>
+										<img src="<?php echo esc_url( ACCESSIBILITY_ONETAP_PLUGINS_URL . 'assets/images/greece.png' ); ?>" alt="flag">
+									</button>	
 								</li>
 								<li data-language="cz">
-									<?php esc_html_e( 'Čeština', 'accessibility-onetap' ); ?>
-									<img src="<?php echo esc_url( ACCESSIBILITY_ONETAP_PLUGINS_URL . 'assets/images/czech.png' ); ?>" alt="flag">	
+									<button type="button">
+										<?php esc_html_e( 'Čeština', 'accessibility-onetap' ); ?>
+										<img src="<?php echo esc_url( ACCESSIBILITY_ONETAP_PLUGINS_URL . 'assets/images/czech.png' ); ?>" alt="flag">
+									</button>	
 								</li>
 								<li data-language="hu">
-									<?php esc_html_e( 'Magyar', 'accessibility-onetap' ); ?>
-									<img src="<?php echo esc_url( ACCESSIBILITY_ONETAP_PLUGINS_URL . 'assets/images/hungarian.png' ); ?>" alt="flag">	
+									<button type="button">
+										<?php esc_html_e( 'Magyar', 'accessibility-onetap' ); ?>
+										<img src="<?php echo esc_url( ACCESSIBILITY_ONETAP_PLUGINS_URL . 'assets/images/hungarian.png' ); ?>" alt="flag">
+									</button>	
 								</li>									
 								<li data-language="lt">
-									<?php esc_html_e( 'Lietuvių', 'accessibility-onetap' ); ?>
-									<img src="<?php echo esc_url( ACCESSIBILITY_ONETAP_PLUGINS_URL . 'assets/images/lithuanian.png' ); ?>" alt="flag">	
+									<button type="button">
+										<?php esc_html_e( 'Lietuvių', 'accessibility-onetap' ); ?>
+										<img src="<?php echo esc_url( ACCESSIBILITY_ONETAP_PLUGINS_URL . 'assets/images/lithuanian.png' ); ?>" alt="flag">
+									</button>	
 								</li>
 								<li data-language="lv">
-									<?php esc_html_e( 'Latviešu', 'accessibility-onetap' ); ?>
-									<img src="<?php echo esc_url( ACCESSIBILITY_ONETAP_PLUGINS_URL . 'assets/images/latvian.png' ); ?>" alt="flag">	
+									<button type="button">
+										<?php esc_html_e( 'Latviešu', 'accessibility-onetap' ); ?>
+										<img src="<?php echo esc_url( ACCESSIBILITY_ONETAP_PLUGINS_URL . 'assets/images/latvian.png' ); ?>" alt="flag">
+									</button>	
 								</li>
 								<li data-language="ee">
-									<?php esc_html_e( 'Eesti', 'accessibility-onetap' ); ?>
-									<img src="<?php echo esc_url( ACCESSIBILITY_ONETAP_PLUGINS_URL . 'assets/images/estonian.png' ); ?>" alt="flag">	
+									<button type="button">
+										<?php esc_html_e( 'Eesti', 'accessibility-onetap' ); ?>
+										<img src="<?php echo esc_url( ACCESSIBILITY_ONETAP_PLUGINS_URL . 'assets/images/estonian.png' ); ?>" alt="flag">
+									</button>	
 								</li>
 								<li data-language="hr">
-									<?php esc_html_e( 'Hrvatski', 'accessibility-onetap' ); ?>
-									<img src="<?php echo esc_url( ACCESSIBILITY_ONETAP_PLUGINS_URL . 'assets/images/croatia.png' ); ?>" alt="flag">	
+									<button type="button">
+										<?php esc_html_e( 'Hrvatski', 'accessibility-onetap' ); ?>
+										<img src="<?php echo esc_url( ACCESSIBILITY_ONETAP_PLUGINS_URL . 'assets/images/croatia.png' ); ?>" alt="flag">
+									</button>	
 								</li>
 								<li data-language="ie">
-									<?php esc_html_e( 'Gaeilge', 'accessibility-onetap' ); ?>
-									<img src="<?php echo esc_url( ACCESSIBILITY_ONETAP_PLUGINS_URL . 'assets/images/ireland.png' ); ?>" alt="flag">	
+									<button type="button">
+										<?php esc_html_e( 'Gaeilge', 'accessibility-onetap' ); ?>
+										<img src="<?php echo esc_url( ACCESSIBILITY_ONETAP_PLUGINS_URL . 'assets/images/ireland.png' ); ?>" alt="flag">
+									</button>	
 								</li>
 								<li data-language="bg">
-									<?php esc_html_e( 'Български', 'accessibility-onetap' ); ?>
-									<img src="<?php echo esc_url( ACCESSIBILITY_ONETAP_PLUGINS_URL . 'assets/images/bulgarian.png' ); ?>" alt="flag">	
+									<button type="button">
+										<?php esc_html_e( 'Български', 'accessibility-onetap' ); ?>
+										<img src="<?php echo esc_url( ACCESSIBILITY_ONETAP_PLUGINS_URL . 'assets/images/bulgarian.png' ); ?>" alt="flag">
+									</button>	
 								</li>			
 								<li data-language="no">
-									<?php esc_html_e( 'Norsk', 'accessibility-plugin-onetap-pro' ); ?>
-									<img src="<?php echo esc_url( ACCESSIBILITY_ONETAP_PLUGINS_URL . 'assets/images/norwegan.png' ); ?>" alt="flag">	
+									<button type="button">
+										<?php esc_html_e( 'Norsk', 'accessibility-onetap' ); ?>
+										<img src="<?php echo esc_url( ACCESSIBILITY_ONETAP_PLUGINS_URL . 'assets/images/norwegan.png' ); ?>" alt="flag">
+									</button>	
 								</li>
 								<li data-language="tr">
-									<?php esc_html_e( 'Türkçe', 'accessibility-plugin-onetap-pro' ); ?>
-									<img src="<?php echo esc_url( ACCESSIBILITY_ONETAP_PLUGINS_URL . 'assets/images/turkish.png' ); ?>" alt="flag">	
+									<button type="button">
+										<?php esc_html_e( 'Türkçe', 'accessibility-onetap' ); ?>
+										<img src="<?php echo esc_url( ACCESSIBILITY_ONETAP_PLUGINS_URL . 'assets/images/turkish.png' ); ?>" alt="flag">
+									</button>	
 								</li>
 								<li data-language="id">
-									<?php esc_html_e( 'Bahasa Indonesia', 'accessibility-plugin-onetap-pro' ); ?>
-									<img src="<?php echo esc_url( ACCESSIBILITY_ONETAP_PLUGINS_URL . 'assets/images/indonesian.png' ); ?>" alt="flag">	
+									<button type="button">
+										<?php esc_html_e( 'Bahasa Indonesia', 'accessibility-onetap' ); ?>
+										<img src="<?php echo esc_url( ACCESSIBILITY_ONETAP_PLUGINS_URL . 'assets/images/indonesian.png' ); ?>" alt="flag">
+									</button>	
 								</li>		
 								<li data-language="pt-br">
-									<?php esc_html_e( 'Português (Brasil)', 'accessibility-plugin-onetap-pro' ); ?>
-									<img src="<?php echo esc_url( ACCESSIBILITY_ONETAP_PLUGINS_URL . 'assets/images/brasilian.png' ); ?>" alt="flag">	
+									<button type="button">
+										<?php esc_html_e( 'Português (Brasil)', 'accessibility-onetap' ); ?>
+										<img src="<?php echo esc_url( ACCESSIBILITY_ONETAP_PLUGINS_URL . 'assets/images/brasilian.png' ); ?>" alt="flag">
+									</button>	
 								</li>	
 								<li data-language="ja">
-									<?php esc_html_e( '日本語', 'accessibility-plugin-onetap-pro' ); ?>
-									<img src="<?php echo esc_url( ACCESSIBILITY_ONETAP_PLUGINS_URL . 'assets/images/japanese.png' ); ?>" alt="flag">	
+									<button type="button">
+										<?php esc_html_e( '日本語', 'accessibility-onetap' ); ?>
+										<img src="<?php echo esc_url( ACCESSIBILITY_ONETAP_PLUGINS_URL . 'assets/images/japanese.png' ); ?>" alt="flag">
+									</button>	
 								</li>	
 								<li data-language="ko">
-									<?php esc_html_e( '한국어', 'accessibility-plugin-onetap-pro' ); ?>
-									<img src="<?php echo esc_url( ACCESSIBILITY_ONETAP_PLUGINS_URL . 'assets/images/korean.png' ); ?>" alt="flag">	
+									<button type="button">
+										<?php esc_html_e( '한국어', 'accessibility-onetap' ); ?>
+										<img src="<?php echo esc_url( ACCESSIBILITY_ONETAP_PLUGINS_URL . 'assets/images/korean.png' ); ?>" alt="flag">
+									</button>	
 								</li>	
 								<li data-language="zh">
-									<?php esc_html_e( '简体中文', 'accessibility-plugin-onetap-pro' ); ?>
-									<img src="<?php echo esc_url( ACCESSIBILITY_ONETAP_PLUGINS_URL . 'assets/images/chinese-simplified.png' ); ?>" alt="flag">	
+									<button type="button">
+										<?php esc_html_e( '简体中文', 'accessibility-onetap' ); ?>
+										<img src="<?php echo esc_url( ACCESSIBILITY_ONETAP_PLUGINS_URL . 'assets/images/chinese-simplified.png' ); ?>" alt="flag">
+									</button>	
 								</li>	
 								<li data-language="ar">
-									<?php esc_html_e( 'العربية', 'accessibility-plugin-onetap-pro' ); ?>
-									<img src="<?php echo esc_url( ACCESSIBILITY_ONETAP_PLUGINS_URL . 'assets/images/arabic.png' ); ?>" alt="flag">	
+									<button type="button">
+										<?php esc_html_e( 'العربية', 'accessibility-onetap' ); ?>
+										<img src="<?php echo esc_url( ACCESSIBILITY_ONETAP_PLUGINS_URL . 'assets/images/arabic.png' ); ?>" alt="flag">
+									</button>	
 								</li>	
 								<li data-language="ru">
-									<?php esc_html_e( 'Русский', 'accessibility-plugin-onetap-pro' ); ?>
-									<img src="<?php echo esc_url( ACCESSIBILITY_ONETAP_PLUGINS_URL . 'assets/images/russian.png' ); ?>" alt="flag">	
+									<button type="button">
+										<?php esc_html_e( 'Русский', 'accessibility-onetap' ); ?>
+										<img src="<?php echo esc_url( ACCESSIBILITY_ONETAP_PLUGINS_URL . 'assets/images/russian.png' ); ?>" alt="flag">
+									</button>	
 								</li>	
 								<li data-language="hi">
-									<?php esc_html_e( 'हिन्दी', 'accessibility-plugin-onetap-pro' ); ?>
-									<img src="<?php echo esc_url( ACCESSIBILITY_ONETAP_PLUGINS_URL . 'assets/images/hindi.png' ); ?>" alt="flag">	
+									<button type="button">
+										<?php esc_html_e( 'हिन्दी', 'accessibility-onetap' ); ?>
+										<img src="<?php echo esc_url( ACCESSIBILITY_ONETAP_PLUGINS_URL . 'assets/images/hindi.png' ); ?>" alt="flag">
+									</button>	
 								</li>	
 								<li data-language="uk">
-									<?php esc_html_e( 'Українська', 'accessibility-plugin-onetap-pro' ); ?>
-									<img src="<?php echo esc_url( ACCESSIBILITY_ONETAP_PLUGINS_URL . 'assets/images/ukrainian.png' ); ?>" alt="flag">	
+									<button type="button">
+										<?php esc_html_e( 'Українська', 'accessibility-onetap' ); ?>
+										<img src="<?php echo esc_url( ACCESSIBILITY_ONETAP_PLUGINS_URL . 'assets/images/ukrainian.png' ); ?>" alt="flag">
+									</button>	
 								</li>	
 								<li data-language="sr">
-									<?php esc_html_e( 'Srpski', 'accessibility-plugin-onetap-pro' ); ?>
-									<img src="<?php echo esc_url( ACCESSIBILITY_ONETAP_PLUGINS_URL . 'assets/images/serbian.png' ); ?>" alt="flag">	
+									<button type="button">
+										<?php esc_html_e( 'Srpski', 'accessibility-onetap' ); ?>
+										<img src="<?php echo esc_url( ACCESSIBILITY_ONETAP_PLUGINS_URL . 'assets/images/serbian.png' ); ?>" alt="flag">
+									</button>	
 								</li>														
 							</ul>
 						</div>
 
 						<!-- Close -->
-						<div class="onetap-close" style="display: none;">
-							<i class="eicon-close"></i>
-						</div>
+						<button role="button" aria-label="Close toolbar" class="onetap-close" style="display: none;">
+							<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512"><path d="M342.6 150.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L192 210.7 86.6 105.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L146.7 256 41.4 361.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0L192 301.3 297.4 406.6c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L237.3 256 342.6 150.6z"/></svg>
+						</button>			
 
 						<!-- Info -->
 						<div class="onetap-site-container">
 							<div class="onetap-site-info">
 								<div class="onetap-image">
-									<svg version="1.1" id="Ebene_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
-										viewBox="0 0 659.1 659.1" style="enable-background:new 0 0 659.1 659.1;" xml:space="preserve">
-									<path fill="none" d="M168.6,7.5h322c89,0,161.1,72.1,161.1,161.1v322c0,89-72.1,161.1-161.1,161.1h-322
-										c-89,0-161.1-72.1-161.1-161.1v-322C7.5,79.6,79.6,7.5,168.6,7.5z"/>
-									<path fill="#FFFFFF" d="M490.6,7.5h-322C79.6,7.5,7.5,79.6,7.5,168.6v322c0,89,72.1,161.1,161.1,161.1h322c89,0,161.1-72.1,161.1-161.1
-										v-322C651.7,79.6,579.6,7.5,490.6,7.5z M329.6,136.2c23,0,41.6,18.6,41.6,41.6s-18.6,41.6-41.6,41.6S288,200.8,288,177.8
-										S306.6,136.2,329.6,136.2z M482.4,253.4l-97.4,22c-4.3,0.8-7.5,4.5-7.5,8.8c0,64.4,10.9,114.3,32.1,175.3l11.5,33.1
-										c4.2,12.2-2.6,25.3-15.1,29.4c-2.6,0.8,2.3,1.2-7.7,1.2s-19.3-6.1-22.7-15.8L329.5,385l-46.1,122.4c-4.3,12.4-18.3,18.9-31.1,14.3
-										c-12.2-4.4-18.3-17.8-14.1-29.7l11.3-32.5c21.3-61,32.1-110.9,32.1-175.3c0-4.3-3.1-8-7.5-8.8l-97.4-22c-11.6-2.2-19.8-12.8-18-24.1
-										c1.9-11.9,13.5-19.7,25.6-17.5l81,12.6c42.6,6.6,86,6.6,128.6,0l81-12.6v0.1c12-2.1,23.6,5.7,25.5,17.5
-										C502.2,240.7,494,251.3,482.4,253.4z"/>
-									</svg>
+								<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 701.81 701.83">
+									<path fill="#FFFFFF" d="M331.08.55C190.9,8.53,70.26,97.88,20.83,230.33c-8.95,23.97-16.5,56.86-19.49,84.87-1.76,16.45-1.79,55.1-.07,71.18,8.8,81.9,43.7,155.21,101.34,212.85,57.73,57.73,132.07,93.03,213.44,101.34,16.84,1.72,54.16,1.69,70.59-.06,148.01-15.76,269.77-121.62,305.15-265.3,11.7-47.53,13.22-101.36,4.21-149.42-19.27-102.71-84.89-192.59-177.59-243.23C462.11,11.8,395.54-3.13,331.08.55ZM363.97,142.83c12.37,3.82,21.52,11.62,27.6,23.54,3.03,5.94,3.3,7.54,3.29,19.41-.01,12.48-.16,13.21-4.03,20.37-11.86,21.94-37.82,30.71-59.64,20.15-7.89-3.82-17.14-12.92-21.05-20.71-2.88-5.74-3.52-8.61-3.88-17.52-.53-13.01.78-18.23,6.86-27.33,11.17-16.72,31.5-23.89,50.84-17.91ZM239.63,230.98c56.8,8.19,67.86,9.37,95.7,10.22,36.3,1.11,59.67-.74,121.9-9.63,32.32-4.62,56.53-7.55,60.11-7.27,7.74.61,12.4,3.96,16.26,11.72,5.11,10.26,3.12,21.41-5.06,28.3-4.69,3.95-2.2,3.27-66.49,17.94-32.36,7.38-54.83,13.06-56.06,14.18-3.26,2.95-3.67,8.6-2.3,31.46,3.83,63.99,12.07,102.66,36.42,170.84,5.31,14.88,9.95,29.51,10.31,32.49,1.3,10.96-4.46,21.09-15.8,27.73-4.42,2.59-5.97,2.9-11.13,2.21-10.61-1.41-17.22-6.06-21.85-15.38-1.28-2.59-13.07-33.43-26.2-68.53-13.12-35.1-24.18-63.83-24.56-63.82-.39,0-11.27,28.17-24.19,62.6-12.92,34.43-24.93,65.63-26.68,69.34-8.74,18.47-36.45,20.12-45.98,2.74-5.48-9.99-4.95-13.08,9.64-56.7,22.94-68.59,30.75-106.34,34.2-165.25,1.57-26.79,1.21-28.53-6.51-31.25-2.59-.91-21.91-5.61-42.94-10.43-73.02-16.75-75.15-17.5-80.88-28.73-5.66-11.08-1.62-23.77,9.71-30.46,3.58-2.11,16.54-.93,62.4,5.68Z"/>
+								</svg>
 								</div>
 								<div class="onetap-title">
-									<h2>
+									<span>
 										<?php esc_html_e( 'Accessibility  Adjustments', 'accessibility-onetap' ); ?>
-									</h2>
+									</span>
 								</div>
-								<div class="onetap-desc">
-									<p>
-										<span>
-											<?php esc_html_e( 'Powered by', 'accessibility-onetap' ); ?>
-										</span>
-										<a href="<?php echo esc_url( 'https://wponetap.com/' ); ?>" target="_blank">
-											<?php esc_html_e( 'OneTap', 'accessibility-onetap' ); ?>
-										</a>
-									</p>
+								<div class="onetap-information">
+									<div class="onetap-desc">
+										<p>
+											<span>
+												<?php esc_html_e( 'Powered by', 'accessibility-onetap' ); ?>
+											</span>
+											<a href="<?php echo esc_url( 'https://wponetap.com/' ); ?>" target="_blank">
+												<?php esc_html_e( 'OneTap', 'accessibility-onetap' ); ?>
+											</a>
+										</p>
+									</div>
+
+									<!-- Accessibility status -->
+									<?php if ( get_option( 'onetap_show_accessibility' ) && ! empty( get_option( 'onetap_editor_generator' ) ) ) : ?>
+										<div class="onetap-statement">
+											<button role="button" aria-label="Open toolbar" class="open-accessibility-message">
+												<?php esc_html_e( 'Statement', 'accessibility-onetap' ); ?>
+											</button>
+										</div>			
+									<?php endif; ?>	
 								</div>
 							</div>
 						</div>
 					</header>
 
+					<!-- Accessibility status -->
+					<div class="accessibility-status-wrapper" style="display: none;">
+						<div class="accessibility-status-text">
+							<button role="button" aria-label="Close toolbar" class="close-accessibility-message">
+								<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.68 5.313c-.099.065-1.494 1.436-3.1 3.045-1.606 1.61-2.969 2.953-3.03 2.985-.061.033-.157.151-.217.268-.14.274-.143.515-.009.73.055.087 1.503 1.556 3.218 3.264 3.31 3.297 3.24 3.234 3.562 3.182a.828.828 0 0 0 .289-.132c.342-.246.487-.62.347-.898-.037-.076-1.169-1.239-2.514-2.587l-2.445-2.45h13.442l.178-.09c.25-.127.328-.281.328-.65s-.078-.523-.328-.65l-.178-.09H5.821l2.425-2.43c1.334-1.337 2.457-2.491 2.494-2.567.195-.388-.209-.989-.695-1.032-.154-.014-.215.003-.365.102" fill-rule="evenodd"></path></svg>
+								<?php esc_html_e( 'Back', 'accessibility-onetap' ); ?>
+							</button>							
+							<?php
+							$editor_generator   = get_option( 'onetap_editor_generator' );
+							$show_accessibility = get_option( 'onetap_show_accessibility' );
+
+							if ( ! empty( $editor_generator ) && $show_accessibility ) {
+								echo wp_kses_post( $editor_generator );
+							}
+							?>
+						</div>
+					</div>					
+
 					<!-- Features content -->
 					<div class="onetap-features-container onetap-feature-content">
 						<div class="onetap-features">
 							<!-- Feature Bigger Text -->
-							<div class="onetap-box-feature onetap-bigger-text">
+							<button type="button" role="button" aria-pressed="false" class="onetap-box-feature onetap-bigger-text">
 								<div class="onetap-icon">
 									<span class="onetap-icon-animation">
 										<svg xmlns="http://www.w3.org/2000/svg" data-name="Layer 3" viewBox="0 0 24 24">
@@ -4139,17 +4244,17 @@ class Accessibility_Onetap_Public {
 									</span>
 								</div>
 								<div class="onetap-title">
-									<h3><?php esc_html_e( 'Bigger Text', 'accessibility-onetap' ); ?></h3>
+									<span><?php esc_html_e( 'Bigger Text', 'accessibility-onetap' ); ?></span>
 									<p class="onetap-option-levels">
 										<span class="onetap-level onetap-level1"></span>
 										<span class="onetap-level onetap-level2"></span>
 										<span class="onetap-level onetap-level3"></span>
 									</p>
 								</div>
-							</div>
+							</button>
 
 							<!-- Feature Cursor -->
-							<div class="onetap-box-feature onetap-cursor">
+							<button type="button" role="button" aria-pressed="false" class="onetap-box-feature onetap-cursor">
 								<div class="onetap-icon">
 									<span class="onetap-icon-animation">
 										<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
@@ -4158,34 +4263,34 @@ class Accessibility_Onetap_Public {
 									</span>
 								</div>
 								<div class="onetap-title">
-									<h3><?php esc_html_e( 'Cursor', 'accessibility-onetap' ); ?></h3>
+									<span><?php esc_html_e( 'Cursor', 'accessibility-onetap' ); ?></span>
 									<p class="onetap-option-levels">
 										<span class="onetap-level onetap-level1"></span>
 										<span class="onetap-level onetap-level2"></span>
 										<span class="onetap-level onetap-level3"></span>
 									</p>
 								</div>
-							</div>
+							</button>
 
 							<!-- Feature Letter Spacing -->
-							<div class="onetap-box-feature onetap-letter-spacing">
+							<button type="button" role="button" aria-pressed="false" class="onetap-box-feature onetap-letter-spacing">
 								<div class="onetap-icon">
 									<span class="onetap-icon-animation">
 										<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" style="enable-background:new 0 0 24 24" xml:space="preserve"><path d="M6.18 2.837c-.222.104-2.794 2.688-2.879 2.892a.661.661 0 0 0 .016.571c.104.222 2.688 2.794 2.892 2.879a.802.802 0 0 0 .805-.131c.113-.1.224-.366.225-.539.002-.282-.101-.427-.77-1.099l-.648-.65h12.358l-.648.65c-.669.672-.772.817-.77 1.099.001.173.112.439.225.539a.802.802 0 0 0 .805.131c.204-.085 2.788-2.657 2.892-2.879a.864.864 0 0 0 .075-.3.864.864 0 0 0-.075-.3c-.104-.222-2.688-2.794-2.892-2.879a.802.802 0 0 0-.805.131c-.113.1-.224.366-.225.539-.002.282.101.427.77 1.099l.648.65H5.821l.648-.65c.669-.672.772-.817.77-1.099-.001-.173-.112-.439-.225-.539a.792.792 0 0 0-.834-.115m-2.365 9.44a.8.8 0 0 0-.462.354l-.093.149v8.44l.093.149c.357.574 1.223.443 1.363-.207.059-.277.06-8.064.001-8.321a.747.747 0 0 0-.902-.564m8 0a.8.8 0 0 0-.462.354l-.093.149v8.44l.093.149c.357.574 1.223.443 1.363-.207.059-.277.06-8.064.001-8.321a.747.747 0 0 0-.902-.564m8 0a.8.8 0 0 0-.462.354l-.093.149v8.44l.093.149c.357.574 1.223.443 1.363-.207.059-.277.06-8.064.001-8.321a.747.747 0 0 0-.902-.564m-12 2a.8.8 0 0 0-.462.354l-.093.149v6.44l.093.149c.357.574 1.223.443 1.363-.207.059-.275.06-6.065.001-6.321a.747.747 0 0 0-.902-.564m8 0a.8.8 0 0 0-.462.354l-.093.149v6.44l.093.149c.357.574 1.223.443 1.363-.207.059-.275.06-6.065.001-6.321a.747.747 0 0 0-.902-.564" fill-rule="evenodd"></path></svg>
 									</span>
 								</div>
 								<div class="onetap-title">
-									<h3><?php esc_html_e( 'Letter Spacing', 'accessibility-onetap' ); ?></h3>
+									<span><?php esc_html_e( 'Letter Spacing', 'accessibility-onetap' ); ?></span>
 									<p class="onetap-option-levels">
 										<span class="onetap-level onetap-level1"></span>
 										<span class="onetap-level onetap-level2"></span>
 										<span class="onetap-level onetap-level3"></span>
 									</p>
 								</div>
-							</div>							
+							</button>							
 
 							<!-- Feature Readable Font -->
-							<div class="onetap-box-feature onetap-readable-font onetap-remove-margin-title">
+							<button type="button" role="button" aria-pressed="false" class="onetap-box-feature onetap-readable-font onetap-remove-margin-title">
 								<div class="onetap-icon">
 									<span class="onetap-icon-animation">
 										<svg xmlns="http://www.w3.org/2000/svg" data-name="Layer 3" viewBox="0 0 24 24">
@@ -4195,29 +4300,29 @@ class Accessibility_Onetap_Public {
 								</div>
 
 								<div class="onetap-title">
-									<h3><?php esc_html_e( 'Readable Font', 'accessibility-onetap' ); ?></h3>
+									<span><?php esc_html_e( 'Readable Font', 'accessibility-onetap' ); ?></span>
 								</div>
-							</div>							
+							</button>							
 
 							<!-- Feature text align -->
-							<div class="onetap-box-feature onetap-text-align">
+							<button type="button" role="button" aria-pressed="false" class="onetap-box-feature onetap-text-align">
 								<div class="onetap-icon">
 									<span class="onetap-icon-animation">
 										<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M7.533 2.282c-2.527.207-4.649 2.073-5.15 4.529-.124.602-.142 1.271-.142 5.189s.018 4.587.142 5.189c.445 2.183 2.245 3.983 4.428 4.428.602.124 1.271.142 5.189.142s4.587-.018 5.189-.141c2.179-.445 3.984-2.25 4.429-4.429.123-.602.141-1.271.141-5.189s-.018-4.587-.141-5.189c-.292-1.427-1.211-2.78-2.438-3.589-.858-.566-1.705-.854-2.771-.942-.546-.045-8.323-.044-8.876.002m9.487 1.583c1.616.474 2.683 1.556 3.128 3.175.067.243.072.568.072 4.96s-.005 4.717-.072 4.96c-.229.832-.597 1.484-1.15 2.038-.554.553-1.206.921-2.038 1.15-.243.067-.568.072-4.96.072s-4.717-.005-4.96-.072c-.832-.229-1.484-.597-2.038-1.15a4.422 4.422 0 0 1-1.146-2.038c-.073-.286-.076-.511-.076-4.98V7.3l.09-.326a4.39 4.39 0 0 1 1.132-1.972A4.397 4.397 0 0 1 7.4 3.786c.055-.009 2.179-.013 4.72-.01 4.531.007 4.625.009 4.9.089m-9.84 3.97a.61.61 0 0 0-.358.375c-.114.273-.039.659.164.838.224.199.036.192 5.023.191 4.427-.001 4.659-.004 4.811-.074a.61.61 0 0 0 .358-.375.74.74 0 0 0 0-.58.61.61 0 0 0-.358-.375c-.152-.07-.383-.073-4.82-.073s-4.668.003-4.82.073m.24 3.424a1.675 1.675 0 0 1-.149.038c-.147.032-.39.251-.457.411a.736.736 0 0 0 .201.842c.08.071.196.143.256.159.143.04 9.315.04 9.458 0 .152-.042.392-.262.457-.417a.742.742 0 0 0-.139-.786c-.25-.265.129-.245-4.967-.253a424.68 424.68 0 0 0-4.66.006m-.24 3.576a.61.61 0 0 0-.358.375c-.114.273-.039.659.164.838.224.199.036.192 5.023.191 4.427-.001 4.659-.004 4.811-.074a.61.61 0 0 0 .358-.375.74.74 0 0 0 0-.58.61.61 0 0 0-.358-.375c-.152-.07-.383-.073-4.82-.073s-4.668.003-4.82.073" fill-rule="evenodd"></path></svg>
 									</span>
 								</div>
 								<div class="onetap-title">
-									<h3 class="onetap-heading"><?php esc_html_e( 'Align Text', 'accessibility-onetap' ); ?></h3>
+									<span class="onetap-heading"><?php esc_html_e( 'Align Text', 'accessibility-onetap' ); ?></span>
 									<p class="onetap-option-levels">
 										<span class="onetap-level onetap-level1"></span>
 										<span class="onetap-level onetap-level2"></span>
 										<span class="onetap-level onetap-level3"></span>
 									</p>
 								</div>
-							</div>							
+							</button>							
 
 							<!-- Feature Line Height -->
-							<div class="onetap-box-feature onetap-line-height">
+							<button type="button" role="button" aria-pressed="false" class="onetap-box-feature onetap-line-height">
 								<div class="onetap-icon">
 									<span class="onetap-icon-animation">
 										<svg xmlns="http://www.w3.org/2000/svg" data-name="Layer 3" viewBox="0 0 24 24">
@@ -4226,14 +4331,14 @@ class Accessibility_Onetap_Public {
 									</span>
 								</div>
 								<div class="onetap-title">
-									<h3 class="onetap-heading"><?php esc_html_e( 'Line Height', 'accessibility-onetap' ); ?></h3>
+									<span class="onetap-heading"><?php esc_html_e( 'Line Height', 'accessibility-onetap' ); ?></span>
 									<p class="onetap-option-levels">
 										<span class="onetap-level onetap-level1"></span>
 										<span class="onetap-level onetap-level2"></span>
 										<span class="onetap-level onetap-level3"></span>
 									</p>
 								</div>
-							</div>							
+							</button>							
 						</div>
 					</div>
 
@@ -4252,7 +4357,7 @@ class Accessibility_Onetap_Public {
 					<div class="onetap-features-container onetap-feature-colors">
 						<div class="onetap-features">
 							<!-- Feature Grayscale -->
-							<div class="onetap-box-feature onetap-grayscale">
+							<button type="button" role="button" aria-pressed="false" class="onetap-box-feature onetap-grayscale">
 								<div class="onetap-icon">
 									<span class="onetap-icon-animation">
 										<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
@@ -4261,17 +4366,17 @@ class Accessibility_Onetap_Public {
 									</span>
 								</div>
 								<div class="onetap-title">
-									<h3 class="onetap-heading"><?php esc_html_e( 'Grayscale', 'accessibility-onetap' ); ?></h3>
+									<span class="onetap-heading"><?php esc_html_e( 'Grayscale', 'accessibility-onetap' ); ?></span>
 									<p class="onetap-option-levels">
 										<span class="onetap-level onetap-level1"></span>
 										<span class="onetap-level onetap-level2"></span>
 										<span class="onetap-level onetap-level3"></span>
 									</p>
 								</div>
-							</div>
+							</button>
 
 							<!-- Feature Brightness -->
-							<div class="onetap-box-feature onetap-brightness">
+							<button type="button" role="button" aria-pressed="false" class="onetap-box-feature onetap-brightness">
 								<div class="onetap-icon">
 									<span class="onetap-icon-animation">
 										<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
@@ -4280,17 +4385,17 @@ class Accessibility_Onetap_Public {
 									</span>
 								</div>
 								<div class="onetap-title">
-									<h3 class="onetap-heading"><?php esc_html_e( 'Brightness', 'accessibility-onetap' ); ?></h3>
+									<span class="onetap-heading"><?php esc_html_e( 'Brightness', 'accessibility-onetap' ); ?></span>
 									<p class="onetap-option-levels">
 										<span class="onetap-level onetap-level1"></span>
 										<span class="onetap-level onetap-level2"></span>
 										<span class="onetap-level onetap-level3"></span>
 									</p>
 								</div>
-							</div>							
+							</button>							
 
 							<!-- Feature Invert colors-->
-							<div class="onetap-box-feature onetap-invert-colors">
+							<button type="button" role="button" aria-pressed="false" class="onetap-box-feature onetap-invert-colors">
 								<div class="onetap-icon">
 									<span class="onetap-icon-animation">
 										<svg xmlns="http://www.w3.org/2000/svg" data-name="Layer 3" viewBox="0 0 24 24">
@@ -4299,14 +4404,14 @@ class Accessibility_Onetap_Public {
 									</span>
 								</div>
 								<div class="onetap-title">
-									<h3 class="onetap-heading"><?php esc_html_e( 'Invert Colors', 'accessibility-onetap' ); ?></h3>
+									<span class="onetap-heading"><?php esc_html_e( 'Invert Colors', 'accessibility-onetap' ); ?></span>
 									<p class="onetap-option-levels">
 										<span class="onetap-level onetap-level1"></span>
 										<span class="onetap-level onetap-level2"></span>
 										<span class="onetap-level onetap-level3"></span>
 									</p>
 								</div>
-							</div>
+							</button>
 						</div>
 					</div>					
 
@@ -4325,7 +4430,7 @@ class Accessibility_Onetap_Public {
 					<div class="onetap-features-container onetap-feature-orientation">
 						<div class="onetap-features">
 							<!-- Feature Highlight Links -->
-							<div class="onetap-box-feature onetap-highlight-links onetap-remove-margin-title">
+							<button type="button" role="button" aria-pressed="false" class="onetap-box-feature onetap-highlight-links onetap-remove-margin-title">
 								<div class="onetap-icon">
 									<span class="onetap-icon-animation">
 										<svg xmlns="http://www.w3.org/2000/svg" data-name="Layer 3" viewBox="0 0 24 24">
@@ -4334,24 +4439,24 @@ class Accessibility_Onetap_Public {
 									</span>
 								</div>
 								<div class="onetap-title">
-									<h3 class="onetap-heading"><?php esc_html_e( 'Highlight Links', 'accessibility-onetap' ); ?></h3>
+									<span class="onetap-heading"><?php esc_html_e( 'Highlight Links', 'accessibility-onetap' ); ?></span>
 								</div>
-							</div>	
+							</button>	
 							
 							<!-- Stop Animations -->
-							<div class="onetap-box-feature onetap-stop-animations onetap-remove-margin-title">
+							<button type="button" role="button" aria-pressed="false" class="onetap-box-feature onetap-stop-animations onetap-remove-margin-title">
 								<div class="onetap-icon">
 									<span class="onetap-icon-animation">
 										<svg xmlns="http://www.w3.org/2000/svg" data-name="Layer 3" viewBox="0 0 24 24"><path d="M11.815 2.277a.8.8 0 0 0-.462.354l-.093.149v3.44l.093.149c.357.574 1.223.443 1.363-.207.057-.268.058-3.072.001-3.321a.747.747 0 0 0-.902-.564M5.38 4.938a.75.75 0 0 0-.379 1.082c.041.066.593.635 1.227 1.265 1.087 1.082 1.163 1.148 1.343 1.186.572.119 1.019-.328.9-.9-.038-.18-.104-.256-1.186-1.343-.63-.634-1.201-1.188-1.27-1.23a.785.785 0 0 0-.635-.06m12.74-.011c-.106.03-.423.322-1.309 1.204-.643.64-1.199 1.226-1.235 1.302a.805.805 0 0 0 .029.692c.157.284.478.418.824.346.18-.038.256-.104 1.343-1.186.634-.63 1.185-1.199 1.225-1.265a.73.73 0 0 0-.112-.904c-.21-.21-.467-.274-.765-.189M2.815 11.278c-.484.115-.717.726-.432 1.13a.951.951 0 0 0 .277.248c.153.08.228.085 1.713.096 1.793.014 1.914.001 2.146-.231.399-.399.212-1.098-.33-1.235-.208-.052-3.16-.059-3.374-.008m15 0c-.484.115-.717.726-.432 1.13a.951.951 0 0 0 .277.248c.153.08.228.085 1.713.096 1.793.014 1.914.001 2.146-.231.399-.399.212-1.098-.33-1.235-.208-.052-3.16-.059-3.374-.008M7.56 15.53c-.166.035-.272.129-1.332 1.184-.634.63-1.186 1.2-1.227 1.266a.73.73 0 0 0 .114.905c.244.244.613.29.905.112.066-.04.635-.591 1.265-1.225 1.082-1.087 1.148-1.163 1.186-1.343.071-.341-.063-.669-.333-.814a.75.75 0 0 0-.578-.085m8.534-.011c-.423.099-.656.475-.565.91.038.18.104.256 1.186 1.343.63.634 1.199 1.185 1.265 1.225.654.397 1.414-.363 1.017-1.017-.04-.066-.591-.635-1.225-1.265-.947-.943-1.177-1.151-1.292-1.173a11.46 11.46 0 0 0-.2-.04.555.555 0 0 0-.186.017m-4.279 1.758a.8.8 0 0 0-.462.354l-.093.149v3.44l.093.149c.357.574 1.223.443 1.363-.207.057-.268.058-3.072.001-3.321a.747.747 0 0 0-.902-.564" fill-rule="evenodd"></path></svg>
 									</span>
 								</div>
 								<div class="onetap-title">
-									<h3 class="onetap-heading"><?php esc_html_e( 'Stop Animations', 'accessibility-onetap' ); ?></h3>
+									<span class="onetap-heading"><?php esc_html_e( 'Stop Animations', 'accessibility-onetap' ); ?></span>
 								</div>
-							</div>
+							</button>
 
 							<!-- Feature Hide Images -->
-							<div class="onetap-box-feature onetap-hide-images onetap-remove-margin-title">
+							<button type="button" role="button" aria-pressed="false" class="onetap-box-feature onetap-hide-images onetap-remove-margin-title">
 								<div class="onetap-icon">
 									<span class="onetap-icon-animation">
 									<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
@@ -4360,12 +4465,12 @@ class Accessibility_Onetap_Public {
 									</span>
 								</div>
 								<div class="onetap-title">
-									<h3 class="onetap-heading"><?php esc_html_e( 'Hide Images', 'accessibility-onetap' ); ?></h3>
+									<span class="onetap-heading"><?php esc_html_e( 'Hide Images', 'accessibility-onetap' ); ?></span>
 								</div>
-							</div>	
+							</button>	
 
 							<!-- Feature Reading Mask -->
-							<div class="onetap-box-feature onetap-reading-mask onetap-remove-margin-title">
+							<button type="button" role="button" aria-pressed="false" class="onetap-box-feature onetap-reading-mask onetap-remove-margin-title">
 								<div class="onetap-icon">
 									<span class="onetap-icon-animation">
 										<svg xmlns="http://www.w3.org/2000/svg" data-name="Layer 3" viewBox="0 0 24 24">
@@ -4374,12 +4479,12 @@ class Accessibility_Onetap_Public {
 									</span>
 								</div>
 								<div class="onetap-title">
-									<h3 class="onetap-heading"><?php esc_html_e( 'Reading Mask', 'accessibility-onetap' ); ?></h3>
+									<span class="onetap-heading"><?php esc_html_e( 'Reading Mask', 'accessibility-onetap' ); ?></span>
 								</div>
-							</div>	
+							</button>	
 
 							<!-- Feature  Reading Line -->
-							<div class="onetap-box-feature onetap-reading-line onetap-remove-margin-title">
+							<button type="button" role="button" aria-pressed="false" class="onetap-box-feature onetap-reading-line onetap-remove-margin-title">
 								<div class="onetap-icon">
 									<span class="onetap-icon-animation">
 										<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
@@ -4388,12 +4493,12 @@ class Accessibility_Onetap_Public {
 									</span>
 								</div>
 								<div class="onetap-title">
-									<h3 class="onetap-heading"><?php esc_html_e( 'Reading Line', 'accessibility-onetap' ); ?></h3>
+									<span class="onetap-heading"><?php esc_html_e( 'Reading Line', 'accessibility-onetap' ); ?></span>
 								</div>
-							</div>
+							</button>
 
 							<!-- Feature Highlight All -->
-							<div class="onetap-box-feature onetap-highlight-all onetap-remove-margin-title">
+							<button type="button" role="button" aria-pressed="false" class="onetap-box-feature onetap-highlight-all onetap-remove-margin-title">
 								<div class="onetap-icon">
 									<span class="onetap-icon-animation">
 										<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M7.533 2.282c-2.527.207-4.649 2.073-5.15 4.529-.124.602-.142 1.271-.142 5.189s.018 4.587.142 5.189c.445 2.183 2.245 3.983 4.428 4.428.602.124 1.271.142 5.189.142s4.587-.018 5.189-.141c2.179-.445 3.984-2.25 4.429-4.429.123-.602.141-1.271.141-5.189s-.018-4.587-.141-5.189c-.292-1.427-1.211-2.78-2.438-3.589-.858-.566-1.705-.854-2.771-.942-.546-.045-8.323-.044-8.876.002m9.487 1.583c1.616.474 2.683 1.556 3.128 3.175.067.243.072.568.072 4.96s-.005 4.717-.072 4.96c-.229.832-.597 1.484-1.15 2.038-.554.553-1.206.921-2.038 1.15-.243.067-.568.072-4.96.072s-4.717-.005-4.96-.072c-.832-.229-1.484-.597-2.038-1.15a4.422 4.422 0 0 1-1.146-2.038c-.073-.286-.076-.511-.076-4.98V7.3l.09-.326a4.39 4.39 0 0 1 1.132-1.972A4.397 4.397 0 0 1 7.4 3.786c.055-.009 2.179-.013 4.72-.01 4.531.007 4.625.009 4.9.089m-9.84 3.97a.61.61 0 0 0-.358.375c-.114.273-.039.659.164.838.224.199.036.192 5.023.191 4.427-.001 4.659-.004 4.811-.074a.61.61 0 0 0 .358-.375.74.74 0 0 0 0-.58.61.61 0 0 0-.358-.375c-.152-.07-.383-.073-4.82-.073s-4.668.003-4.82.073m.24 3.424a1.675 1.675 0 0 1-.149.038c-.147.032-.39.251-.457.411a.736.736 0 0 0 .201.842c.08.071.196.143.256.159.143.04 9.315.04 9.458 0 .152-.042.392-.262.457-.417a.742.742 0 0 0-.139-.786c-.25-.265.129-.245-4.967-.253a424.68 424.68 0 0 0-4.66.006m-.24 3.576a.61.61 0 0 0-.358.375c-.114.273-.039.659.164.838.224.199.036.192 5.023.191 4.427-.001 4.659-.004 4.811-.074a.61.61 0 0 0 .358-.375.74.74 0 0 0 0-.58.61.61 0 0 0-.358-.375c-.152-.07-.383-.073-4.82-.073s-4.668.003-4.82.073" fill-rule="evenodd"></path></svg>
@@ -4401,18 +4506,18 @@ class Accessibility_Onetap_Public {
 								</div>
 
 								<div class="onetap-title">
-									<h3 class="onetap-heading"><?php esc_html_e( 'Highlight Al', 'accessibility-onetap' ); ?></h3>
+									<span class="onetap-heading"><?php esc_html_e( 'Highlight Al', 'accessibility-onetap' ); ?></span>
 								</div>
-							</div>									
+							</button>									
 						</div>
 					</div>					
 
 					<!-- Reset settings -->
 					<div class="onetap-reset-settings">
-						<span>
+						<button type="button" aria-label="Reset all settings">
 							<?php esc_html_e( 'Reset Settings', 'accessibility-onetap' ); ?>
-						</span>
-					</div>
+						</button>
+					</div>					
 
 					<!-- Footer bottom -->
 					<footer class="onetap-footer-bottom">
