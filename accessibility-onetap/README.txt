@@ -3,7 +3,7 @@ Contributors: wponetap, yukyhendiawan
 Tags: onetap, accessibility, navigation, a11y, accessibility, Alt Text, wcag, Read Page, toolbar, ada, accessibility widget, elementor accessibility, gutenberg accessibility
 Requires at least: 6.6
 Tested up to:      6.7
-Stable tag:        2.3.0
+Stable tag:        2.3.1
 Requires PHP:      7.4
 License:           GPL-2.0-or-later
 License URI:       https://www.gnu.org/licenses/gpl-2.0.html
@@ -167,6 +167,9 @@ Absolutely! Excellent customer support is vital for a quality product, and we’
 4. Screenshot 4.
 
 == Changelog ==
+
+= 2.3.1 =
+* Fix button close
 
 = 2.3.0 =
 * Minor bug fixes

@@ -470,7 +470,7 @@ nav.onetap-accessibility.onetap-plugin-onetap .onetap-container .onetap-accessib
 }
 
 nav.onetap-accessibility.onetap-plugin-onetap .onetap-container .onetap-accessibility-settings header.onetap-header-top .onetap-close {
-  display: flex !important;
+  display: flex;
   flex-wrap: nowrap !important;
   justify-content: center !important;
   align-items: center !important;
