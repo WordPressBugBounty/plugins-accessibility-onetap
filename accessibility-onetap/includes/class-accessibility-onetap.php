@@ -178,7 +178,6 @@ class Accessibility_Onetap {
 
 			$this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'enqueue_styles' );
 			$this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'enqueue_scripts' );
-			$this->loader->add_action( 'admin_notices', $plugin_admin, 'display_admin_notice' );
 			$this->loader->add_action( 'allowed_redirect_hosts', $plugin_admin, 'onetap_allow_external_redirect_host' );
 			$this->loader->add_action( 'admin_init', $plugin_admin, 'onetap_redirect_admin_page_to_pricing', 999999 );
 			$this->loader->add_action( 'wp_ajax_onetap_action_dismiss_notice', $plugin_admin, 'dismiss_notice_ajax_callback' );

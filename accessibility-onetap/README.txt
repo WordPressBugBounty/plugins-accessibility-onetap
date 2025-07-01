@@ -2,8 +2,8 @@
 Contributors: wponetap, yukyhendiawan
 Tags: onetap, accessibility, navigation, a11y, accessibility, Alt Text, wcag, Read Page, toolbar, ada, accessibility widget, elementor accessibility, gutenberg accessibility
 Requires at least: 6.6
-Tested up to:      6.7
-Stable tag:        2.3.1
+Tested up to:      6.8
+Stable tag:        2.3.2
 Requires PHP:      7.4
 License:           GPL-2.0-or-later
 License URI:       https://www.gnu.org/licenses/gpl-2.0.html
@@ -39,45 +39,46 @@ No coding, setup or account necessary→ install and start. OneTap is the best W
 ### 🗝️ Key Features:
 
 **Content Modules:**
-* **(FREE) Bigger Text –** Enlarge text for improved readability.
-* **(FREE) Cursor –** Increase cursor size for better visibility.
-* **(FREE) Line Height –** Adjust line spacing for improved clarity.
-* **(FREE) Letter Spacing –** Modify letter spacing for enhanced readability.
-* **(FREE) Readable Font –** Switch to a clearer, easy-to-read font.
-* **(PRO) Dyslexic Font –** Use a specialized font for dyslexic users.
-* **(FREE) Text Align –** Adjust text alignment for better structure and readability.
-* **(PRO) Text Magnifier –** Magnify selected text for enhanced visibility.
-* **(FREE) Highlight Links –** Visually enhance clickable links for easier navigation.
+
+- **(FREE) Bigger Text –** Enlarge text for improved readability.
+- **(FREE) Cursor –** Increase cursor size for better visibility.
+- **(FREE) Line Height –** Adjust line spacing for improved clarity.
+- **(FREE) Letter Spacing –** Modify letter spacing for enhanced readability.
+- **(FREE) Readable Font –** Switch to a clearer, easy-to-read font.
+- **(PRO) Dyslexic Font –** Use a specialized font for dyslexic users.
+- **(FREE) Text Align –** Adjust text alignment for better structure and readability.
+- **(PRO) Text Magnifier –** Magnify selected text for enhanced visibility.
+- **(FREE) Highlight Links –** Visually enhance clickable links for easier navigation.
 
 **Color Options:**
 
-* **(FREE) Invert Colors –** Swap text and background colors.
-* **(FREE) Brightness –** Adjust screen brightness.
-* **(PRO) Contrast –** Fine-tune color contrast.
-* **(FREE) Grayscale –** Convert display to black and white.
-* **(PRO) Saturation –** Adjust color saturation.
+- **(FREE) Invert Colors –** Swap text and background colors.
+- **(FREE) Brightness –** Adjust screen brightness.
+- **(PRO) Contrast –** Fine-tune color contrast.
+- **(FREE) Grayscale –** Convert display to black and white.
+- **(PRO) Saturation –** Adjust color saturation.
 
 **Orientation Options:**
 
-* **(FREE) Reading Line –** Highlight the current line.
-* **(PRO) Keyboard Navigation –** Navigate the site using only the keyboard.
-* **(PRO) Highlight Titles –** Emphasize titles for better recognition.
-* **(FREE) Reading Mask –** Focus on specific text.
-* **(FREE) Hide Images –** Remove distracting images.
-* **(FREE) Highlight All –** Highlight elements when hovered over.
-* **(PRO) Read Page –** Automatically read aloud page content.
-* **(PRO) Mute Sounds –** Mute website sounds.
-* **(FREE) Stop Animations –** Disable animations.
+- **(FREE) Reading Line –** Highlight the current line.
+- **(PRO) Keyboard Navigation –** Navigate the site using only the keyboard.
+- **(PRO) Highlight Titles –** Emphasize titles for better recognition.
+- **(FREE) Reading Mask –** Focus on specific text.
+- **(FREE) Hide Images –** Remove distracting images.
+- **(FREE) Highlight All –** Highlight elements when hovered over.
+- **(PRO) Read Page –** Automatically read aloud page content.
+- **(PRO) Mute Sounds –** Mute website sounds.
+- **(FREE) Stop Animations –** Disable animations.
 
 **Unlock Full Accessibility → [Get OneTap Pro!](https://wponetap.com/pricing/)**
 
 ### 🆕 Multiselect and Predefined Accessibility Profiles
 
-* **(PRO) Vision Impaired Mode –** Enhances website’s visuals.
-* **(PRO) Seizure Safe Profile –** Clears flashes & reduces color.
-* **(PRO) ADHD Friendly Mode –** Focused browsing.
-* **(PRO) Blindness Mode –** Reduces distractions.
-* **(PRO) Epilepsy Safe Mode –** Dims colors.
+- **(PRO) Vision Impaired Mode –** Enhances website’s visuals.
+- **(PRO) Seizure Safe Profile –** Clears flashes & reduces color.
+- **(PRO) ADHD Friendly Mode –** Focused browsing.
+- **(PRO) Blindness Mode –** Reduces distractions.
+- **(PRO) Epilepsy Safe Mode –** Dims colors.
 
 ### 🌍 Languages of the Toolbar
 
@@ -167,6 +168,9 @@ Absolutely! Excellent customer support is vital for a quality product, and we’
 4. Screenshot 4.
 
 == Changelog ==
+
+= 2.3.2 =
+* Remove banner review
 
 = 2.3.1 =
 * Fix button close
