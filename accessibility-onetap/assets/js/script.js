@@ -6,6 +6,8 @@
 	const accessibilityOnetapToggleOpen = $( '.onetap-accessibility-plugin .onetap-toggle' );
 	const accessibilityOnetapToggleOpenStatement = $( '.onetap-accessibility-plugin .onetap-statement button' );
 	const accessibilityOnetapToggleCloseStatement = $( '.accessibility-status-text button' );
+	const accessibilityOnetapToggleOpenHideToolbar = $( '.onetap-accessibility-plugin .onetap-hide-toolbar button' );
+	const accessibilityOnetapToggleCloseHideToolbar = $( '.close-box-hide-duration' );
 	const accessibilityOnetapAccessibility = $( '.onetap-accessibility-plugin .onetap-accessibility' );
 	const accessibilityOnetapLanguageList = $( '.onetap-accessibility-plugin .onetap-list-of-languages' );
 	const accessibilityOnetapToggleLanguages = $( '.onetap-accessibility-plugin .onetap-languages' );
@@ -20,12 +22,20 @@
 		accessibilityOnetapToggleLanguages.focus();
 	} );
 
+	$( 'a[href="#onetap-toolbar"]' ).on( 'click', function( event ) {
+		event.stopPropagation();
+		accessibilityOnetapAccessibility.removeClass( 'onetap-toggle-close' ).addClass( 'onetap-toggle-open' );
+		accessibilityOnetapToggleClose.show( 100 );
+		accessibilityOnetapToggleLanguages.focus();
+	} );
+
 	$( document ).on( 'keydown', function( e ) {
 		// Detect if the platform is macOS
 		const isMac = navigator.platform.toUpperCase().indexOf( 'MAC' ) >= 0;
 		const isShortcut = (
 			( isMac && e.metaKey && e.key === '.' ) ||
-			( ! isMac && e.ctrlKey && e.key === '.' )
+			( ! isMac && e.ctrlKey && e.key === '.' ) ||
+			( e.altKey && e.key === '.' )
 		);
 
 		// Trigger the accessibility panel if the correct shortcut is pressed
@@ -72,6 +82,9 @@
 
 	// Open Statement
 	accessibilityOnetapToggleOpenStatement.click( function() {
+		$( '.onetap-accessibility' ).removeClass( 'active-hide-toolbar' );
+		$( '.toolbar-hide-duration' ).hide();
+
 		$( '.onetap-accessibility' ).addClass( 'active-statement' );
 		$( '.accessibility-status-wrapper' ).show();
 		$( '.accessibility-status-text button' ).focus();
@@ -81,7 +94,23 @@
 	accessibilityOnetapToggleCloseStatement.click( function() {
 		$( '.onetap-accessibility' ).removeClass( 'active-statement' );
 		$( '.accessibility-status-wrapper' ).hide();
-		$( '.apop-statement button' ).focus();
+		$( '.onetap-statement button' ).focus();
+	} );
+
+	// Open Hide Toolbar
+	accessibilityOnetapToggleOpenHideToolbar.click( function() {
+		$( '.onetap-accessibility' ).removeClass( 'active-statement' );
+		$( '.accessibility-status-wrapper' ).hide();
+
+		$( '.onetap-accessibility' ).addClass( 'active-hide-toolbar' );
+		$( '.toolbar-hide-duration' ).show();
+	} );
+
+	// Close Hide Toolbar
+	accessibilityOnetapToggleCloseHideToolbar.click( function() {
+		$( '.onetap-accessibility' ).removeClass( 'active-hide-toolbar' );
+		$( '.toolbar-hide-duration' ).hide();
+		$( '.open-form-hide-toolbar' ).focus();
 	} );
 
 	// Prevent auto-close when clicking inside accessibility panel.
@@ -190,7 +219,7 @@
 		muteSounds: false,
 		stopAnimations: false,
 		information: {
-			updated: 'onetap-version-14',
+			updated: 'onetap-version-15',
 			language: accessibilityOnetapAjaxObject.getSettings.language,
 			developer: 'Yuky Hendiawan',
 			startDate: accessibilityOnetapStartDate,
@@ -206,10 +235,10 @@
 		// Retrieve the existing data from localStorage
 		const accessibilityData = JSON.parse( localStorage.getItem( accessibilityOnetapLocalStorage ) );
 
-		// Check if 'information.updated' exists and whether its value is 'onetap-version-14'
+		// Check if 'information.updated' exists and whether its value is 'onetap-version-15'
 		if ( typeof accessibilityData.information === 'undefined' ||
 			typeof accessibilityData.information.updated === 'undefined' ||
-			accessibilityData.information.updated !== 'onetap-version-14' ) {
+			accessibilityData.information.updated !== 'onetap-version-15' ) {
 			localStorage.removeItem( accessibilityOnetapLocalStorage );
 			localStorage.setItem( accessibilityOnetapLocalStorage, JSON.stringify( accessibilityOnetapDefault ) );
 		}
@@ -271,11 +300,25 @@
 
 			// Define an array of selectors and their corresponding data keys
 			const updates = [
+				// Unsupported Page Reader.
+				{ selector: 'nav.onetap-accessibility.onetap-plugin-onetap .onetap-container .onetap-accessibility-settings .onetap-features-container .onetap-features .onetap-box-feature .onetap-message .title', text: languageData.unsupportedPageReader.title },
+				{ selector: 'nav.onetap-accessibility.onetap-plugin-onetap .onetap-container .onetap-accessibility-settings .onetap-features-container .onetap-features .onetap-box-feature .onetap-message .desc', text: languageData.unsupportedPageReader.desc },
+				{ selector: 'nav.onetap-accessibility.onetap-plugin-onetap .onetap-container .onetap-accessibility-settings .onetap-features-container .onetap-features .onetap-box-feature .onetap-message .desc .link', text: languageData.unsupportedPageReader.link },
+
 				// Header.
 				{ selector: 'nav.onetap-accessibility header.onetap-header-top .onetap-languages .onetap-text span', text: languageData.header.language },
 				{ selector: 'nav.onetap-accessibility header.onetap-header-top .onetap-site-container .onetap-site-info .onetap-title span', text: languageData.header.title },
 				{ selector: 'nav.onetap-accessibility header.onetap-header-top .onetap-site-container .onetap-site-info .onetap-desc p span', text: languageData.header.desc },
 				{ selector: 'nav.onetap-accessibility header.onetap-header-top .onetap-site-container .onetap-site-info .onetap-desc p a', text: languageData.header.anchor },
+				{ selector: 'nav.onetap-accessibility header.onetap-header-top .onetap-site-container .onetap-site-info .onetap-statement button', text: languageData.header.statement },
+				{ selector: 'nav.onetap-accessibility.onetap-plugin-onetap .onetap-container .accessibility-status-wrapper .accessibility-status-text button', text: languageData.global.back },
+				{ selector: 'nav.onetap-accessibility header.onetap-header-top .onetap-site-container .onetap-site-info .onetap-hide-toolbar button', text: languageData.header.hideToolbar },
+				{ selector: 'nav.onetap-accessibility.onetap-plugin-onetap .onetap-container .toolbar-hide-duration .box-hide-duration span.title', text: languageData.hideToolbar.title },
+				{ selector: 'nav.onetap-accessibility.onetap-plugin-onetap .onetap-container .toolbar-hide-duration .box-hide-duration [for="only-for-this-session"] span', text: languageData.hideToolbar.radio1 },
+				{ selector: 'nav.onetap-accessibility.onetap-plugin-onetap .onetap-container .toolbar-hide-duration .box-hide-duration [for="only-for-24-hours"] span', text: languageData.hideToolbar.radio2 },
+				{ selector: 'nav.onetap-accessibility.onetap-plugin-onetap .onetap-container .toolbar-hide-duration .box-hide-duration [for="only-for-a-week"] span', text: languageData.hideToolbar.radio3 },
+				{ selector: 'nav.onetap-accessibility.onetap-plugin-onetap .onetap-container .toolbar-hide-duration .box-hide-duration button.close-box-hide-duration', text: languageData.hideToolbar.button1 },
+				{ selector: 'nav.onetap-accessibility.onetap-plugin-onetap .onetap-container .toolbar-hide-duration .box-hide-duration button.hide-toolbar', text: languageData.hideToolbar.button2 },
 
 				// Multi Functions Title.
 				{ selector: 'nav.onetap-accessibility .onetap-container .onetap-accessibility-settings .onetap-multi-functional-feature .onetap-box-functions .onetap-box-title span', text: languageData.multiFunctionalFeature.title },
@@ -484,9 +527,9 @@
 				}
 
 				// Skip <a> that contains any other element (child or descendant)
-				if ( tag === 'a' && $( this ).find( '*' ).length > 0 ) {
-					return;
-				}
+				// if ( tag === 'a' && $( this ).find( '*' ).length > 0 ) {
+				// 	return;
+				// }
 
 				// Skip <span> that contains any other element (child or descendant)
 				if ( tag === 'span' && $( this ).find( '*' ).length > 0 ) {
@@ -1540,11 +1583,42 @@
 		}
 	}
 
+	// Check if Text-to-Speech is supported
+	if ( ! ( 'speechSynthesis' in window && 'SpeechSynthesisUtterance' in window ) ) {
+		$( '.onetap-read-page' ).addClass( 'unsupported-message' );
+		$( '.onetap-read-page' ).removeClass( 'onetap-active' );
+	}
+
+	$( document ).on( 'mouseleave', '.unsupported-message', function() {
+		const $el = $( this );
+
+		// Clear any existing timeout to prevent overlap on repeated hovers
+		clearTimeout( $el.data( 'hover-timeout' ) );
+
+		// Add the 'active' class on hover
+		$el.addClass( 'active' );
+
+		// Remove the 'active' class after 400 milliseconds
+		const timeoutId = setTimeout( function() {
+			$el.removeClass( 'active' );
+		}, 400 );
+
+		// Store the timeout ID to clear it later if needed
+		$el.data( 'hover-timeout', timeoutId );
+	} );
+
 	// This function adjusts the read page based on the 'readPage'
 	function accessibilityOnetapReadPage( key, accessibilityDataKey ) {
 		// if value off, return.
 		if ( 'off' === accessibilityOnetapAjaxObject.showModules[ 'read-page' ] ) {
 			return;
+		}
+
+		// Check if Text-to-Speech is supported
+		if ( ! ( 'speechSynthesis' in window && 'SpeechSynthesisUtterance' in window ) ) {
+			$( '.onetap-read-page' ).addClass( 'unsupported-message' );
+			$( '.onetap-read-page' ).removeClass( 'onetap-active' );
+			return; // stop further execution.
 		}
 
 		// Check if the key is 'readPage'. If it is, the function will proceed with font size adjustments.
@@ -1583,11 +1657,7 @@
 					}
 
 					// Get only the direct text from the clicked element
-					const textToSpeak = $( this ).clone() // Clone the element to manipulate
-						.children() // Remove the children elements
-						.remove() // Remove child elements
-						.end() // Go back to the original element
-						.text().trim(); // Get the text and trim any spaces
+					const textToSpeak = $( this ).text().trim();
 
 					// Check if the text is not empty
 					if ( textToSpeak.length > 0 ) {
@@ -2149,6 +2219,77 @@
 		} else {
 			// Create localStorage item if it does not exist
 			localStorage.setItem( accessibilityOnetapLocalStorage, JSON.stringify( accessibilityOnetapDefault ) );
+		}
+	} );
+
+	// When the "Hide Toolbar" button is clicked
+	$( '.hide-toolbar' ).on( 'click', function() {
+		// Get the ID of the selected radio button
+		const selected = $( 'input[name="hide_toolbar_duration"]:checked' ).attr( 'id' );
+
+		// If no option is selected, alert and stop
+		if ( ! selected ) {
+			alert( 'Please select a duration!' );
+			return;
+		}
+
+		// Define prefix and key name for storage
+		const prefix = 'onetap_free_';
+		const key = prefix + 'toolbar_hidden_until';
+		let expireAt;
+
+		if ( selected === 'only-for-this-session' ) {
+			// Hide the toolbar and save flag in sessionStorage (clears on browser close)
+			$( '.onetap-container-toggle' ).hide();
+			$( '.onetap-accessibility' ).hide();
+			sessionStorage.setItem( key, 'session' );
+		} else {
+			const now = new Date();
+			if ( selected === 'only-for-24-hours' ) {
+				// Set expiration to 24 hours from now
+				expireAt = now.getTime() + ( 24 * 60 * 60 * 1000 );
+			} else if ( selected === 'only-for-a-week' ) {
+				// Set expiration to 7 days from now
+				expireAt = now.getTime() + ( 7 * 24 * 60 * 60 * 1000 );
+			}
+
+			// Save the expiration time in localStorage and hide the toolbar
+			localStorage.setItem( key, expireAt );
+			$( '.onetap-container-toggle' ).hide();
+			$( '.onetap-accessibility' ).hide();
+		}
+	} );
+
+	// On page load, check if toolbar should be hidden
+	const key = 'onetap_free_toolbar_hidden_until';
+	const sessionFlag = sessionStorage.getItem( key );
+	const storedTime = localStorage.getItem( key );
+
+	if ( sessionFlag === 'session' ) {
+		// If sessionStorage has the flag, hide the toolbar
+		$( '.onetap-container-toggle' ).hide();
+	} else if ( storedTime ) {
+		const now = new Date().getTime();
+		if ( parseInt( storedTime, 10 ) > now ) {
+			// If current time is before expiration, hide the toolbar
+			$( '.onetap-container-toggle' ).hide();
+		} else {
+			// If expired, remove the flag
+			localStorage.removeItem( key );
+		}
+	} else {
+		$( '.onetap-container-toggle' ).show();
+	}
+
+	// This script enhances the accessibility of the "Hide Toolbar Duration" options.
+	$( '.toolbar-duration-option' ).on( 'keydown', function( e ) {
+		if ( e.key === 'Enter' || e.code === 'Space' || e.keyCode === 32 ) {
+			e.preventDefault();
+			// Uncheck all radios
+			$( '.toolbar-duration-option' ).attr( 'aria-checked', 'false' ).find( 'input[type="radio"]' ).prop( 'checked', false );
+
+			// Check the current one
+			$( this ).attr( 'aria-checked', 'true' ).find( 'input[type="radio"]' ).prop( 'checked', true );
 		}
 	} );
 }( jQuery ) );

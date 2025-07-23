@@ -68,17 +68,20 @@ class Accessibility_Onetap_Public {
 		$settings = get_option( 'onetap_settings' );
 
 		// Use the user-defined color setting, or fall back to the default if not set.
-		$setting_color                      = isset( $settings['color'] ) ? esc_html( $settings['color'] ) : Accessibility_Onetap_Config::get_setting( 'color' );
-		$setting_position_top_bottom        = isset( $settings['position-top-bottom'] ) ? absint( $settings['position-top-bottom'] ) : Accessibility_Onetap_Config::get_setting( 'position_top_bottom' );
-		$setting_position_left_right        = isset( $settings['position-left-right'] ) ? absint( $settings['position-left-right'] ) : Accessibility_Onetap_Config::get_setting( 'position_left_right' );
-		$setting_widget_position            = isset( $settings['widge-position'] ) ? esc_html( $settings['widge-position'] ) : Accessibility_Onetap_Config::get_setting( 'widget_position' );
-		$setting_position_top_bottom_tablet = isset( $settings['position-top-bottom-tablet'] ) ? absint( $settings['position-top-bottom-tablet'] ) : Accessibility_Onetap_Config::get_setting( 'position_top_bottom_tablet' );
-		$setting_position_left_right_tablet = isset( $settings['position-left-right-tablet'] ) ? absint( $settings['position-left-right-tablet'] ) : Accessibility_Onetap_Config::get_setting( 'position_left_right_tablet' );
-		$setting_widget_position_tablet     = isset( $settings['widge-position-tablet'] ) ? esc_html( $settings['widge-position-tablet'] ) : Accessibility_Onetap_Config::get_setting( 'widget_position_tablet' );
-		$setting_position_top_bottom_mobile = isset( $settings['position-top-bottom-mobile'] ) ? absint( $settings['position-top-bottom-mobile'] ) : Accessibility_Onetap_Config::get_setting( 'position_top_bottom_mobile' );
-		$setting_position_left_right_mobile = isset( $settings['position-left-right-mobile'] ) ? absint( $settings['position-left-right-mobile'] ) : Accessibility_Onetap_Config::get_setting( 'position_left_right_mobile' );
-		$setting_widget_position_mobile     = isset( $settings['widge-position-mobile'] ) ? esc_html( $settings['widge-position-mobile'] ) : Accessibility_Onetap_Config::get_setting( 'widget_position_mobile' );
-		$setting_hide_powered_by_onetap     = isset( $settings['hide-powered-by-onetap'] ) ? esc_html( $settings['hide-powered-by-onetap'] ) : Accessibility_Onetap_Config::get_setting( 'hide_powered_by_onetap' );
+		$setting_color                          = isset( $settings['color'] ) ? esc_html( $settings['color'] ) : Accessibility_Onetap_Config::get_setting( 'color' );
+		$setting_position_top_bottom            = isset( $settings['position-top-bottom'] ) ? absint( $settings['position-top-bottom'] ) : Accessibility_Onetap_Config::get_setting( 'position_top_bottom' );
+		$setting_position_left_right            = isset( $settings['position-left-right'] ) ? absint( $settings['position-left-right'] ) : Accessibility_Onetap_Config::get_setting( 'position_left_right' );
+		$setting_widget_position                = isset( $settings['widge-position'] ) ? esc_html( $settings['widge-position'] ) : Accessibility_Onetap_Config::get_setting( 'widget_position' );
+		$setting_position_top_bottom_tablet     = isset( $settings['position-top-bottom-tablet'] ) ? absint( $settings['position-top-bottom-tablet'] ) : Accessibility_Onetap_Config::get_setting( 'position_top_bottom_tablet' );
+		$setting_position_left_right_tablet     = isset( $settings['position-left-right-tablet'] ) ? absint( $settings['position-left-right-tablet'] ) : Accessibility_Onetap_Config::get_setting( 'position_left_right_tablet' );
+		$setting_widget_position_tablet         = isset( $settings['widge-position-tablet'] ) ? esc_html( $settings['widge-position-tablet'] ) : Accessibility_Onetap_Config::get_setting( 'widget_position_tablet' );
+		$setting_position_top_bottom_mobile     = isset( $settings['position-top-bottom-mobile'] ) ? absint( $settings['position-top-bottom-mobile'] ) : Accessibility_Onetap_Config::get_setting( 'position_top_bottom_mobile' );
+		$setting_position_left_right_mobile     = isset( $settings['position-left-right-mobile'] ) ? absint( $settings['position-left-right-mobile'] ) : Accessibility_Onetap_Config::get_setting( 'position_left_right_mobile' );
+		$setting_widget_position_mobile         = isset( $settings['widge-position-mobile'] ) ? esc_html( $settings['widge-position-mobile'] ) : Accessibility_Onetap_Config::get_setting( 'widget_position_mobile' );
+		$setting_toggle_device_position_desktop = isset( $settings['toggle-device-position-desktop'] ) ? esc_html( $settings['toggle-device-position-desktop'] ) : Accessibility_Onetap_Config::get_setting( 'hide_on_desktop' );
+		$setting_toggle_device_position_tablet  = isset( $settings['toggle-device-position-tablet'] ) ? esc_html( $settings['toggle-device-position-tablet'] ) : Accessibility_Onetap_Config::get_setting( 'hide_on_tablet' );
+		$setting_toggle_device_position_mobile  = isset( $settings['toggle-device-position-mobile'] ) ? esc_html( $settings['toggle-device-position-mobile'] ) : Accessibility_Onetap_Config::get_setting( 'hide_on_mobile' );
+		$setting_hide_powered_by_onetap         = isset( $settings['hide-powered-by-onetap'] ) ? esc_html( $settings['hide-powered-by-onetap'] ) : Accessibility_Onetap_Config::get_setting( 'hide_powered_by_onetap' );
 
 		// Define custom CSS to apply the color setting to specific elements.
 		$style = "
@@ -93,8 +96,14 @@ class Accessibility_Onetap_Public {
 		nav.onetap-accessibility.onetap-plugin-onetap .onetap-container .onetap-accessibility-settings .onetap-features-container .onetap-features .onetap-box-feature.onetap-lv1 .onetap-title p.onetap-option-levels span.onetap-level.onetap-level1,
 		nav.onetap-accessibility.onetap-plugin-onetap .onetap-container .onetap-accessibility-settings header.onetap-header-top::before, nav.onetap-accessibility.onetap-plugin-onetap .onetap-container .onetap-accessibility-settings .onetap-reset-settings button, nav.onetap-accessibility.onetap-plugin-onetap .onetap-container .onetap-accessibility-settings .onetap-features-container .onetap-features .onetap-box-feature.onetap-lv2 .onetap-title p.onetap-option-levels span.onetap-level.onetap-level1, nav.onetap-accessibility.onetap-plugin-onetap .onetap-container .onetap-accessibility-settings .onetap-features-container .onetap-features .onetap-box-feature.onetap-lv2 .onetap-title p.onetap-option-levels span.onetap-level.onetap-level2,
 		nav.onetap-accessibility.onetap-plugin-onetap .onetap-container .onetap-accessibility-settings .onetap-features-container .onetap-features .onetap-box-feature.onetap-lv3 .onetap-title p.onetap-option-levels span.onetap-level.onetap-level1, nav.onetap-accessibility.onetap-plugin-onetap .onetap-container .onetap-accessibility-settings .onetap-features-container .onetap-features .onetap-box-feature.onetap-lv3 .onetap-title p.onetap-option-levels span.onetap-level.onetap-level2, nav.onetap-accessibility.onetap-plugin-onetap .onetap-container .onetap-accessibility-settings .onetap-features-container .onetap-features .onetap-box-feature.onetap-lv3 .onetap-title p.onetap-option-levels span.onetap-level.onetap-level3,
-		.onetap-container-toggle .onetap-toggle img {
+		.onetap-container-toggle .onetap-toggle img,
+		nav.onetap-accessibility.onetap-plugin-onetap .onetap-container .onetap-accessibility-settings header.onetap-header-top .onetap-site-container .onetap-site-info .onetap-title span,
+		nav.onetap-accessibility.onetap-plugin-onetap .onetap-container .onetap-accessibility-settings header.onetap-header-top .onetap-site-container .onetap-site-info .onetap-information,
+		nav.onetap-accessibility.onetap-plugin-onetap .onetap-container .toolbar-hide-duration .box-hide-duration .box-btn-action button.hide-toolbar {
 			background: {$setting_color} !important;
+		}
+		nav.onetap-accessibility.onetap-plugin-onetap .onetap-container .toolbar-hide-duration .box-hide-duration form label input {
+			accent-color: {$setting_color} !important;
 		}
 		nav.onetap-accessibility.onetap-plugin-onetap .onetap-container .onetap-accessibility-settings .onetap-reset-settings button {
 			border-color: {$setting_color} !important;
@@ -121,6 +130,16 @@ class Accessibility_Onetap_Public {
 		";
 
 		// Mobile.
+		if ( 'on' === $setting_toggle_device_position_mobile ) {
+			$style .= '
+			@media only screen and (max-width: 576px) {
+				.onetap-container-toggle .onetap-toggle.hide-on-mobile {
+					display: none !important;
+				}
+			}			
+			';
+		}
+
 		if ( 'middle-right' === $setting_widget_position_mobile ) {
 			$style .= "
 			@media only screen and (max-width: 576px) {
@@ -244,6 +263,16 @@ class Accessibility_Onetap_Public {
 		}
 
 		// Tablet.
+		if ( 'on' === $setting_toggle_device_position_tablet ) {
+			$style .= '
+			@media only screen and (min-width: 576px) and (max-width: 991.98px) {
+				.onetap-container-toggle .onetap-toggle.hide-on-tablet {
+					display: none !important;
+				}
+			}			
+			';
+		}
+
 		if ( 'middle-right' === $setting_widget_position_tablet ) {
 			$style .= "
 			@media only screen and (min-width: 576px) and (max-width: 991.98px) {
@@ -367,6 +396,16 @@ class Accessibility_Onetap_Public {
 		}
 
 		// Desktop.
+		if ( 'on' === $setting_toggle_device_position_desktop ) {
+			$style .= '
+			@media only screen and (min-width: 992px) {
+				.onetap-container-toggle .onetap-toggle.hide-on-desktop {
+					display: none !important;
+				}
+			}			
+			';
+		}
+
 		if ( 'middle-right' === $setting_widget_position ) {
 			$style .= "
 			@media only screen and (min-width: 992px) {
@@ -540,19 +579,22 @@ class Accessibility_Onetap_Public {
 		wp_enqueue_script( $this->plugin_name );
 
 		// Get the 'onetap_settings' option from the database.
-		$settings                           = get_option( 'onetap_settings' );
-		$setting_language                   = isset( $settings['language'] ) ? esc_html( $settings['language'] ) : Accessibility_Onetap_Config::get_setting( 'language' );
-		$setting_color                      = isset( $settings['color'] ) ? esc_html( $settings['color'] ) : Accessibility_Onetap_Config::get_setting( 'color' );
-		$setting_position_top_bottom        = isset( $settings['position-top-bottom'] ) ? absint( $settings['position-top-bottom'] ) : Accessibility_Onetap_Config::get_setting( 'position_top_bottom' );
-		$setting_position_left_right        = isset( $settings['position-left-right'] ) ? absint( $settings['position-left-right'] ) : Accessibility_Onetap_Config::get_setting( 'position_left_right' );
-		$setting_widget_position            = isset( $settings['widge-position'] ) ? esc_html( $settings['widge-position'] ) : Accessibility_Onetap_Config::get_setting( 'widget_position' );
-		$setting_position_top_bottom_tablet = isset( $settings['position-top-bottom-tablet'] ) ? absint( $settings['position-top-bottom-tablet'] ) : Accessibility_Onetap_Config::get_setting( 'position_top_bottom_tablet' );
-		$setting_position_left_right_tablet = isset( $settings['position-left-right-tablet'] ) ? absint( $settings['position-left-right-tablet'] ) : Accessibility_Onetap_Config::get_setting( 'position_left_right_tablet' );
-		$setting_widget_position_tablet     = isset( $settings['widge-position-tablet'] ) ? esc_html( $settings['widge-position-tablet'] ) : Accessibility_Onetap_Config::get_setting( 'widget_position_tablet' );
-		$setting_position_top_bottom_mobile = isset( $settings['position-top-bottom-mobile'] ) ? absint( $settings['position-top-bottom-mobile'] ) : Accessibility_Onetap_Config::get_setting( 'position_top_bottom_mobile' );
-		$setting_position_left_right_mobile = isset( $settings['position-left-right-mobile'] ) ? absint( $settings['position-left-right-mobile'] ) : Accessibility_Onetap_Config::get_setting( 'position_left_right_mobile' );
-		$setting_widget_position_mobile     = isset( $settings['widge-position-mobile'] ) ? esc_html( $settings['widge-position-mobile'] ) : Accessibility_Onetap_Config::get_setting( 'widget_position_mobile' );
-		$setting_hide_powered_by_onetap     = isset( $settings['hide-powered-by-onetap'] ) ? esc_html( $settings['hide-powered-by-onetap'] ) : Accessibility_Onetap_Config::get_setting( 'hide_powered_by_onetap' );
+		$settings                               = get_option( 'onetap_settings' );
+		$setting_language                       = isset( $settings['language'] ) ? esc_html( $settings['language'] ) : Accessibility_Onetap_Config::get_setting( 'language' );
+		$setting_color                          = isset( $settings['color'] ) ? esc_html( $settings['color'] ) : Accessibility_Onetap_Config::get_setting( 'color' );
+		$setting_position_top_bottom            = isset( $settings['position-top-bottom'] ) ? absint( $settings['position-top-bottom'] ) : Accessibility_Onetap_Config::get_setting( 'position_top_bottom' );
+		$setting_position_left_right            = isset( $settings['position-left-right'] ) ? absint( $settings['position-left-right'] ) : Accessibility_Onetap_Config::get_setting( 'position_left_right' );
+		$setting_widget_position                = isset( $settings['widge-position'] ) ? esc_html( $settings['widge-position'] ) : Accessibility_Onetap_Config::get_setting( 'widget_position' );
+		$setting_position_top_bottom_tablet     = isset( $settings['position-top-bottom-tablet'] ) ? absint( $settings['position-top-bottom-tablet'] ) : Accessibility_Onetap_Config::get_setting( 'position_top_bottom_tablet' );
+		$setting_position_left_right_tablet     = isset( $settings['position-left-right-tablet'] ) ? absint( $settings['position-left-right-tablet'] ) : Accessibility_Onetap_Config::get_setting( 'position_left_right_tablet' );
+		$setting_widget_position_tablet         = isset( $settings['widge-position-tablet'] ) ? esc_html( $settings['widge-position-tablet'] ) : Accessibility_Onetap_Config::get_setting( 'widget_position_tablet' );
+		$setting_position_top_bottom_mobile     = isset( $settings['position-top-bottom-mobile'] ) ? absint( $settings['position-top-bottom-mobile'] ) : Accessibility_Onetap_Config::get_setting( 'position_top_bottom_mobile' );
+		$setting_position_left_right_mobile     = isset( $settings['position-left-right-mobile'] ) ? absint( $settings['position-left-right-mobile'] ) : Accessibility_Onetap_Config::get_setting( 'position_left_right_mobile' );
+		$setting_widget_position_mobile         = isset( $settings['widge-position-mobile'] ) ? esc_html( $settings['widge-position-mobile'] ) : Accessibility_Onetap_Config::get_setting( 'widget_position_mobile' );
+		$setting_toggle_device_position_desktop = isset( $settings['toggle-device-position-desktop'] ) ? esc_html( $settings['toggle-device-position-desktop'] ) : Accessibility_Onetap_Config::get_setting( 'hide_on_desktop' );
+		$setting_toggle_device_position_tablet  = isset( $settings['toggle-device-position-tablet'] ) ? esc_html( $settings['toggle-device-position-tablet'] ) : Accessibility_Onetap_Config::get_setting( 'hide_on_tablet' );
+		$setting_toggle_device_position_mobile  = isset( $settings['toggle-device-position-mobile'] ) ? esc_html( $settings['toggle-device-position-mobile'] ) : Accessibility_Onetap_Config::get_setting( 'hide_on_mobile' );
+		$setting_hide_powered_by_onetap         = isset( $settings['hide-powered-by-onetap'] ) ? esc_html( $settings['hide-powered-by-onetap'] ) : Accessibility_Onetap_Config::get_setting( 'hide_powered_by_onetap' );
 
 		// Get the 'onetap_modules' option from the database.
 		$modules                     = get_option( 'apop_modules' );
@@ -626,12 +668,30 @@ class Accessibility_Onetap_Public {
 				'nonce'       => wp_create_nonce( 'ajax-nonce' ),
 				'languages'   => array(
 					'en'    => array(
+						'global'                 => array(
+							'back' => 'Back',
+						),
+						'hideToolbar'            => array(
+							'title'   => 'How long do you want to hide the accessibility toolbar?',
+							'radio1'  => 'Only for this session',
+							'radio2'  => '24 hours',
+							'radio3'  => 'A Week',
+							'button1' => 'Not Now',
+							'button2' => 'Hide Toolbar',
+						),
+						'unsupportedPageReader'  => array(
+							'title' => 'Browser needs to be updated',
+							'desc'  => 'Your browser doesn’t support speech output. Please update your browser or use one with speech synthesis enabled (e.g. Chrome, Edge, Safari).',
+							'link'  => 'How to Update?',
+						),
 						'header'                 => array(
 							'language'      => 'English',
 							'listLanguages' => $list_languages,
 							'title'         => 'Accessibility Adjustments',
 							'desc'          => 'Powered by',
 							'anchor'        => 'OneTap',
+							'statement'     => 'Statement',
+							'hideToolbar'   => 'Hide Toolbar',
 						),
 						'multiFunctionalFeature' => array(
 							'title'              => 'Select your accessibility profile',
@@ -711,12 +771,30 @@ class Accessibility_Onetap_Public {
 						),
 					),
 					'de'    => array(
+						'global'                 => array(
+							'back' => 'Zurück',
+						),
+						'hideToolbar'            => array(
+							'title'   => 'Wie lange möchten Sie die Barrierefreiheits-Symbolleiste ausblenden?',
+							'radio1'  => 'Nur für diese Sitzung',
+							'radio2'  => '24 Stunden',
+							'radio3'  => 'Eine Woche',
+							'button1' => 'Nicht jetzt',
+							'button2' => 'Symbolleiste ausblenden',
+						),
+						'unsupportedPageReader'  => array(
+							'title' => 'Browser muss aktualisiert werden',
+							'desc'  => 'Ihr Browser unterstützt keine Sprachausgabe. Bitte aktualisieren Sie Ihren Browser oder verwenden Sie einen mit aktivierter Sprachsynthese (z. B. Chrome, Edge, Safari).',
+							'link'  => 'Wie aktualisieren?',
+						),
 						'header'                 => array(
 							'language'      => 'Deutsch',
 							'listLanguages' => $list_languages,
 							'title'         => 'Barrierefreie Anpassungen',
 							'desc'          => 'Unterstützt durch',
 							'anchor'        => 'OneTap',
+							'statement'     => 'Erklärung',
+							'hideToolbar'   => 'Symbolleiste ausblenden',
 						),
 						'multiFunctionalFeature' => array(
 							'title'              => 'Wählen Sie Ihr Barrierefreiheitsprofil',
@@ -796,12 +874,30 @@ class Accessibility_Onetap_Public {
 						),
 					),
 					'es'    => array(
+						'global'                 => array(
+							'back' => 'Volver',
+						),
+						'hideToolbar'            => array(
+							'title'   => '¿Cuánto tiempo desea ocultar la barra de accesibilidad?',
+							'radio1'  => 'Solo para esta sesión',
+							'radio2'  => '24 horas',
+							'radio3'  => 'Una semana',
+							'button1' => 'Ahora no',
+							'button2' => 'Ocultar barra',
+						),
+						'unsupportedPageReader'  => array(
+							'title' => 'El navegador necesita actualización',
+							'desc'  => 'Tu navegador no admite salida de voz. Actualiza tu navegador o usa uno con síntesis de voz habilitada (por ejemplo, Chrome, Edge, Safari).',
+							'link'  => '¿Cómo actualizar?',
+						),
 						'header'                 => array(
 							'language'      => 'Español',
 							'listLanguages' => $list_languages,
 							'title'         => 'Ajustes de Accesibilidad',
 							'desc'          => 'Desarrollado por',
 							'anchor'        => 'OneTap',
+							'statement'     => 'Declaración',
+							'hideToolbar'   => 'Ocultar barra de herramientas',
 						),
 						'multiFunctionalFeature' => array(
 							'title'              => 'Seleccione su perfil de accesibilidad',
@@ -881,12 +977,30 @@ class Accessibility_Onetap_Public {
 						),
 					),
 					'fr'    => array(
+						'global'                 => array(
+							'back' => 'Retour',
+						),
+						'hideToolbar'            => array(
+							'title'   => 'Combien de temps souhaitez-vous masquer la barre d’accessibilité ?',
+							'radio1'  => 'Seulement pour cette session',
+							'radio2'  => '24 heures',
+							'radio3'  => 'Une semaine',
+							'button1' => 'Pas maintenant',
+							'button2' => 'Masquer la barre',
+						),
+						'unsupportedPageReader'  => array(
+							'title' => 'Le navigateur doit être mis à jour',
+							'desc'  => 'Votre navigateur ne prend pas en charge la synthèse vocale. Veuillez le mettre à jour ou utiliser un navigateur compatible (par exemple Chrome, Edge, Safari).',
+							'link'  => 'Comment le mettre à jour ?',
+						),
 						'header'                 => array(
 							'language'      => 'Français',
 							'listLanguages' => $list_languages,
 							'title'         => 'Réglages d\'accessibilité',
 							'desc'          => 'Développé par',
 							'anchor'        => 'OneTap',
+							'statement'     => 'Déclaration',
+							'hideToolbar'   => 'Masquer la barre d’outils',
 						),
 						'multiFunctionalFeature' => array(
 							'title'              => 'Sélectionnez votre profil d\'accessibilité',
@@ -966,12 +1080,30 @@ class Accessibility_Onetap_Public {
 						),
 					),
 					'it'    => array(
+						'global'                 => array(
+							'back' => 'Indietro',
+						),
+						'hideToolbar'            => array(
+							'title'   => 'Per quanto tempo vuoi nascondere la barra di accessibilità?',
+							'radio1'  => 'Solo per questa sessione',
+							'radio2'  => '24 ore',
+							'radio3'  => 'Una settimana',
+							'button1' => 'Non ora',
+							'button2' => 'Nascondi barra',
+						),
+						'unsupportedPageReader'  => array(
+							'title' => 'Il browser deve essere aggiornato',
+							'desc'  => 'Il tuo browser non supporta la sintesi vocale. Aggiorna il browser o utilizza uno che supporti la sintesi vocale (es. Chrome, Edge, Safari).',
+							'link'  => 'Come aggiornare?',
+						),
 						'header'                 => array(
 							'language'      => 'Italiano',
 							'listLanguages' => $list_languages,
 							'title'         => 'Impostazioni di accessibilità',
 							'desc'          => 'Sviluppato da',
 							'anchor'        => 'OneTap',
+							'statement'     => 'Dichiarazione',
+							'hideToolbar'   => 'Nascondi barra degli strumenti',
 						),
 						'multiFunctionalFeature' => array(
 							'title'              => 'Seleziona il tuo profilo di accessibilità',
@@ -1051,12 +1183,30 @@ class Accessibility_Onetap_Public {
 						),
 					),
 					'pl'    => array(
+						'global'                 => array(
+							'back' => 'Wstecz',
+						),
+						'hideToolbar'            => array(
+							'title'   => 'Na jak długo chcesz ukryć pasek dostępności?',
+							'radio1'  => 'Tylko na tę sesję',
+							'radio2'  => '24 godziny',
+							'radio3'  => 'Tydzień',
+							'button1' => 'Nie teraz',
+							'button2' => 'Ukryj pasek',
+						),
+						'unsupportedPageReader'  => array(
+							'title' => 'Przeglądarka wymaga aktualizacji',
+							'desc'  => 'Twoja przeglądarka nie obsługuje syntezy mowy. Zaktualizuj przeglądarkę lub użyj takiej, która obsługuje syntezę mowy (np. Chrome, Edge, Safari).',
+							'link'  => 'Jak zaktualizować?',
+						),
 						'header'                 => array(
 							'language'      => 'Polski',
 							'listLanguages' => $list_languages,
 							'title'         => 'Ustawienia dostępności',
 							'desc'          => 'Zbudowane przez',
 							'anchor'        => 'OneTap',
+							'statement'     => 'Oświadczenie',
+							'hideToolbar'   => 'Ukryj pasek narzędzi',
 						),
 						'multiFunctionalFeature' => array(
 							'title'              => 'Wybierz swój profil dostępności',
@@ -1136,12 +1286,30 @@ class Accessibility_Onetap_Public {
 						),
 					),
 					'se'    => array(
+						'global'                 => array(
+							'back' => 'Tillbaka',
+						),
+						'hideToolbar'            => array(
+							'title'   => 'Hur länge vill du dölja tillgänglighetsverktygsfältet?',
+							'radio1'  => 'Endast för denna session',
+							'radio2'  => '24 timmar',
+							'radio3'  => 'En vecka',
+							'button1' => 'Inte nu',
+							'button2' => 'Dölj verktygsfältet',
+						),
+						'unsupportedPageReader'  => array(
+							'title' => 'Webbläsaren behöver uppdateras',
+							'desc'  => 'Din webbläsare stöder inte talsyntes. Uppdatera din webbläsare eller använd en som stöder talsyntes (t.ex. Chrome, Edge, Safari).',
+							'link'  => 'Hur uppdaterar man?',
+						),
 						'header'                 => array(
 							'language'      => 'Svenska',
 							'listLanguages' => $list_languages,
 							'title'         => 'Tillgänglighetsinställningar',
 							'desc'          => 'Byggd av',
 							'anchor'        => 'OneTap',
+							'statement'     => 'Uttalande',
+							'hideToolbar'   => 'Dölj verktygsfält',
 						),
 						'multiFunctionalFeature' => array(
 							'title'              => 'Välj din tillgänglighetsprofil',
@@ -1221,12 +1389,30 @@ class Accessibility_Onetap_Public {
 						),
 					),
 					'fi'    => array(
+						'global'                 => array(
+							'back' => 'Takaisin',
+						),
+						'hideToolbar'            => array(
+							'title'   => 'Kuinka kauan haluat piilottaa saavutettavuuspalkin?',
+							'radio1'  => 'Vain tälle istunnolle',
+							'radio2'  => '24 tuntia',
+							'radio3'  => 'Viikko',
+							'button1' => 'Ei nyt',
+							'button2' => 'Piilota palkki',
+						),
+						'unsupportedPageReader'  => array(
+							'title' => 'Selain täytyy päivittää',
+							'desc'  => 'Selaimesi ei tue puhesynteesiä. Päivitä selain tai käytä sellaista, joka tukee puhesynteesiä (esim. Chrome, Edge, Safari).',
+							'link'  => 'Kuinka päivitetään?',
+						),
 						'header'                 => array(
 							'language'      => 'Suomi',
 							'listLanguages' => $list_languages,
 							'title'         => 'Saavutettavuusasetukset',
 							'desc'          => 'Rakennettu',
 							'anchor'        => 'OneTap',
+							'statement'     => 'Lausunto',
+							'hideToolbar'   => 'Piilota työkalupalkki',
 						),
 						'multiFunctionalFeature' => array(
 							'title'              => 'Valitse saavutettavuusprofiilisi',
@@ -1306,12 +1492,30 @@ class Accessibility_Onetap_Public {
 						),
 					),
 					'pt'    => array(
+						'global'                 => array(
+							'back' => 'Voltar',
+						),
+						'hideToolbar'            => array(
+							'title'   => 'Por quanto tempo deseja ocultar a barra de acessibilidade?',
+							'radio1'  => 'Apenas para esta sessão',
+							'radio2'  => '24 horas',
+							'radio3'  => 'Uma semana',
+							'button1' => 'Agora não',
+							'button2' => 'Ocultar barra',
+						),
+						'unsupportedPageReader'  => array(
+							'title' => 'Selain täytyy päivittää',
+							'desc'  => 'Selaimesi ei tue puhesynteesiä. Päivitä selain tai käytä sellaista, joka tukee puhesynteesiä (esim. Chrome, Edge, Safari).',
+							'link'  => 'Kuinka päivitetään?',
+						),
 						'header'                 => array(
 							'language'      => 'Português',
 							'listLanguages' => $list_languages,
 							'title'         => 'Configurações de Acessibilidade',
 							'desc'          => 'Construído por',
 							'anchor'        => 'OneTap',
+							'statement'     => 'Declaração',
+							'hideToolbar'   => 'Ocultar barra de ferramentas',
 						),
 						'multiFunctionalFeature' => array(
 							'title'              => 'Escolha seu perfil de acessibilidade',
@@ -1391,12 +1595,30 @@ class Accessibility_Onetap_Public {
 						),
 					),
 					'ro'    => array(
+						'global'                 => array(
+							'back' => 'Înapoi',
+						),
+						'hideToolbar'            => array(
+							'title'   => 'Cât timp doriți să ascundeți bara de accesibilitate?',
+							'radio1'  => 'Doar pentru această sesiune',
+							'radio2'  => '24 de ore',
+							'radio3'  => 'O săptămână',
+							'button1' => 'Nu acum',
+							'button2' => 'Ascunde bara',
+						),
+						'unsupportedPageReader'  => array(
+							'title' => 'Browserul trebuie actualizat',
+							'desc'  => 'Browserul tău nu suportă ieșirea vocală. Te rugăm să-l actualizezi sau să folosești unul care acceptă sinteza vocală (de exemplu, Chrome, Edge, Safari).',
+							'link'  => 'Cum se actualizează?',
+						),
 						'header'                 => array(
 							'language'      => 'Română',
 							'listLanguages' => $list_languages,
 							'title'         => 'Setări de Accesibilitate',
 							'desc'          => 'Creat de',
 							'anchor'        => 'OneTap',
+							'statement'     => 'Declarație',
+							'hideToolbar'   => 'Ascunde bara de instrumente',
 						),
 						'multiFunctionalFeature' => array(
 							'title'              => 'Alegeți profilul de accesibilitate',
@@ -1476,12 +1698,30 @@ class Accessibility_Onetap_Public {
 						),
 					),
 					'si'    => array(
+						'global'                 => array(
+							'back' => 'Nazaj',
+						),
+						'hideToolbar'            => array(
+							'title'   => 'Kako dolgo želite skriti orodno vrstico za dostopnost?',
+							'radio1'  => 'Samo za to sejo',
+							'radio2'  => '24 ur',
+							'radio3'  => 'En teden',
+							'button1' => 'Ne zdaj',
+							'button2' => 'Skrij orodno vrstico',
+						),
+						'unsupportedPageReader'  => array(
+							'title' => 'Brskalnik je treba posodobiti',
+							'desc'  => 'Vaš brskalnik ne podpira govorne sinteze. Posodobite svoj brskalnik ali uporabite takšnega, ki podpira govor (npr. Chrome, Edge, Safari).',
+							'link'  => 'Kako posodobiti?',
+						),
 						'header'                 => array(
 							'language'      => 'Slovenščina',
 							'listLanguages' => $list_languages,
 							'title'         => 'Nastavitve dostopnosti',
 							'desc'          => 'Narejeno',
 							'anchor'        => 'OneTap',
+							'statement'     => 'Izjava',
+							'hideToolbar'   => 'Skrij orodno vrstico',
 						),
 						'multiFunctionalFeature' => array(
 							'title'              => 'Izberite svoj dostopnostni profil',
@@ -1561,12 +1801,30 @@ class Accessibility_Onetap_Public {
 						),
 					),
 					'sk'    => array(
+						'global'                 => array(
+							'back' => 'Späť',
+						),
+						'hideToolbar'            => array(
+							'title'   => 'Ako dlho chcete skryť panel prístupnosti?',
+							'radio1'  => 'Len pre toto sedenie',
+							'radio2'  => '24 hodín',
+							'radio3'  => 'Jeden týždeň',
+							'button1' => 'Nie teraz',
+							'button2' => 'Skryť panel',
+						),
+						'unsupportedPageReader'  => array(
+							'title' => 'Prehliadač je potrebné aktualizovať',
+							'desc'  => 'Váš prehliadač nepodporuje výstup reči. Aktualizujte prehliadač alebo použite taký, ktorý podporuje syntézu reči (napr. Chrome, Edge, Safari).',
+							'link'  => 'Ako aktualizovať?',
+						),
 						'header'                 => array(
 							'language'      => 'Slovenčina',
 							'listLanguages' => $list_languages,
 							'title'         => 'Nastavenia prístupnosti',
 							'desc'          => 'Vytvorené',
 							'anchor'        => 'OneTap',
+							'statement'     => 'Vyhlásenie',
+							'hideToolbar'   => 'Skryť panel nástrojov',
 						),
 						'multiFunctionalFeature' => array(
 							'title'              => 'Vyberte svoj profil prístupnosti',
@@ -1646,12 +1904,30 @@ class Accessibility_Onetap_Public {
 						),
 					),
 					'nl'    => array(
+						'global'                 => array(
+							'back' => 'Terug',
+						),
+						'hideToolbar'            => array(
+							'title'   => 'Hoe lang wilt u de toegankelijkheidstoolbalk verbergen?',
+							'radio1'  => 'Alleen voor deze sessie',
+							'radio2'  => '24 uur',
+							'radio3'  => 'Een week',
+							'button1' => 'Niet nu',
+							'button2' => 'Verberg werkbalk',
+						),
+						'unsupportedPageReader'  => array(
+							'title' => 'Browser moet worden bijgewerkt',
+							'desc'  => 'Je browser ondersteunt geen spraaksynthese. Werk je browser bij of gebruik een browser die spraaksynthese ondersteunt (bijv. Chrome, Edge, Safari).',
+							'link'  => 'Hoe bijwerken?',
+						),
 						'header'                 => array(
 							'language'      => 'Nederlands',
 							'listLanguages' => $list_languages,
 							'title'         => 'Toegankelijkheidsinstellingen',
 							'desc'          => 'Gemaakt door',
 							'anchor'        => 'OneTap',
+							'statement'     => 'Verklaring',
+							'hideToolbar'   => 'Werkbalk verbergen',
 						),
 						'multiFunctionalFeature' => array(
 							'title'              => 'Kies je toegankelijkheidsprofiel',
@@ -1731,12 +2007,30 @@ class Accessibility_Onetap_Public {
 						),
 					),
 					'dk'    => array(
+						'global'                 => array(
+							'back' => 'Tilbage',
+						),
+						'hideToolbar'            => array(
+							'title'   => 'Hvor længe vil du skjule tilgængelighedsværktøjslinjen?',
+							'radio1'  => 'Kun for denne session',
+							'radio2'  => '24 timer',
+							'radio3'  => 'En uge',
+							'button1' => 'Ikke nu',
+							'button2' => 'Skjul værktøjslinje',
+						),
+						'unsupportedPageReader'  => array(
+							'title' => 'Browseren skal opdateres',
+							'desc'  => 'Din browser understøtter ikke taleoutput. Opdater din browser, eller brug en med understøttelse af talesyntese (f.eks. Chrome, Edge, Safari).',
+							'link'  => 'Sådan opdaterer du?',
+						),
 						'header'                 => array(
 							'language'      => 'Dansk',
 							'listLanguages' => $list_languages,
 							'title'         => 'Tilgængelighedsindstillinger',
 							'desc'          => 'Oprettet af',
 							'anchor'        => 'OneTap',
+							'statement'     => 'Erklæring',
+							'hideToolbar'   => 'Skjul værktøjslinje',
 						),
 						'multiFunctionalFeature' => array(
 							'title'              => 'Vælg din tilgængelighedsprofil',
@@ -1816,12 +2110,30 @@ class Accessibility_Onetap_Public {
 						),
 					),
 					'gr'    => array(
+						'global'                 => array(
+							'back' => 'Πίσω',
+						),
+						'hideToolbar'            => array(
+							'title'   => 'Για πόσο καιρό θέλετε να αποκρύψετε τη γραμμή προσβασιμότητας;',
+							'radio1'  => 'Μόνο για αυτή τη συνεδρία',
+							'radio2'  => '24 ώρες',
+							'radio3'  => 'Μία εβδομάδα',
+							'button1' => 'Όχι τώρα',
+							'button2' => 'Απόκρυψη γραμμής εργαλείων',
+						),
+						'unsupportedPageReader'  => array(
+							'title' => 'Το πρόγραμμα περιήγησης χρειάζεται ενημέρωση',
+							'desc'  => 'Το πρόγραμμα περιήγησής σας δεν υποστηρίζει έξοδο ομιλίας. Ενημερώστε το ή χρησιμοποιήστε ένα πρόγραμμα περιήγησης με ενεργοποιημένη σύνθεση φωνής (π.χ. Chrome, Edge, Safari).',
+							'link'  => 'Πώς να το ενημερώσετε;',
+						),
 						'header'                 => array(
 							'language'      => 'Ελληνικά',
 							'listLanguages' => $list_languages,
 							'title'         => 'Ρυθμίσεις Προσβασιμότητας',
 							'desc'          => 'Δημιουργήθηκε από',
 							'anchor'        => 'OneTap',
+							'statement'     => 'Δήλωση',
+							'hideToolbar'   => 'Απόκρυψη γραμμής εργαλείων',
 						),
 						'multiFunctionalFeature' => array(
 							'title'              => 'Επιλέξτε το προφίλ προσβασιμότητας σας',
@@ -1901,12 +2213,30 @@ class Accessibility_Onetap_Public {
 						),
 					),
 					'cz'    => array(
+						'global'                 => array(
+							'back' => 'Zpět',
+						),
+						'hideToolbar'            => array(
+							'title'   => 'Na jak dlouho chcete skrýt panel usnadnění?',
+							'radio1'  => 'Pouze pro tuto relaci',
+							'radio2'  => '24 hodin',
+							'radio3'  => 'Jeden týden',
+							'button1' => 'Teď ne',
+							'button2' => 'Skrýt panel',
+						),
+						'unsupportedPageReader'  => array(
+							'title' => 'Prohlížeč je třeba aktualizovat',
+							'desc'  => 'Váš prohlížeč nepodporuje výstup řeči. Aktualizujte jej nebo použijte prohlížeč, který podporuje syntézu řeči (např. Chrome, Edge, Safari).',
+							'link'  => 'Jak aktualizovat?',
+						),
 						'header'                 => array(
 							'language'      => 'Čeština',
 							'listLanguages' => $list_languages,
 							'title'         => 'Nastavení přístupnosti',
 							'desc'          => 'Vytvořeno',
 							'anchor'        => 'OneTap',
+							'statement'     => 'Prohlášení',
+							'hideToolbar'   => 'Skrýt panel nástrojů',
 						),
 						'multiFunctionalFeature' => array(
 							'title'              => 'Vyberte svůj přístupnostní profil',
@@ -1986,12 +2316,30 @@ class Accessibility_Onetap_Public {
 						),
 					),
 					'hu'    => array(
+						'global'                 => array(
+							'back' => 'Vissza',
+						),
+						'hideToolbar'            => array(
+							'title'   => 'Meddig szeretné elrejteni az akadálymentesítési eszköztárat?',
+							'radio1'  => 'Csak erre a munkamenetre',
+							'radio2'  => '24 óra',
+							'radio3'  => 'Egy hét',
+							'button1' => 'Most nem',
+							'button2' => 'Eszköztár elrejtése',
+						),
+						'unsupportedPageReader'  => array(
+							'title' => 'A böngészőt frissíteni kell',
+							'desc'  => 'A böngésző nem támogatja a beszédhang-kimenetet. Frissítse a böngészőt, vagy használjon olyat, amely támogatja a beszédfelismerést (pl. Chrome, Edge, Safari).',
+							'link'  => 'Hogyan frissítsem?',
+						),
 						'header'                 => array(
 							'language'      => 'Magyar',
 							'listLanguages' => $list_languages,
 							'title'         => 'Hozzáférhetőségi beállítások',
 							'desc'          => 'Készítette',
 							'anchor'        => 'OneTap',
+							'statement'     => 'Nyilatkozat',
+							'hideToolbar'   => 'Eszköztár elrejtése',
 						),
 						'multiFunctionalFeature' => array(
 							'title'              => 'Válassza ki hozzáférhetőségi profilját',
@@ -2071,12 +2419,30 @@ class Accessibility_Onetap_Public {
 						),
 					),
 					'lt'    => array(
+						'global'                 => array(
+							'back' => 'Atgal',
+						),
+						'hideToolbar'            => array(
+							'title'   => 'Kiek laiko norite slėpti prieinamumo įrankių juostą?',
+							'radio1'  => 'Tik šiai sesijai',
+							'radio2'  => '24 valandos',
+							'radio3'  => 'Savaitė',
+							'button1' => 'Ne dabar',
+							'button2' => 'Slėpti juostą',
+						),
+						'unsupportedPageReader'  => array(
+							'title' => 'Naršyklę reikia atnaujinti',
+							'desc'  => 'Jūsų naršyklė nepalaiko kalbos sintezės. Atnaujinkite naršyklę arba naudokite tokią, kuri palaiko kalbos sintezę (pvz., Chrome, Edge, Safari).',
+							'link'  => 'Kaip atnaujinti?',
+						),
 						'header'                 => array(
 							'language'      => 'Lietuvių',
 							'listLanguages' => $list_languages,
 							'title'         => 'Prieigos nustatymai',
 							'desc'          => 'Sukūrė',
 							'anchor'        => 'OneTap',
+							'statement'     => 'Pareiškimas',
+							'hideToolbar'   => 'Slėpti įrankių juostą',
 						),
 						'multiFunctionalFeature' => array(
 							'title'              => 'Pasirinkite savo prieigos profilį',
@@ -2156,12 +2522,30 @@ class Accessibility_Onetap_Public {
 						),
 					),
 					'lv'    => array(
+						'global'                 => array(
+							'back' => 'Atpakaļ',
+						),
+						'hideToolbar'            => array(
+							'title'   => 'Cik ilgi vēlaties paslēpt piekļūstamības rīkjoslu?',
+							'radio1'  => 'Tikai šai sesijai',
+							'radio2'  => '24 stundas',
+							'radio3'  => 'Nedēļu',
+							'button1' => 'Ne tagad',
+							'button2' => 'Paslēpt rīkjoslu',
+						),
+						'unsupportedPageReader'  => array(
+							'title' => 'Pārlūkprogramma ir jāatjaunina',
+							'desc'  => 'Jūsu pārlūkprogramma neatbalsta runas sintezatoru. Lūdzu, atjauniniet pārlūkprogrammu vai izmantojiet tādu, kas atbalsta runas sintēzi (piemēram, Chrome, Edge, Safari).',
+							'link'  => 'Kā atjaunināt?',
+						),
 						'header'                 => array(
 							'language'      => 'Latviešu',
 							'listLanguages' => $list_languages,
 							'title'         => 'Piekļuves iestatījumi',
 							'desc'          => 'Izveidojis',
 							'anchor'        => 'OneTap',
+							'statement'     => 'Paziņojums',
+							'hideToolbar'   => 'Slēpt rīkjoslu',
 						),
 						'multiFunctionalFeature' => array(
 							'title'              => 'Izvēlieties savu piekļuves profilu',
@@ -2241,12 +2625,30 @@ class Accessibility_Onetap_Public {
 						),
 					),
 					'ee'    => array(
+						'global'                 => array(
+							'back' => 'Tagasi',
+						),
+						'hideToolbar'            => array(
+							'title'   => 'Kui kauaks soovite juurdepääsetavuse tööriistariba peita?',
+							'radio1'  => 'Ainult selleks seansiks',
+							'radio2'  => '24 tundi',
+							'radio3'  => 'Üheks nädalaks',
+							'button1' => 'Mitte praegu',
+							'button2' => 'Peida tööriistariba',
+						),
+						'unsupportedPageReader'  => array(
+							'title' => 'Brauserit tuleb uuendada',
+							'desc'  => 'Teie brauser ei toeta kõneväljundit. Palun uuendage oma brauserit või kasutage sellist, mis toetab kõnesüntesaatorit (nt Chrome, Edge, Safari).',
+							'link'  => 'Kuidas uuendada?',
+						),
 						'header'                 => array(
 							'language'      => 'Eesti',
 							'listLanguages' => $list_languages,
 							'title'         => 'Juurdepääsu seaded',
 							'desc'          => 'Loodud',
 							'anchor'        => 'OneTap',
+							'statement'     => 'Avaldus',
+							'hideToolbar'   => 'Peida tööriistariba',
 						),
 						'multiFunctionalFeature' => array(
 							'title'              => 'Valige oma ligipääsu profiil',
@@ -2326,12 +2728,30 @@ class Accessibility_Onetap_Public {
 						),
 					),
 					'hr'    => array(
+						'global'                 => array(
+							'back' => 'Natrag',
+						),
+						'hideToolbar'            => array(
+							'title'   => 'Koliko dugo želite sakriti traku za pristupačnost?',
+							'radio1'  => 'Samo za ovu sesiju',
+							'radio2'  => '24 sata',
+							'radio3'  => 'Tjedan dana',
+							'button1' => 'Ne sada',
+							'button2' => 'Sakrij traku',
+						),
+						'unsupportedPageReader'  => array(
+							'title' => 'Preglednik treba ažurirati',
+							'desc'  => 'Vaš preglednik ne podržava govor. Ažurirajte preglednik ili koristite onaj koji podržava sintezu govora (npr. Chrome, Edge, Safari).',
+							'link'  => 'Kako ažurirati?',
+						),
 						'header'                 => array(
 							'language'      => 'Hrvatski',
 							'listLanguages' => $list_languages,
 							'title'         => 'Postavke pristupa',
 							'desc'          => 'Izradio',
 							'anchor'        => 'OneTap',
+							'statement'     => 'Izjava',
+							'hideToolbar'   => 'Sakrij alatnu traku',
 						),
 						'multiFunctionalFeature' => array(
 							'title'              => 'Odaberite svoj pristupni profil',
@@ -2411,12 +2831,30 @@ class Accessibility_Onetap_Public {
 						),
 					),
 					'ie'    => array(
+						'global'                 => array(
+							'back' => 'Siar',
+						),
+						'hideToolbar'            => array(
+							'title'   => 'Cé chomh fada is mian leat an barra inrochtaineachta a cheilt?',
+							'radio1'  => 'Ach don seisiún seo amháin',
+							'radio2'  => '24 uair an chloig',
+							'radio3'  => 'Seachtain amháin',
+							'button1' => 'Níl anois',
+							'button2' => 'Folaigh an barra',
+						),
+						'unsupportedPageReader'  => array(
+							'title' => 'Your browser needs to be updated',
+							'desc'  => 'Your browser does not support speech output. Please update your browser or use one with speech synthesis enabled (e.g. Chrome, Edge, Safari).',
+							'link'  => 'How to update?',
+						),
 						'header'                 => array(
 							'language'      => 'Gaeilge',
 							'listLanguages' => $list_languages,
 							'title'         => 'Socruithe Rochtana',
 							'desc'          => 'Tógadh',
 							'anchor'        => 'OneTap',
+							'statement'     => 'Ráiteas',
+							'hideToolbar'   => 'Folaigh an barra uirlisí',
 						),
 						'multiFunctionalFeature' => array(
 							'title'              => 'Roghnaigh do phróifíl rochtana',
@@ -2496,12 +2934,30 @@ class Accessibility_Onetap_Public {
 						),
 					),
 					'bg'    => array(
+						'global'                 => array(
+							'back' => 'Назад',
+						),
+						'hideToolbar'            => array(
+							'title'   => 'За колко време искате да скриете лентата за достъпност?',
+							'radio1'  => 'Само за тази сесия',
+							'radio2'  => '24 часа',
+							'radio3'  => 'Една седмица',
+							'button1' => 'Не сега',
+							'button2' => 'Скрий лентата',
+						),
+						'unsupportedPageReader'  => array(
+							'title' => 'Браузърът трябва да бъде актуализиран',
+							'desc'  => 'Вашият браузър не поддържа гласов изход. Моля, актуализирайте го или използвайте такъв с активирана речева синтеза (напр. Chrome, Edge, Safari).',
+							'link'  => 'Как да актуализирате?',
+						),
 						'header'                 => array(
 							'language'      => 'Български',
 							'listLanguages' => $list_languages,
 							'title'         => 'Настройки за достъп',
 							'desc'          => 'Създадено от',
 							'anchor'        => 'OneTap',
+							'statement'     => 'Изявление',
+							'hideToolbar'   => 'Скриване на лентата с инструменти',
 						),
 						'multiFunctionalFeature' => array(
 							'title'              => 'Изберете вашия достъпен профил',
@@ -2581,12 +3037,30 @@ class Accessibility_Onetap_Public {
 						),
 					),
 					'no'    => array(
+						'global'                 => array(
+							'back' => 'Tilbake',
+						),
+						'hideToolbar'            => array(
+							'title'   => 'Hvor lenge vil du skjule tilgjengelighetsverktøylinjen?',
+							'radio1'  => 'Kun for denne økten',
+							'radio2'  => '24 timer',
+							'radio3'  => 'En uke',
+							'button1' => 'Ikke nå',
+							'button2' => 'Skjul verktøylinje',
+						),
+						'unsupportedPageReader'  => array(
+							'title' => 'Nettleseren må oppdateres',
+							'desc'  => 'Nettleseren din støtter ikke taleutgang. Oppdater nettleseren eller bruk en som støtter talesyntese (f.eks. Chrome, Edge, Safari).',
+							'link'  => 'Hvordan oppdatere?',
+						),
 						'header'                 => array(
 							'language'      => 'Norsk',
 							'listLanguages' => $list_languages,
 							'title'         => 'Tilgjengelighetsinnstillinger',
 							'desc'          => 'Drevet av',
 							'anchor'        => 'OneTap',
+							'statement'     => 'Erklæring',
+							'hideToolbar'   => 'Skjul verktøylinje',
 						),
 						'multiFunctionalFeature' => array(
 							'title'              => 'Velg din tilgjengelighetsprofil',
@@ -2666,12 +3140,30 @@ class Accessibility_Onetap_Public {
 						),
 					),
 					'tr'    => array(
+						'global'                 => array(
+							'back' => 'Geri',
+						),
+						'hideToolbar'            => array(
+							'title'   => 'Erişilebilirlik araç çubuğunu ne kadar süre gizlemek istiyorsunuz?',
+							'radio1'  => 'Yalnızca bu oturum için',
+							'radio2'  => '24 saat',
+							'radio3'  => 'Bir hafta',
+							'button1' => 'Şimdi değil',
+							'button2' => 'Araç çubuğunu gizle',
+						),
+						'unsupportedPageReader'  => array(
+							'title' => 'Tarayıcının güncellenmesi gerekiyor',
+							'desc'  => 'Tarayıcınız konuşma çıkışını desteklemiyor. Lütfen tarayıcınızı güncelleyin veya konuşma sentezi destekleyen bir tarayıcı kullanın (ör. Chrome, Edge, Safari).',
+							'link'  => 'Nasıl güncellenir?',
+						),
 						'header'                 => array(
 							'language'      => 'Türkçe',
 							'listLanguages' => $list_languages,
 							'title'         => 'Erişilebilirlik Ayarları',
 							'desc'          => 'Tarafından desteklenmektedir',
 							'anchor'        => 'OneTap',
+							'statement'     => 'Açıklama',
+							'hideToolbar'   => 'Araç çubuğunu gizle',
 						),
 						'multiFunctionalFeature' => array(
 							'title'              => 'Erişilebilirlik profilinizi seçin',
@@ -2751,12 +3243,30 @@ class Accessibility_Onetap_Public {
 						),
 					),
 					'id'    => array(
+						'global'                 => array(
+							'back' => 'Kembali',
+						),
+						'hideToolbar'            => array(
+							'title'   => 'Berapa lama Anda ingin menyembunyikan toolbar aksesibilitas?',
+							'radio1'  => 'Hanya untuk sesi ini',
+							'radio2'  => '24 jam',
+							'radio3'  => 'Satu minggu',
+							'button1' => 'Tidak sekarang',
+							'button2' => 'Sembunyikan toolbar',
+						),
+						'unsupportedPageReader'  => array(
+							'title' => 'Browser perlu diperbarui',
+							'desc'  => 'Browser Anda tidak mendukung output suara. Silakan perbarui browser Anda atau gunakan yang mendukung sintesis suara (misalnya Chrome, Edge, Safari).',
+							'link'  => 'Cara memperbarui?',
+						),
 						'header'                 => array(
 							'language'      => 'Bahasa Indonesia',
 							'listLanguages' => $list_languages,
 							'title'         => 'Pengaturan Aksesibilitas',
 							'desc'          => 'Didukung oleh',
 							'anchor'        => 'OneTap',
+							'statement'     => 'Pernyataan',
+							'hideToolbar'   => 'Sembunyikan bilah alat',
 						),
 						'multiFunctionalFeature' => array(
 							'title'              => 'Pilih profil aksesibilitas Anda',
@@ -2836,12 +3346,30 @@ class Accessibility_Onetap_Public {
 						),
 					),
 					'pt-br' => array(
+						'global'                 => array(
+							'back' => 'Voltar',
+						),
+						'hideToolbar'            => array(
+							'title'   => 'Por quanto tempo você deseja ocultar a barra de acessibilidade?',
+							'radio1'  => 'Apenas para esta sessão',
+							'radio2'  => '24 horas',
+							'radio3'  => 'Uma semana',
+							'button1' => 'Agora não',
+							'button2' => 'Ocultar barra',
+						),
+						'unsupportedPageReader'  => array(
+							'title' => 'O navegador precisa ser atualizado',
+							'desc'  => 'Seu navegador não é compatível com saída de voz. Atualize seu navegador ou use um que tenha síntese de voz ativada (por exemplo, Chrome, Edge, Safari).',
+							'link'  => 'Como atualizar?',
+						),
 						'header'                 => array(
 							'language'      => 'Português (Brasil)',
 							'listLanguages' => $list_languages,
 							'title'         => 'Ajustes de Acessibilidade',
 							'desc'          => 'Desenvolvido por',
 							'anchor'        => 'OneTap',
+							'statement'     => 'Declaração',
+							'hideToolbar'   => 'Ocultar barra de ferramentas',
 						),
 						'multiFunctionalFeature' => array(
 							'title'              => 'Selecione seu perfil de acessibilidade',
@@ -2921,12 +3449,30 @@ class Accessibility_Onetap_Public {
 						),
 					),
 					'ja'    => array(
+						'global'                 => array(
+							'back' => '戻る',
+						),
+						'hideToolbar'            => array(
+							'title'   => 'アクセシビリティツールバーをどのくらい非表示にしますか？',
+							'radio1'  => 'このセッションのみ',
+							'radio2'  => '24時間',
+							'radio3'  => '1週間',
+							'button1' => '今はしない',
+							'button2' => 'ツールバーを非表示',
+						),
+						'unsupportedPageReader'  => array(
+							'title' => 'ブラウザの更新が必要です',
+							'desc'  => 'ご利用のブラウザは音声出力に対応していません。ブラウザを更新するか、音声合成に対応したブラウザをご使用ください（例：Chrome、Edge、Safari）。',
+							'link'  => '更新方法はこちら',
+						),
 						'header'                 => array(
 							'language'      => '日本語',
 							'listLanguages' => $list_languages,
 							'title'         => 'アクセシビリティ設定',
 							'desc'          => '提供元',
 							'anchor'        => 'OneTap',
+							'statement'     => '声明',
+							'hideToolbar'   => 'ツールバーを非表示にする',
 						),
 						'multiFunctionalFeature' => array(
 							'title'              => 'アクセシビリティプロファイルを選択',
@@ -3006,12 +3552,30 @@ class Accessibility_Onetap_Public {
 						),
 					),
 					'ko'    => array(
+						'global'                 => array(
+							'back' => '뒤로',
+						),
+						'hideToolbar'            => array(
+							'title'   => '접근성 도구 모음을 얼마나 숨기시겠습니까?',
+							'radio1'  => '이번 세션만',
+							'radio2'  => '24시간',
+							'radio3'  => '일주일',
+							'button1' => '나중에',
+							'button2' => '도구 모음 숨기기',
+						),
+						'unsupportedPageReader'  => array(
+							'title' => '브라우저를 업데이트해야 합니다',
+							'desc'  => '사용 중인 브라우저는 음성 출력을 지원하지 않습니다. 브라우저를 업데이트하거나 음성 합성이 가능한 브라우저를 사용하세요 (예: Chrome, Edge, Safari).',
+							'link'  => '업데이트 방법',
+						),
 						'header'                 => array(
 							'language'      => '한국어',
 							'listLanguages' => $list_languages,
 							'title'         => '접근성 설정',
 							'desc'          => '제공자',
 							'anchor'        => 'OneTap',
+							'statement'     => '성명',
+							'hideToolbar'   => '도구 모음 숨기기',
 						),
 						'multiFunctionalFeature' => array(
 							'title'              => '접근성 프로필 선택',
@@ -3091,12 +3655,30 @@ class Accessibility_Onetap_Public {
 						),
 					),
 					'zh'    => array(
+						'global'                 => array(
+							'back' => '返回',
+						),
+						'hideToolbar'            => array(
+							'title'   => '您想隐藏辅助工具栏多长时间？',
+							'radio1'  => '仅此会话',
+							'radio2'  => '24小时',
+							'radio3'  => '一周',
+							'button1' => '暂不',
+							'button2' => '隐藏工具栏',
+						),
+						'unsupportedPageReader'  => array(
+							'title' => '需要更新浏览器',
+							'desc'  => '您的浏览器不支持语音输出。请更新浏览器，或使用支持语音合成功能的浏览器（例如 Chrome、Edge、Safari）。',
+							'link'  => '如何更新？',
+						),
 						'header'                 => array(
 							'language'      => '简体中文',
 							'listLanguages' => $list_languages,
 							'title'         => '无障碍调整',
 							'desc'          => '提供者',
 							'anchor'        => 'OneTap',
+							'statement'     => '声明',
+							'hideToolbar'   => '隐藏工具栏',
 						),
 						'multiFunctionalFeature' => array(
 							'title'              => '选择您的无障碍配置文件',
@@ -3176,12 +3758,30 @@ class Accessibility_Onetap_Public {
 						),
 					),
 					'ar'    => array(
+						'global'                 => array(
+							'back' => 'رجوع',
+						),
+						'hideToolbar'            => array(
+							'title'   => 'كم من الوقت تريد إخفاء شريط أدوات إمكانية الوصول؟',
+							'radio1'  => 'فقط لهذه الجلسة',
+							'radio2'  => '24 ساعة',
+							'radio3'  => 'أسبوع واحد',
+							'button1' => 'ليس الآن',
+							'button2' => 'إخفاء الشريط',
+						),
+						'unsupportedPageReader'  => array(
+							'title' => 'يجب تحديث المتصفح',
+							'desc'  => 'المتصفح الخاص بك لا يدعم إخراج الصوت. يرجى تحديث المتصفح أو استخدام متصفح يدعم تحويل النص إلى كلام (مثل Chrome أو Edge أو Safari).',
+							'link'  => 'كيف يتم التحديث؟',
+						),
 						'header'                 => array(
 							'language'      => 'العربية',
 							'listLanguages' => $list_languages,
 							'title'         => 'تعديلات الوصول',
 							'desc'          => 'مزود بواسطة',
 							'anchor'        => 'OneTap',
+							'statement'     => 'بيان',
+							'hideToolbar'   => 'إخفاء شريط الأدوات',
 						),
 						'multiFunctionalFeature' => array(
 							'title'              => 'اختر ملف التعريف للوصول الخاص بك',
@@ -3261,12 +3861,30 @@ class Accessibility_Onetap_Public {
 						),
 					),
 					'ru'    => array(
+						'global'                 => array(
+							'back' => 'Назад',
+						),
+						'hideToolbar'            => array(
+							'title'   => 'На сколько вы хотите скрыть панель доступности?',
+							'radio1'  => 'Только для этой сессии',
+							'radio2'  => '24 часа',
+							'radio3'  => 'Одна неделя',
+							'button1' => 'Не сейчас',
+							'button2' => 'Скрыть панель',
+						),
+						'unsupportedPageReader'  => array(
+							'title' => 'Браузер нужно обновить',
+							'desc'  => 'Ваш браузер не поддерживает голосовой вывод. Обновите браузер или используйте тот, который поддерживает синтез речи (например, Chrome, Edge, Safari).',
+							'link'  => 'Как обновить?',
+						),
 						'header'                 => array(
 							'language'      => 'Русский',
 							'listLanguages' => $list_languages,
 							'title'         => 'Настройки доступности',
 							'desc'          => 'Предоставлено',
 							'anchor'        => 'OneTap',
+							'statement'     => 'Заявление',
+							'hideToolbar'   => 'Скрыть панель инструментов',
 						),
 						'multiFunctionalFeature' => array(
 							'title'              => 'Выберите ваш профиль доступности',
@@ -3346,12 +3964,30 @@ class Accessibility_Onetap_Public {
 						),
 					),
 					'hi'    => array(
+						'global'                 => array(
+							'back' => 'वापस',
+						),
+						'hideToolbar'            => array(
+							'title'   => 'आप एक्सेसिबिलिटी टूलबार को कितनी देर तक छिपाना चाहते हैं?',
+							'radio1'  => 'केवल इस सत्र के लिए',
+							'radio2'  => '24 घंटे',
+							'radio3'  => 'एक सप्ताह',
+							'button1' => 'अभी नहीं',
+							'button2' => 'टूलबार छिपाएं',
+						),
+						'unsupportedPageReader'  => array(
+							'title' => 'ब्राउज़र को अपडेट करने की आवश्यकता है',
+							'desc'  => 'आपका ब्राउज़र वाक् आउटपुट का समर्थन नहीं करता है। कृपया अपना ब्राउज़र अपडेट करें या ऐसा ब्राउज़र इस्तेमाल करें जो स्पीच सिंथेसिस को सपोर्ट करता हो (जैसे Chrome, Edge, Safari)।',
+							'link'  => 'कैसे अपडेट करें?',
+						),
 						'header'                 => array(
 							'language'      => 'हिन्दी',
 							'listLanguages' => $list_languages,
 							'title'         => 'सुगम्यता समायोजन',
 							'desc'          => 'द्वारा संचालित',
 							'anchor'        => 'OneTap',
+							'statement'     => 'बयान',
+							'hideToolbar'   => 'टूलबार छिपाएं',
 						),
 						'multiFunctionalFeature' => array(
 							'title'              => 'अपनी सुगम्यता प्रोफ़ाइल चुनें',
@@ -3431,12 +4067,30 @@ class Accessibility_Onetap_Public {
 						),
 					),
 					'uk'    => array(
+						'global'                 => array(
+							'back' => 'Назад',
+						),
+						'hideToolbar'            => array(
+							'title'   => 'На скільки ви хочете приховати панель доступності?',
+							'radio1'  => 'Лише для цієї сесії',
+							'radio2'  => '24 години',
+							'radio3'  => 'Один тиждень',
+							'button1' => 'Не зараз',
+							'button2' => 'Приховати панель',
+						),
+						'unsupportedPageReader'  => array(
+							'title' => 'Потрібно оновити браузер',
+							'desc'  => 'Ваш браузер не підтримує озвучування. Оновіть браузер або скористайтеся тим, що підтримує синтез мовлення (наприклад, Chrome, Edge, Safari).',
+							'link'  => 'Як оновити?',
+						),
 						'header'                 => array(
 							'language'      => 'Українська',
 							'listLanguages' => $list_languages,
 							'title'         => 'Налаштування доступності',
 							'desc'          => 'Підтримується',
 							'anchor'        => 'OneTap',
+							'statement'     => 'Заява',
+							'hideToolbar'   => 'Сховати панель інструментів',
 						),
 						'multiFunctionalFeature' => array(
 							'title'              => 'Оберіть свій профіль доступності',
@@ -3516,12 +4170,30 @@ class Accessibility_Onetap_Public {
 						),
 					),
 					'sr'    => array(
+						'global'                 => array(
+							'back' => 'Назад',
+						),
+						'hideToolbar'            => array(
+							'title'   => 'Колико дуго желите да сакријете траку за приступачност?',
+							'radio1'  => 'Само за ову сесију',
+							'radio2'  => '24 сата',
+							'radio3'  => 'Недељу дана',
+							'button1' => 'Не сада',
+							'button2' => 'Сакриј траку',
+						),
+						'unsupportedPageReader'  => array(
+							'title' => 'Pregledač treba da se ažurira',
+							'desc'  => 'Vaš pregledač ne podržava govor. Ažurirajte ga ili koristite pregledač koji podržava sintezu govora (npr. Chrome, Edge, Safari).',
+							'link'  => 'Kako ažurirati?',
+						),
 						'header'                 => array(
 							'language'      => 'Srpski',
 							'listLanguages' => $list_languages,
 							'title'         => 'Podešavanja pristupačnosti',
 							'desc'          => 'Pomaže',
 							'anchor'        => 'OneTap',
+							'statement'     => 'Изјава',
+							'hideToolbar'   => 'Сакриј траку са алаткама',
 						),
 						'multiFunctionalFeature' => array(
 							'title'              => 'Izaberite svoj profil pristupačnosti',
@@ -3861,13 +4533,24 @@ class Accessibility_Onetap_Public {
 	 */
 	public function render_accessibility_template() {
 		?>
-		<section class="onetap-container-toggle">
+		<section class="onetap-container-toggle" style="display: none;">
 			<?php
 			$settings = get_option( 'onetap_settings' );
-			$border   = ! empty( $settings['border'] ) ? $settings['border'] : '';
+			if ( ! is_array( $settings ) ) {
+				$settings = array();
+			}
+
+			$toggle_classes = array_filter(
+				array(
+					! empty( $settings['border'] ) ? $settings['border'] : '',
+					isset( $settings['toggle-device-position-desktop'] ) && 'on' === $settings['toggle-device-position-desktop'] ? 'hide-on-desktop' : '',
+					isset( $settings['toggle-device-position-tablet'] ) && 'on' === $settings['toggle-device-position-tablet'] ? 'hide-on-tablet' : '',
+					isset( $settings['toggle-device-position-mobile'] ) && 'on' === $settings['toggle-device-position-mobile'] ? 'hide-on-mobile' : '',
+				)
+			);
 			?>
 
-			<button type="button" aria-label="Toggle Accessibility Toolbar" class="onetap-toggle <?php echo esc_attr( $border ); ?>">
+			<button type="button" aria-label="Toggle Accessibility Toolbar" class="onetap-toggle <?php echo esc_attr( implode( ' ', $toggle_classes ) ); ?>">
 				<?php
 				// Define SVG paths for each icon type.
 				$icon_paths = array(
@@ -3950,7 +4633,7 @@ class Accessibility_Onetap_Public {
 								<span>
 									<?php esc_html_e( 'English', 'accessibility-onetap' ); ?>
 								</span>
-								<img src="<?php echo esc_url( ACCESSIBILITY_ONETAP_PLUGINS_URL . '/assets/images/icon-drop-down-menu.png' ); ?>" width="10" height="10" alt="<?php echo esc_attr__( 'icon drop down menu', 'accessibility-onetap' ); ?>">
+								<img src="<?php echo esc_url( ACCESSIBILITY_ONETAP_PLUGINS_URL . 'assets/images/icon-drop-down-menu.png' ); ?>" width="10" height="10" alt="<?php echo esc_attr__( 'icon drop down menu', 'accessibility-onetap' ); ?>">
 							</p>
 						</button>
 
@@ -4208,6 +4891,13 @@ class Accessibility_Onetap_Public {
 											</button>
 										</div>			
 									<?php endif; ?>	
+
+									<!-- Hide Toolbar -->
+									<div class="onetap-hide-toolbar">
+										<button role="button" aria-label="Setting toolbar" class="open-form-hide-toolbar">
+											<?php esc_html_e( 'Hide Toolbar', 'accessibility-onetap' ); ?>
+										</button>
+									</div>										
 								</div>
 							</div>
 						</div>
@@ -4230,6 +4920,44 @@ class Accessibility_Onetap_Public {
 							?>
 						</div>
 					</div>					
+
+					<!-- Toolbar hide duration -->
+					<div class="toolbar-hide-duration" style="display: none;">
+						<div class="box-hide-duration">
+							<span class="title"><?php esc_html_e( 'How long do you want to hide the accessibility toolbar?', 'accessibility-onetap' ); ?></span>
+
+							<form>
+								<fieldset>
+									<legend><?php esc_html_e( 'Hide Toolbar Duration', 'accessibility-onetap' ); ?></legend>
+									<label class="toolbar-duration-option" for="only-for-this-session" tabindex="0">
+										<input type="radio" id="only-for-this-session" name="hide_toolbar_duration" tabindex="-1" checked>
+										<span>
+											<?php esc_html_e( 'Only for this session', 'accessibility-onetap' ); ?>
+										</span>
+									</label>
+
+									<label class="toolbar-duration-option" for="only-for-24-hours" tabindex="0">
+										<input type="radio" id="only-for-24-hours" name="hide_toolbar_duration" tabindex="-1">
+										<span>
+											<?php esc_html_e( '24 hours', 'accessibility-onetap' ); ?>
+										</span>
+									</label>
+
+									<label class="toolbar-duration-option" for="only-for-a-week" tabindex="0">
+										<input type="radio" id="only-for-a-week" name="hide_toolbar_duration" tabindex="-1">
+										<span>
+											<?php esc_html_e( 'A Week', 'accessibility-onetap' ); ?>
+										</span>
+									</label>
+								</fieldset>
+							</form>
+
+							<div class="box-btn-action">
+								<button type="button" class="close-box-hide-duration"><?php esc_html_e( 'Not Now', 'accessibility-onetap' ); ?></button>
+								<button type="button" class="hide-toolbar"><?php esc_html_e( 'Hide Toolbar', 'accessibility-onetap' ); ?></button>
+							</div>
+						</div>
+					</div>						
 
 					<!-- Features content -->
 					<div class="onetap-features-container onetap-feature-content">

@@ -15,7 +15,7 @@
  * Plugin Name:       Accessibility Widget by OneTap – Easy One-Click Accessibility Toolbar
  * Plugin URI:        https://wponetap.com
  * Description:       OneTap is a multilingual WordPress plugin designed for seamless website accessibility. With a simple one-click installation, it ensures your site meets accessibility standards without any hassle. Built for performance, providing an inclusive, user-friendly web environment for all visitors.
- * Version:           2.3.2
+ * Version:           2.4.0
  * Author:            OneTap
  * Author URI:        https://wponetap.com/
  * License:           GPL-2.0+
@@ -34,7 +34,7 @@ if ( ! defined( 'WPINC' ) ) {
  * Start at version 1.0.0 and use SemVer - https://semver.org
  * Rename this for your plugin and update it as you release new versions.
  */
-define( 'ACCESSIBILITY_ONETAP_VERSION', '2.3.2' );
+define( 'ACCESSIBILITY_ONETAP_VERSION', '2.4.0' );
 define( 'ACCESSIBILITY_ONETAP_DIR_PATH', plugin_dir_path( __FILE__ ) );
 define( 'ACCESSIBILITY_ONETAP_PLUGINS_URL', plugins_url( 'accessibility-onetap/' ) );
 

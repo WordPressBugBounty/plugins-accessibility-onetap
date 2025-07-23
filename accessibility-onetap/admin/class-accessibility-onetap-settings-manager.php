@@ -589,22 +589,13 @@ class Accessibility_Onetap_Settings_Manager {
 	}
 
 	/**
-	 * Displays a number field for a settings field.
+	 * Displays a device position for a settings field.
 	 *
 	 * @param array $args settings field args.
 	 */
-	public function callback_template_number_top_bottom( $args ) {
-		$value            = esc_attr( $this->get_option( $args['id'], $args['section'], $args['std'] ) );
-		$size             = isset( $args['size'] ) && ! is_null( $args['size'] ) ? $args['size'] : 'regular';
-		$name             = isset( $args['name'] ) ? $args['name'] : '';
-		$label_for        = isset( $args['label_for'] ) ? $args['label_for'] : '';
+	public function callback_template_device_position( $args ) {
 		$site_title       = isset( $args['site_title'] ) ? $args['site_title'] : '';
 		$site_description = isset( $args['site_description'] ) ? $args['site_description'] : '';
-		$type             = isset( $args['type'] ) ? $args['type'] : 'number';
-		$placeholder      = empty( $args['placeholder'] ) ? '' : ' placeholder="' . esc_attr( $args['placeholder'] ) . '"';
-		$min              = ( '' === $args['min'] ) ? '' : ' min="' . esc_attr( $args['min'] ) . '"';
-		$max              = ( '' === $args['max'] ) ? '' : ' max="' . esc_attr( $args['max'] ) . '"';
-		$step             = ( '' === $args['step'] ) ? '' : ' step="' . esc_attr( $args['step'] ) . '"';
 
 		$html  = '<div class="box-setting-option ' . esc_attr( $args['id'] ) . '">';
 		$html .= '<span id="anchorPosition" class="site-title">' . esc_html( $site_title ) . '</span>';
@@ -631,6 +622,69 @@ class Accessibility_Onetap_Settings_Manager {
 		$html .= '</button>';
 		$html .= '</div>';
 		$html .= '</div>';
+		$html .= '</div>';
+
+		// List of allowed HTML elements.
+		$allowed_html = array(
+			'div'    => array(
+				'class' => array(),
+			),
+			'img'    => array(
+				'src'   => array(),
+				'id'    => array(),
+				'class' => array(),
+			),
+			'span'   => array(
+				'id'    => array(),
+				'class' => array(),
+			),
+			'label'  => array(
+				'class' => array(),
+				'id'    => array(),
+			),
+			'input'  => array(
+				'type'        => array(),
+				'class'       => array(),
+				'id'          => array(),
+				'name'        => array(),
+				'value'       => array(),
+				'placeholder' => array(),
+				'min'         => array(),
+				'max'         => array(),
+				'step'        => array(),
+			),
+			'button' => array(
+				'type'  => array(),
+				'class' => array(),
+			),
+			'a'      => array(
+				'href'   => array(),
+				'target' => array(),
+			),
+		);
+
+		echo wp_kses( $html, $allowed_html );
+	}
+
+	/**
+	 * Displays a number field for a settings field.
+	 *
+	 * @param array $args settings field args.
+	 */
+	public function callback_template_number_top_bottom( $args ) {
+		$value            = esc_attr( $this->get_option( $args['id'], $args['section'], $args['std'] ) );
+		$size             = isset( $args['size'] ) && ! is_null( $args['size'] ) ? $args['size'] : 'regular';
+		$name             = isset( $args['name'] ) ? $args['name'] : '';
+		$label_for        = isset( $args['label_for'] ) ? $args['label_for'] : '';
+		$site_title       = isset( $args['site_title'] ) ? $args['site_title'] : '';
+		$site_description = isset( $args['site_description'] ) ? $args['site_description'] : '';
+		$type             = isset( $args['type'] ) ? $args['type'] : 'number';
+		$placeholder      = empty( $args['placeholder'] ) ? '' : ' placeholder="' . esc_attr( $args['placeholder'] ) . '"';
+		$min              = ( '' === $args['min'] ) ? '' : ' min="' . esc_attr( $args['min'] ) . '"';
+		$max              = ( '' === $args['max'] ) ? '' : ' max="' . esc_attr( $args['max'] ) . '"';
+		$step             = ( '' === $args['step'] ) ? '' : ' step="' . esc_attr( $args['step'] ) . '"';
+
+		$html  = '<div class="box-setting-option ' . esc_attr( $args['id'] ) . '">';
 		$html .= '<div class="box-control">';
 		$html .= '<label class="label" id="' . esc_attr( $label_for ) . '">' . esc_html( $name ) . '</label>';
 		$html .= '<input type="' . esc_attr( $type ) . '" class="' . esc_attr( $size ) . '-number" id="' . esc_attr( $args['section'] ) . '[' . esc_attr( $args['id'] ) . ']" name="' . esc_attr( $args['section'] ) . '[' . esc_attr( $args['id'] ) . ']" value="' . esc_attr( $value ) . '"' . $placeholder . $min . $max . $step . '/>';
@@ -1299,14 +1353,18 @@ class Accessibility_Onetap_Settings_Manager {
 		$anchor            = isset( $args['anchor'] ) ? $args['anchor'] : '';
 
 		$html  = '<div class="box-site-info">';
-		$html .= '<span id="' . esc_attr( $anchor ) . '" class="group-title">' . esc_html( $group_title ) . '</span>';
-		$html .= '<span class="group-description">' . esc_html( $group_description ) . '</span>';
+		$html .= '<span id="' . esc_attr( $anchor ) . '" class="group-title">' . $group_title . '</span>';
+		$html .= '<span class="group-description">' . $group_description . '</span>';
 		$html .= '</div>';
 
 		// List of allowed HTML elements.
 		$allowed_html = array(
 			'div'  => array(
 				'class' => array(),
+			),
+			'a'    => array(
+				'href'   => array(),
+				'target' => array(),
 			),
 			'span' => array(
 				'id'    => array(),
@@ -1385,6 +1443,33 @@ class Accessibility_Onetap_Settings_Manager {
 				'value'   => array(),
 				'checked' => array(),
 			),
+		);
+
+		echo wp_kses( $html, $allowed_html );
+	}
+
+	/**
+	 * Displays a other settings for a settings field.
+	 */
+	public function callback_template_other_settings() {
+
+		$html  = '<div class="box-control-other-settings">';
+		$html .= '<div class="box-other-settings">';
+		$html .= '<div class="left">';
+		$html .= '<span class="title">' . esc_html__( 'Open Toolbar with URL', 'accessibility-onetap' ) . '</span>';
+		$html .= '</div>';
+		$html .= '<div class="right">';
+		$html .= '<span class="code">' . esc_html__( '#onetap-toolbar', 'accessibility-onetap' ) . '</span>';
+		$html .= '</div>';
+		$html .= '</div>';
+		$html .= '<button class="save-changes">' . esc_html__( 'Save Changes', 'accessibility-onetap' ) . '</button>';
+		$html .= '</div>';
+
+		// List of allowed HTML elements.
+		$allowed_html = array(
+			'div'    => array( 'class' => array() ),
+			'span'   => array( 'class' => array() ),
+			'button' => array( 'class' => array() ),
 		);
 
 		echo wp_kses( $html, $allowed_html );

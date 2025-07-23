@@ -65,7 +65,24 @@ if ( ! defined( 'ABSPATH' ) ) {
 					<?php esc_html_e( 'Language', 'accessibility-onetap' ); ?>
 				</a>
 			</li>			
+			<li>
+				<a class="button" href="#anchorOtherSettings">
+					<?php esc_html_e( 'Other Settings', 'accessibility-onetap' ); ?>
+				</a>
+			</li>			
 		</ul>
 	</section>
 	<?php $this->settings_api->show_forms(); ?>
+
+	<span class="text-review-bottom">
+		<?php
+		echo wp_kses_post(
+			sprintf(
+				// Translators: %s is the URL to the plugin review page.
+				__( "If you're enjoying OneTap, we'd really appreciate a quick <a href='%s' target='_blank'>★★★★★</a> review – it means a lot to us. Thank you for your Support!", 'accessibility-onetap' ),
+				'https://wordpress.org/support/plugin/accessibility-onetap/reviews/#new-post'
+			)
+		);
+		?>
+	</span>	
 </div>

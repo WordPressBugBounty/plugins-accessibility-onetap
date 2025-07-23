@@ -38,6 +38,9 @@ class Accessibility_Onetap_Config {
 		'position_left_right_mobile' => 15,
 		'widget_position_mobile'     => 'bottom-right',
 		'hide_powered_by_onetap'     => 'off',
+		'hide_on_desktop'            => 'off',
+		'hide_on_tablet'             => 'off',
+		'hide_on_mobile'             => 'off',
 		'license'                    => '',
 	);
 

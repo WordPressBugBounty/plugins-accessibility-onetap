@@ -121,6 +121,92 @@
   line-height: 1.6;
 }
 
+.box-control-other-settings {
+  background: #fff;
+  position: relative;
+  border-radius: 0 0 1rem 1rem;
+  padding: 2rem;
+  padding-top: 0;
+}
+
+.box-control-other-settings .box-other-settings {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  padding-bottom: 2rem;
+}
+
+.box-control-other-settings .box-other-settings .left span.title {
+  font-size: 1rem;
+  font-weight: 500;
+  color: #111;
+  margin: 0;
+  display: block;
+}
+
+.box-control-other-settings .box-other-settings .right .code {
+  background: #eef1f5;
+  padding: 12px;
+  border-radius: 8px;
+}
+
+.box-device .boxes {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px;
+}
+
+.box-device .boxes button {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 5px;
+  background: #fff;
+  border-radius: 8px;
+  padding: 12px 16px;
+  border: 1px solid #ddd;
+  line-height: 20px;
+  cursor: pointer;
+}
+
+.box-device .boxes button img {
+  width: 18px;
+  height: 18px;
+  opacity: 0.6;
+}
+
+.box-device .boxes button span {
+  display: flex;
+  align-items: center;
+  font-size: 14px;
+  font-weight: 600;
+  text-align: center;
+  line-height: 20px;
+  margin: 0;
+  color: #666c76;
+}
+
+.box-device .boxes button.active {
+  border: 1px solid transparent;
+  background: #eee;
+}
+
+.box-device .boxes button.active img {
+  opacity: 1;
+}
+
+.box-device .boxes button.active span {
+  color: #111;
+}
+
+@media only screen and (max-width: 576px) {
+
+  .box-control-other-settings .box-other-settings {
+    gap: 25px;
+  }
+}
+
 html {
   scroll-behavior: smooth;
 }
@@ -320,6 +406,13 @@ body.onetap_page_accessibility-onetap-accessibility-status .wrap span.group-desc
   font-size: 16px;
   margin-bottom: 20px;
   color: #666c76;
+}
+
+body.toplevel_page_accessibility-onetap-settings .wrap span.group-description a,
+body.onetap_page_accessibility-onetap-modules .wrap span.group-description a,
+body.admin_page_onetap-module-labels .wrap span.group-description a,
+body.onetap_page_accessibility-onetap-accessibility-status .wrap span.group-description a {
+  color: #2563eb;
 }
 
 body.toplevel_page_accessibility-onetap-settings .wrap span.site-description,
@@ -768,6 +861,10 @@ body.onetap_page_accessibility-onetap-accessibility-status .wrap .metabox-holder
   padding-left: 0;
 }
 
+body.toplevel_page_accessibility-onetap-settings #wpbody {
+  padding-bottom: 450px;
+}
+
 body.toplevel_page_accessibility-onetap-settings .metabox-holder h2 {
   display: none;
 }
@@ -1024,17 +1121,22 @@ body.toplevel_page_accessibility-onetap-settings .metabox-holder table tr.border
   padding-bottom: 64px;
 }
 
-body.toplevel_page_accessibility-onetap-settings .metabox-holder table tr.position-top-bottom td {
+body.toplevel_page_accessibility-onetap-settings .metabox-holder table tr.position-top-bottom td,
+body.toplevel_page_accessibility-onetap-settings .metabox-holder table tr.position-top-bottom-tablet td,
+body.toplevel_page_accessibility-onetap-settings .metabox-holder table tr.position-top-bottom-mobile td {
   padding-bottom: 0;
 }
 
-body.toplevel_page_accessibility-onetap-settings .metabox-holder table tr.position-top-bottom td .box-setting-option .box-control {
+body.toplevel_page_accessibility-onetap-settings .metabox-holder table tr.position-top-bottom td .box-setting-option .box-control,
+body.toplevel_page_accessibility-onetap-settings .metabox-holder table tr.position-top-bottom-tablet td .box-setting-option .box-control,
+body.toplevel_page_accessibility-onetap-settings .metabox-holder table tr.position-top-bottom-mobile td .box-setting-option .box-control {
   border-radius: 1rem 1rem 0 0;
-  padding-bottom: 8px;
-  padding-right: 0;
+  padding: 20px 0 8px;
 }
 
-body.toplevel_page_accessibility-onetap-settings .metabox-holder table tr.position-top-bottom td .box-setting-option .box-control button.save-changes {
+body.toplevel_page_accessibility-onetap-settings .metabox-holder table tr.position-top-bottom td .box-setting-option .box-control button.save-changes,
+body.toplevel_page_accessibility-onetap-settings .metabox-holder table tr.position-top-bottom-tablet td .box-setting-option .box-control button.save-changes,
+body.toplevel_page_accessibility-onetap-settings .metabox-holder table tr.position-top-bottom-mobile td .box-setting-option .box-control button.save-changes {
   display: none;
 }
 
@@ -1086,18 +1188,27 @@ body.toplevel_page_accessibility-onetap-settings .metabox-holder table tr.widge-
   display: block;
 }
 
+body.toplevel_page_accessibility-onetap-settings .metabox-holder table tr.toggle-device-position-desktop,
+body.toplevel_page_accessibility-onetap-settings .metabox-holder table tr.toggle-device-position-tablet,
+body.toplevel_page_accessibility-onetap-settings .metabox-holder table tr.toggle-device-position-mobile {
+  display: none;
+}
+
+body.toplevel_page_accessibility-onetap-settings .metabox-holder table tr.device-position,
 body.toplevel_page_accessibility-onetap-settings .metabox-holder table tr.position-top-bottom,
 body.toplevel_page_accessibility-onetap-settings .metabox-holder table tr.position-top-bottom-tablet,
 body.toplevel_page_accessibility-onetap-settings .metabox-holder table tr.position-top-bottom-mobile {
   display: none;
 }
 
+body.toplevel_page_accessibility-onetap-settings .metabox-holder table tr.device-position td,
 body.toplevel_page_accessibility-onetap-settings .metabox-holder table tr.position-top-bottom td,
 body.toplevel_page_accessibility-onetap-settings .metabox-holder table tr.position-top-bottom-tablet td,
 body.toplevel_page_accessibility-onetap-settings .metabox-holder table tr.position-top-bottom-mobile td {
   padding-bottom: 0;
 }
 
+body.toplevel_page_accessibility-onetap-settings .metabox-holder table tr.device-position td .box-setting-option,
 body.toplevel_page_accessibility-onetap-settings .metabox-holder table tr.position-top-bottom td .box-setting-option,
 body.toplevel_page_accessibility-onetap-settings .metabox-holder table tr.position-top-bottom-tablet td .box-setting-option,
 body.toplevel_page_accessibility-onetap-settings .metabox-holder table tr.position-top-bottom-mobile td .box-setting-option {
@@ -1107,69 +1218,7 @@ body.toplevel_page_accessibility-onetap-settings .metabox-holder table tr.positi
   padding-bottom: 0;
 }
 
-body.toplevel_page_accessibility-onetap-settings .metabox-holder table tr.position-top-bottom td .box-setting-option .box-device .boxes,
-body.toplevel_page_accessibility-onetap-settings .metabox-holder table tr.position-top-bottom-tablet td .box-setting-option .box-device .boxes,
-body.toplevel_page_accessibility-onetap-settings .metabox-holder table tr.position-top-bottom-mobile td .box-setting-option .box-device .boxes {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 14px;
-}
-
-body.toplevel_page_accessibility-onetap-settings .metabox-holder table tr.position-top-bottom td .box-setting-option .box-device .boxes button,
-body.toplevel_page_accessibility-onetap-settings .metabox-holder table tr.position-top-bottom-tablet td .box-setting-option .box-device .boxes button,
-body.toplevel_page_accessibility-onetap-settings .metabox-holder table tr.position-top-bottom-mobile td .box-setting-option .box-device .boxes button {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: 5px;
-  background: #fff;
-  border-radius: 8px;
-  padding: 12px 16px;
-  border: 1px solid #ddd;
-  line-height: 20px;
-  cursor: pointer;
-}
-
-body.toplevel_page_accessibility-onetap-settings .metabox-holder table tr.position-top-bottom td .box-setting-option .box-device .boxes button img,
-body.toplevel_page_accessibility-onetap-settings .metabox-holder table tr.position-top-bottom-tablet td .box-setting-option .box-device .boxes button img,
-body.toplevel_page_accessibility-onetap-settings .metabox-holder table tr.position-top-bottom-mobile td .box-setting-option .box-device .boxes button img {
-  width: 18px;
-  height: 18px;
-  opacity: 0.6;
-}
-
-body.toplevel_page_accessibility-onetap-settings .metabox-holder table tr.position-top-bottom td .box-setting-option .box-device .boxes button span,
-body.toplevel_page_accessibility-onetap-settings .metabox-holder table tr.position-top-bottom-tablet td .box-setting-option .box-device .boxes button span,
-body.toplevel_page_accessibility-onetap-settings .metabox-holder table tr.position-top-bottom-mobile td .box-setting-option .box-device .boxes button span {
-  display: flex;
-  align-items: center;
-  font-size: 14px;
-  font-weight: 600;
-  text-align: center;
-  line-height: 20px;
-  margin: 0;
-  color: #666c76;
-}
-
-body.toplevel_page_accessibility-onetap-settings .metabox-holder table tr.position-top-bottom td .box-setting-option .box-device .boxes button.active,
-body.toplevel_page_accessibility-onetap-settings .metabox-holder table tr.position-top-bottom-tablet td .box-setting-option .box-device .boxes button.active,
-body.toplevel_page_accessibility-onetap-settings .metabox-holder table tr.position-top-bottom-mobile td .box-setting-option .box-device .boxes button.active {
-  border: 1px solid transparent;
-  background: #eee;
-}
-
-body.toplevel_page_accessibility-onetap-settings .metabox-holder table tr.position-top-bottom td .box-setting-option .box-device .boxes button.active img,
-body.toplevel_page_accessibility-onetap-settings .metabox-holder table tr.position-top-bottom-tablet td .box-setting-option .box-device .boxes button.active img,
-body.toplevel_page_accessibility-onetap-settings .metabox-holder table tr.position-top-bottom-mobile td .box-setting-option .box-device .boxes button.active img {
-  opacity: 1;
-}
-
-body.toplevel_page_accessibility-onetap-settings .metabox-holder table tr.position-top-bottom td .box-setting-option .box-device .boxes button.active span,
-body.toplevel_page_accessibility-onetap-settings .metabox-holder table tr.position-top-bottom-tablet td .box-setting-option .box-device .boxes button.active span,
-body.toplevel_page_accessibility-onetap-settings .metabox-holder table tr.position-top-bottom-mobile td .box-setting-option .box-device .boxes button.active span {
-  color: #111;
-}
-
+body.toplevel_page_accessibility-onetap-settings .metabox-holder table tr.device-position td .box-setting-option .box-control,
 body.toplevel_page_accessibility-onetap-settings .metabox-holder table tr.position-top-bottom td .box-setting-option .box-control,
 body.toplevel_page_accessibility-onetap-settings .metabox-holder table tr.position-top-bottom-tablet td .box-setting-option .box-control,
 body.toplevel_page_accessibility-onetap-settings .metabox-holder table tr.position-top-bottom-mobile td .box-setting-option .box-control {
@@ -1178,10 +1227,53 @@ body.toplevel_page_accessibility-onetap-settings .metabox-holder table tr.positi
   padding-left: 0;
 }
 
+body.toplevel_page_accessibility-onetap-settings .metabox-holder table tr.device-position td .box-setting-option .box-control button.save-changes,
 body.toplevel_page_accessibility-onetap-settings .metabox-holder table tr.position-top-bottom td .box-setting-option .box-control button.save-changes,
 body.toplevel_page_accessibility-onetap-settings .metabox-holder table tr.position-top-bottom-tablet td .box-setting-option .box-control button.save-changes,
 body.toplevel_page_accessibility-onetap-settings .metabox-holder table tr.position-top-bottom-mobile td .box-setting-option .box-control button.save-changes {
   display: none;
+}
+
+body.toplevel_page_accessibility-onetap-settings .metabox-holder table tr.toggle-device-position-desktop td,
+body.toplevel_page_accessibility-onetap-settings .metabox-holder table tr.toggle-device-position-tablet td,
+body.toplevel_page_accessibility-onetap-settings .metabox-holder table tr.toggle-device-position-mobile td {
+  padding: 0;
+}
+
+body.toplevel_page_accessibility-onetap-settings .metabox-holder table tr.toggle-device-position-desktop td .box-custom-checkbox,
+body.toplevel_page_accessibility-onetap-settings .metabox-holder table tr.toggle-device-position-tablet td .box-custom-checkbox,
+body.toplevel_page_accessibility-onetap-settings .metabox-holder table tr.toggle-device-position-mobile td .box-custom-checkbox {
+  width: calc(100% - 10px);
+}
+
+body.toplevel_page_accessibility-onetap-settings .metabox-holder table tr.toggle-device-position-desktop td .box-custom-checkbox .left,
+body.toplevel_page_accessibility-onetap-settings .metabox-holder table tr.toggle-device-position-tablet td .box-custom-checkbox .left,
+body.toplevel_page_accessibility-onetap-settings .metabox-holder table tr.toggle-device-position-mobile td .box-custom-checkbox .left {
+  padding-bottom: 20px;
+}
+
+body.toplevel_page_accessibility-onetap-settings .metabox-holder table tr.toggle-device-position-desktop td .box-custom-checkbox .left .icon,
+body.toplevel_page_accessibility-onetap-settings .metabox-holder table tr.toggle-device-position-tablet td .box-custom-checkbox .left .icon,
+body.toplevel_page_accessibility-onetap-settings .metabox-holder table tr.toggle-device-position-mobile td .box-custom-checkbox .left .icon {
+  display: none;
+}
+
+body.toplevel_page_accessibility-onetap-settings .metabox-holder table tr.toggle-device-position-desktop td .box-custom-checkbox .left .text .desc,
+body.toplevel_page_accessibility-onetap-settings .metabox-holder table tr.toggle-device-position-tablet td .box-custom-checkbox .left .text .desc,
+body.toplevel_page_accessibility-onetap-settings .metabox-holder table tr.toggle-device-position-mobile td .box-custom-checkbox .left .text .desc {
+  display: none;
+}
+
+body.toplevel_page_accessibility-onetap-settings .metabox-holder table tr.device-position {
+  display: table-row;
+}
+
+body.toplevel_page_accessibility-onetap-settings .metabox-holder table tr.position-top-bottom td .box-setting-option,
+body.toplevel_page_accessibility-onetap-settings .metabox-holder table tr.position-top-bottom-tablet td .box-setting-option,
+body.toplevel_page_accessibility-onetap-settings .metabox-holder table tr.position-top-bottom-mobile td .box-setting-option {
+  padding-top: 0;
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
 }
 
 body.toplevel_page_accessibility-onetap-settings .metabox-holder table tr.position-left-right,
@@ -1267,18 +1359,26 @@ body.toplevel_page_accessibility-onetap-settings .metabox-holder table tr.widge-
 }
 
 body.toplevel_page_accessibility-onetap-settings .metabox-holder table tr.language td {
+  padding-bottom: 64px;
+}
+
+body.toplevel_page_accessibility-onetap-settings .metabox-holder table tr.other-setttings td {
   padding-bottom: 0;
 }
 
 body.toplevel_page_accessibility-onetap-settings .metabox-holder table tr.hide-powered-by-onetap td {
-  padding-top: 64px;
-  padding-bottom: 0;
+  padding: 0;
 }
 
 body.toplevel_page_accessibility-onetap-settings .metabox-holder table tr.hide-powered-by-onetap td .box-custom-checkbox {
-  border-radius: 1rem;
+  border-radius: 1rem 1rem 0 0;
   padding-bottom: 8px;
   border: none;
+  width: calc(100% - 10px);
+}
+
+body.toplevel_page_accessibility-onetap-settings .metabox-holder table tr.open-toolbar td {
+  padding-bottom: 0;
 }
 
 body.toplevel_page_accessibility-onetap-settings .metabox-holder table tr.active {
@@ -1287,17 +1387,6 @@ body.toplevel_page_accessibility-onetap-settings .metabox-holder table tr.active
 
 body.toplevel_page_accessibility-onetap-settings .metabox-holder table tr.license td {
   padding-top: 64px;
-}
-
-body.toplevel_page_accessibility-onetap-settings .metabox-holder table tr.hide-powered-by-onetap td {
-  padding-top: 64px;
-  padding-bottom: 0;
-}
-
-body.toplevel_page_accessibility-onetap-settings .metabox-holder table tr.hide-powered-by-onetap td .box-custom-checkbox {
-  border-radius: 1rem;
-  padding-bottom: 8px;
-  border: none;
 }
 
 body.toplevel_page_accessibility-onetap-settings .wrap .box-custom-checkbox {
@@ -1450,6 +1539,22 @@ body.toplevel_page_accessibility-onetap-settings .wrap .box-custom-checkbox.onet
   width: 100%;
   height: 100%;
   z-index: 10000000000000000;
+}
+
+body.toplevel_page_accessibility-onetap-settings .wrap .text-review-bottom {
+  font-size: 15px;
+  display: block;
+  margin-top: 64px;
+  opacity: 0;
+  animation: onetapFadeIn 0.35s ease forwards;
+  animation-delay: 0.35s;
+}
+
+@keyframes onetapFadeIn {
+
+  to {
+    opacity: 1;
+  }
 }
 
 body.onetap_page_accessibility-onetap-modules .wrap .box-custom-checkbox {
@@ -2411,6 +2516,38 @@ body.onetap_page_accessibility-onetap-accessibility-status .wrap .accessibility-
     padding: 20px;
   }
 
+  body.toplevel_page_accessibility-onetap-settings .metabox-holder table tr.border td,
+  body.toplevel_page_accessibility-onetap-settings .metabox-holder table tr.language td {
+    padding-bottom: 30px;
+  }
+
+  body.toplevel_page_accessibility-onetap-settings .metabox-holder table tr.toggle-device-position-desktop td .box-custom-checkbox,
+  body.toplevel_page_accessibility-onetap-settings .metabox-holder table tr.toggle-device-position-tablet td .box-custom-checkbox,
+  body.toplevel_page_accessibility-onetap-settings .metabox-holder table tr.toggle-device-position-mobile td .box-custom-checkbox {
+    width: 100%;
+  }
+
+  body.toplevel_page_accessibility-onetap-settings .metabox-holder table tr.device-position td .box-setting-option {
+    padding: 20px;
+  }
+
+  body.toplevel_page_accessibility-onetap-settings .metabox-holder table tr.position-top-bottom td .box-setting-option,
+  body.toplevel_page_accessibility-onetap-settings .metabox-holder table tr.position-top-bottom-tablet td .box-setting-option,
+  body.toplevel_page_accessibility-onetap-settings .metabox-holder table tr.position-top-bottom-mobile td .box-setting-option {
+    padding-left: 0;
+    padding-right: 0;
+  }
+
+  body.toplevel_page_accessibility-onetap-settings .metabox-holder table tr.position-top-bottom td .box-setting-option .box-control,
+  body.toplevel_page_accessibility-onetap-settings .metabox-holder table tr.position-top-bottom-tablet td .box-setting-option .box-control,
+  body.toplevel_page_accessibility-onetap-settings .metabox-holder table tr.position-top-bottom-mobile td .box-setting-option .box-control {
+    padding: 20px;
+  }
+
+  body.toplevel_page_accessibility-onetap-settings .metabox-holder table tr.hide-powered-by-onetap td .box-custom-checkbox {
+    width: 100%;
+  }
+
   body.toplevel_page_accessibility-onetap-settings .metabox-holder table tr.license td {
     padding-top: 30px;
   }
@@ -2472,7 +2609,7 @@ body.onetap_page_accessibility-onetap-accessibility-status .wrap .accessibility-
     height: 108px;
   }
 
-  body.onetap-pro_page_apop-accessibility-status .wrap .box-button-navigation .separator::before, body.onetap-pro_page_apop-accessibility-status .wrap .box-button-navigation .separator::after {
+  body.onetap_page_accessibility-onetap-accessibility-status .wrap .box-button-navigation .separator::before, body.onetap_page_accessibility-onetap-accessibility-status .wrap .box-button-navigation .separator::after {
     height: 108px;
   }
 }

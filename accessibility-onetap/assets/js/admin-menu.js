@@ -27,8 +27,9 @@
 	} );
 
 	// Add 'active' class to the default desktop layout
-	$( 'tr.position-top-bottom, tr.position-left-right, tr.widge-position' ).addClass( 'active' );
+	$( 'tr.toggle-device-position-desktop, tr.position-top-bottom, tr.position-left-right, tr.widge-position' ).addClass( 'active' );
 
+	// Handle button click events in the device selection box
 	// Handle button click events in the device selection box
 	$( '.box-setting-option .box-device .boxes button' ).on( 'click', function() {
 		$( '.box-setting-option .box-device .boxes button' ).removeClass( 'active' );
@@ -38,56 +39,68 @@
 		if ( 'desktop active' === getClass ) {
 			$( '.box-setting-option .box-device .boxes button.desktop' ).addClass( 'active' );
 
+			$( 'tr.toggle-device-position-desktop' ).addClass( 'active' );
 			$( 'tr.position-top-bottom' ).addClass( 'active' );
 			$( 'tr.position-left-right' ).addClass( 'active' );
 			$( 'tr.widge-position' ).addClass( 'active' );
 
+			$( 'tr.toggle-device-position-tablet' ).removeClass( 'active' );
 			$( 'tr.position-top-bottom-tablet' ).removeClass( 'active' );
 			$( 'tr.position-left-right-tablet' ).removeClass( 'active' );
 			$( 'tr.widge-position-tablet' ).removeClass( 'active' );
 
+			$( 'tr.toggle-device-position-mobile' ).removeClass( 'active' );
 			$( 'tr.position-top-bottom-mobile' ).removeClass( 'active' );
 			$( 'tr.position-left-right-mobile' ).removeClass( 'active' );
 			$( 'tr.widge-position-mobile' ).removeClass( 'active' );
 		} else if ( 'tablet active' === getClass ) {
 			$( '.box-setting-option .box-device .boxes button.tablet' ).addClass( 'active' );
 
+			$( 'tr.toggle-device-position-desktop' ).removeClass( 'active' );
 			$( 'tr.position-top-bottom' ).removeClass( 'active' );
 			$( 'tr.position-left-right' ).removeClass( 'active' );
 			$( 'tr.widge-position' ).removeClass( 'active' );
 
+			$( 'tr.toggle-device-position-tablet' ).addClass( 'active' );
 			$( 'tr.position-top-bottom-tablet' ).addClass( 'active' );
 			$( 'tr.position-left-right-tablet' ).addClass( 'active' );
 			$( 'tr.widge-position-tablet' ).addClass( 'active' );
 
+			$( 'tr.toggle-device-position-mobile' ).removeClass( 'active' );
 			$( 'tr.position-top-bottom-mobile' ).removeClass( 'active' );
 			$( 'tr.position-left-right-mobile' ).removeClass( 'active' );
 			$( 'tr.widge-position-mobile' ).removeClass( 'active' );
 		} else if ( 'mobile active' === getClass ) {
 			$( '.box-setting-option .box-device .boxes button.mobile' ).addClass( 'active' );
 
+			$( 'tr.toggle-device-position-desktop' ).removeClass( 'active' );
 			$( 'tr.position-top-bottom' ).removeClass( 'active' );
 			$( 'tr.position-left-right' ).removeClass( 'active' );
 			$( 'tr.widge-position' ).removeClass( 'active' );
 
+			$( 'tr.toggle-device-position-tablet' ).removeClass( 'active' );
 			$( 'tr.position-top-bottom-tablet' ).removeClass( 'active' );
 			$( 'tr.position-left-right-tablet' ).removeClass( 'active' );
 			$( 'tr.widge-position-tablet' ).removeClass( 'active' );
 
+			$( 'tr.toggle-device-position-mobile' ).addClass( 'active' );
 			$( 'tr.position-top-bottom-mobile' ).addClass( 'active' );
 			$( 'tr.position-left-right-mobile' ).addClass( 'active' );
 			$( 'tr.widge-position-mobile' ).addClass( 'active' );
 		} else {
 			$( '.box-setting-option .box-device .boxes button.desktop' ).addClass( 'active' );
 
+			$( 'tr.toggle-device-position-desktop' ).addClass( 'active' );
 			$( 'tr.position-top-bottom' ).addClass( 'active' );
 			$( 'tr.position-left-right' ).addClass( 'active' );
 			$( 'tr.widge-position' ).addClass( 'active' );
 
+			$( 'tr.toggle-device-position-tablet' ).removeClass( 'active' );
 			$( 'tr.position-top-bottom-tablet' ).removeClass( 'active' );
 			$( 'tr.position-left-right-tablet' ).removeClass( 'active' );
 			$( 'tr.widge-position-tablet' ).removeClass( 'active' );
 
+			$( 'tr.toggle-device-position-mobile' ).removeClass( 'active' );
 			$( 'tr.position-top-bottom-mobile' ).removeClass( 'active' );
 			$( 'tr.position-left-right-mobile' ).removeClass( 'active' );
 			$( 'tr.widge-position-mobile' ).removeClass( 'active' );
@@ -105,7 +118,7 @@
 	}
 
 	// Attach a click event listener to all <a> tags with href starting with '#'
-	$( 'a[href^="#"]' ).on( 'click', function( event ) {
+	$( '.box-button-navigation a[href^="#"]' ).on( 'click', function( event ) {
 		// Get the target element based on the href attribute of the clicked link
 		const target = $( $.attr( this, 'href' ) );
 

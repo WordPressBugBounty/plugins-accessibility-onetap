@@ -3,7 +3,7 @@ Contributors: wponetap, yukyhendiawan
 Tags: onetap, accessibility, navigation, a11y, accessibility, Alt Text, wcag, Read Page, toolbar, ada, accessibility widget, elementor accessibility, gutenberg accessibility
 Requires at least: 6.6
 Tested up to:      6.8
-Stable tag:        2.3.2
+Stable tag:        2.4.0
 Requires PHP:      7.4
 License:           GPL-2.0-or-later
 License URI:       https://www.gnu.org/licenses/gpl-2.0.html
@@ -105,6 +105,18 @@ No coding, setup or account necessary→ install and start. OneTap is the best W
 🇭🇷 Hrvatski
 🇮🇪 Gaeilge
 🇧🇬 Български
+🇳🇴 Norsk
+🇹🇷 Türkçe
+🇮🇩 Bahasa Indonesia
+🇧🇷 Português (Brasil)
+🇯🇵 日本語
+🇰🇷 한국어
+🇨🇳 简体中文
+🇦🇪 العربية
+🇷🇺 Русский
+🇮🇳 हिन्दी
+🇺🇦 Українська
+🇷🇸 Српски
 
 ### ⭐ See What Our Users Have to Say
 
@@ -168,6 +180,14 @@ Absolutely! Excellent customer support is vital for a quality product, and we’
 4. Screenshot 4.
 
 == Changelog ==
+
+= 2.4.0 =
+* Option to hide the Toolbar
+* Possibility to open Toolbar with custom ID
+* Adding a new Tab into the Settings Other Settings
+* Hide on Desktop, Tablet and Mobile
+* Review Changes
+* Fix Wordpress Warning
 
 = 2.3.2 =
 * Remove banner review
