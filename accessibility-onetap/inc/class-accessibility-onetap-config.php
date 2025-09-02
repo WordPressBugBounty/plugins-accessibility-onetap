@@ -77,6 +77,15 @@ class Accessibility_Onetap_Config {
 	);
 
 	/**
+	 * Static array property to hold general settings configurations.
+	 *
+	 * @var array
+	 */
+	public static $general_settings = array(
+		'hide_powered_by_onetap' => 'off',
+	);
+
+	/**
 	 * Static method to get a setting value.
 	 *
 	 * @param string $key The setting key to retrieve.
@@ -95,9 +104,20 @@ class Accessibility_Onetap_Config {
 	public static function get_module( $key ) {
 		return isset( self::$modules[ $key ] ) ? self::$modules[ $key ] : null; // Return module value or null.
 	}
+
+	/**
+	 * Static method to get a general setting configuration value.
+	 *
+	 * @param string $key The general setting key to retrieve.
+	 * @return mixed The general setting value or null if key doesn't exist.
+	 */
+	public static function get_general_setting( $key ) {
+		return isset( self::$general_settings[ $key ] ) ? self::$general_settings[ $key ] : null; // Return general setting value or null.
+	}
 }
 
 // Example usage:
 // Accessing static array values without creating an object.
 // echo Accessibility_Onetap_Config::get_setting('language'); // Output: en.
 // echo Accessibility_Onetap_Config::get_module('bigger_text'); // Output: on.
+// echo Onetap_Pro_Config::get_general_setting('hide_powered_by_onetap'); // Output: off.

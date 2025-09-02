@@ -83,6 +83,7 @@ class Accessibility_Onetap {
 		$this->load_dependencies();
 		$this->set_locale();
 		$this->define_admin_hooks();
+		$this->define_alt_text_admin_hooks();
 		$this->define_settings_options();
 		$this->define_public_hooks();
 	}
@@ -113,6 +114,11 @@ class Accessibility_Onetap {
 		require_once plugin_dir_path( __DIR__ ) . 'includes/class-accessibility-onetap-loader.php';
 
 		/**
+		 * Load the helper functions for template handling (e.g., accessibility_onetap_load_template()).
+		 */
+		require_once plugin_dir_path( __DIR__ ) . 'includes/helpers-template.php';
+
+		/**
 		 * The class responsible for defining internationalization functionality
 		 * of the plugin.
 		 */
@@ -137,6 +143,11 @@ class Accessibility_Onetap {
 		 * The class responsible for defining all actions that occur in the admin area.
 		 */
 		require_once plugin_dir_path( __DIR__ ) . 'admin/class-accessibility-onetap-admin.php';
+
+		/**
+		 * The class responsible for defining all actions that occur in the admin area alt text.
+		 */
+		require_once plugin_dir_path( __DIR__ ) . 'admin/class-onetap-free-alt-text.php';
 
 		/**
 		 * The class responsible for defining all actions that occur in the public-facing
@@ -185,6 +196,24 @@ class Accessibility_Onetap {
 			$this->loader->add_action( 'admin_init', $plugin_admin, 'register_settings_for_accessibility_status' );
 
 		}
+	}
+
+	/**
+	 * Register all hooks related to alt text management functionality in the admin area.
+	 *
+	 * Sets up AJAX handlers for managing image alt text, including saving and updating
+	 * alt text for images to improve accessibility compliance.
+	 *
+	 * @since    1.0.0
+	 * @access   private
+	 */
+	private function define_alt_text_admin_hooks() {
+
+		// Initialize the alt text management class with plugin details.
+		$plugin_admin = new Onetap_Free_Alt_Text( $this->get_plugin_name(), $this->get_version() );
+
+		// Register AJAX action for saving alt text.
+		$this->loader->add_action( 'wp_ajax_onetap_save_alt_text', $plugin_admin, 'handle_ajax_save_alt_text' );
 	}
 
 	/**

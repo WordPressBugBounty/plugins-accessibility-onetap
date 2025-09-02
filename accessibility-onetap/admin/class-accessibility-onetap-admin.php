@@ -110,10 +110,31 @@ class Accessibility_Onetap_Admin {
 	 * Register the stylesheets for the admin area.
 	 *
 	 * @since    1.0.0
+	 *
+	 * @param string $hook The current admin page hook suffix passed by WordPress.
 	 */
-	public function enqueue_styles() {
+	public function enqueue_styles( $hook ) {
 
-		wp_enqueue_style( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'css/accessibility-onetap-admin.css', array(), $this->version, 'all' );
+		if ( 'toplevel_page_accessibility-onetap-settings' === $hook ||
+			'onetap_page_accessibility-onetap-general-settings' === $hook ||
+			'onetap_page_accessibility-onetap-alt-text' === $hook ||
+			'onetap_page_accessibility-onetap-modules' === $hook ||
+			'admin_page_onetap-module-labels' === $hook ||
+			'onetap_page_accessibility-onetap-accessibility-status' === $hook
+		) {
+
+			// Enqueue the main admin CSS for the plugin.
+			wp_enqueue_style( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'css/accessibility-onetap-admin.css', array(), $this->version, 'all' );
+
+			// Enqueue Google Fonts (Inter) for the admin pages of the plugin.
+			wp_enqueue_style(
+				'onetap-google-fonts',
+				'https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap',
+				array(),
+				$this->version,
+				'all'
+			);
+		}
 	}
 
 	/**
@@ -125,19 +146,34 @@ class Accessibility_Onetap_Admin {
 	 */
 	public function enqueue_scripts( $hook ) {
 
-		if ( 'toplevel_page_accessibility-onetap-settings' === $hook || 'onetap_page_accessibility-onetap-modules' === $hook || 'admin_page_onetap-module-labels' === $hook || 'onetap_page_accessibility-onetap-accessibility-status' === $hook ) {
+		if ( 'toplevel_page_accessibility-onetap-settings' === $hook ||
+			'onetap_page_accessibility-onetap-general-settings' === $hook ||
+			'onetap_page_accessibility-onetap-alt-text' === $hook ||
+			'onetap_page_accessibility-onetap-modules' === $hook ||
+			'admin_page_onetap-module-labels' === $hook ||
+			'onetap_page_accessibility-onetap-accessibility-status' === $hook
+		) {
 			wp_enqueue_script( $this->plugin_name, ACCESSIBILITY_ONETAP_PLUGINS_URL . 'assets/js/admin-menu.min.js', array( 'jquery' ), $this->version, true );
 
 			wp_enqueue_script( $this->plugin_name . '-sweetalert', ACCESSIBILITY_ONETAP_PLUGINS_URL . 'assets/js/sweetalert.min.js', array(), $this->version, true );
+
+			// Get plugin settings.
+			$plugin_settings = get_option( 'onetap_settings' );
+
+			// Get active language.
+			$language = isset( $plugin_settings['language'] ) ? $plugin_settings['language'] : 'en';
 
 			// Localize admin.
 			wp_localize_script(
 				$this->plugin_name,
 				'adminLocalize',
 				array(
-					'ajaxUrl'   => admin_url( 'admin-ajax.php' ),
-					'ajaxNonce' => wp_create_nonce( 'onetap-ajax-verification' ),
-					'adminUrl'  => esc_url( admin_url() ),
+					'ajaxUrl'         => admin_url( 'admin-ajax.php' ),
+					'ajaxNonce'       => wp_create_nonce( 'onetap-ajax-verification' ),
+					'adminUrl'        => esc_url( admin_url() ),
+					'pluginUrl'       => ACCESSIBILITY_ONETAP_PLUGINS_URL,
+					'activeLanguage'  => $language,
+					'localizedLabels' => get_option( 'apop_localized_labels' ),
 				)
 			);
 		}

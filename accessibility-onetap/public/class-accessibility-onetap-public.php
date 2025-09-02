@@ -597,7 +597,7 @@ class Accessibility_Onetap_Public {
 		$setting_hide_powered_by_onetap         = isset( $settings['hide-powered-by-onetap'] ) ? esc_html( $settings['hide-powered-by-onetap'] ) : Accessibility_Onetap_Config::get_setting( 'hide_powered_by_onetap' );
 
 		// Get the 'onetap_modules' option from the database.
-		$modules                     = get_option( 'apop_modules' );
+		$modules                     = get_option( 'onetap_modules' );
 		$modules_bigger_text         = isset( $modules['bigger-text'] ) ? esc_html( $modules['bigger-text'] ) : Accessibility_Onetap_Config::get_module( 'bigger_text' );
 		$modules_cursor              = isset( $modules['cursor'] ) ? esc_html( $modules['cursor'] ) : Accessibility_Onetap_Config::get_module( 'cursor' );
 		$modules_line_height         = isset( $modules['line-height'] ) ? esc_html( $modules['line-height'] ) : Accessibility_Onetap_Config::get_module( 'line_height' );
