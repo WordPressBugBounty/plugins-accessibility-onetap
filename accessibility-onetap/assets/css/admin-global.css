@@ -5,6 +5,7 @@
   transition: all 0.1s ease-in-out;
   width: 20px;
   height: 20px;
+  box-sizing: content-box;
 }
 
 #adminmenu a[href="admin.php?page=apop-settings"] .wp-menu-image img {
@@ -13,14 +14,17 @@
 
 #adminmenu a[href="admin.php?page=apop-settings"]:hover .wp-menu-image {
   content: url(../images/admin/menu-hover.svg);
+  box-sizing: content-box;
 }
 
 #adminmenu a[href="admin.php?page=apop-settings"].wp-menu-open .wp-menu-image {
   content: url(../images/admin/menu-active.svg);
+  box-sizing: content-box;
 }
 
 #adminmenu a[href="admin.php?page=apop-settings"].wp-menu-open:hover .wp-menu-image {
   content: url(../images/admin/menu-active.svg);
+  box-sizing: content-box;
 }
 
 #adminmenu a[href="admin.php?page=accessibility-onetap-pro"] {
@@ -40,6 +44,7 @@
   transition: all 0.1s ease-in-out;
   width: 20px;
   height: 20px;
+  box-sizing: content-box;
 }
 
 #adminmenu a[href="admin.php?page=accessibility-onetap-settings"] .wp-menu-image img {
@@ -48,14 +53,17 @@
 
 #adminmenu a[href="admin.php?page=accessibility-onetap-settings"]:hover .wp-menu-image {
   content: url(../images/admin/menu-hover.svg);
+  box-sizing: content-box;
 }
 
 #adminmenu a[href="admin.php?page=accessibility-onetap-settings"].wp-menu-open .wp-menu-image {
   content: url(../images/admin/menu-active.svg);
+  box-sizing: content-box;
 }
 
 #adminmenu a[href="admin.php?page=accessibility-onetap-settings"].wp-menu-open:hover .wp-menu-image {
   content: url(../images/admin/menu-active.svg);
+  box-sizing: content-box;
 }
 
 #adminmenu .wp-submenu a[href="admin.php?page=accessibility-onetap-pro"]:hover,

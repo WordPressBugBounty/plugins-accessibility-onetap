@@ -746,7 +746,7 @@
 		// Check if the key is 'readableFont'. If it is, the function will proceed with font size adjustments.
 		if ( 'readableFont' === key ) {
 			// Update style for all elements except specific ones
-			$( '*' ).not( accessibilityOnetapSkipElements ).each( function() {
+			$( '*' ).not( accessibilityOnetapSkipElements ).not( 'i, i *' ).each( function() {
 				let currentStyle = $( this ).attr( 'style' ) || '';
 
 				if ( ! accessibilityDataKey ) {
@@ -795,7 +795,7 @@
 		// Check if the key is 'dyslexicFont'. If it is, the function will proceed with font size adjustments.
 		if ( 'dyslexicFont' === key && ! accessibilityOnetapGetData().readableFont ) {
 			// Update style for all elements except specific ones
-			$( '*' ).not( accessibilityOnetapSkipElements ).each( function() {
+			$( '*' ).not( accessibilityOnetapSkipElements ).not( 'i, i *' ).each( function() {
 				let currentStyle = $( this ).attr( 'style' ) || '';
 
 				if ( ! accessibilityDataKey ) {
@@ -1340,10 +1340,10 @@
 			document.body.onkeydown = function( e ) {
 				const keyPressed = e.keyCode || e.charCode || e.which;
 
-				/** Spacebar pressed. */
-				if ( keyPressed === 32 ) {
-					spacePressed( e );
-				}
+				// /** Spacebar pressed. */
+				// if ( keyPressed === 32 ) {
+				// 	spacePressed( e );
+				// }
 			};
 		}
 

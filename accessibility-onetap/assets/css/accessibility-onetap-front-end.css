@@ -267,6 +267,12 @@ nav.onetap-accessibility.onetap-plugin-onetap * {
   box-sizing: border-box !important;
 }
 
+nav.onetap-accessibility.onetap-plugin-onetap input[type="submit"]::before,
+nav.onetap-accessibility.onetap-plugin-onetap button::before,
+nav.onetap-accessibility.onetap-plugin-onetap .button::before {
+  background: #fff;
+}
+
 nav.onetap-accessibility.onetap-plugin-onetap button {
   border: 1px solid transparent !important;
   background: none !important;
@@ -277,11 +283,18 @@ nav.onetap-accessibility.onetap-plugin-onetap button {
   letter-spacing: 0 !important;
   text-transform: none !important;
   font-weight: 400 !important;
+  margin: 0 !important;
+  min-height: auto !important;
+  min-width: auto !important;
 }
 
 nav.onetap-accessibility.onetap-plugin-onetap button:focus {
   border: 1px solid currentcolor !important;
   outline-offset: 0 !important;
+}
+
+nav.onetap-accessibility.onetap-plugin-onetap input {
+  margin: 0 !important;
 }
 
 nav.onetap-accessibility.onetap-plugin-onetap h2,
@@ -335,6 +348,7 @@ nav.onetap-accessibility.onetap-plugin-onetap .onetap-container {
 nav.onetap-accessibility.onetap-plugin-onetap .onetap-container .onetap-accessibility-settings {
   background: #eef1f5 !important;
   height: 100vh !important;
+  display: block !important;
 }
 
 nav.onetap-accessibility.onetap-plugin-onetap .onetap-container .onetap-accessibility-settings header.onetap-header-top {

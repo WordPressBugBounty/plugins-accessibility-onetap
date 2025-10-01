@@ -639,6 +639,26 @@ header .mycontainer .myrow.one .box-menu ul li:nth-child(2) {
   margin-left: 12px;
 }
 
+header .mycontainer .myrow.one .box-menu ul li .get-pro {
+  cursor: pointer;
+  border-radius: 8px;
+  border: 2px solid rgba(255, 255, 255, 0.12);
+  border: none;
+  background: #0048FE;
+  color: #fff;
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 20px;
+  outline: none;
+  padding: 10px 16px;
+  margin: 0;
+}
+
+header .mycontainer .myrow.one .box-menu ul li .get-pro:hover {
+  background: #2057d1;
+  background: #023FDC;
+}
+
 header .mycontainer .myrow.two {
   display: flex;
   flex-wrap: wrap;
@@ -1799,7 +1819,7 @@ header .mycontainer .myrow.two .box-save-changes {
   position: absolute;
   bottom: -19px;
   right: 65px;
-  height: 38px;
+  height: auto;
   width: 200px;
 }
 
@@ -2205,8 +2225,8 @@ header .mycontainer .myrow.two .box-save-changes {
   /* stylelint-enable selector-id-pattern */
 }
 /* stylelint-disable selector-id-pattern */
-#apop_module_labels .settings-group.bigger-text .setting-control .setting-title,
-#onetap_module_labels .settings-group.bigger-text .setting-control .setting-title {
+#apop_module_labels .settings-group.accessibility-adjustments .setting-control .setting-title,
+#onetap_module_labels .settings-group.accessibility-adjustments .setting-control .setting-title {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
@@ -2214,9 +2234,11 @@ header .mycontainer .myrow.two .box-save-changes {
   gap: 15px;
 }
 
+#apop_module_labels .settings-group.accessibility-adjustments .setting-control .setting-title,
 #apop_module_labels .settings-group.bigger-text .setting-control .setting-title,
 #apop_module_labels .settings-group.invert-colors .setting-control .setting-title,
 #apop_module_labels .settings-group.reading-line .setting-control .setting-title,
+#onetap_module_labels .settings-group.accessibility-adjustments .setting-control .setting-title,
 #onetap_module_labels .settings-group.bigger-text .setting-control .setting-title,
 #onetap_module_labels .settings-group.invert-colors .setting-control .setting-title,
 #onetap_module_labels .settings-group.reading-line .setting-control .setting-title {

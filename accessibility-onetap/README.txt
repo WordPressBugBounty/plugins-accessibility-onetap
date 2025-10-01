@@ -1,9 +1,9 @@
 === Accessibility Widget by OneTap – Easy One-Click Accessibility Toolbar ===
 Contributors: wponetap, yukyhendiawan
-Tags: onetap, accessibility, navigation, a11y, accessibility, Alt Text, wcag, Read Page, toolbar, ada, accessibility widget, elementor accessibility, gutenberg accessibility
+Tags: accessibility widget, web accessibility, wcag, ada, wp accessibility
 Requires at least: 6.6
 Tested up to:      6.8
-Stable tag:        2.5.0
+Stable tag:        2.5.1
 Requires PHP:      7.4
 License:           GPL-2.0-or-later
 License URI:       https://www.gnu.org/licenses/gpl-2.0.html
@@ -180,6 +180,16 @@ Absolutely! Excellent customer support is vital for a quality product, and we’
 4. Screenshot 4.
 
 == Changelog ==
+
+= 2.5.1 =
+* Fix: Issue with CF7 forms: space cannot be entered in text fields.
+* Fix: Background Styling Conflict
+* Refactor: Active State Styling
+* Fix: Font / Roboto Issue
+* Fix: PHP 8.2 Notice
+* Fix: Conflict with Automatic.css
+* Fix: Layout Issue
+* Fix: Tooltip Bug
 
 = 2.5.0 =
 * New dashboard

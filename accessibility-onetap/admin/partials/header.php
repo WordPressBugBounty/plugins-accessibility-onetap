@@ -15,20 +15,21 @@
 	<div class="mycontainer">
 		<div class="myrow one">
 			<div class="box-logo">
-				<img style="height: auto;" src="<?php echo esc_url( ACCESSIBILITY_ONETAP_PLUGINS_URL . 'assets/images/logo.png' ); ?>" alt="<?php echo esc_attr__( 'logo', 'accessibility-onetap' ); ?>" width="125" />
+				<img style="height: auto;" src="<?php echo esc_url( ACCESSIBILITY_ONETAP_PLUGINS_URL . 'assets/images/logo.png' ); ?>" alt="<?php echo esc_attr( 'logo' ); ?>" width="125" />
 			</div>
 			<div class="box-menu">
 				<ul>
-					<li>
-						<a target="_blank" href="<?php echo esc_url( 'https://wponetap.com/help-center/' ); ?>" class="button outline">
-							<?php esc_html_e( 'Documentation', 'accessibility-onetap' ); ?>
-						</a>
-					</li>
 					<li>
 						<a target="_blank" href="<?php echo esc_url( 'https://wponetap.com/support/' ); ?>" class="button outline">
 							<?php esc_html_e( 'Support', 'accessibility-onetap' ); ?>
 						</a>
 					</li>
+					<li>
+						<a target="_blank" href="<?php echo esc_url( 'https://wponetap.com/pricing/' ); ?>" class="button get-pro">
+							<?php esc_html_e( 'Get PRO', 'accessibility-onetap' ); ?>
+							<svg style="margin-left: 6px;" width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M1 11L11 1M11 1H1M11 1V11" stroke="#C8E0FF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+						</a>
+					</li>					
 					<li>
 						<a style="display: flex;flex-wrap: wrap;align-items: center;gap: 6px; box-shadow: 0 0 0 1px rgba(10, 13, 18, 0.18) inset, 0 -2px 0 0 rgba(10, 13, 18, 0.05) inset, 0 1px 2px 0 rgba(10, 13, 18, 0.05); display: none;" target="_blank" href="<?php echo esc_url( 'https://wponetap.com/pricing/' ); ?>" class="button solid">
 							<?php esc_html_e( 'Get PRO', 'accessibility-onetap' ); ?>

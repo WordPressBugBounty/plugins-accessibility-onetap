@@ -924,7 +924,7 @@
 	 */
 	function appendCurrentLanguageBoxToModuleLabels() {
 		const $sourceBox = $( '.box-current-language' );
-		const $targetControl = $( '.settings-group.bigger-text .setting-control.module-labels .setting-title' );
+		const $targetControl = $( '.settings-group.accessibility-adjustments .setting-control.module-labels .setting-title' );
 
 		if ( $sourceBox.length && $targetControl.length ) {
 			// Avoid duplicate insertion if already appended
