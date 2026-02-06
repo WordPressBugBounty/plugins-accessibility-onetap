@@ -1,12 +1,42 @@
 /* eslint no-undef: "off", no-alert: "off" */
 ( function( $ ) {
+	// Flag to prevent multiple executions
+	let isProcessing = false;
+
 	/**
 	 * Handle save changes button click in header
 	 * When the save changes button in the header is clicked,
 	 * it triggers the actual submit button in the corresponding page form
 	 */
-	$( '.box-save-changes .save-changes' ).on( 'click', function( e ) {
+	$( '.box-save-changes .save-changes, .box-save-changes .fake-save-changes' ).on( 'click', function( e ) {
 		e.preventDefault();
+
+		// Prevent multiple executions
+		if ( isProcessing ) {
+			return;
+		}
+
+		const $button = $( this );
+
+		// Set processing flag to true
+		isProcessing = true;
+
+		// Check if button has fake-save-changes class, if yes, wait 2.7 seconds before proceeding
+		if ( $button.hasClass( 'fake-save-changes' ) ) {
+			setTimeout( function() {
+				executeSaveChanges();
+			}, 2700 );
+		} else {
+			executeSaveChanges();
+		}
+	} );
+
+	/**
+	 * Execute save changes functionality
+	 */
+	function executeSaveChanges() {
+		// Save language toggles first
+		saveLanguageToggles();
 
 		// Get current page parameter from URL
 		const urlParams = new URLSearchParams( window.location.search );
@@ -15,6 +45,34 @@
 		// Convert hyphens to underscores for CSS ID selector compatibility
 		currentPageId = currentPageId.replace( /-/g, '_' );
 
+		// Get the language select dropdown input and update localStorage
+		const $languageInput = $( '.setting-control.language-select .language-select-input' );
+		const languageValue = $languageInput.val();
+
+		// Only update localStorage if dropdown has a value
+		if ( languageValue && languageValue.trim() !== '' ) {
+			try {
+				// Get localStorage data
+				const localStorageKey = 'onetap-accessibility-free';
+				const storedData = localStorage.getItem( localStorageKey );
+
+				if ( storedData ) {
+					// Parse JSON data
+					const data = JSON.parse( storedData );
+
+					// Update language in information object
+					if ( data.information ) {
+						data.information.language = languageValue;
+
+						// Save back to localStorage
+						localStorage.setItem( localStorageKey, JSON.stringify( data ) );
+					}
+				}
+			} catch ( error ) {
+				console.error( 'Error updating language in localStorage:', error );
+			}
+		}
+
 		// If contains "accessibility_onetap", remove only the "accessibility_" part
 		if ( currentPageId.includes( 'accessibility_onetap' ) ) {
 			currentPageId = currentPageId.replace( 'accessibility_', '' );
@@ -22,7 +80,67 @@
 
 		// Trigger click on the submit button within the current page form
 		$( '#' + currentPageId + ' .submit-button .button' ).trigger( 'click' );
-	} );
+
+		// Reset processing flag after a short delay to allow form submission
+		setTimeout( function() {
+			isProcessing = false;
+		}, 100 );
+	}
+
+	/**
+	 * Save language toggles via AJAX
+	 * Collects all language toggle states from all dropdowns and saves them
+	 */
+	function saveLanguageToggles() {
+		// Find all language select dropdowns
+		const $allDropdowns = $( '.language-select-dropdown' );
+
+		// Collect all language toggle states from all dropdowns
+		const allLanguageToggles = {};
+
+		$allDropdowns.each( function() {
+			const $dropdown = $( this );
+			const $options = $dropdown.find( '.language-select-options' );
+
+			$options.find( '.box-swich input[type="checkbox"]' ).each( function() {
+				const $input = $( this );
+				const $option = $input.closest( '.language-select-option' );
+				const inputId = $input.attr( 'id' );
+
+				// Extract language code from ID: apop_settings[toggle-language-en] -> en
+				const match = inputId.match( /toggle-language-([^\]]+)/ );
+				if ( match && match[ 1 ] ) {
+					const langCode = match[ 1 ];
+					// If option has .selected class, always set as 'on', otherwise check checkbox state
+					const isSelected = $option.hasClass( 'selected' );
+					allLanguageToggles[ langCode ] = ( isSelected || $input.is( ':checked' ) ) ? 'on' : 'off';
+				}
+			} );
+		} );
+
+		// Send AJAX request to save language toggles
+		if ( typeof adminLocalize !== 'undefined' && adminLocalize.ajaxUrl && adminLocalize.ajaxNonce ) {
+			$.ajax( {
+				url: adminLocalize.ajaxUrl,
+				type: 'POST',
+				data: {
+					action: 'save_language_toggles',
+					nonce: adminLocalize.ajaxNonce,
+					language_toggles: allLanguageToggles,
+				},
+				success( response ) {
+					if ( response.success ) {
+						console.log( 'Language toggles saved successfully' );
+					} else {
+						console.error( 'Failed to save language toggles:', response.error || 'Unknown error' );
+					}
+				},
+				error( xhr, status, error ) {
+					console.error( 'AJAX error saving language toggles:', error );
+				},
+			} );
+		}
+	}
 
 	// Handle radio image selection - remove checked class from all labels in the same group and add to clicked one
 	$( '.setting-control.radio-image .box .label' ).click( function() {

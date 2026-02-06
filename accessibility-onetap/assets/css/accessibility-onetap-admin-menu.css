@@ -2,18 +2,18 @@
  * Toggle Switch Placeholder
  * Provides consistent styling for toggle switch components
  */
-.wrap form .mycontainer .left-column .box-control-switch .box-swich label.switch, .setting-control.switch .boxes .box .right .box-swich label.switch {
+.wrap form .mycontainer .left-column .box-control-switch .box-swich label.switch, .setting-control.switch .boxes .box .right .box-swich label.switch, .setting-control.language-select-toggles .boxes .box .language-select-dropdown .language-select-options .language-select-option .box-swich label.switch {
   display: inline-block;
   width: 44px;
   height: 24px;
   padding: 2px;
 }
 
-.wrap form .mycontainer .left-column .box-control-switch .box-swich label.switch input, .setting-control.switch .boxes .box .right .box-swich label.switch input {
+.wrap form .mycontainer .left-column .box-control-switch .box-swich label.switch input, .setting-control.switch .boxes .box .right .box-swich label.switch input, .setting-control.language-select-toggles .boxes .box .language-select-dropdown .language-select-options .language-select-option .box-swich label.switch input {
   display: none;
 }
 
-.wrap form .mycontainer .left-column .box-control-switch .box-swich label.switch .slider, .setting-control.switch .boxes .box .right .box-swich label.switch .slider {
+.wrap form .mycontainer .left-column .box-control-switch .box-swich label.switch .slider, .setting-control.switch .boxes .box .right .box-swich label.switch .slider, .setting-control.language-select-toggles .boxes .box .language-select-dropdown .language-select-options .language-select-option .box-swich label.switch .slider {
   position: absolute;
   cursor: pointer;
   top: 0;
@@ -21,17 +21,15 @@
   right: 0;
   bottom: 0;
   background: #ddd;
-  -webkit-transition: 0.4s;
   transition: 0.4s;
   margin: 0;
 }
 
-.wrap form .mycontainer .left-column .box-control-switch .box-swich label.switch .slider::before, .setting-control.switch .boxes .box .right .box-swich label.switch .slider::before {
+.wrap form .mycontainer .left-column .box-control-switch .box-swich label.switch .slider::before, .setting-control.switch .boxes .box .right .box-swich label.switch .slider::before, .setting-control.language-select-toggles .boxes .box .language-select-dropdown .language-select-options .language-select-option .box-swich label.switch .slider::before {
   content: "";
   position: absolute;
   left: 3px;
   bottom: 4px;
-  -webkit-transition: 0.4s;
   transition: 0.4s;
   height: 20px;
   width: 20px;
@@ -39,22 +37,20 @@
   background: #fff;
 }
 
-.wrap form .mycontainer .left-column .box-control-switch .box-swich label.switch input:checked + .slider, .setting-control.switch .boxes .box .right .box-swich label.switch input:checked + .slider {
+.wrap form .mycontainer .left-column .box-control-switch .box-swich label.switch input:checked + .slider, .setting-control.switch .boxes .box .right .box-swich label.switch input:checked + .slider, .setting-control.language-select-toggles .boxes .box .language-select-dropdown .language-select-options .language-select-option .box-swich label.switch input:checked + .slider {
   background: #0048FE;
   border-radius: 50px;
 }
 
-.wrap form .mycontainer .left-column .box-control-switch .box-swich label.switch input:focus + .slider, .setting-control.switch .boxes .box .right .box-swich label.switch input:focus + .slider {
+.wrap form .mycontainer .left-column .box-control-switch .box-swich label.switch input:focus + .slider, .setting-control.switch .boxes .box .right .box-swich label.switch input:focus + .slider, .setting-control.language-select-toggles .boxes .box .language-select-dropdown .language-select-options .language-select-option .box-swich label.switch input:focus + .slider {
   border-radius: 50px;
 }
 
-.wrap form .mycontainer .left-column .box-control-switch .box-swich label.switch input:checked + .slider::before, .setting-control.switch .boxes .box .right .box-swich label.switch input:checked + .slider::before {
-  -webkit-transform: translateX(22px);
-  -ms-transform: translateX(22px);
+.wrap form .mycontainer .left-column .box-control-switch .box-swich label.switch input:checked + .slider::before, .setting-control.switch .boxes .box .right .box-swich label.switch input:checked + .slider::before, .setting-control.language-select-toggles .boxes .box .language-select-dropdown .language-select-options .language-select-option .box-swich label.switch input:checked + .slider::before {
   transform: translateX(22px);
 }
 
-.wrap form .mycontainer .left-column .box-control-switch .box-swich label.switch .slider.round, .setting-control.switch .boxes .box .right .box-swich label.switch .slider.round {
+.wrap form .mycontainer .left-column .box-control-switch .box-swich label.switch .slider.round, .setting-control.switch .boxes .box .right .box-swich label.switch .slider.round, .setting-control.language-select-toggles .boxes .box .language-select-dropdown .language-select-options .language-select-option .box-swich label.switch .slider.round {
   border-radius: 50px;
   width: 48px;
 }
@@ -77,7 +73,7 @@
  * Provides consistent styling for form input fields
  * Usage: @extend %form-input;
  */
-body.wp-admin .wrap .options-wrapper input,
+.wrap form .mycontainer .left-column .language-select-dropdown .language-select-trigger, .setting-control.widget-position .boxes .box .widget-position-dropdown .widget-position-trigger, .setting-control.language-select-toggles .boxes .box .language-select-dropdown .language-select-trigger, .setting-control.language-select-simple .boxes .box .language-select-dropdown .language-select-trigger, body.wp-admin .wrap .options-wrapper input,
 body.wp-admin .wrap .options-wrapper select {
   padding: 12px;
   border-radius: 8px;
@@ -210,6 +206,86 @@ body.wp-admin .wrap .options-wrapper .control-heading {
   .wrap .settings-container .settings-row .sidebar-preview .devices-tabs button, .setting-control.devices .boxes .box .devices-tabs button {
     gap: 4px;
   }
+}
+
+/**
+ * Default Label Placeholder
+ * Provides consistent styling for default label text in dropdown inputs
+ * Usage: @extend %default-label;
+ */
+.setting-control.widget-position .boxes .box .widget-position-dropdown .widget-label-default, .setting-control.select .boxes .box .badge, .setting-control.language-select-toggles .boxes .box .language-select-dropdown .language-select-options .language-select-option .language-select-option-default-label, .setting-control.language-select-toggles .boxes .box .language-select-dropdown .language-label-default, .setting-control.language-select-simple .boxes .box .language-select-dropdown .language-label-default, .setting-control.language-select-simple .boxes .box .language-select-dropdown.display-options-active .language-select-options .language-select-option.selected .language-select-option-default-label {
+  display: inline-block;
+  padding: 2px 6px;
+  border-radius: 6px;
+  border: 1px solid #d5d7da;
+  background: #fff;
+  color: #414651;
+  text-align: center;
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 18px;
+  position: absolute;
+  top: 12.5px;
+  right: 36px;
+  left: auto;
+  max-width: 80px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/**
+ * Dropdown Options Popup Placeholder
+ * Provides consistent styling for dropdown options popup (fade/slide animation)
+ * Usage: @extend %dropdown-options-popup;
+ */
+.wrap form .mycontainer .left-column .language-select-dropdown .language-select-options, .setting-control.widget-position .boxes .box .widget-position-dropdown .widget-position-options, .setting-control.language-select-toggles .boxes .box .language-select-dropdown .language-select-options, .setting-control.language-select-simple .boxes .box .language-select-dropdown .language-select-options {
+  position: absolute;
+  top: calc(100% + 4px);
+  left: 0;
+  right: 0;
+  background: #fff;
+  border: 1px solid #d5d7da;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1019607843), 0 2px 4px -2px rgba(0, 0, 0, 0.1019607843);
+  border-radius: 8px;
+  list-style: none;
+  margin: 0;
+  padding: 13px 16px;
+  z-index: 99;
+  display: block;
+  max-height: 300px;
+  overflow-y: auto;
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transform: translateY(4px);
+  transition: opacity 0.3s ease, transform 0.3s ease, visibility 0.3s ease;
+}
+
+/**
+ * Dropdown Option Item Placeholder
+ * Provides consistent styling for dropdown option items (list items)
+ * Usage: @extend %dropdown-option-item;
+ */
+.wrap form .mycontainer .left-column .language-select-dropdown .language-select-options .language-select-option, .setting-control.widget-position .boxes .box .widget-position-dropdown .widget-position-options .widget-position-option, .setting-control.language-select-toggles .boxes .box .language-select-dropdown .language-select-options .language-select-option, .setting-control.language-select-simple .boxes .box .language-select-dropdown .language-select-options .language-select-option {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 10px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  position: relative;
+  margin: 0;
+  margin-bottom: 5px;
+  border-radius: 6px;
+}
+
+.wrap form .mycontainer .left-column .language-select-dropdown .language-select-options .language-select-option:hover, .setting-control.widget-position .boxes .box .widget-position-dropdown .widget-position-options .widget-position-option:hover, .setting-control.language-select-toggles .boxes .box .language-select-dropdown .language-select-options .language-select-option:hover, .setting-control.language-select-simple .boxes .box .language-select-dropdown .language-select-options .language-select-option:hover {
+  background: #f2f2f7;
+}
+
+.wrap form .mycontainer .left-column .language-select-dropdown .language-select-options .selected.language-select-option, .setting-control.widget-position .boxes .box .widget-position-dropdown .widget-position-options .selected.widget-position-option, .setting-control.language-select-toggles .boxes .box .language-select-dropdown .language-select-options .selected.language-select-option, .setting-control.language-select-simple .boxes .box .language-select-dropdown .language-select-options .selected.language-select-option {
+  background: #f2f2f7;
 }
 
 .padding-top-0 {
@@ -447,23 +523,35 @@ body .wrap {
   }
 }
 
+.settings-group.current-language .setting-control.module-labels {
+  padding-top: 12px !important;
+  padding-bottom: 12px !important;
+}
+
+.settings-group.current-language .setting-control.module-labels > .setting-title,
+.settings-group.current-language .setting-control.module-labels .boxes {
+  display: none;
+}
+
+.box-current-language {
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
 .box-current-language a.current-language {
   text-decoration: none;
   cursor: pointer;
   display: flex;
   flex-wrap: wrap;
-  gap: 8px;
+  gap: 16px;
   justify-content: flex-start;
   align-items: center;
-  padding: 8px;
-  border-style: solid;
-  border-width: 1px 1px 1px 1px;
-  border-color: #ddd;
+  padding: 0;
   border-radius: 0.5rem 0.5rem 0.5rem 0.5rem;
 }
 
 .box-current-language a.current-language .image img {
-  width: 14px;
+  width: 20px;
   height: auto;
   display: none;
 }
@@ -472,15 +560,45 @@ body .wrap {
   display: block;
 }
 
-.box-current-language a.current-language .text {
-  color: #414651;
-  font-weight: 400;
-  font-size: 16px;
+.box-current-language a.current-language .text-current-language {
   margin: 0;
+  color: #535862;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 20px;
 }
 
-.box-current-language a.current-language .text strong {
-  color: #000;
+.box-current-language a.current-language .text-current-language strong {
+  color: #414651;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 20px;
+}
+
+.box-current-language a.current-language:focus {
+  border: none !important;
+  box-shadow: none !important;
+  outline: 0 !important;
+}
+
+.box-current-language a.change-language {
+  display: flex;
+  padding: 10px 14px;
+  justify-content: center;
+  align-items: center;
+  gap: 4px;
+  border-radius: 8px;
+  border: 1px solid #D5D7DA;
+  background: #fff;
+  box-shadow: 0 0 0 1px rgba(10, 13, 18, 0.18) inset, 0 -2px 0 0 varrgba(10, 13, 18, 0.05) inset, 0 1px 2px 0 rgba(10, 13, 18, 0.05);
+  color: #414651;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 20px;
+  text-decoration: none;
 }
 
 @media only screen and (max-width: 1200px) {
@@ -542,6 +660,36 @@ body .wrap {
   background: #0048FE;
   color: #fff;
   border-color: #0048FE;
+}
+
+.save-changes.onetap-button-loading,
+.onetap-button-loading {
+  position: relative;
+  color: transparent !important;
+  z-index: 1;
+  cursor: not-allowed;
+}
+
+.save-changes.onetap-button-loading::before,
+.onetap-button-loading::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  border: 2px solid #fff;
+  border-top-color: transparent;
+  animation: spin 1s infinite;
+  transform: translate(-50%, -50%) rotate(0deg);
+}
+
+@keyframes spin {
+
+  to {
+    transform: translate(-50%, -50%) rotate(360deg);
+  }
 }
 
 .footer {
@@ -623,6 +771,11 @@ header .mycontainer .myrow.one {
   justify-content: space-between;
   padding-bottom: 16px;
   border-bottom: 1px solid #E9EAEB;
+}
+
+header .mycontainer .myrow.one .box-logo {
+  display: flex;
+  align-items: center;
 }
 
 header .mycontainer .myrow.one .box-menu ul {
@@ -731,6 +884,7 @@ header .mycontainer .myrow.two .box-save-changes {
   }
 }
 
+.fake-save-changes,
 .save-changes {
   cursor: pointer;
   border-radius: 8px;
@@ -746,16 +900,19 @@ header .mycontainer .myrow.two .box-save-changes {
   margin: 0;
 }
 
+.fake-save-changes:hover,
 .save-changes:hover {
   background: #2057d1;
   background: #023FDC;
 }
 
+.fake-save-changes.license-active,
 .save-changes.license-active {
   background-color: #e3e9f1;
   color: #596575;
 }
 
+.fake-save-changes.license-active:hover,
 .save-changes.license-active:hover {
   background: #023fdc;
   color: #fff;
@@ -1211,6 +1368,444 @@ header .mycontainer .myrow.two .box-save-changes {
   }
 }
 
+.setting-control.language-select-simple .boxes .box {
+  position: relative;
+}
+
+.setting-control.language-select-simple .boxes .box .language-select-dropdown {
+  position: relative;
+  width: 100%;
+}
+
+.setting-control.language-select-simple .boxes .box .language-select-dropdown .language-select-input {
+  display: none;
+}
+
+.setting-control.language-select-simple .boxes .box .language-select-dropdown .language-select-labels-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 12px;
+}
+
+.setting-control.language-select-simple .boxes .box .language-select-dropdown .language-select-labels-wrapper .language-select-label-default {
+  color: #181D27;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 20px;
+}
+
+.setting-control.language-select-simple .boxes .box .language-select-dropdown .language-select-labels-wrapper .language-select-label-display-options {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  color: #181D27;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 20px;
+  cursor: pointer;
+  transition: color 0.3s ease;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+          user-select: none;
+}
+
+.setting-control.language-select-simple .boxes .box .language-select-dropdown .language-select-labels-wrapper .language-select-label-display-options:hover {
+  color: #0048FE;
+  text-decoration: underline;
+}
+
+.setting-control.language-select-simple .boxes .box .language-select-dropdown .language-select-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  position: relative;
+}
+
+.setting-control.language-select-simple .boxes .box .language-select-dropdown .language-select-trigger {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: #fff;
+  cursor: pointer;
+}
+
+.setting-control.language-select-simple .boxes .box .language-select-dropdown .language-select-trigger:focus {
+  border: 1px solid #0048FE;
+  box-shadow: 0 0 0 1px #0048FE;
+}
+
+.setting-control.language-select-simple .boxes .box .language-select-dropdown .language-select-trigger[aria-expanded="true"] .language-select-chevron {
+  transform: rotate(180deg);
+}
+
+.setting-control.language-select-simple .boxes .box .language-select-dropdown .language-select-trigger .language-select-selected {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex: 1;
+}
+
+.setting-control.language-select-simple .boxes .box .language-select-dropdown .language-select-trigger .language-select-selected .language-select-flag {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 20px;
+  height: 20px;
+  flex-shrink: 0;
+}
+
+.setting-control.language-select-simple .boxes .box .language-select-dropdown .language-select-trigger .language-select-selected .language-select-flag img {
+  width: 100%;
+  height: 100%;
+  -o-object-fit: contain;
+     object-fit: contain;
+  display: block;
+}
+
+.setting-control.language-select-simple .boxes .box .language-select-dropdown .language-select-trigger .language-select-selected .language-select-label {
+  overflow: hidden;
+  color: #181D27;
+  text-overflow: ellipsis;
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 24px;
+  white-space: nowrap;
+}
+
+.setting-control.language-select-simple .boxes .box .language-select-dropdown .language-select-trigger .language-select-chevron {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 16px;
+  height: 16px;
+  flex-shrink: 0;
+  transition: transform 0.3s ease;
+}
+
+.setting-control.language-select-simple .boxes .box .language-select-dropdown .language-select-options.open {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+  transform: translateY(0);
+}
+
+.setting-control.language-select-simple .boxes .box .language-select-dropdown .language-select-options .language-select-option.selected .language-select-check-icon {
+  display: block;
+}
+
+.setting-control.language-select-simple .boxes .box .language-select-dropdown .language-select-options .language-select-option .language-select-option-flag {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 20px;
+  height: 20px;
+  flex-shrink: 0;
+}
+
+.setting-control.language-select-simple .boxes .box .language-select-dropdown .language-select-options .language-select-option .language-select-option-flag img {
+  width: 100%;
+  height: 100%;
+  -o-object-fit: contain;
+     object-fit: contain;
+  display: block;
+}
+
+.setting-control.language-select-simple .boxes .box .language-select-dropdown .language-select-options .language-select-option .language-select-option-label {
+  color: #414651;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 20px;
+  flex: 1;
+}
+
+.setting-control.language-select-simple .boxes .box .language-select-dropdown .language-select-options .language-select-option .language-select-check-icon {
+  display: none;
+}
+
+.setting-control.language-select-simple .boxes .box .language-select-dropdown .language-select-options .language-select-option .language-select-option-default-label {
+  display: none;
+}
+
+.setting-control.language-select-simple .boxes .box .language-select-dropdown.display-options-active .language-select-wrapper .language-select-chevron {
+  transform: rotate(180deg);
+}
+
+.setting-control.language-select-simple .boxes .box .language-select-dropdown.display-options-active .language-select-options {
+  display: block;
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+  transform: translateY(0);
+  border-radius: 8px 8px 0 0;
+}
+
+.setting-control.language-select-simple .boxes .box .language-select-dropdown.display-options-active .language-select-options .language-select-option {
+  background: #fff;
+}
+
+.setting-control.language-select-simple .boxes .box .language-select-dropdown.display-options-active .language-select-options .language-select-option .language-select-check-icon {
+  display: none;
+}
+
+.setting-control.language-select-simple .boxes .box .language-select-dropdown.display-options-active .language-select-options .language-select-option:hover {
+  background: #f2f2f7;
+}
+
+.setting-control.language-select-simple .boxes .box .language-select-dropdown.display-options-active .language-select-options .language-select-option.selected {
+  background: #f2f2f7;
+}
+
+.setting-control.language-select-simple .boxes .box .language-select-dropdown.display-options-active .language-select-options .language-select-option.selected .language-select-option-default-label {
+  display: inline-block;
+  right: 10px;
+  top: 5.5px;
+}
+
+.setting-control.language-select-toggles {
+  display: none;
+}
+
+.setting-control.language-select-toggles .boxes .box {
+  position: relative;
+}
+
+.setting-control.language-select-toggles .boxes .box .language-select-dropdown {
+  position: relative;
+  width: 100%;
+}
+
+.setting-control.language-select-toggles .boxes .box .language-select-dropdown .language-select-input {
+  display: none;
+}
+
+.setting-control.language-select-toggles .boxes .box .language-select-dropdown .language-select-labels-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 12px;
+}
+
+.setting-control.language-select-toggles .boxes .box .language-select-dropdown .language-select-labels-wrapper .language-select-label-default {
+  color: #181D27;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 20px;
+}
+
+.setting-control.language-select-toggles .boxes .box .language-select-dropdown .language-select-labels-wrapper .language-select-label-display-options {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  color: #181D27;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 20px;
+  cursor: pointer;
+  transition: color 0.3s ease;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+          user-select: none;
+}
+
+.setting-control.language-select-toggles .boxes .box .language-select-dropdown .language-select-labels-wrapper .language-select-label-display-options:hover {
+  color: #0048FE;
+  text-decoration: underline;
+}
+
+.setting-control.language-select-toggles .boxes .box .language-select-dropdown .language-select-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  position: relative;
+}
+
+.setting-control.language-select-toggles .boxes .box .language-select-dropdown .language-select-trigger {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: #fff;
+  cursor: pointer;
+}
+
+.setting-control.language-select-toggles .boxes .box .language-select-dropdown .language-select-trigger:focus {
+  border: 1px solid #0048FE;
+  box-shadow: 0 0 0 1px #0048FE;
+}
+
+.setting-control.language-select-toggles .boxes .box .language-select-dropdown .language-select-trigger[aria-expanded="true"] .language-select-chevron {
+  transform: rotate(180deg);
+}
+
+.setting-control.language-select-toggles .boxes .box .language-select-dropdown .language-select-trigger .language-select-selected {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex: 1;
+}
+
+.setting-control.language-select-toggles .boxes .box .language-select-dropdown .language-select-trigger .language-select-selected .language-select-flag {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 20px;
+  height: 20px;
+  flex-shrink: 0;
+}
+
+.setting-control.language-select-toggles .boxes .box .language-select-dropdown .language-select-trigger .language-select-selected .language-select-flag img {
+  width: 100%;
+  height: 100%;
+  -o-object-fit: contain;
+     object-fit: contain;
+  display: block;
+}
+
+.setting-control.language-select-toggles .boxes .box .language-select-dropdown .language-select-trigger .language-select-selected .language-select-label {
+  overflow: hidden;
+  color: #181D27;
+  text-overflow: ellipsis;
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 24px;
+  white-space: nowrap;
+}
+
+.setting-control.language-select-toggles .boxes .box .language-select-dropdown .language-select-trigger .language-select-chevron {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 16px;
+  height: 16px;
+  flex-shrink: 0;
+  transition: transform 0.3s ease;
+}
+
+.setting-control.language-select-toggles .boxes .box .language-select-dropdown .language-select-options.open {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+  transform: translateY(0);
+}
+
+.setting-control.language-select-toggles .boxes .box .language-select-dropdown .language-select-options .language-select-option .language-select-option-flag {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 20px;
+  height: 20px;
+  flex-shrink: 0;
+}
+
+.setting-control.language-select-toggles .boxes .box .language-select-dropdown .language-select-options .language-select-option .language-select-option-flag img {
+  width: 100%;
+  height: 100%;
+  -o-object-fit: contain;
+     object-fit: contain;
+  display: block;
+}
+
+.setting-control.language-select-toggles .boxes .box .language-select-dropdown .language-select-options .language-select-option .language-select-option-label {
+  color: #414651;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 20px;
+  flex: 1;
+}
+
+.setting-control.language-select-toggles .boxes .box .language-select-dropdown .language-select-options .language-select-option .language-select-option-default-label {
+  display: none;
+  right: 10px;
+  top: 5.5px;
+}
+
+.setting-control.language-select-toggles .boxes .box .language-select-dropdown .language-select-options .language-select-option .box-swich {
+  position: relative;
+  flex-shrink: 0;
+  margin-left: auto;
+  width: 40px;
+  height: 20px;
+}
+
+.setting-control.language-select-toggles .boxes .box .language-select-dropdown .language-select-options .language-select-option .box-swich.show {
+  display: block;
+}
+
+.setting-control.language-select-toggles .boxes .box .language-select-dropdown .language-select-options .language-select-option .box-swich label.switch .slider.round {
+  width: 40px;
+  height: 20px;
+}
+
+.setting-control.language-select-toggles .boxes .box .language-select-dropdown .language-select-options .language-select-option .box-swich label.switch .slider::before {
+  left: 3px;
+  bottom: 2px;
+  height: 16px;
+  width: 16px;
+}
+
+.setting-control.language-select-toggles .boxes .box .language-select-dropdown .language-select-options .language-select-option .box-swich label.switch input:checked + .slider::before {
+  transform: translateX(19px);
+}
+
+.setting-control.language-select-toggles .boxes .box .language-select-dropdown .language-select-options .language-select-option.selected .language-select-option-default-label {
+  display: block;
+}
+
+.setting-control.language-select-toggles .boxes .box .language-select-dropdown .language-select-options .language-select-option.selected .box-swich {
+  display: none;
+}
+
+.setting-control.language-select-toggles .boxes .box .language-select-dropdown .language-select-actions {
+  display: none;
+  align-items: center;
+  justify-content: end;
+  gap: 12px;
+  padding: 13px 16px;
+  padding-right: 42px;
+  padding-right: 24px;
+  position: absolute;
+  top: calc(100% + 289px + 42px);
+  left: 0;
+  right: 0;
+  background: #fff;
+  border-radius: 0 0 8px 8px;
+  border: 1px solid #d5d7da;
+  box-shadow: 0 1px 2px 0 rgba(10, 13, 18, 0.05);
+  z-index: 999;
+  margin-top: 0;
+}
+
+.setting-control.language-select-toggles .boxes .box .language-select-dropdown .language-select-actions .language-disable-all,
+.setting-control.language-select-toggles .boxes .box .language-select-dropdown .language-select-actions .language-enable-all {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-style: normal;
+  cursor: pointer;
+}
+
+.setting-control.language-select-toggles .boxes .box .language-select-dropdown .language-select-check-icon {
+  display: none;
+}
+
+.setting-control.language-select-toggles .boxes .box .language-select-dropdown .language-select-options.open {
+  border-radius: 8px 8px 0 0;
+  border: 1px solid #d5d7da;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1019607843), 0 2px 4px -2px rgba(0, 0, 0, 0.1019607843);
+}
+
+.setting-control.language-select-toggles .boxes .box .language-select-dropdown .language-select-options.open ~ .language-select-actions {
+  display: flex;
+}
+
 .settings-group.license {
   position: relative;
 }
@@ -1403,11 +1998,22 @@ header .mycontainer .myrow.two .box-save-changes {
 .setting-control.module-labels .boxes .box .right input {
   width: 350px;
   padding: 8px 12px;
+  padding-right: 95px;
   border-radius: 8px;
   border-top: 1px solid #d5d7da;
   border-bottom: 1px solid #d5d7da;
   border-left: 1px solid #d5d7da;
   background: #fff;
+}
+
+.setting-control.module-labels .boxes .box .right input::-moz-placeholder {
+  overflow: hidden;
+  color: #717680;
+  text-overflow: ellipsis;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 24px;
 }
 
 .setting-control.module-labels .boxes .box .right input::placeholder {
@@ -1505,7 +2111,8 @@ header .mycontainer .myrow.two .box-save-changes {
 
 .setting-control.number-slider .boxes .box .box-range input {
   -webkit-appearance: none;
-  appearance: none;
+  -moz-appearance: none;
+       appearance: none;
   width: 100%;
   height: 8px;
   background: linear-gradient(to right, #0048FE 20%, #E9EAEB 20%);
@@ -1533,7 +2140,8 @@ header .mycontainer .myrow.two .box-save-changes {
 
 .setting-control.number-slider .boxes .box .box-range input[type="range"]::-moz-range-thumb {
   -webkit-appearance: none;
-  appearance: none;
+  -moz-appearance: none;
+       appearance: none;
   height: 24px;
   width: 24px;
   border-radius: 9999px;
@@ -1634,6 +2242,8 @@ header .mycontainer .myrow.two .box-save-changes {
 .setting-control.radio-image .boxes .box label.checked {
   border: 1px solid #0048FE;
   box-shadow: 0 0 0 1px #0048FE;
+  margin: 0;
+  width: auto;
 }
 
 .setting-control.radio-image .boxes .box label.checked svg {
@@ -1715,23 +2325,6 @@ header .mycontainer .myrow.two .box-save-changes {
 
 .setting-control.select .boxes .box {
   position: relative;
-}
-
-.setting-control.select .boxes .box .badge {
-  display: inline-block;
-  display: none;
-  padding: 2px 6px;
-  border-radius: 6px;
-  border: 1px solid #d5d7da;
-  background: #fff;
-  color: #414651;
-  text-align: center;
-  font-size: 12px;
-  font-weight: 500;
-  line-height: 18px;
-  position: absolute;
-  top: 13px;
-  left: 160px;
 }
 
 .setting-control.switch .boxes .box {
@@ -1912,6 +2505,120 @@ header .mycontainer .myrow.two .box-save-changes {
   .setting-control.switch.first-control .boxes .box {
     padding-top: 15px;
   }
+}
+
+.setting-control.widget-position .boxes .box {
+  position: relative;
+}
+
+.setting-control.widget-position .boxes .box .widget-position-dropdown {
+  position: relative;
+  width: 100%;
+}
+
+.setting-control.widget-position .boxes .box .widget-position-dropdown .widget-position-input {
+  display: none;
+}
+
+.setting-control.widget-position .boxes .box .widget-position-dropdown .widget-position-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  position: relative;
+}
+
+.setting-control.widget-position .boxes .box .widget-position-dropdown .widget-position-trigger {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: #fff;
+  cursor: pointer;
+}
+
+.setting-control.widget-position .boxes .box .widget-position-dropdown .widget-position-trigger:focus {
+  border: 1px solid #0048FE;
+  box-shadow: 0 0 0 1px #0048FE;
+}
+
+.setting-control.widget-position .boxes .box .widget-position-dropdown .widget-position-trigger[aria-expanded="true"] .widget-position-chevron {
+  transform: rotate(180deg);
+}
+
+.setting-control.widget-position .boxes .box .widget-position-dropdown .widget-position-trigger .widget-position-selected {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex: 1;
+}
+
+.setting-control.widget-position .boxes .box .widget-position-dropdown .widget-position-trigger .widget-position-selected .widget-position-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.setting-control.widget-position .boxes .box .widget-position-dropdown .widget-position-trigger .widget-position-selected .widget-position-label {
+  overflow: hidden;
+  color: #181D27;
+  text-overflow: ellipsis;
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 24px;
+}
+
+.setting-control.widget-position .boxes .box .widget-position-dropdown .widget-position-trigger .widget-position-chevron {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 16px;
+  height: 16px;
+  transition: transform 0.2s ease;
+}
+
+.setting-control.widget-position .boxes .box .widget-position-dropdown .widget-position-options.open {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+  transform: translateY(0);
+}
+
+.setting-control.widget-position .boxes .box .widget-position-dropdown .widget-position-options .widget-position-option.selected .widget-position-checkmark {
+  display: flex;
+}
+
+.setting-control.widget-position .boxes .box .widget-position-dropdown .widget-position-options .widget-position-option.selected:nth-child(3)::before, .setting-control.widget-position .boxes .box .widget-position-dropdown .widget-position-options .widget-position-option.selected:nth-child(5)::before {
+  top: -4px;
+}
+
+.setting-control.widget-position .boxes .box .widget-position-dropdown .widget-position-options .widget-position-option .widget-position-option-icon {
+  width: 16px;
+  height: 16px;
+}
+
+.setting-control.widget-position .boxes .box .widget-position-dropdown .widget-position-options .widget-position-option .widget-position-option-label {
+  color: #414651;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 20px;
+}
+
+.setting-control.widget-position .boxes .box .widget-position-dropdown .widget-position-options .widget-position-option .widget-position-checkmark {
+  display: none;
+  align-items: center;
+  justify-content: center;
+  width: 16px;
+  height: 16px;
+  margin-left: auto;
+}
+
+.setting-control.widget-position .boxes .box .widget-position-dropdown .widget-position-options hr {
+  border: none;
+  height: 1px;
+  background: #d5d7da;
+  margin: 4px 0;
+  width: 100%;
 }
 /* stylelint-disable selector-id-pattern */
 #apop_alt_text .setting-title,
@@ -2225,8 +2932,23 @@ header .mycontainer .myrow.two .box-save-changes {
   /* stylelint-enable selector-id-pattern */
 }
 /* stylelint-disable selector-id-pattern */
-#apop_module_labels .settings-group.accessibility-adjustments .setting-control .setting-title,
-#onetap_module_labels .settings-group.accessibility-adjustments .setting-control .setting-title {
+#apop_module_labels .settings-group.hide-toolbar .setting-control.last-control .boxes .box,
+#apop_module_labels .settings-group.dims-colors-and-stops-blinking .setting-control.last-control .boxes .box,
+#apop_module_labels .settings-group.font-weight .setting-control.last-control .boxes .box,
+#apop_module_labels .settings-group.saturation .setting-control.last-control .boxes .box,
+#apop_module_labels .settings-group.stop-animations .setting-control.last-control .boxes .box,
+#onetap_module_labels .settings-group.hide-toolbar .setting-control.last-control .boxes .box,
+#onetap_module_labels .settings-group.dims-colors-and-stops-blinking .setting-control.last-control .boxes .box,
+#onetap_module_labels .settings-group.font-weight .setting-control.last-control .boxes .box,
+#onetap_module_labels .settings-group.saturation .setting-control.last-control .boxes .box,
+#onetap_module_labels .settings-group.stop-animations .setting-control.last-control .boxes .box {
+  padding-bottom: 0;
+}
+
+/* stylelint-enable selector-id-pattern */
+/* stylelint-disable selector-id-pattern */
+#apop_module_labels .settings-group.accessibility-information .setting-control .setting-title,
+#onetap_module_labels .settings-group.accessibility-information .setting-control .setting-title {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
@@ -2259,11 +2981,11 @@ header .mycontainer .myrow.two .box-save-changes {
 /* stylelint-enable selector-id-pattern */
 /* stylelint-disable selector-id-pattern */
 #apop_modules .settings-group.accessibility-profiles .boxes .box,
-#apop_modules .settings-group.highlight-links .boxes .box,
+#apop_modules .settings-group.font-weight .boxes .box,
 #apop_modules .settings-group.saturation .boxes .box,
 #apop_modules .settings-group.stop-animations .boxes .box,
 #onetap_modules .settings-group.accessibility-profiles .boxes .box,
-#onetap_modules .settings-group.highlight-links .boxes .box,
+#onetap_modules .settings-group.font-weight .boxes .box,
 #onetap_modules .settings-group.saturation .boxes .box,
 #onetap_modules .settings-group.stop-animations .boxes .box {
   padding-bottom: 0;
@@ -2272,11 +2994,11 @@ header .mycontainer .myrow.two .box-save-changes {
 
 #apop_modules .settings-group.accessibility-profiles .setting-control .setting-title,
 #apop_modules .settings-group.bigger-text .setting-control .setting-title,
-#apop_modules .settings-group.invert-colors .setting-control .setting-title,
+#apop_modules .settings-group.dark-contrast .setting-control .setting-title,
 #apop_modules .settings-group.reading-line .setting-control .setting-title,
 #onetap_modules .settings-group.accessibility-profiles .setting-control .setting-title,
 #onetap_modules .settings-group.bigger-text .setting-control .setting-title,
-#onetap_modules .settings-group.invert-colors .setting-control .setting-title,
+#onetap_modules .settings-group.dark-contrast .setting-control .setting-title,
 #onetap_modules .settings-group.reading-line .setting-control .setting-title {
   border-bottom: 1px solid #E9EAEB;
   padding-bottom: 16px;
@@ -2341,6 +3063,7 @@ header .mycontainer .myrow.two .box-save-changes {
   flex-wrap: wrap;
   align-items: center;
   width: auto;
+  padding-right: 40px;
 }
 
 .wrap form .mycontainer .left-column .box-control-switch .box-swich label.switch .slider.round {
@@ -2359,8 +3082,6 @@ header .mycontainer .myrow.two .box-save-changes {
 }
 
 .wrap form .mycontainer .left-column .box-control-switch .box-swich label.switch input:checked + .slider::before {
-  -webkit-transform: translateX(16px);
-  -ms-transform: translateX(16px);
   transform: translateX(16px);
 }
 
@@ -2428,6 +3149,133 @@ header .mycontainer .myrow.two .box-save-changes {
 .wrap form .mycontainer .left-column .custom-box-controls label {
   display: block;
   margin-bottom: 6px;
+}
+
+.wrap form .mycontainer .left-column .language-select-dropdown {
+  position: relative;
+  width: 100%;
+}
+
+.wrap form .mycontainer .left-column .language-select-dropdown .language-select-input {
+  display: none;
+}
+
+.wrap form .mycontainer .left-column .language-select-dropdown .language-select-wrapper {
+  position: relative;
+}
+
+.wrap form .mycontainer .left-column .language-select-dropdown .language-select-trigger {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: #fff;
+  cursor: pointer;
+  padding: 10px 14px;
+  border: 1px solid #d5d7da;
+  border-radius: 8px;
+  transition: all 0.2s ease;
+}
+
+.wrap form .mycontainer .left-column .language-select-dropdown .language-select-trigger:focus {
+  border: 1px solid #0048FE;
+  box-shadow: 0 0 0 1px #0048FE;
+  outline: none;
+}
+
+.wrap form .mycontainer .left-column .language-select-dropdown .language-select-trigger[aria-expanded="true"] .language-select-chevron {
+  transform: rotate(180deg);
+}
+
+.wrap form .mycontainer .left-column .language-select-dropdown .language-select-trigger .language-select-selected {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex: 1;
+}
+
+.wrap form .mycontainer .left-column .language-select-dropdown .language-select-trigger .language-select-selected .language-select-flag {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 20px;
+  height: 20px;
+  flex-shrink: 0;
+}
+
+.wrap form .mycontainer .left-column .language-select-dropdown .language-select-trigger .language-select-selected .language-select-flag img {
+  width: 100%;
+  height: 100%;
+  -o-object-fit: contain;
+     object-fit: contain;
+  display: block;
+}
+
+.wrap form .mycontainer .left-column .language-select-dropdown .language-select-trigger .language-select-selected .language-select-label {
+  overflow: hidden;
+  color: #181D27;
+  text-overflow: ellipsis;
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 24px;
+  white-space: nowrap;
+}
+
+.wrap form .mycontainer .left-column .language-select-dropdown .language-select-trigger .language-select-chevron {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 16px;
+  height: 16px;
+  flex-shrink: 0;
+  transition: transform 0.2s ease;
+}
+
+.wrap form .mycontainer .left-column .language-select-dropdown .language-select-options.open {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+  transform: translateY(0);
+}
+
+.wrap form .mycontainer .left-column .language-select-dropdown .language-select-options .language-select-option.selected .language-select-checkmark {
+  display: flex;
+}
+
+.wrap form .mycontainer .left-column .language-select-dropdown .language-select-options .language-select-option .language-select-option-flag {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 20px;
+  height: 20px;
+  flex-shrink: 0;
+}
+
+.wrap form .mycontainer .left-column .language-select-dropdown .language-select-options .language-select-option .language-select-option-flag img {
+  width: 100%;
+  height: 100%;
+  -o-object-fit: contain;
+     object-fit: contain;
+  display: block;
+}
+
+.wrap form .mycontainer .left-column .language-select-dropdown .language-select-options .language-select-option .language-select-option-label {
+  color: #414651;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 20px;
+  flex: 1;
+}
+
+.wrap form .mycontainer .left-column .language-select-dropdown .language-select-options .language-select-option .language-select-checkmark {
+  display: none;
+  align-items: center;
+  justify-content: center;
+  width: 16px;
+  height: 16px;
+  flex-shrink: 0;
+  margin-left: auto;
 }
 
 .wrap form .mycontainer .left-column button.generate-accessibility-statement {

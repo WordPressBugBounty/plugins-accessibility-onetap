@@ -370,7 +370,7 @@ class Accessibility_Onetap_Admin {
 			}
 
 			.notice-onetap .box {
-				background: #2563EB;
+				background: #0048FE;
 				border-radius: 8px;
 				padding: 25px;
 			}
@@ -409,8 +409,8 @@ class Accessibility_Onetap_Admin {
 			.notice-onetap .box .box-btn a.onetap-button {
 				font-size: 0.875rem;
 				line-height: 1.25rem;
-				fill: #2563EB;
-				color: #2563EB;
+				fill: #0048FE;
+				color: #0048FE;
 				background-color: #FFFFFF;
 				border-style: solid;
 				border-width: 1px 1px 1px 1px;

@@ -161,17 +161,17 @@ class Accessibility_Onetap {
 	/**
 	 * Define the locale for this plugin for internationalization.
 	 *
-	 * Uses the Accessibility_Onetap_I18n class in order to set the domain and to register the hook
-	 * with WordPress.
+	 * Note: As of WordPress 4.6, translations are automatically loaded
+	 * when the Text Domain header is set in the main plugin file.
+	 * No manual hook registration is needed.
 	 *
 	 * @since    1.0.0
 	 * @access   private
 	 */
 	private function set_locale() {
-
-		$plugin_i18n = new Accessibility_Onetap_I18n();
-
-		$this->loader->add_action( 'plugins_loaded', $plugin_i18n, 'load_plugin_textdomain' );
+		// Translations are automatically loaded by WordPress 4.6+
+		// when Text Domain is set in the plugin header.
+		// No action needed.
 	}
 
 	/**
@@ -253,7 +253,12 @@ class Accessibility_Onetap {
 			$this->loader->add_action( 'wp_enqueue_scripts', $plugin_public, 'enqueue_scripts' );
 			$this->loader->add_action( 'wp_footer', $plugin_public, 'render_accessibility_template' );
 			$this->loader->add_filter( 'body_class', $plugin_public, 'add_custom_body_class' );
+			$this->loader->add_action( 'init', $plugin_public, 'register_shortcodes' );
 
+			// Exclude CSS and JS from WP Rocket optimization.
+			$this->loader->add_filter( 'rocket_exclude_css', $plugin_public, 'exclude_css_from_wp_rocket' );
+			$this->loader->add_filter( 'rocket_exclude_js', $plugin_public, 'exclude_js_from_wp_rocket' );
+			$this->loader->add_filter( 'rocket_exclude_defer_js', $plugin_public, 'exclude_js_from_wp_rocket_defer' );
 		}
 	}
 

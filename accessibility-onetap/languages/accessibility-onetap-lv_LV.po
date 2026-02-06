@@ -941,6 +941,10 @@ msgstr "Apturēt animācijas"
 msgid "Disable animations to reduce distractions"
 msgstr "Atspējot animācijas, lai mazinātu traucēkļus"
 
+#: admin/class-accessibility-onetap-settings-options.php:1176
+msgid "Information"
+msgstr "Informācija"
+
 #: admin/class-accessibility-onetap-settings-options.php:1527
 msgid "Edit Alt Text"
 msgstr "Rediģēt alt tekstu"

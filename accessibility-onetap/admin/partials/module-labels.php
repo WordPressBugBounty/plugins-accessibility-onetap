@@ -232,11 +232,17 @@ if ( ! defined( 'ABSPATH' ) ) {
 			<div class="image">
 				<img src="<?php echo esc_url( ACCESSIBILITY_ONETAP_PLUGINS_URL . 'assets/images/english.png' ); ?>" alt="flag" class="active">
 			</div>
-			<span class="text">
-				<?php esc_html_e( 'Currently editing', 'accessibility-onetap' ); ?>
-				<strong><?php esc_html_e( 'English', 'accessibility-onetap' ); ?></strong> 
-				<?php esc_html_e( 'labels. Change the language to edit others.', 'accessibility-onetap' ); ?>
+
+			<span class="text-current-language">
+				<strong class="language-editing"><?php esc_html_e( 'You’re currently editing', 'accessibility-onetap' ); ?></strong>
+				<strong class="language-name"><?php esc_html_e( 'English', 'accessibility-onetap' ); ?></strong> 
+				<strong class="language-labels"><?php esc_html_e( 'labels', 'accessibility-onetap' ); ?></strong> 
+				<span class="language-description"><?php esc_html_e( 'Choose another language to edit its translations.', 'accessibility-onetap' ); ?></span>
 			</span>
+		</a>
+
+		<a href="<?php echo esc_url( admin_url() . 'admin.php?page=accessibility-onetap-settings' ); ?>" class="change-language">
+			<?php esc_html_e( 'Change Language', 'accessibility-onetap' ); ?>
 		</a>
 	</div>	
 	<?php $this->settings_api->show_forms(); ?>

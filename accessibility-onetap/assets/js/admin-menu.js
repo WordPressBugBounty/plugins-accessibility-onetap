@@ -603,37 +603,27 @@
 	 * Positions the badge based on the width of the selected text in the dropdown
 	 */
 	function positionBadge() {
-		// Get the select element and the selected text
+		// Get the select element or language input and the badge
 		const $select = $( 'select[name="onetap_settings[language]"]' );
-		const selectedText = $select.find( 'option:selected' ).text();
+		const $input = $( 'input[name="onetap_settings[language]"]' );
+		const $element = $select.length ? $select : $input;
 
-		// Create a dummy element to measure the width of the selected text
-		const $temp = $( '<span>' ).text( selectedText ).css( {
-			position: 'absolute',
-			visibility: 'hidden',
-			'white-space': 'nowrap',
-			'font-family': $select.css( 'font-family' ),
-			'font-size': $select.css( 'font-size' ),
-			'font-weight': $select.css( 'font-weight' ),
-		} ).appendTo( 'body' );
+		if ( $element.length ) {
+			const $badge = $element.closest( '.settings-group.language .box1' ).find( '.badge' );
 
-		// Get the measured text width
-		const textWidth = $temp.width();
-		// Remove the dummy element from DOM
-		$temp.remove();
-
-		// Apply styles to .badge with the correct position
-		$select.closest( '.settings-group.language .box1' ).find( '.badge' ).css( {
-			left: textWidth + 23 + 'px', // 23px is additional offset
-			display: 'inline-block',
-		} );
+			// Remove any inline left positioning to use CSS right positioning
+			$badge.css( {
+				left: 'auto',
+				display: 'inline-block',
+			} );
+		}
 	}
 
 	// Call when page loads for initial position
 	positionBadge();
 
-	// Call when select changes to update badge position
-	$( 'select[name="onetap_settings[language]"]' ).on( 'change', function() {
+	// Call when select or input changes to update badge position
+	$( 'select[name="onetap_settings[language]"], input[name="onetap_settings[language]"]' ).on( 'change', function() {
 		positionBadge();
 	} );
 
@@ -675,7 +665,7 @@
 
 		// If both the language name and image source exist, update the UI accordingly
 		if ( languageName && languageImageSrc ) {
-			$( 'a.current-language .text strong' ).text( languageName );
+			$( 'a.current-language .text-current-language strong.language-name' ).text( languageName );
 			$( 'a.current-language .image img.active' ).attr( 'src', languageImageSrc );
 			$( 'a.current-language' ).show();
 		}
@@ -731,7 +721,7 @@
 	 */
 	function handleAccessibilityStatusForm() {
 		// Cache selectors to avoid querying the DOM repeatedly
-		const $selectLanguage = $( 'select[name="onetap_select_language"]' );
+		const $selectLanguage = $( 'input[name="onetap_select_language"]' );
 		const $companyName = $( 'input[name="onetap_company_name"]' );
 		const $companyWebsite = $( 'input[name="onetap_company_website"]' );
 		const $businessEmail = $( 'input[name="onetap_business_email"]' );
@@ -920,20 +910,20 @@
 	/**
 	 * Append current language box into module labels control
 	 * Clones .box-current-language (with descendants) and appends to .setting-control.module-labels
-	 * Ensures the appended box displays as block and avoids duplicate insertion
+	 * Ensures the appended box displays as flex and avoids duplicate insertion
 	 */
 	function appendCurrentLanguageBoxToModuleLabels() {
 		const $sourceBox = $( '.box-current-language' );
-		const $targetControl = $( '.settings-group.accessibility-adjustments .setting-control.module-labels .setting-title' );
+		const $targetControl = $( '.settings-group.current-language .setting-control.module-labels' );
 
 		if ( $sourceBox.length && $targetControl.length ) {
 			// Avoid duplicate insertion if already appended
 			if ( $targetControl.find( '.box-current-language' ).length === 0 ) {
 				const $cloned = $sourceBox.first().clone( true, true );
-				$cloned.css( 'display', 'block' );
+				$cloned.css( 'display', 'flex' );
 				$targetControl.append( $cloned );
 			} else {
-				$targetControl.find( '.box-current-language' ).css( 'display', 'block' );
+				$targetControl.find( '.box-current-language' ).css( 'display', 'flex' );
 			}
 		}
 	}
@@ -942,4 +932,655 @@
 	$( document ).ready( function() {
 		appendCurrentLanguageBoxToModuleLabels();
 	} );
+
+	/**
+	 * Handle widget position dropdown functionality
+	 * Manages opening/closing dropdown and selecting position options
+	 */
+	$( document ).on( 'click', '.widget-position-trigger', function( e ) {
+		e.stopPropagation();
+		const $trigger = $( this );
+		const $dropdown = $trigger.closest( '.widget-position-dropdown' );
+		const $options = $dropdown.find( '.widget-position-options' );
+		const isExpanded = $trigger.attr( 'aria-expanded' ) === 'true';
+
+		// Close all other dropdowns
+		$( '.widget-position-dropdown' ).each( function() {
+			const $otherDropdown = $( this );
+			if ( $otherDropdown[ 0 ] !== $dropdown[ 0 ] ) {
+				$otherDropdown.find( '.widget-position-trigger' ).attr( 'aria-expanded', 'false' );
+				$otherDropdown.find( '.widget-position-options' ).removeClass( 'open' );
+			}
+		} );
+
+		// Toggle current dropdown
+		if ( isExpanded ) {
+			$trigger.attr( 'aria-expanded', 'false' );
+			$options.removeClass( 'open' );
+		} else {
+			$trigger.attr( 'aria-expanded', 'true' );
+			$options.addClass( 'open' );
+		}
+	} );
+
+	// Handle option selection
+	$( document ).on( 'click', '.widget-position-option', function( e ) {
+		e.stopPropagation();
+		const $option = $( this );
+		const $dropdown = $option.closest( '.widget-position-dropdown' );
+		const $trigger = $dropdown.find( '.widget-position-trigger' );
+		const $input = $dropdown.find( '.widget-position-input' );
+		const $selected = $trigger.find( '.widget-position-selected' );
+		const $options = $dropdown.find( '.widget-position-options' );
+
+		const value = $option.data( 'value' );
+		const label = $option.find( '.widget-position-option-label' ).text();
+		const icon = $option.find( '.widget-position-option-icon' ).html();
+
+		// Update input value
+		$input.val( value );
+
+		// Update selected display
+		$selected.find( '.widget-position-icon' ).html( icon );
+		$selected.find( '.widget-position-label' ).text( label );
+
+		// Update selected state in options
+		$dropdown.find( '.widget-position-option' ).removeClass( 'selected' );
+		$option.addClass( 'selected' );
+
+		// Close dropdown
+		$trigger.attr( 'aria-expanded', 'false' );
+		$options.removeClass( 'open' );
+
+		// Trigger change event on input
+		$input.trigger( 'change' );
+	} );
+
+	// Close dropdown when clicking outside
+	$( document ).on( 'click', function( e ) {
+		if ( ! $( e.target ).closest( '.widget-position-dropdown' ).length ) {
+			$( '.widget-position-dropdown' ).each( function() {
+				$( this ).find( '.widget-position-trigger' ).attr( 'aria-expanded', 'false' );
+				$( this ).find( '.widget-position-options' ).removeClass( 'open' );
+			} );
+		}
+	} );
+
+	/**
+	 * ============================================================================
+	 * LANGUAGE SELECT SIMPLE - Control JavaScript
+	 * ============================================================================
+	 * JavaScript for language-select-simple control
+	 * Specific selector: .setting-control.language-select-simple .language-select-wrapper
+	 */
+
+	// Step 1: Toggle dropdown when .language-select-wrapper is clicked (for simple)
+	$( document ).on( 'click', '.setting-control.language-select-simple .language-select-wrapper', function( e ) {
+		e.stopPropagation();
+		const $wrapper = $( this );
+		const $dropdown = $wrapper.closest( '.language-select-dropdown' );
+		const $trigger = $wrapper.find( '.language-select-trigger' );
+		const $options = $dropdown.find( '.language-select-options' );
+
+		// Ensure SIMPLE control is visible and its corresponding TOGGLES control is hidden.
+		const $simpleControl = $wrapper.closest( '.setting-control.language-select-simple' );
+		let $togglesControl = $simpleControl.siblings( '.setting-control.language-select-toggles' ).first();
+
+		// Fallback: if no sibling found, use global selector (in case of different markup).
+		if ( ! $togglesControl.length ) {
+			$togglesControl = $( '.setting-control.language-select-toggles' ).first();
+		}
+
+		$simpleControl.css( 'display', 'block' );
+		if ( $togglesControl.length ) {
+			$togglesControl.css( 'display', 'none' );
+		}
+
+		// Close all other language select simple dropdowns
+		$( '.setting-control.language-select-simple .language-select-dropdown' ).each( function() {
+			const $otherDropdown = $( this );
+			if ( $otherDropdown[ 0 ] !== $dropdown[ 0 ] ) {
+				$otherDropdown.find( '.language-select-trigger' ).attr( 'aria-expanded', 'false' );
+				$otherDropdown.find( '.language-select-options' ).removeClass( 'open' );
+			}
+		} );
+
+		// Always open current dropdown when wrapper is clicked.
+		$trigger.attr( 'aria-expanded', 'true' );
+		$options.addClass( 'open' );
+	} );
+
+	// Step 1b: When "display options" label on SIMPLE control is clicked,
+	// hide simple control and show toggles control.
+	$( document ).on( 'click', '.setting-control.language-select-simple .language-select-label-display-options', function( e ) {
+		e.stopPropagation();
+
+		// Find current SIMPLE control and its related TOGGLES control (prefer sibling).
+		const $simpleControl = $( this ).closest( '.setting-control.language-select-simple' );
+		let $togglesControl = $simpleControl.siblings( '.setting-control.language-select-toggles' ).first();
+
+		// Before switching view, fully "close" the SIMPLE dropdown so that
+		// the CSS transition tied to `.language-select-options.open` can re-run
+		// the next time we open it.
+		const $simpleDropdown = $simpleControl.find( '.language-select-dropdown' ).first();
+		const $simpleTrigger = $simpleDropdown.find( '.language-select-trigger' );
+		const $simpleOptions = $simpleDropdown.find( '.language-select-options' );
+
+		$simpleTrigger.attr( 'aria-expanded', 'false' );
+		$simpleOptions.removeClass( 'open' );
+
+		// Fallback: if no sibling found, use global selector (in case of different markup).
+		if ( ! $togglesControl.length ) {
+			$togglesControl = $( '.setting-control.language-select-toggles' ).first();
+		}
+
+		// Hide simple selector, show toggles selector.
+		$simpleControl.css( 'display', 'none' );
+		$togglesControl.css( 'display', 'block' );
+
+		// Smoothly open the TOGGLES dropdown with CSS transition on `.open`.
+		const $togglesDropdown = $togglesControl.find( '.language-select-dropdown' ).first();
+		const $togglesTrigger = $togglesDropdown.find( '.language-select-trigger' );
+		const $togglesOptions = $togglesDropdown.find( '.language-select-options' );
+
+		// Ensure the TOGGLES dropdown is in the "closed" state first.
+		$togglesTrigger.attr( 'aria-expanded', 'false' );
+		$togglesOptions.removeClass( 'open' );
+
+		// Add `.open` on the next frame so the CSS transition can run.
+		const openWithAnimation = function() {
+			$togglesTrigger.attr( 'aria-expanded', 'true' );
+			$togglesOptions.addClass( 'open' );
+		};
+
+		if ( window.requestAnimationFrame ) {
+			window.requestAnimationFrame( openWithAnimation );
+		} else {
+			setTimeout( openWithAnimation, 0 );
+		}
+	} );
+
+	// Step 2: Handle option selection for simple
+	$( document ).on( 'click', '.setting-control.language-select-simple .language-select-option', function( e ) {
+		e.stopPropagation();
+		const $option = $( this );
+		const $dropdown = $option.closest( '.language-select-dropdown' );
+		const $trigger = $dropdown.find( '.language-select-trigger' );
+		const $input = $dropdown.find( '.language-select-input' );
+		const $selected = $trigger.find( '.language-select-selected' );
+		const $options = $dropdown.find( '.language-select-options' );
+
+		const value = $option.data( 'value' );
+		const label = $option.find( '.language-select-option-label' ).text();
+		const flagImg = $option.find( '.language-select-option-flag img' ).attr( 'src' );
+
+		// Update input value
+		$input.val( value );
+		$input.attr( 'data-lang', value );
+
+		// Update trigger data-lang
+		$trigger.attr( 'data-lang', value );
+
+		// Update selected display
+		$selected.find( '.language-select-label' ).text( label );
+		$selected.find( '.language-select-flag img' ).attr( 'src', flagImg );
+
+		// Update selected state in options
+		$dropdown.find( '.language-select-option' ).removeClass( 'selected' );
+		$option.addClass( 'selected' );
+
+		// Sync selected state to language-select-toggles control
+		$( '.setting-control.language-select-toggles .language-select-dropdown' ).each( function() {
+			const $togglesDropdown = $( this );
+			const $togglesTrigger = $togglesDropdown.find( '.language-select-trigger' );
+			const $togglesInput = $togglesDropdown.find( '.language-select-input' );
+			const $togglesSelected = $togglesTrigger.find( '.language-select-selected' );
+			const $togglesOptions = $togglesDropdown.find( '.language-select-options' );
+
+			// Remove selected class from all options
+			$togglesOptions.find( '.language-select-option' ).removeClass( 'selected' );
+
+			// Add selected class to matching option by data-value
+			const $matchingOption = $togglesOptions.find( '.language-select-option[data-value="' + value + '"]' );
+			if ( $matchingOption.length ) {
+				$matchingOption.addClass( 'selected' );
+
+				// Update trigger display (flag and label)
+				$togglesTrigger.attr( 'data-lang', value );
+				$togglesSelected.find( '.language-select-label' ).text( label );
+				$togglesSelected.find( '.language-select-flag img' ).attr( 'src', flagImg );
+
+				// Update input value
+				$togglesInput.val( value );
+				$togglesInput.attr( 'data-lang', value );
+
+				// Set toggle checkbox to ON (checked)
+				const $matchingCheckbox = $matchingOption.find( 'input[type="checkbox"]' );
+				if ( $matchingCheckbox.length ) {
+					$matchingCheckbox.prop( 'checked', true );
+					// Trigger change event on checkbox to ensure form submission works
+					$matchingCheckbox.trigger( 'change' );
+				}
+			}
+		} );
+
+		// Close dropdown
+		$trigger.attr( 'aria-expanded', 'false' );
+		$options.removeClass( 'open' );
+
+		// Trigger change event on input
+		$input.trigger( 'change' );
+	} );
+
+	// Step 3: Close dropdown when clicking outside (for simple)
+	$( document ).on( 'click', function( e ) {
+		if ( ! $( e.target ).closest( '.setting-control.language-select-simple .language-select-dropdown' ).length ) {
+			$( '.setting-control.language-select-simple .language-select-dropdown' ).each( function() {
+				$( this ).find( '.language-select-trigger' ).attr( 'aria-expanded', 'false' );
+				$( this ).find( '.language-select-options' ).removeClass( 'open' );
+			} );
+		}
+	} );
+
+	// Step 4: Close simple dropdown when clicking on the labels wrapper (title + "Display Options").
+	$( document ).on( 'click', '.setting-control.language-select-simple .language-select-labels-wrapper', function( e ) {
+		e.stopPropagation();
+
+		const $dropdown = $( this ).closest( '.language-select-dropdown' );
+		const $trigger = $dropdown.find( '.language-select-trigger' );
+		const $options = $dropdown.find( '.language-select-options' );
+
+		$trigger.attr( 'aria-expanded', 'false' );
+		$options.removeClass( 'open' );
+	} );
+
+	/**
+	 * ============================================================================
+	 * SYNC LANGUAGE-SELECT-SIMPLE WITH FRONTEND LOCALSTORAGE
+	 * ============================================================================
+	 * When the settings form is submitted, update localStorage
+	 * `onetap-accessibility-free.information.language` to match the
+	 * selected value from language-select-simple.
+	 */
+
+	$( document ).on( 'submit', 'form[action="options.php"]', function() {
+		try {
+			// Get selected language from the simple language control.
+			const selectedLanguage = $( '.setting-control.language-select-simple .language-select-input' ).val();
+
+			if ( ! selectedLanguage ) {
+				return true; // Nothing to sync.
+			}
+
+			// Read existing localStorage value.
+			const storageKey = 'onetap-accessibility-free';
+			const raw = window.localStorage ? window.localStorage.getItem( storageKey ) : null;
+
+			if ( ! raw ) {
+				return true; // Nothing stored yet on the frontend.
+			}
+
+			let data;
+			try {
+				data = JSON.parse( raw );
+			} catch ( parseError ) {
+				// Invalid JSON, don't block form submit.
+				return true;
+			}
+
+			// Ensure information object exists.
+			if ( typeof data.information !== 'object' || data.information === null ) {
+				data.information = {};
+			}
+
+			// Update language value.
+			data.information.language = selectedLanguage;
+
+			// Save back to localStorage.
+			if ( window.localStorage ) {
+				window.localStorage.setItem( storageKey, JSON.stringify( data ) );
+			}
+		} catch ( e ) {
+			// Silently ignore errors to avoid breaking WP settings submit.
+		}
+
+		return true; // Allow form submission to continue.
+	} );
+
+	/**
+	 * ============================================================================
+	 * LANGUAGE SELECT TOGGLES - Control JavaScript
+	 * ============================================================================
+	 * JavaScript for language-select-toggles control
+	 * Specific selector: .setting-control.language-select-toggles .language-select-wrapper
+	 */
+
+	// Step 1: Toggle dropdown when .language-select-wrapper is clicked (for toggles)
+	$( document ).on( 'click', '.setting-control.language-select-toggles .language-select-wrapper', function( e ) {
+		e.stopPropagation();
+		const $wrapper = $( this );
+		const $dropdown = $wrapper.closest( '.language-select-dropdown' );
+		const $trigger = $wrapper.find( '.language-select-trigger' );
+		const $options = $dropdown.find( '.language-select-options' );
+		const isExpanded = $trigger.attr( 'aria-expanded' ) === 'true';
+
+		// Close all other language select toggles dropdowns
+		$( '.setting-control.language-select-toggles .language-select-dropdown' ).each( function() {
+			const $otherDropdown = $( this );
+			if ( $otherDropdown[ 0 ] !== $dropdown[ 0 ] ) {
+				$otherDropdown.find( '.language-select-trigger' ).attr( 'aria-expanded', 'false' );
+				$otherDropdown.find( '.language-select-options' ).removeClass( 'open' );
+			}
+		} );
+
+		// Toggle current dropdown
+		if ( isExpanded ) {
+			$trigger.attr( 'aria-expanded', 'false' );
+			$options.removeClass( 'open' );
+		} else {
+			$trigger.attr( 'aria-expanded', 'true' );
+			$options.addClass( 'open' );
+		}
+	} );
+
+	// Step 1a: When the trigger itself is clicked inside TOGGLES control,
+	// hide the entire language-select-toggles control and show SIMPLE control back.
+	$( document ).on( 'click', '.setting-control.language-select-toggles .language-select-trigger', function( e ) {
+		e.stopPropagation();
+
+		const $trigger = $( this );
+		const $dropdown = $trigger.closest( '.language-select-dropdown' );
+		const $togglesControl = $trigger.closest( '.setting-control.language-select-toggles' );
+
+		// Close its dropdown (for safety).
+		$trigger.attr( 'aria-expanded', 'false' );
+		$dropdown.find( '.language-select-options' ).removeClass( 'open' );
+
+		// Hide the toggles control.
+		$togglesControl.css( 'display', 'none' );
+
+		// Show the corresponding SIMPLE control (prefer sibling).
+		let $simpleControl = $togglesControl.siblings( '.setting-control.language-select-simple' ).first();
+
+		// Fallback: if no sibling found, use first global simple control.
+		if ( ! $simpleControl.length ) {
+			$simpleControl = $( '.setting-control.language-select-simple' ).first();
+		}
+
+		if ( $simpleControl.length ) {
+			$simpleControl.css( 'display', 'block' );
+
+			// Ensure we re-trigger the SIMPLE dropdown transition on `.open`.
+			const $simpleDropdown = $simpleControl.find( '.language-select-dropdown' ).first();
+			const $simpleTrigger = $simpleDropdown.find( '.language-select-trigger' );
+			const $simpleOptions = $simpleDropdown.find( '.language-select-options' );
+
+			// Set to "closed" state first so the transition can replay.
+			$simpleTrigger.attr( 'aria-expanded', 'false' );
+			$simpleOptions.removeClass( 'open' );
+
+			const openSimpleWithAnimation = function() {
+				$simpleTrigger.attr( 'aria-expanded', 'true' );
+				$simpleOptions.addClass( 'open' );
+			};
+
+			if ( window.requestAnimationFrame ) {
+				window.requestAnimationFrame( openSimpleWithAnimation );
+			} else {
+				setTimeout( openSimpleWithAnimation, 0 );
+			}
+		}
+	} );
+
+	// Step 2: Handle option selection for toggles
+	$( document ).on( 'click', '.setting-control.language-select-toggles .language-select-option', function( e ) {
+		// Don't trigger if clicking on toggle switch
+		if ( $( e.target ).closest( '.box-swich, .switch, input[type="checkbox"]' ).length ) {
+			return;
+		}
+
+		e.stopPropagation();
+		const $option = $( this );
+
+		// If this option is marked as selected (default language),
+		// do not change the checkbox state when clicking the option row.
+		if ( $option.hasClass( 'selected' ) ) {
+			return;
+		}
+
+		// Find checkbox in this option
+		const $checkbox = $option.find( 'input[type="checkbox"]' );
+
+		// Toggle checkbox checked state
+		if ( $checkbox.length ) {
+			const isChecked = $checkbox.is( ':checked' );
+			$checkbox.prop( 'checked', ! isChecked );
+			// Trigger change event on checkbox to ensure form submission works
+			$checkbox.trigger( 'change' );
+		}
+	} );
+
+	// Step 3: Close dropdown when clicking outside (for toggles)
+	$( document ).on( 'click', function( e ) {
+		if ( ! $( e.target ).closest( '.setting-control.language-select-toggles .language-select-dropdown' ).length ) {
+			$( '.setting-control.language-select-toggles .language-select-dropdown' ).each( function() {
+				$( this ).find( '.language-select-trigger' ).attr( 'aria-expanded', 'false' );
+				$( this ).find( '.language-select-options' ).removeClass( 'open' );
+			} );
+		}
+	} );
+
+	// Step 4: Close toggles dropdown when clicking on the labels wrapper (title + "Display Options").
+	$( document ).on( 'click', '.setting-control.language-select-toggles .language-select-labels-wrapper', function( e ) {
+		e.stopPropagation();
+
+		const $dropdown = $( this ).closest( '.language-select-dropdown' );
+		const $trigger = $dropdown.find( '.language-select-trigger' );
+		const $options = $dropdown.find( '.language-select-options' );
+
+		$trigger.attr( 'aria-expanded', 'false' );
+		$options.removeClass( 'open' );
+	} );
+
+	/**
+	 * ============================================================================
+	 * DISPLAY OPTIONS MODE SWITCH - Toggle switch visibility
+	 * ============================================================================
+	 * Show/hide toggle switches when .language-select-label-display-options is clicked
+	 * Only works for language-select-toggles control (which has .box-swich elements)
+	 */
+
+	// Step 1: Toggle switch mode when .language-select-label-display-options is clicked (for toggles only)
+	$( document ).on( 'click', '.setting-control.language-select-toggles .language-select-label-display-options', function( e ) {
+		e.stopPropagation();
+		const $label = $( this );
+		const $dropdown = $label.closest( '.language-select-dropdown' );
+		const $options = $dropdown.find( '.language-select-options' );
+		const $switches = $options.find( '.box-swich' );
+
+		// Check if switches exist (only in language-select-toggles control)
+		if ( $switches.length === 0 ) {
+			return;
+		}
+
+		// Toggle active class on label
+		$label.toggleClass( 'active' );
+
+		// Toggle visibility of all switches in this dropdown
+		if ( $label.hasClass( 'active' ) ) {
+			$switches.addClass( 'show' );
+		} else {
+			$switches.removeClass( 'show' );
+		}
+
+		// If the dropdown is currently closed (no `.open` class),
+		// ensure it is opened again with the `.open` transition.
+		if ( ! $options.hasClass( 'open' ) ) {
+			const $trigger = $dropdown.find( '.language-select-trigger' );
+
+			// First, reset to the "closed" state.
+			$trigger.attr( 'aria-expanded', 'false' );
+			$options.removeClass( 'open' );
+
+			const openTogglesWithAnimation = function() {
+				$trigger.attr( 'aria-expanded', 'true' );
+				$options.addClass( 'open' );
+			};
+
+			if ( window.requestAnimationFrame ) {
+				window.requestAnimationFrame( openTogglesWithAnimation );
+			} else {
+				setTimeout( openTogglesWithAnimation, 0 );
+			}
+		}
+	} );
+
+	/**
+	 * ============================================================================
+	 * LANGUAGE SELECT ACTIONS - Disable All / Enable All
+	 * ============================================================================
+	 * Handle Disable All and Enable All button clicks
+	 */
+
+	// Step 1: Handle Disable All button click
+	$( document ).on( 'click', '.setting-control.language-select-toggles .language-disable-all', function( e ) {
+		e.stopPropagation();
+		const $button = $( this );
+		const $dropdown = $button.closest( '.language-select-dropdown' );
+		const $input = $dropdown.find( '.language-select-input' );
+		const $options = $dropdown.find( '.language-select-options' );
+
+		// Get default language value from input
+		const defaultValue = $input.val() || $input.attr( 'data-default' ) || '';
+
+		// Uncheck all checkboxes except the default language
+		$options.find( '.language-select-option' ).each( function() {
+			const $option = $( this );
+			const $checkbox = $option.find( 'input[type="checkbox"]' );
+			const optionValue = $option.data( 'value' );
+
+			// Skip if this is the default language
+			if ( optionValue === defaultValue ) {
+				return;
+			}
+
+			// Uncheck checkbox
+			if ( $checkbox.length ) {
+				$checkbox.prop( 'checked', false );
+				$checkbox.trigger( 'change' );
+			}
+		} );
+	} );
+
+	// Step 2: Handle Enable All button click
+	$( document ).on( 'click', '.setting-control.language-select-toggles .language-enable-all', function( e ) {
+		e.stopPropagation();
+		const $button = $( this );
+		const $dropdown = $button.closest( '.language-select-dropdown' );
+		const $options = $dropdown.find( '.language-select-options' );
+
+		// Check all checkboxes
+		$options.find( '.language-select-option input[type="checkbox"]' ).each( function() {
+			const $checkbox = $( this );
+			$checkbox.prop( 'checked', true );
+			$checkbox.trigger( 'change' );
+		} );
+	} );
+
+	/**
+	 * ============================================================================
+	 * ACCESSIBILITY STATUS - SIMPLE LANGUAGE DROPDOWN
+	 * ============================================================================
+	 * Handles the simple language dropdown used in the Accessibility Status form.
+	 * Markup example:
+	 * .accessibility-status-container
+	 *   .language-select-dropdown
+	 *     button.language-select-trigger
+	 *     ul.language-select-options > li.language-select-option[data-value]
+	 *     input.language-select-input#select_language (hidden)
+	 */
+	function initAccessibilityStatusLanguageDropdown() {
+		// Ensure the container exists before binding behaviour.
+		if ( ! $( '.accessibility-status-container .language-select-dropdown' ).length ) {
+			return;
+		}
+
+		// Toggle dropdown when trigger is clicked.
+		$( document ).on( 'click', '.accessibility-status-container .language-select-trigger', function( e ) {
+			e.stopPropagation();
+
+			const $trigger = $( this );
+			const $dropdown = $trigger.closest( '.language-select-dropdown' );
+			const $options = $dropdown.find( '.language-select-options' );
+			const isOpen = $options.hasClass( 'open' );
+
+			// Close any other accessibility-status language dropdowns.
+			$( '.accessibility-status-container .language-select-dropdown' ).each( function() {
+				const $dd = $( this );
+				$dd.find( '.language-select-trigger' ).attr( 'aria-expanded', 'false' );
+				$dd.find( '.language-select-options' ).removeClass( 'open' );
+			} );
+
+			// Toggle current dropdown.
+			if ( isOpen ) {
+				$trigger.attr( 'aria-expanded', 'false' );
+				$options.removeClass( 'open' );
+			} else {
+				$trigger.attr( 'aria-expanded', 'true' );
+				$options.addClass( 'open' );
+			}
+		} );
+
+		// Handle option selection.
+		$( document ).on( 'click', '.accessibility-status-container .language-select-option', function( e ) {
+			e.stopPropagation();
+
+			const $option = $( this );
+			const value = $option.data( 'value' );
+			const label = $option.find( '.language-select-option-label' ).text();
+			const flagSrc = $option.find( '.language-select-option-flag img' ).attr( 'src' );
+
+			const $dropdown = $option.closest( '.language-select-dropdown' );
+			const $input = $dropdown.find( '.language-select-input' );
+			const $trigger = $dropdown.find( '.language-select-trigger' );
+			const $selected = $trigger.find( '.language-select-selected' );
+			const $options = $dropdown.find( '.language-select-options' );
+
+			// Update hidden input value and trigger form validation.
+			$input.val( value ).trigger( 'input change' );
+
+			// Update selected label and flag in trigger.
+			$selected.find( '.language-select-label' ).text( label );
+			if ( flagSrc ) {
+				$selected.find( '.language-select-flag img' ).attr( 'src', flagSrc );
+			}
+
+			// Update selected state and checkmarks.
+			$dropdown.find( '.language-select-option' ).each( function() {
+				const $opt = $( this );
+				const isSelected = $opt.is( $option );
+
+				$opt.toggleClass( 'selected', isSelected );
+				$opt.find( '.language-select-checkmark' ).toggle( isSelected );
+			} );
+
+			// Close dropdown.
+			$trigger.attr( 'aria-expanded', 'false' );
+			$options.removeClass( 'open' );
+		} );
+
+		// Close dropdown when clicking outside.
+		$( document ).on( 'click', function( e ) {
+			if ( ! $( e.target ).closest( '.accessibility-status-container .language-select-dropdown' ).length ) {
+				$( '.accessibility-status-container .language-select-dropdown' ).each( function() {
+					const $dd = $( this );
+					$dd.find( '.language-select-trigger' ).attr( 'aria-expanded', 'false' );
+					$dd.find( '.language-select-options' ).removeClass( 'open' );
+				} );
+			}
+		} );
+	}
+
+	// Initialize Accessibility Status language dropdown.
+	initAccessibilityStatusLanguageDropdown();
 }( jQuery ) );

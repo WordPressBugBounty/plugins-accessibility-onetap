@@ -71,7 +71,7 @@ class Accessibility_Onetap_Settings_Manager {
 			'admin_page_onetap-module-labels' === $hook ||
 			'onetap_page_accessibility-onetap-accessibility-status' === $hook
 		) {
-			wp_enqueue_script( 'accessibility-plugin-onetap-pro-settings-manager', ACCESSIBILITY_ONETAP_PLUGINS_URL . 'assets/js/settings-manager.min.js', array( 'jquery' ), ACCESSIBILITY_ONETAP_VERSION, true );
+			wp_enqueue_script( 'accessibility-onetap-settings-manager', ACCESSIBILITY_ONETAP_PLUGINS_URL . 'assets/js/settings-manager.min.js', array( 'jquery' ), ACCESSIBILITY_ONETAP_VERSION, true );
 		}
 	}
 
@@ -280,11 +280,14 @@ class Accessibility_Onetap_Settings_Manager {
 			'li'       => array(
 				'class'      => array(),
 				'data-color' => array(),
+				'data-value' => array(),
+				'data-lang'  => array(),
 				'style'      => array(),
 			),
 			'img'      => array(
 				'class' => array(),
 				'src'   => array(),
+				'alt'   => array(),
 			),
 			'span'     => array(
 				'id'             => array(),
@@ -310,6 +313,8 @@ class Accessibility_Onetap_Settings_Manager {
 				'license-status' => array(),
 				'license-key'    => array(),
 				'readonly'       => array(),
+				'data-lang'      => array(),
+				'data-default'   => array(),
 			),
 			'textarea' => array(
 				'rows'          => array(),
@@ -337,7 +342,9 @@ class Accessibility_Onetap_Settings_Manager {
 				'title'            => array(),
 				'data-image-id'    => array(),
 				'aria-pressed'     => array(),
+				'aria-expanded'    => array(),
 				'data-device-type' => array(),
+				'data-lang'        => array(),
 			),
 			'svg'      => array(
 				'class'   => array(),
@@ -368,6 +375,10 @@ class Accessibility_Onetap_Settings_Manager {
 				'stroke-width'    => array(),
 				'stroke-linecap'  => array(),
 				'stroke-linejoin' => array(),
+			),
+			'hr'       => array(
+				'class' => array(),
+				'style' => array(),
 			),
 		);
 	}
@@ -1019,6 +1030,648 @@ class Accessibility_Onetap_Settings_Manager {
 	}
 
 	/**
+	 * Render a custom widget position dropdown field for settings forms.
+	 *
+	 * Outputs a custom dropdown with icons for each position option.
+	 * Includes optional title, description, label, and save button.
+	 * The dropdown allows users to choose widget position with visual icons.
+	 *
+	 * @param array $args settings field args.
+	 */
+	public function callback_template_widget_position( $args ) {
+		$parsed_args    = $this->parse_template_args( $args );
+		$select_options = isset( $args['select_options'] ) ? $args['select_options'] : array();
+
+		// Get current selected value or default.
+		$current_value = $parsed_args['value'];
+		if ( empty( $current_value ) && isset( $args['default'] ) ) {
+			$current_value = $args['default'];
+		}
+
+		// Get current selected label.
+		$current_label = isset( $select_options[ $current_value ] ) ? $select_options[ $current_value ] : '';
+
+		// Icon mapping for each position (directional arrows).
+		$position_icons = array(
+			'top-left'     => '<svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M10.75 10.75L0.75 0.75M0.75 0.75V10.75M0.75 0.75H10.75" stroke="#A4A7AE" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>',
+			'top-right'    => '<svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M0.75 10.75L10.75 0.75M10.75 0.75H0.75M10.75 0.75V10.75" stroke="#A4A7AE" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>',
+			'middle-left'  => '<svg width="16" height="14" viewBox="0 0 16 14" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M16 6.75L0 6.75M0 6.75L6 12.75M0 6.75L6 0.75" stroke="#A4A7AE" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>',
+			'middle-right' => '<svg width="16" height="14" viewBox="0 0 16 14" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M5.24537e-07 6.75L16 6.75M16 6.75L10 0.749999M16 6.75L10 12.75" stroke="#A4A7AE" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>',
+			'bottom-left'  => '<svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M10.75 0.75L0.75 10.75M0.75 10.75H10.75M0.75 10.75V0.75" stroke="#A4A7AE" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>',
+			'bottom-right' => '<svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M0.75 0.75L10.75 10.75M10.75 10.75V0.75M10.75 10.75H0.75" stroke="#A4A7AE" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>',
+		);
+
+		// Build custom dropdown HTML.
+		$dropdown_html  = '<div class="box box1">';
+		$dropdown_html .= '<div class="widget-position-dropdown">';
+
+		// Hidden input for form submission.
+		$default_value  = isset( $args['default'] ) ? $args['default'] : '';
+		$dropdown_html .= '<input type="hidden" id="' . esc_attr( $args['section'] ) . '[' . esc_attr( $args['id'] ) . ']" name="' . esc_attr( $args['section'] ) . '[' . esc_attr( $args['id'] ) . ']" value="' . esc_attr( $current_value ) . '" class="widget-position-input" data-default="' . esc_attr( $default_value ) . '"/>';
+
+		// Dropdown wrapper.
+		$dropdown_html .= '<div class="widget-position-wrapper">';
+
+		// Dropdown trigger button.
+		$current_icon   = isset( $position_icons[ $current_value ] ) ? $position_icons[ $current_value ] : '';
+		$dropdown_html .= '<button type="button" class="widget-position-trigger" aria-expanded="false">';
+		$dropdown_html .= '<span class="widget-position-selected">';
+		$dropdown_html .= '<span class="widget-position-icon">' . $current_icon . '</span>';
+		$dropdown_html .= '<span class="widget-position-label">' . esc_html( $current_label ) . '</span>';
+		$dropdown_html .= '</span>';
+		$dropdown_html .= '<span class="widget-position-chevron">';
+		$dropdown_html .= '<svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M4 6L8 10L12 6" stroke="#A4A7AE" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+		$dropdown_html .= '</span>';
+		$dropdown_html .= '</button>';
+
+		// Default button (separate from trigger).
+		$dropdown_html .= '<button type="button" class="widget-label-default badge-default">' . esc_html__( 'Default', 'accessibility-onetap' ) . '</button>';
+
+		$dropdown_html .= '</div>'; // .widget-position-wrapper
+
+		// Dropdown options list.
+		$dropdown_html .= '<ul class="widget-position-options">';
+		$index          = 0;
+		foreach ( $select_options as $key => $label ) {
+			++$index;
+			$is_selected    = ( $current_value === $key );
+			$icon           = isset( $position_icons[ $key ] ) ? $position_icons[ $key ] : '';
+			$dropdown_html .= '<li class="widget-position-option' . ( $is_selected ? ' selected' : '' ) . '" data-value="' . esc_attr( $key ) . '">';
+			$dropdown_html .= '<span class="widget-position-option-icon">' . $icon . '</span>';
+			$dropdown_html .= '<span class="widget-position-option-label">' . esc_html( $label ) . '</span>';
+			$dropdown_html .= '<span class="widget-position-checkmark">';
+			$dropdown_html .= '<svg width="15" height="11" viewBox="0 0 15 11" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M14.1666 0.833344L4.99998 10L0.833313 5.83334" stroke="#0048FE" stroke-width="1.66667" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+			$dropdown_html .= '</span>';
+			$dropdown_html .= '</li>';
+			if ( in_array( $index, array( 2, 4 ), true ) ) {
+				$dropdown_html .= '<hr />';
+			}
+		}
+		$dropdown_html .= '</ul>';
+
+		$dropdown_html .= '</div>'; // .widget-position-dropdown
+		$dropdown_html .= '</div>'; // .box
+
+		$this->render_template( $args, $dropdown_html, 'widget-position' );
+	}
+
+	/**
+	 * Render a custom language select dropdown field for settings forms.
+	 *
+	 * Outputs a custom dropdown with flag icons for each language option.
+	 * Includes optional title, description, label, and save button.
+	 * The dropdown allows users to choose language with visual flag icons.
+	 *
+	 * @param array $args settings field args.
+	 */
+	public function callback_template_language_select( $args ) {
+		$parsed_args    = $this->parse_template_args( $args );
+		$select_options = isset( $args['select_options'] ) ? $args['select_options'] : array();
+		$select_badge   = isset( $args['select_badge'] ) ? $args['select_badge'] : '';
+
+		// Get current selected value - use raw value from get_option to avoid esc_attr issues.
+		$raw_value     = $this->get_option( $args['id'], $args['section'], isset( $args['std'] ) ? $args['std'] : ( isset( $args['default'] ) ? $args['default'] : '' ) );
+		$current_value = ! empty( $raw_value ) ? trim( $raw_value ) : '';
+
+		// If still empty, use default from args.
+		if ( empty( $current_value ) ) {
+			if ( isset( $args['default'] ) && ! empty( $args['default'] ) ) {
+				$current_value = trim( $args['default'] );
+			} elseif ( isset( $args['std'] ) && ! empty( $args['std'] ) ) {
+				$current_value = trim( $args['std'] );
+			}
+		}
+
+		// Get current selected label with fallback.
+		$current_label = '';
+		if ( ! empty( $current_value ) && isset( $select_options[ $current_value ] ) ) {
+			$current_label = $select_options[ $current_value ];
+		} elseif ( ! empty( $current_value ) ) {
+			// If value exists but not in options, try to find it (case-insensitive or with different format).
+			foreach ( $select_options as $key => $label ) {
+				if ( strtolower( trim( $key ) ) === strtolower( $current_value ) ) {
+					$current_value = $key; // Normalize to the correct key.
+					$current_label = $label;
+					break;
+				}
+			}
+		}
+
+		// Final fallback: use default value if label is still empty.
+		if ( empty( $current_label ) ) {
+			// Try default first, then std.
+			$fallback_value = '';
+			if ( isset( $args['default'] ) && ! empty( $args['default'] ) ) {
+				$fallback_value = trim( $args['default'] );
+			} elseif ( isset( $args['std'] ) && ! empty( $args['std'] ) ) {
+				$fallback_value = trim( $args['std'] );
+			}
+
+			if ( ! empty( $fallback_value ) && isset( $select_options[ $fallback_value ] ) ) {
+				$current_value = $fallback_value;
+				$current_label = $select_options[ $fallback_value ];
+			} elseif ( ! empty( $select_options ) ) {
+				// Last resort: use first available option.
+				$first_key = key( $select_options );
+				if ( $first_key ) {
+					$current_value = $first_key;
+					$current_label = $select_options[ $first_key ];
+				}
+			}
+		}
+
+		// Mapping language codes to flag image filenames.
+		$flag_images = array(
+			'en'    => 'english.png',
+			'de'    => 'german.png',
+			'es'    => 'spanish.png',
+			'fr'    => 'french.png',
+			'it'    => 'italia.png',
+			'pl'    => 'poland.png',
+			'se'    => 'swedish.png',
+			'fi'    => 'finnland.png',
+			'pt'    => 'portugal.png',
+			'ro'    => 'rumania.png',
+			'si'    => 'slowenien.png',
+			'sk'    => 'slowakia.png',
+			'nl'    => 'netherland.png',
+			'dk'    => 'danish.png',
+			'gr'    => 'greece.png',
+			'cz'    => 'czech.png',
+			'hu'    => 'hungarian.png',
+			'lt'    => 'lithuanian.png',
+			'lv'    => 'latvian.png',
+			'ee'    => 'estonian.png',
+			'hr'    => 'croatia.png',
+			'ie'    => 'ireland.png',
+			'bg'    => 'bulgarian.png',
+			'no'    => 'norwegan.png',
+			'tr'    => 'turkish.png',
+			'id'    => 'indonesian.png',
+			'pt-br' => 'brasilian.png',
+			'ja'    => 'japanese.png',
+			'ko'    => 'korean.png',
+			'zh'    => 'chinese-simplified.png',
+			'ar'    => 'arabic.png',
+			'ru'    => 'russian.png',
+			'hi'    => 'hindi.png',
+			'uk'    => 'ukrainian.png',
+			'sr'    => 'serbian.png',
+			'gb'    => 'england.png',
+			'ir'    => 'iran.png',
+			'il'    => 'israel.png',
+			'mk'    => 'macedonia.png',
+			'th'    => 'thailand.png',
+			'vn'    => 'vietnam.png',
+		);
+
+		// Get plugin URL for flag images.
+		$plugin_url = ACCESSIBILITY_ONETAP_PLUGINS_URL . 'assets/images/';
+
+		// Get current flag image.
+		$current_flag = isset( $flag_images[ $current_value ] ) ? $flag_images[ $current_value ] : $flag_images['en'];
+
+		// Build custom dropdown HTML.
+		$dropdown_html  = '<div class="box box1">';
+		$dropdown_html .= '<div class="language-select-dropdown">';
+
+		// Hidden input for form submission.
+		$default_value  = isset( $args['default'] ) ? $args['default'] : '';
+		$dropdown_html .= '<input type="hidden" id="' . esc_attr( $args['section'] ) . '[' . esc_attr( $args['id'] ) . ']" name="' . esc_attr( $args['section'] ) . '[' . esc_attr( $args['id'] ) . ']" value="' . esc_attr( $current_value ) . '" class="language-select-input" data-default="' . esc_attr( $default_value ) . '" data-lang="' . esc_attr( $current_value ) . '"/>';
+
+		// Dropdown wrapper.
+		$dropdown_html .= '<div class="language-select-wrapper">';
+
+		// Dropdown trigger button.
+		$dropdown_html .= '<button type="button" class="language-select-trigger" aria-expanded="false" data-lang="' . esc_attr( $current_value ) . '">';
+		$dropdown_html .= '<span class="language-select-selected">';
+		$dropdown_html .= '<span class="language-select-flag">';
+		$dropdown_html .= '<img src="' . esc_url( $plugin_url . $current_flag ) . '" alt="' . esc_attr( $current_value ) . '" />';
+		$dropdown_html .= '</span>';
+		$dropdown_html .= '<span class="language-select-label">' . esc_html( $current_label ) . '</span>';
+		$dropdown_html .= '</span>';
+		$dropdown_html .= '<span class="language-select-chevron">';
+		$dropdown_html .= '<svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M4 6L8 10L12 6" stroke="#A4A7AE" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+		$dropdown_html .= '</span>';
+		$dropdown_html .= '</button>';
+
+		// Default button (separate from trigger).
+		if ( $select_badge ) {
+			$dropdown_html .= '<button type="button" class="language-label-default badge-default">' . esc_html( $select_badge ) . '</button>';
+		}
+
+		$dropdown_html .= '</div>'; // .language-select-wrapper
+
+		// Dropdown options list.
+		$dropdown_html .= '<ul class="language-select-options">';
+		foreach ( $select_options as $key => $label ) {
+			$is_selected    = ( $current_value === $key );
+			$flag_image     = isset( $flag_images[ $key ] ) ? $flag_images[ $key ] : 'english.png';
+			$dropdown_html .= '<li class="language-select-option' . ( $is_selected ? ' selected' : '' ) . '" data-value="' . esc_attr( $key ) . '" data-lang="' . esc_attr( $key ) . '">';
+			$dropdown_html .= '<span class="language-select-option-flag">';
+			$dropdown_html .= '<img src="' . esc_url( $plugin_url . $flag_image ) . '" alt="' . esc_attr( $key ) . '" />';
+			$dropdown_html .= '</span>';
+			$dropdown_html .= '<span class="language-select-option-label">' . esc_html( $label ) . '</span>';
+			$dropdown_html .= '<span class="language-select-checkmark"' . ( $is_selected ? '' : ' style="display: none;"' ) . '>';
+			$dropdown_html .= '<svg width="15" height="11" viewBox="0 0 15 11" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M14.1666 0.833344L4.99992 10L0.833252 5.83334" stroke="#0048FE" stroke-width="1.66667" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+			$dropdown_html .= '</span>';
+			$dropdown_html .= '</li>';
+		}
+		$dropdown_html .= '</ul>';
+
+		$dropdown_html .= '</div>'; // .language-select-dropdown
+		$dropdown_html .= '</div>'; // .box
+
+		$this->render_template( $args, $dropdown_html, 'language-select' );
+	}
+
+	/**
+	 * Callback template for simple language select with flags and country names.
+	 * Similar to callback_template_language_select_with_actions but without labels wrapper, toggles, and action buttons.
+	 *
+	 * @param array $args Arguments for the template.
+	 */
+	public function callback_template_language_select_simple( $args ) {
+		$parsed_args    = $this->parse_template_args( $args );
+		$select_options = isset( $args['select_options'] ) ? $args['select_options'] : array();
+		$select_badge   = isset( $args['select_badge'] ) ? $args['select_badge'] : '';
+
+		// Get current selected value - use raw value from get_option to avoid esc_attr issues.
+		$raw_value     = $this->get_option( $args['id'], $args['section'], isset( $args['std'] ) ? $args['std'] : ( isset( $args['default'] ) ? $args['default'] : '' ) );
+		$current_value = ! empty( $raw_value ) ? trim( $raw_value ) : '';
+
+		// If still empty, use default from args.
+		if ( empty( $current_value ) ) {
+			if ( isset( $args['default'] ) && ! empty( $args['default'] ) ) {
+				$current_value = trim( $args['default'] );
+			} elseif ( isset( $args['std'] ) && ! empty( $args['std'] ) ) {
+				$current_value = trim( $args['std'] );
+			}
+		}
+
+		// Get current selected label with fallback.
+		$current_label = '';
+		if ( ! empty( $current_value ) && isset( $select_options[ $current_value ] ) ) {
+			$current_label = $select_options[ $current_value ];
+		} elseif ( ! empty( $current_value ) ) {
+			// If value exists but not in options, try to find it (case-insensitive or with different format).
+			foreach ( $select_options as $key => $label ) {
+				if ( strtolower( trim( $key ) ) === strtolower( $current_value ) ) {
+					$current_value = $key; // Normalize to the correct key.
+					$current_label = $label;
+					break;
+				}
+			}
+		}
+
+		// Final fallback: use default value if label is still empty.
+		if ( empty( $current_label ) ) {
+			// Try default first, then std.
+			$fallback_value = '';
+			if ( isset( $args['default'] ) && ! empty( $args['default'] ) ) {
+				$fallback_value = trim( $args['default'] );
+			} elseif ( isset( $args['std'] ) && ! empty( $args['std'] ) ) {
+				$fallback_value = trim( $args['std'] );
+			}
+
+			if ( ! empty( $fallback_value ) && isset( $select_options[ $fallback_value ] ) ) {
+				$current_value = $fallback_value;
+				$current_label = $select_options[ $fallback_value ];
+			} elseif ( ! empty( $select_options ) ) {
+				// Last resort: use first available option.
+				$first_key = key( $select_options );
+				if ( $first_key ) {
+					$current_value = $first_key;
+					$current_label = $select_options[ $first_key ];
+				}
+			}
+		}
+
+		// Mapping language codes to flag image filenames.
+		$flag_images = array(
+			'en'    => 'english.png',
+			'de'    => 'german.png',
+			'es'    => 'spanish.png',
+			'fr'    => 'french.png',
+			'it'    => 'italia.png',
+			'pl'    => 'poland.png',
+			'se'    => 'swedish.png',
+			'fi'    => 'finnland.png',
+			'pt'    => 'portugal.png',
+			'ro'    => 'rumania.png',
+			'si'    => 'slowenien.png',
+			'sk'    => 'slowakia.png',
+			'nl'    => 'netherland.png',
+			'dk'    => 'danish.png',
+			'gr'    => 'greece.png',
+			'cz'    => 'czech.png',
+			'hu'    => 'hungarian.png',
+			'lt'    => 'lithuanian.png',
+			'lv'    => 'latvian.png',
+			'ee'    => 'estonian.png',
+			'hr'    => 'croatia.png',
+			'ie'    => 'ireland.png',
+			'bg'    => 'bulgarian.png',
+			'no'    => 'norwegan.png',
+			'tr'    => 'turkish.png',
+			'id'    => 'indonesian.png',
+			'pt-br' => 'brasilian.png',
+			'ja'    => 'japanese.png',
+			'ko'    => 'korean.png',
+			'zh'    => 'chinese-simplified.png',
+			'ar'    => 'arabic.png',
+			'ru'    => 'russian.png',
+			'hi'    => 'hindi.png',
+			'uk'    => 'ukrainian.png',
+			'sr'    => 'serbian.png',
+			'gb'    => 'england.png',
+			'ir'    => 'iran.png',
+			'il'    => 'israel.png',
+			'mk'    => 'macedonia.png',
+			'th'    => 'thailand.png',
+			'vn'    => 'vietnam.png',
+		);
+
+		// Get plugin URL for flag images.
+		$plugin_url = ACCESSIBILITY_ONETAP_PLUGINS_URL . 'assets/images/';
+
+		// Get current flag image.
+		$current_flag = isset( $flag_images[ $current_value ] ) ? $flag_images[ $current_value ] : $flag_images['en'];
+
+		// Build custom dropdown HTML.
+		$dropdown_html  = '<div class="box box1">';
+		$dropdown_html .= '<div class="language-select-dropdown">';
+
+		// Hidden input for form submission.
+		$default_value  = isset( $args['default'] ) ? $args['default'] : '';
+		$dropdown_html .= '<input type="hidden" id="' . esc_attr( $args['section'] ) . '[' . esc_attr( $args['id'] ) . ']" name="' . esc_attr( $args['section'] ) . '[' . esc_attr( $args['id'] ) . ']" value="' . esc_attr( $current_value ) . '" class="language-select-input" data-default="' . esc_attr( $default_value ) . '" data-lang="' . esc_attr( $current_value ) . '"/>';
+
+		// Labels wrapper.
+		$dropdown_html .= '<div class="language-select-labels-wrapper">';
+		$dropdown_html .= '<span class="language-select-label-default">' . esc_html__( 'Default Language', 'accessibility-onetap' ) . '</span>';
+		$dropdown_html .= '<span class="language-select-label-display-options">' . esc_html__( 'Display Options', 'accessibility-onetap' ) . '</span>';
+		$dropdown_html .= '</div>';
+
+		// Dropdown wrapper.
+		$dropdown_html .= '<div class="language-select-wrapper">';
+
+		// Dropdown trigger button.
+		$dropdown_html .= '<button type="button" class="language-select-trigger" aria-expanded="false" data-lang="' . esc_attr( $current_value ) . '">';
+		$dropdown_html .= '<span class="language-select-selected">';
+		$dropdown_html .= '<span class="language-select-flag">';
+		$dropdown_html .= '<img src="' . esc_url( $plugin_url . $current_flag ) . '" alt="' . esc_attr( $current_value ) . '" />';
+		$dropdown_html .= '</span>';
+		$dropdown_html .= '<span class="language-select-label">' . esc_html( $current_label ) . '</span>';
+		$dropdown_html .= '</span>';
+		$dropdown_html .= '<span class="language-select-chevron">';
+		$dropdown_html .= '<svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M4 6L8 10L12 6" stroke="#A4A7AE" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+		$dropdown_html .= '</span>';
+		$dropdown_html .= '</button>';
+
+		// Default button (separate from trigger).
+		if ( $select_badge ) {
+			$dropdown_html .= '<button type="button" class="language-label-default badge-default">' . esc_html( $select_badge ) . '</button>';
+		}
+
+		$dropdown_html .= '</div>'; // .language-select-wrapper
+
+		// Dropdown options list.
+		$dropdown_html .= '<ul class="language-select-options">';
+		foreach ( $select_options as $key => $label ) {
+			$is_selected = ( $current_value === $key );
+			$flag_image  = isset( $flag_images[ $key ] ) ? $flag_images[ $key ] : 'english.png';
+
+			$dropdown_html .= '<li class="language-select-option' . ( $is_selected ? ' selected' : '' ) . '" data-value="' . esc_attr( $key ) . '" data-lang="' . esc_attr( $key ) . '">';
+			$dropdown_html .= '<span class="language-select-option-flag">';
+			$dropdown_html .= '<img src="' . esc_url( $plugin_url . $flag_image ) . '" alt="' . esc_attr( $key ) . '" />';
+			$dropdown_html .= '</span>';
+			$dropdown_html .= '<span class="language-select-option-label">' . esc_html( $label ) . '</span>';
+			$dropdown_html .= '<span class="language-select-check-icon"><svg width="15" height="11" viewBox="0 0 15 11" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M14.1666 0.833344L4.99992 10L0.833252 5.83334" stroke="#0048FE" stroke-width="1.66667" stroke-linecap="round" stroke-linejoin="round"/></svg></span>';
+			$dropdown_html .= '<button type="button" class="language-select-option-default-label badge-default">' . esc_html__( 'Default', 'accessibility-onetap' ) . '</button>';
+			$dropdown_html .= '</li>';
+		}
+		$dropdown_html .= '</ul>';
+
+		$dropdown_html .= '</div>'; // .language-select-dropdown
+		$dropdown_html .= '</div>'; // .box
+
+		$this->render_template( $args, $dropdown_html, 'language-select-simple' );
+	}
+
+	/**
+	 * Callback template for language select with flags, country names, and toggle checkboxes.
+	 * Similar to callback_template_language_select_with_actions but without action buttons.
+	 *
+	 * @param array $args Arguments for the template.
+	 */
+	public function callback_template_language_select_with_toggles( $args ) {
+		$parsed_args    = $this->parse_template_args( $args );
+		$select_options = isset( $args['select_options'] ) ? $args['select_options'] : array();
+		$select_badge   = isset( $args['select_badge'] ) ? $args['select_badge'] : '';
+
+		// Get current selected value - use raw value from get_option to avoid esc_attr issues.
+		$raw_value     = $this->get_option( $args['id'], $args['section'], isset( $args['std'] ) ? $args['std'] : ( isset( $args['default'] ) ? $args['default'] : '' ) );
+		$current_value = ! empty( $raw_value ) ? trim( $raw_value ) : '';
+
+		// If still empty, use default from args.
+		if ( empty( $current_value ) ) {
+			if ( isset( $args['default'] ) && ! empty( $args['default'] ) ) {
+				$current_value = trim( $args['default'] );
+			} elseif ( isset( $args['std'] ) && ! empty( $args['std'] ) ) {
+				$current_value = trim( $args['std'] );
+			}
+		}
+
+		// Get current selected label with fallback.
+		$current_label = '';
+		if ( ! empty( $current_value ) && isset( $select_options[ $current_value ] ) ) {
+			$current_label = $select_options[ $current_value ];
+		} elseif ( ! empty( $current_value ) ) {
+			// If value exists but not in options, try to find it (case-insensitive or with different format).
+			foreach ( $select_options as $key => $label ) {
+				if ( strtolower( trim( $key ) ) === strtolower( $current_value ) ) {
+					$current_value = $key; // Normalize to the correct key.
+					$current_label = $label;
+					break;
+				}
+			}
+		}
+
+		// Final fallback: use default value if label is still empty.
+		if ( empty( $current_label ) ) {
+			// Try default first, then std.
+			$fallback_value = '';
+			if ( isset( $args['default'] ) && ! empty( $args['default'] ) ) {
+				$fallback_value = trim( $args['default'] );
+			} elseif ( isset( $args['std'] ) && ! empty( $args['std'] ) ) {
+				$fallback_value = trim( $args['std'] );
+			}
+
+			if ( ! empty( $fallback_value ) && isset( $select_options[ $fallback_value ] ) ) {
+				$current_value = $fallback_value;
+				$current_label = $select_options[ $fallback_value ];
+			} elseif ( ! empty( $select_options ) ) {
+				// Last resort: use first available option.
+				$first_key = key( $select_options );
+				if ( $first_key ) {
+					$current_value = $first_key;
+					$current_label = $select_options[ $first_key ];
+				}
+			}
+		}
+
+		// Mapping language codes to flag image filenames.
+		$flag_images = array(
+			'en'    => 'english.png',
+			'de'    => 'german.png',
+			'es'    => 'spanish.png',
+			'fr'    => 'french.png',
+			'it'    => 'italia.png',
+			'pl'    => 'poland.png',
+			'se'    => 'swedish.png',
+			'fi'    => 'finnland.png',
+			'pt'    => 'portugal.png',
+			'ro'    => 'rumania.png',
+			'si'    => 'slowenien.png',
+			'sk'    => 'slowakia.png',
+			'nl'    => 'netherland.png',
+			'dk'    => 'danish.png',
+			'gr'    => 'greece.png',
+			'cz'    => 'czech.png',
+			'hu'    => 'hungarian.png',
+			'lt'    => 'lithuanian.png',
+			'lv'    => 'latvian.png',
+			'ee'    => 'estonian.png',
+			'hr'    => 'croatia.png',
+			'ie'    => 'ireland.png',
+			'bg'    => 'bulgarian.png',
+			'no'    => 'norwegan.png',
+			'tr'    => 'turkish.png',
+			'id'    => 'indonesian.png',
+			'pt-br' => 'brasilian.png',
+			'ja'    => 'japanese.png',
+			'ko'    => 'korean.png',
+			'zh'    => 'chinese-simplified.png',
+			'ar'    => 'arabic.png',
+			'ru'    => 'russian.png',
+			'hi'    => 'hindi.png',
+			'uk'    => 'ukrainian.png',
+			'sr'    => 'serbian.png',
+			'gb'    => 'england.png',
+			'ir'    => 'iran.png',
+			'il'    => 'israel.png',
+			'mk'    => 'macedonia.png',
+			'th'    => 'thailand.png',
+			'vn'    => 'vietnam.png',
+		);
+
+		// Get plugin URL for flag images.
+		$plugin_url = ACCESSIBILITY_ONETAP_PLUGINS_URL . 'assets/images/';
+
+		// Get current flag image.
+		$current_flag = isset( $flag_images[ $current_value ] ) ? $flag_images[ $current_value ] : $flag_images['en'];
+
+		// Build custom dropdown HTML.
+		$dropdown_html  = '<div class="box box1">';
+		$dropdown_html .= '<div class="language-select-dropdown ">';
+
+		// Hidden input for form submission.
+		$default_value  = isset( $args['default'] ) ? $args['default'] : '';
+		$dropdown_html .= '<input type="hidden" id="' . esc_attr( $args['section'] ) . '[' . esc_attr( $args['id'] ) . ']" name="' . esc_attr( $args['section'] ) . '[' . esc_attr( $args['id'] ) . ']" value="' . esc_attr( $current_value ) . '" class="language-select-input" data-default="' . esc_attr( $default_value ) . '" data-lang="' . esc_attr( $current_value ) . '"/>';
+
+		// Labels wrapper.
+		$dropdown_html .= '<div class="language-select-labels-wrapper">';
+		$dropdown_html .= '<span class="language-select-label-default">' . esc_html__( 'Default Language', 'accessibility-onetap' ) . '</span>';
+		$dropdown_html .= '<span class="language-select-label-display-options">' . esc_html__( 'Display Options', 'accessibility-onetap' ) . '</span>';
+		$dropdown_html .= '</div>';
+
+		// Dropdown wrapper.
+		$dropdown_html .= '<div class="language-select-wrapper">';
+
+		// Dropdown trigger button.
+		$dropdown_html .= '<button type="button" class="language-select-trigger" aria-expanded="false" data-lang="' . esc_attr( $current_value ) . '">';
+		$dropdown_html .= '<span class="language-select-selected">';
+		$dropdown_html .= '<span class="language-select-flag">';
+		$dropdown_html .= '<img src="' . esc_url( $plugin_url . $current_flag ) . '" alt="' . esc_attr( $current_value ) . '" />';
+		$dropdown_html .= '</span>';
+		$dropdown_html .= '<span class="language-select-label">' . esc_html( $current_label ) . '</span>';
+		$dropdown_html .= '</span>';
+		$dropdown_html .= '<span class="language-select-chevron">';
+		$dropdown_html .= '<svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M4 6L8 10L12 6" stroke="#A4A7AE" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+		$dropdown_html .= '</span>';
+		$dropdown_html .= '</button>';
+
+		// Default button (separate from trigger).
+		if ( $select_badge ) {
+			$dropdown_html .= '<button type="button" class="language-label-default badge-default">' . esc_html( $select_badge ) . '</button>';
+		}
+
+		$dropdown_html .= '</div>'; // .language-select-wrapper
+
+		// Get saved language toggle settings.
+		$onetap_settings  = get_option( 'onetap_settings', array() );
+		$language_toggles = isset( $onetap_settings['toggle-language'] ) && is_array( $onetap_settings['toggle-language'] ) ? $onetap_settings['toggle-language'] : array();
+
+		// Check if toggle-language key exists (if not, means first time, default all ON).
+		$is_first_time = ! isset( $onetap_settings['toggle-language'] );
+
+		// If first time, set default all languages as ON (but don't save yet to avoid issues during rendering).
+		if ( $is_first_time && ! empty( $select_options ) ) {
+			$default_toggles = array();
+			foreach ( $select_options as $key => $label ) {
+				$default_toggles[ $key ] = 'on';
+			}
+			$language_toggles = $default_toggles;
+		}
+
+		// Dropdown options list.
+		$dropdown_html .= '<ul class="language-select-options">';
+		foreach ( $select_options as $key => $label ) {
+			$is_selected = ( $current_value === $key );
+			$flag_image  = isset( $flag_images[ $key ] ) ? $flag_images[ $key ] : 'english.png';
+			$toggle_id   = 'onetap_settings[toggle-language-' . esc_attr( $key ) . ']';
+			$toggle_name = 'onetap_settings[toggle-language][' . esc_attr( $key ) . ']';
+
+			// Check if this language toggle is saved as active.
+			// Default to ON: if first time, or if language not in saved data, or if saved value is 'on'.
+			// Only OFF if explicitly set to something other than 'on' in saved data.
+			if ( $is_first_time ) {
+				// First time: default all ON.
+				$is_toggle_on = true;
+			} elseif ( ! isset( $language_toggles[ $key ] ) ) {
+				// Language not in saved data: default to ON.
+				$is_toggle_on = true;
+			} else {
+				// Check saved value: ON if 'on', otherwise OFF.
+				$is_toggle_on = 'on' === $language_toggles[ $key ];
+			}
+			$checked_attr = $is_toggle_on ? ' checked="checked"' : '';
+
+			$dropdown_html .= '<li class="language-select-option' . ( $is_selected ? ' selected' : '' ) . '" data-value="' . esc_attr( $key ) . '" data-lang="' . esc_attr( $key ) . '">';
+			$dropdown_html .= '<span class="language-select-option-flag">';
+			$dropdown_html .= '<img src="' . esc_url( $plugin_url . $flag_image ) . '" alt="' . esc_attr( $key ) . '" />';
+			$dropdown_html .= '</span>';
+			$dropdown_html .= '<span class="language-select-option-label">' . esc_html( $label ) . '</span>';
+			$dropdown_html .= '<span class="language-select-check-icon"><svg width="15" height="11" viewBox="0 0 15 11" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M14.1666 0.833344L4.99992 10L0.833252 5.83334" stroke="#0048FE" stroke-width="1.66667" stroke-linecap="round" stroke-linejoin="round"/></svg></span>';
+			$dropdown_html .= '<button type="button" class="language-select-option-default-label badge-default">' . esc_html__( 'Default', 'accessibility-onetap' ) . '</button>';
+			$dropdown_html .= '<div class="box-swich"><label class="switch"><input type="checkbox" id="' . esc_attr( $toggle_id ) . '" name="' . esc_attr( $toggle_name ) . '" value="on"' . $checked_attr . '><span class="slider round"></span></label></div>';
+			$dropdown_html .= '</li>';
+		}
+		$dropdown_html .= '</ul>';
+
+		// Language select actions (Disable All / Enable All buttons).
+		$dropdown_html .= '<div class="language-select-actions">';
+		$dropdown_html .= '<button type="button" class="button outline language-disable-all">' . esc_html__( 'Disable All', 'accessibility-onetap' ) . '</button>';
+		$dropdown_html .= '<button type="button" class="button solid language-enable-all">' . esc_html__( 'Enable All', 'accessibility-onetap' ) . '</button>';
+		$dropdown_html .= '</div>';
+
+		$dropdown_html .= '</div>'; // .language-select-dropdown
+		$dropdown_html .= '</div>'; // .box
+
+		$this->render_template( $args, $dropdown_html, 'language-select-toggles' );
+	}
+
+	/**
 	 * Callback template for image list with alt text management.
 	 *
 	 * @param array $args Arguments for the template.
@@ -1512,6 +2165,78 @@ class Accessibility_Onetap_Settings_Manager {
 			$options = array();
 		}
 
+		// Handle toggle-language array: ensure all available languages are included.
+		$all_languages = $this->get_all_available_languages();
+
+		if ( ! empty( $all_languages ) ) {
+			// Get existing settings.
+			$existing_settings = get_option( 'onetap_settings', array() );
+			$existing_toggles  = isset( $existing_settings['toggle-language'] ) && is_array( $existing_settings['toggle-language'] )
+				? $existing_settings['toggle-language']
+				: array();
+
+			// Get toggle-language from form submission (if any).
+			// Checkboxes that are unchecked are not sent in form submission, so we need to handle this.
+			$form_toggles = isset( $options['toggle-language'] ) && is_array( $options['toggle-language'] )
+				? $options['toggle-language']
+				: array();
+
+			// Check if this is first time (no existing data).
+			$is_first_time = empty( $existing_toggles );
+
+			// Check if form was submitted with toggle-language data.
+			// If form_toggles is not empty, it means user interacted with language toggles.
+			$has_toggle_submission = ! empty( $form_toggles );
+
+			// Process toggle-language based on different scenarios.
+			$merged_toggles = array();
+
+			// SCENARIO ANALYSIS:.
+			// 1. Data kosong / Fresh install: Default all 'on'.
+			// 2. Data sebelumnya ada + form tanpa toggle data: Preserve existing.
+			// 3. Form dengan toggle data (Enable All): All checked = all 'on'.
+			// 4. Form dengan toggle data (Disable All): Only default checked = others 'off'.
+			// 5. Form dengan toggle data (Enable Some): Checked = 'on', unchecked = 'off'.
+
+			foreach ( $all_languages as $lang_code ) {
+				if ( isset( $form_toggles[ $lang_code ] ) ) {
+					// SCENARIO: Checkbox is checked (in form submission).
+					// Cases: Enable All, Enable Some, etc.
+					$sanitized_value              = sanitize_text_field( $form_toggles[ $lang_code ] );
+					$merged_toggles[ $lang_code ] = ( 'on' === $sanitized_value ) ? 'on' : 'off';
+				} elseif ( $has_toggle_submission ) {
+					// SCENARIO: Form was submitted with toggle data, but this checkbox is NOT in it (was unchecked).
+					// Cases: Disable All, Enable Some (where this one is off), etc.
+					// When user interacts with toggles and this one is not checked, it means 'off'.
+					$merged_toggles[ $lang_code ] = 'off';
+				} elseif ( ! $is_first_time ) {
+					// SCENARIO: Not first time, but form was submitted WITHOUT toggle-language data.
+					// This means user submitted form but didn't interact with language toggles.
+					// Preserve existing value (don't change anything).
+					$merged_toggles[ $lang_code ] = isset( $existing_toggles[ $lang_code ] ) && 'on' === $existing_toggles[ $lang_code ] ? 'on' : 'off';
+				} else {
+					// SCENARIO: First time, no toggle submission, no existing data.
+					// Default to 'on' for initial display.
+					$merged_toggles[ $lang_code ] = 'on';
+				}
+			}
+
+			// Safety check: If first time and no toggle submission, ensure all are set to 'on' (default).
+			// This handles: Data kosong, Fresh install scenarios.
+			if ( $is_first_time && ! $has_toggle_submission ) {
+				foreach ( $all_languages as $lang_code ) {
+					if ( ! isset( $merged_toggles[ $lang_code ] ) ) {
+						$merged_toggles[ $lang_code ] = 'on';
+					}
+				}
+			}
+
+			$options['toggle-language'] = $merged_toggles;
+		} elseif ( isset( $existing_settings['toggle-language'] ) && is_array( $existing_settings['toggle-language'] ) && ! isset( $options['toggle-language'] ) ) {
+			// If no languages found, preserve existing toggle-language if it exists.
+			$options['toggle-language'] = $existing_settings['toggle-language'];
+		}
+
 		// Get all registered switch fields to check for missing checkboxes.
 		$all_switch_fields = array();
 		foreach ( $this->settings_fields as $section => $section_options ) {
@@ -1661,5 +2386,46 @@ class Accessibility_Onetap_Settings_Manager {
 			<?php } ?>
 		</div>
 		<?php
+	}
+
+
+	/**
+	 * Get all available language codes from settings fields.
+	 *
+	 * @return array Array of language codes.
+	 */
+	protected function get_all_available_languages() {
+		$all_languages = array();
+
+		// Find the language field in settings fields.
+		foreach ( $this->settings_fields as $section => $section_options ) {
+			foreach ( $section_options as $option ) {
+				if ( isset( $option['name'] ) && 'language' === $option['name'] && isset( $option['select_options'] ) && is_array( $option['select_options'] ) ) {
+					$all_languages = array_keys( $option['select_options'] );
+					break 2; // Break out of both loops.
+				}
+			}
+		}
+
+		// Fallback: if settings_fields not yet initialized, get from options class directly.
+		if ( empty( $all_languages ) ) {
+			// Try to get from Onetap_Pro_Accessibility_Settings_Options if available.
+			if ( class_exists( 'Onetap_Pro_Accessibility_Settings_Options' ) ) {
+				$options_instance = new Onetap_Pro_Accessibility_Settings_Options();
+				$fields           = $options_instance->get_settings_api_fields();
+
+				// Find language field.
+				if ( isset( $fields['onetap_settings'] ) ) {
+					foreach ( $fields['onetap_settings'] as $field ) {
+						if ( isset( $field['name'] ) && 'language' === $field['name'] && isset( $field['select_options'] ) && is_array( $field['select_options'] ) ) {
+							$all_languages = array_keys( $field['select_options'] );
+							break;
+						}
+					}
+				}
+			}
+		}
+
+		return $all_languages;
 	}
 }

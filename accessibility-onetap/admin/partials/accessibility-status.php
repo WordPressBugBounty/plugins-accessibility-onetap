@@ -76,56 +76,147 @@ $accessibility_status = array(
 						<!-- Language select dropdown -->
 						<div class="box-control-select custom-box-controls margin-bottom-22">
 							<label class="label" for="select_language"><?php esc_html_e( 'Select Language', 'accessibility-onetap' ); ?></label>
-							<select id="select_language" name="onetap_select_language">
-								<?php
-								$languages = array(
-									'en'    => __( 'English', 'accessibility-onetap' ),
-									'de'    => __( 'Deutsch', 'accessibility-onetap' ),
-									'es'    => __( 'Español', 'accessibility-onetap' ),
-									'fr'    => __( 'Français', 'accessibility-onetap' ),
-									'it'    => __( 'Italiano', 'accessibility-onetap' ),
-									'pl'    => __( 'Polski', 'accessibility-onetap' ),
-									'se'    => __( 'Svenska', 'accessibility-onetap' ),
-									'fi'    => __( 'Suomi', 'accessibility-onetap' ),
-									'pt'    => __( 'Português', 'accessibility-onetap' ),
-									'ro'    => __( 'Română', 'accessibility-onetap' ),
-									'si'    => __( 'Slovenščina', 'accessibility-onetap' ),
-									'sk'    => __( 'Slovenčina', 'accessibility-onetap' ),
-									'nl'    => __( 'Nederlands', 'accessibility-onetap' ),
-									'dk'    => __( 'Dansk', 'accessibility-onetap' ),
-									'gr'    => __( 'Ελληνικά', 'accessibility-onetap' ),
-									'cz'    => __( 'Čeština', 'accessibility-onetap' ),
-									'hu'    => __( 'Magyar', 'accessibility-onetap' ),
-									'lt'    => __( 'Lietuvių', 'accessibility-onetap' ),
-									'lv'    => __( 'Latviešu', 'accessibility-onetap' ),
-									'ee'    => __( 'Eesti', 'accessibility-onetap' ),
-									'hr'    => __( 'Hrvatski', 'accessibility-onetap' ),
-									'ie'    => __( 'Gaeilge', 'accessibility-onetap' ),
-									'bg'    => __( 'Български', 'accessibility-onetap' ),
-									'no'    => __( 'Norsk', 'accessibility-onetap' ),
-									'tr'    => __( 'Türkçe', 'accessibility-onetap' ),
-									'id'    => __( 'Bahasa Indonesia', 'accessibility-onetap' ),
-									'pt-br' => __( 'Português (Brasil)', 'accessibility-onetap' ),
-									'ja'    => __( '日本語', 'accessibility-onetap' ),
-									'ko'    => __( '한국어', 'accessibility-onetap' ),
-									'zh'    => __( '简体中文', 'accessibility-onetap' ),
-									'ar'    => __( 'العربية', 'accessibility-onetap' ),
-									'ru'    => __( 'Русский', 'accessibility-onetap' ),
-									'hi'    => __( 'हिन्दी', 'accessibility-onetap' ),
-									'uk'    => __( 'Українська', 'accessibility-onetap' ),
-									'sr'    => __( 'Srpski', 'accessibility-onetap' ),
-								);
+							<?php
+							$apop_languages = array(
+								'en'    => __( 'English', 'accessibility-onetap' ),
+								'de'    => __( 'Deutsch', 'accessibility-onetap' ),
+								'es'    => __( 'Español', 'accessibility-onetap' ),
+								'fr'    => __( 'Français', 'accessibility-onetap' ),
+								'it'    => __( 'Italiano', 'accessibility-onetap' ),
+								'pl'    => __( 'Polski', 'accessibility-onetap' ),
+								'se'    => __( 'Svenska', 'accessibility-onetap' ),
+								'fi'    => __( 'Suomi', 'accessibility-onetap' ),
+								'pt'    => __( 'Português', 'accessibility-onetap' ),
+								'ro'    => __( 'Română', 'accessibility-onetap' ),
+								'si'    => __( 'Slovenščina', 'accessibility-onetap' ),
+								'sk'    => __( 'Slovenčina', 'accessibility-onetap' ),
+								'nl'    => __( 'Nederlands', 'accessibility-onetap' ),
+								'dk'    => __( 'Dansk', 'accessibility-onetap' ),
+								'gr'    => __( 'Ελληνικά', 'accessibility-onetap' ),
+								'cz'    => __( 'Čeština', 'accessibility-onetap' ),
+								'hu'    => __( 'Magyar', 'accessibility-onetap' ),
+								'lt'    => __( 'Lietuvių', 'accessibility-onetap' ),
+								'lv'    => __( 'Latviešu', 'accessibility-onetap' ),
+								'ee'    => __( 'Eesti', 'accessibility-onetap' ),
+								'hr'    => __( 'Hrvatski', 'accessibility-onetap' ),
+								'ie'    => __( 'Gaeilge', 'accessibility-onetap' ),
+								'bg'    => __( 'Български', 'accessibility-onetap' ),
+								'no'    => __( 'Norsk', 'accessibility-onetap' ),
+								'tr'    => __( 'Türkçe', 'accessibility-onetap' ),
+								'id'    => __( 'Bahasa Indonesia', 'accessibility-onetap' ),
+								'pt-br' => __( 'Português (Brasil)', 'accessibility-onetap' ),
+								'ja'    => __( '日本語', 'accessibility-onetap' ),
+								'ko'    => __( '한국어', 'accessibility-onetap' ),
+								'zh'    => __( '简体中文', 'accessibility-onetap' ),
+								'ar'    => __( 'العربية', 'accessibility-onetap' ),
+								'ru'    => __( 'Русский', 'accessibility-onetap' ),
+								'hi'    => __( 'हिन्दी', 'accessibility-onetap' ),
+								'uk'    => __( 'Українська', 'accessibility-onetap' ),
+								'sr'    => __( 'Srpski', 'accessibility-onetap' ),
+								'gb'    => __( 'English (UK)', 'accessibility-onetap' ),
+								'ir'    => __( 'ایران', 'accessibility-onetap' ),
+								'il'    => __( 'ישראל', 'accessibility-onetap' ),
+								'mk'    => __( 'Македонија', 'accessibility-onetap' ),
+								'th'    => __( 'ประเทศไทย', 'accessibility-onetap' ),
+								'vn'    => __( 'Việt Nam', 'accessibility-onetap' ),
+							);
 
-								foreach ( $languages as $code => $label ) {
-									printf(
-										'<option value="%1$s"%2$s>%3$s</option>',
-										esc_attr( $code ),
-										selected( $accessibility_status['select_language'], $code, false ),
-										esc_html( $label )
-									);
-								}
-								?>
-							</select>
+							// Mapping language codes to flag image filenames.
+							$apop_flag_images = array(
+								'en'    => 'english.png',
+								'de'    => 'german.png',
+								'es'    => 'spanish.png',
+								'fr'    => 'french.png',
+								'it'    => 'italia.png',
+								'pl'    => 'poland.png',
+								'se'    => 'swedish.png',
+								'fi'    => 'finnland.png',
+								'pt'    => 'portugal.png',
+								'ro'    => 'rumania.png',
+								'si'    => 'slowenien.png',
+								'sk'    => 'slowakia.png',
+								'nl'    => 'netherland.png',
+								'dk'    => 'danish.png',
+								'gr'    => 'greece.png',
+								'cz'    => 'czech.png',
+								'hu'    => 'hungarian.png',
+								'lt'    => 'lithuanian.png',
+								'lv'    => 'latvian.png',
+								'ee'    => 'estonian.png',
+								'hr'    => 'croatia.png',
+								'ie'    => 'ireland.png',
+								'bg'    => 'bulgarian.png',
+								'no'    => 'norwegan.png',
+								'tr'    => 'turkish.png',
+								'id'    => 'indonesian.png',
+								'pt-br' => 'brasilian.png',
+								'ja'    => 'japanese.png',
+								'ko'    => 'korean.png',
+								'zh'    => 'chinese-simplified.png',
+								'ar'    => 'arabic.png',
+								'ru'    => 'russian.png',
+								'hi'    => 'hindi.png',
+								'uk'    => 'ukrainian.png',
+								'sr'    => 'serbian.png',
+								'gb'    => 'england.png',
+								'ir'    => 'iran.png',
+								'il'    => 'israel.png',
+								'mk'    => 'macedonia.png',
+								'th'    => 'thailand.png',
+								'vn'    => 'vietnam.png',
+							);
+
+							// Get current selected language.
+							$current_language = isset( $accessibility_status['select_language'] ) ? $accessibility_status['select_language'] : 'en';
+							$current_label    = isset( $apop_languages[ $current_language ] ) ? $apop_languages[ $current_language ] : $apop_languages['en'];
+							$current_flag     = isset( $apop_flag_images[ $current_language ] ) ? $apop_flag_images[ $current_language ] : $apop_flag_images['en'];
+							$plugin_url       = plugin_dir_url( dirname( __DIR__ ) ) . 'assets/images/';
+
+							// Build custom dropdown HTML.
+							?>
+							<div class="language-select-dropdown">
+								<!-- Hidden input for form submission -->
+								<input type="hidden" id="select_language" name="onetap_select_language" value="<?php echo esc_attr( $current_language ); ?>" class="language-select-input" />
+
+								<!-- Dropdown wrapper -->
+								<div class="language-select-wrapper">
+									<!-- Dropdown trigger button -->
+									<button type="button" class="language-select-trigger" aria-expanded="false">
+										<span class="language-select-selected">
+											<span class="language-select-flag">
+												<img src="<?php echo esc_url( $plugin_url . $current_flag ); ?>" alt="<?php echo esc_attr( $current_language ); ?>" />
+											</span>
+											<span class="language-select-label"><?php echo esc_html( $current_label ); ?></span>
+										</span>
+										<span class="language-select-chevron">
+											<svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+												<path d="M4 6L8 10L12 6" stroke="#A4A7AE" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+											</svg>
+										</span>
+									</button>
+								</div>
+
+								<!-- Dropdown options list -->
+								<ul class="language-select-options">
+									<?php
+									foreach ( $apop_languages as $apop_code => $apop_label ) {
+										$is_selected = ( $current_language === $apop_code );
+										$flag_image  = isset( $apop_flag_images[ $apop_code ] ) ? $apop_flag_images[ $apop_code ] : 'english.png';
+										?>
+										<li class="language-select-option<?php echo $is_selected ? ' selected' : ''; ?>" data-value="<?php echo esc_attr( $apop_code ); ?>">
+											<span class="language-select-option-flag">
+												<img src="<?php echo esc_url( $plugin_url . $flag_image ); ?>" alt="<?php echo esc_attr( $apop_code ); ?>" />
+											</span>
+											<span class="language-select-option-label"><?php echo esc_html( $apop_label ); ?></span>
+											<span class="language-select-checkmark"<?php echo $is_selected ? '' : ' style="display: none;"'; ?>>
+												<svg width="15" height="11" viewBox="0 0 15 11" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M14.1666 0.833344L4.99992 10L0.833252 5.83334" stroke="#0048FE" stroke-width="1.66667" stroke-linecap="round" stroke-linejoin="round"/></svg>
+											</span>
+										</li>
+										<?php
+									}
+									?>
+								</ul>
+							</div>
 						</div>
 
 						<!-- Company Name -->
@@ -1348,10 +1439,214 @@ $accessibility_status = array(
 
 							Odgovaramo u roku od 3–5 radnih dana. Po potrebi, dostupna je pomoć i putem alternativnih kanala.
 
-							<strong>Poslednje ažuriranje:</strong> [March 9, 2025]
-						</div>
+						<strong>Poslednje ažuriranje:</strong> [March 9, 2025]
+					</div>
 
-						<!-- Information -->
+					<!-- English UK -->
+					<div data-content-lang="gb" class="status-message-accessibility" style="display: none;">
+						<h2>[Company Name] Accessibility Commitment</h2>
+						<strong>[Company Name]</strong> is committed to making our digital content as accessible and inclusive as possible for all users, including people with disabilities. Our goal is to improve the usability of <strong>[Company Website]</strong> and ensure equal access for everyone, regardless of abilities or technology used.
+
+						<h3>Our Approach to Accessibility</h3>
+						We strive to follow international standards such as the Web Content Accessibility Guidelines (WCAG). While full compliance may not always be possible, we continuously work to improve accessibility and regularly review relevant sections.
+
+						Accessibility is an ongoing process — we are committed to constant improvement as technology and user needs evolve.
+
+						<h3>Accessibility Features</h3>
+						<strong>[Company Website]</strong> may use tools such as the OneTap accessibility toolbar, which provides:
+						<ul>
+							<li>Text size and contrast adjustments</li>
+							<li>Link and text highlighting</li>
+							<li>Full keyboard navigation</li>
+							<li>Keyboard shortcut: <strong>Alt + .</strong> (Windows) or <strong>⌘ + .</strong> (Mac)</li>
+						</ul>
+						<strong>Notes:</strong>
+						<ul>
+							<li>Features depend on the site's configuration and maintenance.</li>
+							<li>We cannot guarantee full accessibility of all parts of <strong>[Company Website]</strong>. Some content may be from third parties or have technical limitations.</li>
+						</ul>
+
+						<h3>Feedback and Contact</h3>
+						We value your feedback. If you experience accessibility barriers or have suggestions, please contact us:
+
+						Email: <strong>[Company E-Mail]</strong>
+
+						We typically respond within 3–5 business days. Assistance is also available through alternative channels if needed.
+
+						<strong>Last updated:</strong> [March 9, 2025]
+					</div>
+
+					<!-- Persian -->
+					<div data-content-lang="ir" class="status-message-accessibility" dir="rtl" style="display: none;">
+						<h2>تعهد [Company Name] به دسترسی‌پذیری</h2>
+						<strong>[Company Name]</strong> متعهد است که محتوای دیجیتال خود را تا حد امکان برای همه کاربران، از جمله افراد دارای معلولیت، قابل دسترس و فراگیر کند. هدف ما بهبود قابلیت استفاده از <strong>[Company Website]</strong> و اطمینان از دسترسی برابر برای همه، صرف نظر از توانایی‌ها یا فناوری مورد استفاده است.
+
+						<h3>رویکرد ما به دسترسی‌پذیری</h3>
+						ما تلاش می‌کنیم از استانداردهای بین‌المللی مانند دستورالعمل‌های دسترسی‌پذیری محتوای وب (WCAG) پیروی کنیم. در حالی که رعایت کامل همیشه ممکن نیست، ما به طور مداوم برای بهبود دسترسی‌پذیری کار می‌کنیم و بخش‌های مرتبط را به طور منظم بررسی می‌کنیم.
+
+						دسترسی‌پذیری یک فرآیند مداوم است — ما متعهد به بهبود مستمر با تکامل فناوری و نیازهای کاربران هستیم.
+
+						<h3>ویژگی‌های دسترسی‌پذیری</h3>
+						<strong>[Company Website]</strong> ممکن است از ابزارهایی مانند نوار ابزار دسترسی‌پذیری OneTap استفاده کند که موارد زیر را ارائه می‌دهد:
+						<ul>
+							<li>تنظیم اندازه متن و کنتراست</li>
+							<li>برجسته‌سازی لینک‌ها و متن</li>
+							<li>ناوبری کامل با صفحه کلید</li>
+							<li>کلید میانبر: <strong>Alt + .</strong> (Windows) یا <strong>⌘ + .</strong> (Mac)</li>
+						</ul>
+						<strong>یادداشت‌ها:</strong>
+						<ul>
+							<li>ویژگی‌ها به پیکربندی و نگهداری سایت بستگی دارد.</li>
+							<li>ما نمی‌توانیم دسترسی کامل به تمام بخش‌های <strong>[Company Website]</strong> را تضمین کنیم. برخی از محتوا ممکن است از طرف سوم باشد یا محدودیت‌های فنی داشته باشد.</li>
+						</ul>
+
+						<h3>بازخورد و تماس</h3>
+						ما از بازخورد شما استقبال می‌کنیم. اگر با موانع دسترسی‌پذیری مواجه شدید یا پیشنهادی دارید، لطفاً با ما تماس بگیرید:
+
+						ایمیل: <strong>[Company E-Mail]</strong>
+
+						ما معمولاً در عرض 3 تا 5 روز کاری پاسخ می‌دهیم. در صورت نیاز، کمک نیز از طریق کانال‌های جایگزین در دسترس است.
+
+						<strong>آخرین به‌روزرسانی:</strong> [March 9, 2025]
+					</div>
+
+					<!-- Hebrew -->
+					<div data-content-lang="il" class="status-message-accessibility" dir="rtl" style="display: none;">
+						<h2>התחייבות [Company Name] לנגישות</h2>
+						<strong>[Company Name]</strong> מחויבת להפוך את התוכן הדיגיטלי שלנו לנגיש ומכיל ככל האפשר עבור כל המשתמשים, כולל אנשים עם מוגבלויות. המטרה שלנו היא לשפר את השימושיות של <strong>[Company Website]</strong> ולהבטיח גישה שווה לכולם, ללא קשר ליכולות או לטכנולוגיה המשמשת.
+
+						<h3>הגישה שלנו לנגישות</h3>
+						אנו שואפים לעמוד בסטנדרטים בינלאומיים כגון הנחיות נגישות תוכן האינטרנט (WCAG). בעוד שעמידה מלאה אינה תמיד אפשרית, אנו עובדים ללא הרף לשיפור הנגישות ובודקים באופן קבוע את החלקים הרלוונטיים.
+
+						נגישות היא תהליך מתמשך — אנו מחויבים לשיפור מתמיד ככל שהטכנולוגיה וצרכי המשתמשים מתפתחים.
+
+						<h3>תכונות נגישות</h3>
+						<strong>[Company Website]</strong> עשוי להשתמש בכלים כגון סרגל הכלים לנגישות OneTap, המספק:
+						<ul>
+							<li>התאמת גודל טקסט וניגודיות</li>
+							<li>הדגשת קישורים וטקסט</li>
+							<li>ניווט מלא במקלדת</li>
+							<li>קיצור מקלדת: <strong>Alt + .</strong> (Windows) או <strong>⌘ + .</strong> (Mac)</li>
+						</ul>
+						<strong>הערות:</strong>
+						<ul>
+							<li>התכונות תלויות בהגדרות האתר ובתחזוקתו.</li>
+							<li>איננו יכולים להבטיח נגישות מלאה לכל חלקי <strong>[Company Website]</strong>. חלק מהתוכן עשוי להיות מצדדים שלישיים או להיות מוגבל טכנית.</li>
+						</ul>
+
+						<h3>משוב ויצירת קשר</h3>
+						אנו מעריכים את המשוב שלכם. אם אתם נתקלים במכשולי נגישות או יש לכם הצעות, אנא צרו קשר:
+
+						אימייל: <strong>[Company E-Mail]</strong>
+
+						אנו בדרך כלל מגיבים תוך 3–5 ימי עסקים. סיוע זמין גם דרך ערוצים חלופיים במידת הצורך.
+
+						<strong>עדכון אחרון:</strong> [March 9, 2025]
+					</div>
+
+					<!-- Macedonian -->
+					<div data-content-lang="mk" class="status-message-accessibility" style="display: none;">
+						<h2>Обврска на [Company Name] за пристапност</h2>
+						<strong>[Company Name]</strong> се обврзува да направи нашиот дигитален содржина што е можно по пристапен и инклузивен за сите корисници, вклучувајќи ги и лицата со попреченост. Нашата цел е да ја подобриме употребливоста на <strong>[Company Website]</strong> и да обезбедиме еднаков пристап за сите, без разлика на способностите или технологијата што се користи.
+
+						<h3>Нашиот пристап кон пристапноста</h3>
+						Се стремиме да ги следиме меѓународните стандарди како што се Упатствата за пристапност на веб-содржината (WCAG). Иако целосно усогласување не е секогаш можно, постојано работиме за подобрување на пристапноста и редовно ги прегледуваме релевантните делови.
+
+						Пристапноста е континуиран процес — обврзани сме на постојано подобрување како што се развиваат технологијата и потребите на корисниците.
+
+						<h3>Функции за пристапност</h3>
+						<strong>[Company Website]</strong> може да користи алатки како лентата за пристапност OneTap, која обезбедува:
+						<ul>
+							<li>Прилагодување на големината на текстот и контрастот</li>
+							<li>Истакнување на врските и текстот</li>
+							<li>Целосна навигација со тастатура</li>
+							<li>Кратенка на тастатурата: <strong>Alt + .</strong> (Windows) или <strong>⌘ + .</strong> (Mac)</li>
+						</ul>
+						<strong>Забелешки:</strong>
+						<ul>
+							<li>Функциите зависат од конфигурацијата и одржувањето на веб-страницата.</li>
+							<li>Не можеме да гарантираме целосна пристапност на сите делови од <strong>[Company Website]</strong>. Некој содржина може да биде од трети страни или да има технички ограничувања.</li>
+						</ul>
+
+						<h3>Повратни информации и контакт</h3>
+						Ги цениме вашите повратни информации. Ако наидете на пречки во пристапноста или имате предлози, ве молиме контактирајте не:
+
+						Е-пошта: <strong>[Company E-Mail]</strong>
+
+						Обично одговараме во рок од 3–5 работни дена. Доколку е потребно, помош е достапна и преку алтернативни канали.
+
+						<strong>Последна ажурирање:</strong> [March 9, 2025]
+					</div>					
+
+					<!-- Thai -->
+					<div data-content-lang="th" class="status-message-accessibility" style="display: none;">
+						<h2>พันธสัญญาการเข้าถึงของ [Company Name]</h2>
+						<strong>[Company Name]</strong> มุ่งมั่นที่จะทำให้เนื้อหาดิจิทัลของเราสามารถเข้าถึงได้และครอบคลุมมากที่สุดสำหรับผู้ใช้ทุกคน รวมถึงผู้ที่มีความพิการ เป้าหมายของเราคือการปรับปรุงการใช้งานของ <strong>[Company Website]</strong> และให้แน่ใจว่าทุกคนสามารถเข้าถึงได้อย่างเท่าเทียมกัน โดยไม่คำนึงถึงความสามารถหรือเทคโนโลยีที่ใช้
+
+						<h3>แนวทางของเราต่อการเข้าถึง</h3>
+						เราพยายามปฏิบัติตามมาตรฐานสากล เช่น แนวทางการเข้าถึงเนื้อหาเว็บ (WCAG) แม้ว่าการปฏิบัติตามอย่างเต็มรูปแบบอาจไม่เป็นไปได้เสมอไป แต่เราทำงานอย่างต่อเนื่องเพื่อปรับปรุงการเข้าถึงและตรวจสอบส่วนที่เกี่ยวข้องเป็นประจำ
+
+						การเข้าถึงเป็นกระบวนการที่ต่อเนื่อง — เรามุ่งมั่นที่จะปรับปรุงอย่างต่อเนื่องเมื่อเทคโนโลยีและความต้องการของผู้ใช้พัฒนาไป
+
+						<h3>คุณสมบัติการเข้าถึง</h3>
+						<strong>[Company Website]</strong> อาจใช้เครื่องมือ เช่น แถบเครื่องมือการเข้าถึง OneTap ซึ่งให้:
+						<ul>
+							<li>การปรับขนาดข้อความและคอนทราสต์</li>
+							<li>การเน้นลิงก์และข้อความ</li>
+							<li>การนำทางด้วยแป้นพิมพ์แบบเต็ม</li>
+							<li>แป้นพิมพ์ลัด: <strong>Alt + .</strong> (Windows) หรือ <strong>⌘ + .</strong> (Mac)</li>
+						</ul>
+						<strong>หมายเหตุ:</strong>
+						<ul>
+							<li>คุณสมบัติขึ้นอยู่กับการกำหนดค่าและการบำรุงรักษาของเว็บไซต์</li>
+							<li>เราไม่สามารถรับประกันการเข้าถึงอย่างเต็มรูปแบบของทุกส่วนของ <strong>[Company Website]</strong> เนื้อหาบางส่วนอาจมาจากบุคคลที่สามหรือมีข้อจำกัดทางเทคนิค</li>
+						</ul>
+
+						<h3>ข้อเสนอแนะและการติดต่อ</h3>
+						เราขอขอบคุณข้อเสนอแนะของคุณ หากคุณพบอุปสรรคในการเข้าถึงหรือมีข้อเสนอแนะ กรุณาติดต่อเรา:
+
+						อีเมล: <strong>[Company E-Mail]</strong>
+
+						เรามักจะตอบกลับภายใน 3–5 วันทำการ หากจำเป็น ความช่วยเหลือยังสามารถใช้ได้ผ่านช่องทางอื่น
+
+						<strong>อัปเดตล่าสุด:</strong> [March 9, 2025]
+					</div>
+
+					<!-- Vietnamese -->
+					<div data-content-lang="vn" class="status-message-accessibility" style="display: none;">
+						<h2>Cam kết Khả năng Truy cập của [Company Name]</h2>
+						<strong>[Company Name]</strong> cam kết làm cho nội dung kỹ thuật số của chúng tôi có thể truy cập và bao trùm nhất có thể cho tất cả người dùng, bao gồm cả những người khuyết tật. Mục tiêu của chúng tôi là cải thiện khả năng sử dụng của <strong>[Company Website]</strong> và đảm bảo quyền truy cập bình đẳng cho mọi người, bất kể khả năng hay công nghệ được sử dụng.
+
+						<h3>Cách tiếp cận của chúng tôi đối với Khả năng Truy cập</h3>
+						Chúng tôi phấn đấu tuân theo các tiêu chuẩn quốc tế như Hướng dẫn Khả năng Truy cập Nội dung Web (WCAG). Mặc dù việc tuân thủ đầy đủ có thể không phải lúc nào cũng khả thi, chúng tôi liên tục làm việc để cải thiện khả năng truy cập và thường xuyên xem xét các phần liên quan.
+
+						Khả năng truy cập là một quá trình liên tục — chúng tôi cam kết cải thiện liên tục khi công nghệ và nhu cầu người dùng phát triển.
+
+						<h3>Tính năng Khả năng Truy cập</h3>
+						<strong>[Company Website]</strong> có thể sử dụng các công cụ như thanh công cụ khả năng truy cập OneTap, cung cấp:
+						<ul>
+							<li>Điều chỉnh kích thước văn bản và độ tương phản</li>
+							<li>Làm nổi bật liên kết và văn bản</li>
+							<li>Điều hướng bàn phím đầy đủ</li>
+							<li>Phím tắt: <strong>Alt + .</strong> (Windows) hoặc <strong>⌘ + .</strong> (Mac)</li>
+						</ul>
+						<strong>Lưu ý:</strong>
+						<ul>
+							<li>Các tính năng phụ thuộc vào cấu hình và bảo trì của trang web.</li>
+							<li>Chúng tôi không thể đảm bảo khả năng truy cập đầy đủ cho tất cả các phần của <strong>[Company Website]</strong>. Một số nội dung có thể đến từ bên thứ ba hoặc có hạn chế kỹ thuật.</li>
+						</ul>
+
+						<h3>Phản hồi và Liên hệ</h3>
+						Chúng tôi đánh giá cao phản hồi của bạn. Nếu bạn gặp phải rào cản về khả năng truy cập hoặc có đề xuất, vui lòng liên hệ với chúng tôi:
+
+						Email: <strong>[Company E-Mail]</strong>
+
+						Chúng tôi thường phản hồi trong vòng 3–5 ngày làm việc. Nếu cần, hỗ trợ cũng có sẵn thông qua các kênh thay thế.
+
+						<strong>Cập nhật lần cuối:</strong> [March 9, 2025]
+					</div>
+
+					<!-- Information -->
 						<div class="box-information">
 							<span class="setting-title">
 								<?php esc_html_e( 'Generate Accessibility Status', 'accessibility-onetap' ); ?>
@@ -1366,9 +1661,9 @@ $accessibility_status = array(
 						<div class="box-editor">
 							<?php
 							// Get plugin URL untuk CSS custom.
-							$plugin_url = plugin_dir_url( __DIR__ );
+							$onetap_plugin_url = plugin_dir_url( __DIR__ );
 
-							$editor_settings = array(
+							$onetap_editor_settings = array(
 								'teeny'         => false,
 								'textarea_name' => 'onetap_editor_generator',
 								'media_buttons' => false,
@@ -1383,7 +1678,7 @@ $accessibility_status = array(
 							wp_editor(
 								wp_kses_post( $accessibility_status['editor_generator'] ),
 								'editor_generator',
-								$editor_settings
+								$onetap_editor_settings
 							);
 							?>
 						</div>

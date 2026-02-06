@@ -25,7 +25,7 @@
 						</a>
 					</li>
 					<li>
-						<a target="_blank" href="<?php echo esc_url( 'https://wponetap.com/pricing/' ); ?>" class="button get-pro">
+						<a target="_blank" href="<?php echo esc_url( 'https://wponetap.com/?utm_source=plugin-guru.com&utm_medium=link&utm_campaign=dashboard-pro' ); ?>" class="button get-pro">
 							<?php esc_html_e( 'Get PRO', 'accessibility-onetap' ); ?>
 							<svg style="margin-left: 6px;" width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M1 11L11 1M11 1H1M11 1V11" stroke="#C8E0FF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
 						</a>
@@ -47,38 +47,38 @@
 					<?php
 					// Get current page parameter safely.
 					// phpcs:ignore WordPress.Security.NonceVerification.Recommended
-					$current_page = isset( $_GET['page'] ) ? sanitize_text_field( wp_unslash( $_GET['page'] ) ) : '';
+					$onetap_current_page = isset( $_GET['page'] ) ? sanitize_text_field( wp_unslash( $_GET['page'] ) ) : '';
 					?>
 					<li>
-						<a class="header-nav-link<?php echo ( 'accessibility-onetap-settings' === $current_page ) ? ' active' : ''; ?>" href="<?php echo esc_url( admin_url( 'admin.php?page=accessibility-onetap-settings' ) ); ?>">
+						<a class="header-nav-link<?php echo ( 'accessibility-onetap-settings' === $onetap_current_page ) ? ' active' : ''; ?>" href="<?php echo esc_url( admin_url( 'admin.php?page=accessibility-onetap-settings' ) ); ?>">
 							<?php esc_html_e( 'Widget', 'accessibility-onetap' ); ?>
 						</a>
 					</li>
 					<li>
-						<a class="header-nav-link<?php echo ( 'accessibility-onetap-modules' === $current_page ) ? ' active' : ''; ?>" href="<?php echo esc_url( admin_url( 'admin.php?page=accessibility-onetap-modules' ) ); ?>">
+						<a class="header-nav-link<?php echo ( 'accessibility-onetap-modules' === $onetap_current_page ) ? ' active' : ''; ?>" href="<?php echo esc_url( admin_url( 'admin.php?page=accessibility-onetap-modules' ) ); ?>">
 							<?php esc_html_e( 'Modules', 'accessibility-onetap' ); ?>
 						</a>
 					</li>
 					<li>
-						<a class="header-nav-link<?php echo ( 'accessibility-onetap-accessibility-status' === $current_page ) ? ' active' : ''; ?>" href="<?php echo esc_url( admin_url( 'admin.php?page=accessibility-onetap-accessibility-status' ) ); ?>">
+						<a class="header-nav-link<?php echo ( 'accessibility-onetap-accessibility-status' === $onetap_current_page ) ? ' active' : ''; ?>" href="<?php echo esc_url( admin_url( 'admin.php?page=accessibility-onetap-accessibility-status' ) ); ?>">
 							<?php esc_html_e( 'Statement', 'accessibility-onetap' ); ?>
 						</a>
 					</li>			
 					<li>
-						<a class="header-nav-link<?php echo ( 'accessibility-onetap-general-settings' === $current_page ) ? ' active' : ''; ?>" href="<?php echo esc_url( admin_url( 'admin.php?page=accessibility-onetap-general-settings' ) ); ?>">
+						<a class="header-nav-link<?php echo ( 'accessibility-onetap-general-settings' === $onetap_current_page ) ? ' active' : ''; ?>" href="<?php echo esc_url( admin_url( 'admin.php?page=accessibility-onetap-general-settings' ) ); ?>">
 							<?php esc_html_e( 'Settings', 'accessibility-onetap' ); ?>
 						</a>
 					</li>			
 				</ul>
 			</div>
 			<div class="box-save-changes">
-				<?php if ( 'accessibility-onetap-module-labels' !== $current_page && 'accessibility-onetap-modules' === $current_page ) : ?>
+				<?php if ( 'accessibility-onetap-module-labels' !== $onetap_current_page && 'accessibility-onetap-modules' === $onetap_current_page ) : ?>
 					<a href="<?php echo esc_url( admin_url( 'admin.php?page=onetap-module-labels' ) ); ?>" class="edit-labels button outline">
 						<?php esc_html_e( 'Edit Labels', 'accessibility-onetap' ); ?>
 					</a>
 				<?php endif; ?>
 				
-				<?php if ( 'accessibility-onetap-alt-text' !== $current_page ) : ?>
+				<?php if ( 'accessibility-onetap-alt-text' !== $onetap_current_page ) : ?>
 					<button type="button" class="save-changes">
 						<?php esc_html_e( 'Save changes', 'accessibility-onetap' ); ?>
 					</button>

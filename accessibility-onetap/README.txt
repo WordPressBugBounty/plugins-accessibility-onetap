@@ -2,8 +2,8 @@
 Contributors: wponetap, yukyhendiawan
 Tags: accessibility widget, web accessibility, wcag, ada, wp accessibility
 Requires at least: 6.6
-Tested up to:      6.8
-Stable tag:        2.5.1
+Tested up to:      6.9
+Stable tag:        2.8.0
 Requires PHP:      7.4
 License:           GPL-2.0-or-later
 License URI:       https://www.gnu.org/licenses/gpl-2.0.html
@@ -12,77 +12,80 @@ OneTap is a multilingual WordPress plugin designed for seamless website accessib
 
 == Description ==
 
-OneTap is a multilingual WordPress plugin designed for seamless website accessibility. With a simple one-click installation, it ensures your site meets accessibility standards without any hassle. Built for performance, providing an inclusive, user-friendly web environment for all visitors.
+OneTap is an accessibility plugin made in Europe that helps you make your WordPress website inclusive and easy to use for all visitors. With a simple one-click setup, it adds essential accessibility tools instantly — no account required. OneTap is multilingual, lightweight, and fully customizable, ensuring accessibility without slowing down your site.
 
 https://www.youtube.com/watch?v=_8FZNFAbU2U
 
 ### #1 WordPress Accessibility Plugin. One Click Install
 
-No coding, setup or account necessary→ install and start. OneTap is the best WordPress plugin for accessibility and offers a stable and clean solution for your website. Our accessibility solutions empower businesses to create inclusive online experiences for all users, regardless of ability. Enhance your website’s usability and reach a wider audience by making it more accessible for everyone!
+No coding, setup or account necessary → install and start.
+
+OneTap is the best WordPress plugin for accessibility and offers a stable and clean solution for your website. Our accessibility solutions empower businesses to create inclusive online experiences for all users, regardless of ability. Enhance your website’s usability and reach a wider audience by making it more accessible for everyone!
 
 ### ♿ Accessibility for your WordPress Website
 
-**1-Click Installation –** Get set up in seconds with effortless, one-click installation—accessibility made easy.
-**Custom Branding –** Elevate your brand’s identity with personalized accessibility solutions.
-**Set Modules –** Enable or disable specific accessibility modules based on your design needs.
-**Responsive Design –** Optimized for all devices, ensuring accessibility on mobile, tablet, and desktop.
-**Lightweight & Fast –** Keeps your site’s speed top-notch while adding powerful accessibility features.
-**35 Languages –** OneTap accessibility module supports 35 languages – all of the EU and English. More coming soon.
-**Modern Design –** Enhance your site’s appeal with a sleek, modern design that fits seamlessly into any layout.
-**Toolbar Customization –** Adjust the toolbar’s position on desktop, tablet, and smartphone.
-**Icon Customization –** Choose your preferred accessibility icon, adjust its size, and enable or disable a border.
-**GDPR-Compliant –** 100% data protection: OneTap collects no user data and is fully compliant with GDPR regulations.
-**Accessibility Statement Generator –** Instantly generate a professional accessibility statement tailored to your site—compliance made simple.
+- **1-Click Installation** – Get set up in seconds with effortless, one-click installation—accessibility made easy.
+- **Custom Branding** – Elevate your brand’s identity with personalized accessibility solutions.
+- **Accessibility Modules** – Enable or disable specific accessibility modules based on your design needs.
+- **Responsive Design** – Optimized for all devices, ensuring accessibility on mobile, tablet, and desktop.
+- **Lightweight & Fast** – Keeps your site’s speed top-notch while adding powerful accessibility features.
+- **40 Languages** – OneTap accessibility module supports 40 languages – all of the EU and English. More coming soon.
+- **Modern Design** – Enhance your site’s appeal with a sleek, modern design that fits seamlessly into any layout.
+- **Toolbar Customization** – Adjust the toolbar’s position on desktop, tablet, and smartphone.
+- **Icon Customization** – Choose your preferred accessibility icon, adjust its size, and enable or disable a border.
+- **GDPR-Compliant** – 100% data protection: OneTap collects no user data and is fully compliant with GDPR regulations.
+- **Accessibility Statement Generator** – Instantly generate a professional accessibility statement tailored to your site—compliance made simple.
 
 **Unlock Full Accessibility → [Get OneTap Pro!](https://wponetap.com/pricing/)**
 
-### 🗝️ Key Features:
+### Key Features:
 
-**Content Modules:**
+#### Content Modules:
 
-- **(FREE) Bigger Text –** Enlarge text for improved readability.
-- **(FREE) Cursor –** Increase cursor size for better visibility.
-- **(FREE) Line Height –** Adjust line spacing for improved clarity.
-- **(FREE) Letter Spacing –** Modify letter spacing for enhanced readability.
-- **(FREE) Readable Font –** Switch to a clearer, easy-to-read font.
-- **(PRO) Dyslexic Font –** Use a specialized font for dyslexic users.
-- **(FREE) Text Align –** Adjust text alignment for better structure and readability.
-- **(PRO) Text Magnifier –** Magnify selected text for enhanced visibility.
-- **(FREE) Highlight Links –** Visually enhance clickable links for easier navigation.
+- **Font Size** – Enlarge text for improved readability.
+- **Highlight Links** – Easily identify clickable links with visual enhancements for better navigation.
+- **Line Height** – Adjust line spacing for improved clarity.
+- **Readable Font** – Switch to a clearer, easy-to-read font.
+- **Big Cursor** – Enhance visibility with a larger cursor for easier navigation and control.
+- **Text Magnifier** – Magnify selected text for enhanced visibility. (Pro ♛)
+- **Dyslexic Font** – Use a specialized font for dyslexic users. (Pro ♛)
+- **Text Align** – Adjust text alignment for better structure and readability.
+- **Letter Spacing** – Modify letter spacing for enhanced readability.
+- **Font Weight** – Adjust font weight for improved readability.
 
-**Color Options:**
+#### Color Options:
 
-- **(FREE) Invert Colors –** Swap text and background colors.
-- **(FREE) Brightness –** Adjust screen brightness.
-- **(PRO) Contrast –** Fine-tune color contrast.
-- **(FREE) Grayscale –** Convert display to black and white.
-- **(PRO) Saturation –** Adjust color saturation.
+- **Dark Contrast** – Adjust dark contrast for a more vivid or subdued visual experience. (Pro ♛)
+- **Light Contrast** – Adjust light contrast for a more vivid or subdued visual experience.
+- **High Contrast** – Adjust high contrast for a more vivid or subdued visual experience.
+- **Monochrome** – Adjust color monochrome for a more vivid or subdued visual experience.
+- **Saturation** – Adjust color saturation. (Pro ♛)
 
-**Orientation Options:**
+#### Orientation Options:
 
-- **(FREE) Reading Line –** Highlight the current line.
-- **(PRO) Keyboard Navigation –** Navigate the site using only the keyboard.
-- **(PRO) Highlight Titles –** Emphasize titles for better recognition.
-- **(FREE) Reading Mask –** Focus on specific text.
-- **(FREE) Hide Images –** Remove distracting images.
-- **(FREE) Highlight All –** Highlight elements when hovered over.
-- **(PRO) Read Page –** Automatically read aloud page content.
-- **(PRO) Mute Sounds –** Mute website sounds.
-- **(FREE) Stop Animations –** Disable animations.
+- **Reading Line** – Highlight the current line.
+- **Reading Mask** – Focus on specific text.
+- **Text-to-Speech**  – Automatically read aloud page content. (Pro ♛)
+- **Keyboard Navigation** – Navigate the site using only the keyboard. (Pro ♛)
+- **Hide Images** – Remove distracting images.
+- **Mute Sounds** – Mute website sounds. (Pro ♛)
+- **Highlight Titles** – Emphasize titles for better recognition. (Pro ♛)
+- **Highlight Content** – Highlight elements when hovered over.
+- **Stop Animations** – Disable animations.
 
 **Unlock Full Accessibility → [Get OneTap Pro!](https://wponetap.com/pricing/)**
 
-### 🆕 Multiselect and Predefined Accessibility Profiles
+#### Multiselect and Predefined Accessibility Profiles
 
-- **(PRO) Vision Impaired Mode –** Enhances website’s visuals.
-- **(PRO) Seizure Safe Profile –** Clears flashes & reduces color.
-- **(PRO) ADHD Friendly Mode –** Focused browsing.
-- **(PRO) Blindness Mode –** Reduces distractions.
-- **(PRO) Epilepsy Safe Mode –** Dims colors.
+- **Vision Impaired Mode** – Enhances website’s visuals. (Pro ♛)
+- **Seizure Safe Profile** – Clears flashes & reduces color. (Pro ♛)
+- **ADHD Friendly Mode** – Focused browsing. (Pro ♛)
+- **Blindness Mode** – Reduces distractions. (Pro ♛)
+- **Epilepsy Safe Mode** – Dims colors. (Pro ♛)
 
-### 🌍 Languages of the Toolbar
+### 40 Languages of the Accessibility Toolbar
 
-🇺🇸 English
+🇺🇸 English (USA)
 🇩🇪 Deutsch
 🇪🇸 Español
 🇫🇷 Français
@@ -112,13 +115,19 @@ No coding, setup or account necessary→ install and start. OneTap is the best W
 🇯🇵 日本語
 🇰🇷 한국어
 🇨🇳 简体中文
-🇦🇪 العربية
+🇸🇦 العربية
 🇷🇺 Русский
 🇮🇳 हिन्दी
 🇺🇦 Українська
 🇷🇸 Српски
+🇬🇧 British English
+🇮🇷 فارسی (für إيران)
+🇮🇱 עברית
+🇲🇰 Македонски
+🇹🇭 ไทย
+🇻🇳 Tiếng Việt
 
-### ⭐ See What Our Users Have to Say
+### See What Our Users Have to Say
 
 *OneTap Accessibility has greatly improved our site’s usability—super easy to install with so many helpful features!”* ★★★★★ (Aisha Patel)
 
@@ -130,9 +139,20 @@ No coding, setup or account necessary→ install and start. OneTap is the best W
 
 **Unlock Full Accessibility → [Get OneTap Pro!](https://wponetap.com/pricing/)**
 
-### 🛟 24/7 Support
+### 24/7 Support
 
-Our 24/7 support is always available to ensure a smooth experience with the plugin—get quick answers anytime, day or night. Support: https://wponetap.com/support/
+Our 24/7 support is always available to ensure a smooth experience with the plugin—get quick answers anytime, day or night. Support:
+→ [https://wponetap.com/support](https://wponetap.com/support)
+
+### Lifetime Packages for Agencies
+
+Use OneTap PRO on all client projects with a single one-time payment — no recurring costs, no limits. Perfect for agencies that want full flexibility and predictable pricing.
+→ [https://wponetap.com/agency-pricing](https://wponetap.com/agency-pricing)
+
+### Help Translate OneTap into your language
+
+Your contribution helps make accessibility easier and more inclusive for people around the world.
+→ [https://translate.wordpress.org/projects/wp-plugins/accessibility-onetap](https://translate.wordpress.org/projects/wp-plugins/accessibility-onetap)
 
 == Installation ==
 
@@ -167,7 +187,7 @@ Yes, definitely! We continuously monitor and develop the plugin to ensure compat
 Yes, OneTap can help align your website with the guidelines of WCAG and the requirements of the EAA.
 
 **In which languages is OneTap available?**
-OneTap is available in the following languages: English, German, Spanish, French, Italian, Polish, Swedish, Finnish, Portuguese, Romanian, Slovenian, Slovak, Dutch, Danish, Greek, Czech, Hungarian, Lithuanian, Latvian, Estonian, Croatian, Irish, Bulgarian.
+OneTap is available in the following languages: English (USA) | Deutsch | Español | Français | Italiano | Polski | Svenska | Suomi | Português | Română | Slovenščina | Slovenčina | Nederlands | Dansk | Ελληνικά | Čeština | Magyar | Lietuvių | Latviešu | Eesti | Hrvatski | Gaeilge | Български | Norsk | Türkçe | Bahasa Indonesia | Português (Brasil) | 日本語 | 한국어 | 简体中文 | العربية | Русский | हिन्दी | Українська | Српски | British English | فارسی | עברית | Македонски | ไทย | Tiếng Việt
 
 **Will I receive support if I encounter issues?**
 Absolutely! Excellent customer support is vital for a quality product, and we’ll work hard to resolve any issues you encounter through our support page. Our dedicated team is available 24/7 to assist you in multiple languages, ensuring you receive timely and efficient help no matter where you are in the world. Whether you need technical assistance, have questions about our products, or require any other support, we are here for you around the clock, in the language that suits you best. Your satisfaction is our top priority.
@@ -180,6 +200,54 @@ Absolutely! Excellent customer support is vital for a quality product, and we’
 4. Screenshot 4.
 
 == Changelog ==
+
+= 2.8.0 =
+* Compatibility (wp 6.9)
+* Language Settings
+* Toolbar & Settings Page
+* Translation Banner
+* Statement Page
+* Widget Position Dropdown
+* Label Translation Banner
+* Fix Support Ticket
+
+= 2.7.1 =
+* Fix: RTL
+
+= 2.7.0 =
+* Fix: OneTap button on close
+* Fix: OneTap input radio color
+* Check: PHP compatibility 7.1 → 8.x.x
+* Ensure: Feature compatibility with older browsers
+* Fix: Missing translations
+* Add: New languages:
+    British English 
+    Hebrew (עברית)
+    Thai (ไทย)
+    Vietnamese (Tiếng Việt)
+    Persian / Farsi (فارسی)
+    Macedonian (Македонски)
+* Migration: OneTap features from PHP to JavaScript
+
+= 2.6.3 =
+*Fix: Onetap button on hover
+
+= 2.6.2 =
+*Fix: Reponsive mobile width
+*Feat: Disable cache in wp rocket
+
+= 2.6.1 =
+*Fix: One-tap icon display.
+*Fix: Accessibility issues reported by Lighthouse.
+*Fix: Accessibility issues detected in ARC.
+
+= 2.6.0 =
+* Feat: new style toolbar.
+* Feat: add shortcode.
+* Feat: font weight.
+* Feat: light contrast.
+* Feat: dark contrast.
+* Refactor: features onetap.
 
 = 2.5.1 =
 * Fix: Issue with CF7 forms: space cannot be entered in text fields.
