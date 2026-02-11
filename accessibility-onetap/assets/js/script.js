@@ -83,7 +83,7 @@
 		} );
 	} );
 
-	$( 'a[href="#onetap-toolbar"]' ).on( 'click', function( event ) {
+	$( 'a[href="#onetap-toolbar"], #onetap-toolbar' ).on( 'click', function( event ) {
 		event.stopPropagation();
 		onetapAccessibility.removeClass( 'onetap-toggle-close' ).addClass( 'onetap-toggle-open' );
 		onetapToggleClose.show( 100 );
@@ -1106,11 +1106,17 @@
 			const $featureBox = $trigger.closest( '.onetap-box-feature' );
 			const $info = $featureBox.find( '.onetap-info' );
 			if ( $info.length ) {
-				const activeLang = onetapAjaxObject.activeLanguage;
-				const allLabels = onetapAjaxObject.languages || {};
-				const defaultText = ( allLabels[ activeLang ] && allLabels[ activeLang ].global && allLabels[ activeLang ].global.default ) ||
-					( allLabels.en && allLabels.en.global && allLabels.en.global.default ) ||
-					'Default';
+				// Get the localized labels and the currently active language from the global object
+				const localizedLabels = onetapAjaxObject?.languages;
+				const getActiveLang = getDataAccessibilityData().information.language;
+
+				// Get the labels for the currently active language
+				const labelsForCurrentLang = localizedLabels?.[ getActiveLang ];
+				const biggerTextDefault = onetapAjaxObject?.localizedLabels?.[ getActiveLang ]?.biggerTextDefault;
+				const defaultText = ( biggerTextDefault && biggerTextDefault.trim() !== '' )
+					? biggerTextDefault
+					: ( labelsForCurrentLang?.global?.default || 'Default' );
+
 				let infoText = defaultText;
 				if ( activeBorderValue !== 0 ) {
 					const clamped = Math.max( -10, Math.min( 10, activeBorderValue ) );
@@ -1127,7 +1133,7 @@
 				'h1', 'h2', 'h3', 'h4', 'h5', 'h6',
 				'mark', 'sup', 'sub', 'del', 'ins', 's',
 				'kbd', 'samp', 'var',
-				'legend', 'figcaption', 'summary', 'body',
+				'legend', 'figcaption', 'summary', 'div', 'body',
 			];
 
 			$( 'body, body *' ).each( function() {
@@ -1146,6 +1152,11 @@
 
 				// Skip <li> elements that are inside another <li>.
 				if ( tag === 'li' && $( this ).parents( 'li' ).length > 0 ) {
+					return;
+				}
+
+				// Skip <div> elements that are inside another <div> (to avoid nested container compounding).
+				if ( tag === 'div' && $( this ).parents( 'div' ).length > 0 ) {
 					return;
 				}
 
@@ -1178,8 +1189,21 @@
 				if ( ! el.dataset.originalInlineFontSize ) {
 					const match = newStyle.match( /font-size:\s*([^;]+);?/ );
 					if ( match && match[ 1 ] ) {
-						el.dataset.originalInlineFontSize = match[ 1 ].trim();
+						const fontSizeValue = match[ 1 ].trim();
+						// Check if this font-size was added by the plugin
+						// Plugin adds font-size with format: "X.XXpx !important" where X.XX is calculated (2 decimal places)
+						const isPluginAdded = fontSizeValue.includes( '!important' ) &&
+							/^\d+\.\d{2}px\s+!important$/i.test( fontSizeValue.trim() );
+
+						if ( ! isPluginAdded ) {
+							// This is an original inline style from HTML, save it
+							el.dataset.originalInlineFontSize = fontSizeValue;
+						} else {
+							// This is plugin-added, so original is empty (element had no original inline font-size)
+							el.dataset.originalInlineFontSize = '';
+						}
 					} else {
+						// No inline font-size found, original is empty
 						el.dataset.originalInlineFontSize = '';
 					}
 				}
@@ -1191,13 +1215,17 @@
 					const originalInline = el.dataset.originalInlineFontSize || '';
 					if ( originalInline ) {
 						const restoreStr = `font-size: ${ originalInline };`;
-						if ( /font-size:\s*[^;]+;?/.test( newStyle ) ) {
-							newStyle = newStyle.replace( /font-size:\s*[^;]+;?/, restoreStr );
-						} else {
+						// Replace any existing font-size (including with !important)
+						newStyle = newStyle.replace( /font-size:\s*[^;]+;?/gi, restoreStr );
+						// If font-size wasn't found, add it
+						if ( ! /font-size:\s*[^;]+;?/i.test( newStyle ) ) {
 							newStyle += ( newStyle.trim().endsWith( ';' ) ? ' ' : '; ' ) + restoreStr;
 						}
 					} else {
-						newStyle = newStyle.replace( /font-size:\s*[^;]+;?/, '' );
+						// No original inline font-size, remove any font-size added by plugin
+						newStyle = newStyle.replace( /font-size:\s*[^;]+;?/gi, '' );
+						// Clean up: remove double semicolons and leading/trailing semicolons
+						newStyle = newStyle.replace( /;;+/g, ';' ).replace( /^;+|;+$/g, '' ).trim();
 					}
 				} else if ( baseFontSize ) {
 					const newFontSize = ( baseFontSize * ( 1 + increasePercent ) ).toFixed( 2 );
@@ -1241,11 +1269,17 @@
 			const $featureBox = $trigger.closest( '.onetap-box-feature' );
 			const $info = $featureBox.find( '.onetap-info' );
 			if ( $info.length ) {
-				const activeLang = onetapAjaxObject.activeLanguage;
-				const allLabels = onetapAjaxObject.languages || {};
-				const defaultText = ( allLabels[ activeLang ] && allLabels[ activeLang ].global && allLabels[ activeLang ].global.default ) ||
-					( allLabels.en && allLabels.en.global && allLabels.en.global.default ) ||
-					'Default';
+				// Get the localized labels and the currently active language from the global object
+				const localizedLabels = onetapAjaxObject?.languages;
+				const getActiveLang = getDataAccessibilityData().information.language;
+
+				// Get the labels for the currently active language
+				const labelsForCurrentLang = localizedLabels?.[ getActiveLang ];
+				const lineHeightDefault = onetapAjaxObject?.localizedLabels?.[ getActiveLang ]?.lineHeightDefault;
+				const defaultText = ( lineHeightDefault && lineHeightDefault.trim() !== '' )
+					? lineHeightDefault
+					: ( labelsForCurrentLang?.global?.default || 'Default' );
+
 				let infoText = defaultText;
 				if ( activeBorderValue !== 0 ) {
 					const clamped = Math.max( -10, Math.min( 10, activeBorderValue ) );
@@ -1299,8 +1333,21 @@
 				if ( ! el.dataset.originalInlineLineHeight ) {
 					const match = newStyle.match( /line-height:\s*([^;]+);?/ );
 					if ( match && match[ 1 ] ) {
-						el.dataset.originalInlineLineHeight = match[ 1 ].trim();
+						const lineHeightValue = match[ 1 ].trim();
+						// Check if this line-height was added by the plugin
+						// Plugin adds line-height with format: "X.XXpx !important" where X.XX is calculated (2 decimal places)
+						const isPluginAdded = lineHeightValue.includes( '!important' ) &&
+							/^\d+\.\d{2}px\s+!important$/i.test( lineHeightValue.trim() );
+
+						if ( ! isPluginAdded ) {
+							// This is an original inline style from HTML, save it
+							el.dataset.originalInlineLineHeight = lineHeightValue;
+						} else {
+							// This is plugin-added, so original is empty (element had no original inline line-height)
+							el.dataset.originalInlineLineHeight = '';
+						}
 					} else {
+						// No inline line-height found, original is empty
 						el.dataset.originalInlineLineHeight = '';
 					}
 				}
@@ -1310,13 +1357,17 @@
 					const originalInline = el.dataset.originalInlineLineHeight || '';
 					if ( originalInline ) {
 						const restoreStr = `line-height: ${ originalInline };`;
-						if ( /line-height:\s*[^;]+;?/.test( newStyle ) ) {
-							newStyle = newStyle.replace( /line-height:\s*[^;]+;?/, restoreStr );
-						} else {
+						// Replace any existing line-height (including with !important)
+						newStyle = newStyle.replace( /line-height:\s*[^;]+;?/gi, restoreStr );
+						// If line-height wasn't found, add it
+						if ( ! /line-height:\s*[^;]+;?/i.test( newStyle ) ) {
 							newStyle += ( newStyle.trim().endsWith( ';' ) ? ' ' : '; ' ) + restoreStr;
 						}
 					} else {
-						newStyle = newStyle.replace( /line-height:\s*[^;]+;?/, '' );
+						// No original inline line-height, remove any line-height added by plugin
+						newStyle = newStyle.replace( /line-height:\s*[^;]+;?/gi, '' );
+						// Clean up: remove double semicolons and leading/trailing semicolons
+						newStyle = newStyle.replace( /;;+/g, ';' ).replace( /^;+|;+$/g, '' ).trim();
 					}
 				} else if ( baseLineHeight ) {
 					const newLineHeight = ( baseLineHeight * ( 1 + increasePercent ) ).toFixed( 2 );
@@ -1371,8 +1422,21 @@
 				if ( ! el.dataset.originalInlineFontWeight ) {
 					const match = currentStyle.match( /font-weight:\s*([^;]+);?/ );
 					if ( match && match[ 1 ] ) {
-						el.dataset.originalInlineFontWeight = match[ 1 ].trim();
+						const fontWeightValue = match[ 1 ].trim();
+						// Check if this font-weight was added by the plugin
+						// Plugin adds font-weight with format: "700 !important"
+						const isPluginAdded = fontWeightValue.includes( '!important' ) &&
+							/^700\s+!important$/i.test( fontWeightValue.trim() );
+
+						if ( ! isPluginAdded ) {
+							// This is an original inline style from HTML, save it
+							el.dataset.originalInlineFontWeight = fontWeightValue;
+						} else {
+							// This is plugin-added, so original is empty (element had no original inline font-weight)
+							el.dataset.originalInlineFontWeight = '';
+						}
 					} else {
+						// No inline font-weight found, original is empty
 						el.dataset.originalInlineFontWeight = '';
 					}
 				}
@@ -1382,31 +1446,30 @@
 					const originalInline = el.dataset.originalInlineFontWeight || '';
 					if ( originalInline ) {
 						const restoreStr = `font-weight: ${ originalInline };`;
-						if ( /font-weight:\s*[^;]+;?/.test( currentStyle ) ) {
-							currentStyle = currentStyle.replace( /font-weight:\s*[^;]+;?/, restoreStr );
-						} else {
+						// Replace any existing font-weight (including with !important)
+						currentStyle = currentStyle.replace( /font-weight:\s*[^;]+;?/gi, restoreStr );
+						// If font-weight wasn't found, add it
+						if ( ! /font-weight:\s*[^;]+;?/i.test( currentStyle ) ) {
 							currentStyle += ( currentStyle.trim().endsWith( ';' ) ? ' ' : '; ' ) + restoreStr;
 						}
 					} else {
-						// Remove the font-weight if accessibilityDataKey is 0
-						currentStyle = currentStyle.replace( /font-weight:\s*[^;]+;?/, '' );
+						// No original inline font-weight, remove any font-weight added by plugin
+						currentStyle = currentStyle.replace( /font-weight:\s*[^;]+;?/gi, '' );
+						// Clean up: remove double semicolons and leading/trailing semicolons
+						currentStyle = currentStyle.replace( /;;+/g, ';' ).replace( /^;+|;+$/g, '' ).trim();
 					}
 				} else if ( accessibilityDataKey ) {
-					// Remove the font-weight
-					currentStyle = currentStyle.replace( /font-weight:\s*[^;]+;?/, '' );
-
-					// Check if the element has a style attribute and if it ends with a semicolon
-					if ( currentStyle.trim() && ! /;$/.test( currentStyle.trim() ) ) {
-						currentStyle += ';';
-					}
+					// Remove any existing font-weight first
+					currentStyle = currentStyle.replace( /font-weight:\s*[^;]+;?/gi, '' );
 
 					// Handle font-weight
-					if ( /font-weight:\s*[^;]+;?/.test( currentStyle ) ) {
+					const fontWeightStr = 'font-weight: 700 !important;';
+					if ( /font-weight:\s*[^;]+;?/i.test( currentStyle ) ) {
 						// If it exists, replace the existing font-weight with the new value
-						currentStyle = currentStyle.replace( /font-weight:\s*[^;]+;?/, 'font-weight: 700 !important;' );
+						currentStyle = currentStyle.replace( /font-weight:\s*[^;]+;?/gi, fontWeightStr );
 					} else {
 						// If font-weight is not present, append it to the style attribute
-						currentStyle += ' font-weight: 700 !important;';
+						currentStyle += ( currentStyle.trim().endsWith( ';' ) ? ' ' : '; ' ) + fontWeightStr;
 					}
 				}
 
@@ -1437,8 +1500,21 @@
 				if ( ! el.dataset.originalInlineLetterSpacing ) {
 					const match = currentStyle.match( /letter-spacing:\s*([^;]+);?/ );
 					if ( match && match[ 1 ] ) {
-						el.dataset.originalInlineLetterSpacing = match[ 1 ].trim();
+						const letterSpacingValue = match[ 1 ].trim();
+						// Check if this letter-spacing was added by the plugin
+						// Plugin adds letter-spacing with format: "2px !important"
+						const isPluginAdded = letterSpacingValue.includes( '!important' ) &&
+							/^2px\s+!important$/i.test( letterSpacingValue.trim() );
+
+						if ( ! isPluginAdded ) {
+							// This is an original inline style from HTML, save it
+							el.dataset.originalInlineLetterSpacing = letterSpacingValue;
+						} else {
+							// This is plugin-added, so original is empty (element had no original inline letter-spacing)
+							el.dataset.originalInlineLetterSpacing = '';
+						}
 					} else {
+						// No inline letter-spacing found, original is empty
 						el.dataset.originalInlineLetterSpacing = '';
 					}
 				}
@@ -1448,31 +1524,30 @@
 					const originalInline = el.dataset.originalInlineLetterSpacing || '';
 					if ( originalInline ) {
 						const restoreStr = `letter-spacing: ${ originalInline };`;
-						if ( /letter-spacing:\s*[^;]+;?/.test( currentStyle ) ) {
-							currentStyle = currentStyle.replace( /letter-spacing:\s*[^;]+;?/, restoreStr );
-						} else {
+						// Replace any existing letter-spacing (including with !important)
+						currentStyle = currentStyle.replace( /letter-spacing:\s*[^;]+;?/gi, restoreStr );
+						// If letter-spacing wasn't found, add it
+						if ( ! /letter-spacing:\s*[^;]+;?/i.test( currentStyle ) ) {
 							currentStyle += ( currentStyle.trim().endsWith( ';' ) ? ' ' : '; ' ) + restoreStr;
 						}
 					} else {
-						// Remove the letter-spacing if accessibilityDataKey is 0
-						currentStyle = currentStyle.replace( /letter-spacing:\s*[^;]+;?/, '' );
+						// No original inline letter-spacing, remove any letter-spacing added by plugin
+						currentStyle = currentStyle.replace( /letter-spacing:\s*[^;]+;?/gi, '' );
+						// Clean up: remove double semicolons and leading/trailing semicolons
+						currentStyle = currentStyle.replace( /;;+/g, ';' ).replace( /^;+|;+$/g, '' ).trim();
 					}
 				} else if ( accessibilityDataKey ) {
-					// Remove the letter-spacing
-					currentStyle = currentStyle.replace( /letter-spacing:\s*[^;]+;?/, '' );
-
-					// Check if the element has a style attribute and if it ends with a semicolon
-					if ( currentStyle.trim() && ! /;$/.test( currentStyle.trim() ) ) {
-						currentStyle += ';';
-					}
+					// Remove any existing letter-spacing first
+					currentStyle = currentStyle.replace( /letter-spacing:\s*[^;]+;?/gi, '' );
 
 					// Handle letter-spacing
-					if ( /letter-spacing:\s*[^;]+;?/.test( currentStyle ) ) {
+					const letterSpacingStr = 'letter-spacing: 2px !important;';
+					if ( /letter-spacing:\s*[^;]+;?/i.test( currentStyle ) ) {
 						// If it exists, replace the existing letter-spacing with the new value
-						currentStyle = currentStyle.replace( /letter-spacing:\s*[^;]+;?/, 'letter-spacing: 2px !important;' );
+						currentStyle = currentStyle.replace( /letter-spacing:\s*[^;]+;?/gi, letterSpacingStr );
 					} else {
 						// If letter-spacing is not present, append it to the style attribute
-						currentStyle += ' letter-spacing: 2px !important;';
+						currentStyle += ( currentStyle.trim().endsWith( ';' ) ? ' ' : '; ' ) + letterSpacingStr;
 					}
 				}
 
@@ -2586,8 +2661,63 @@
 						$( this ).addClass( 'onetap-highlight' ); // Add onetap-highlight to the newly clicked element
 						currentlySpeakingElement = this; // Store the currently highlighted element
 
+						// Get the selected language from localStorage
+						const accessibilityData = getDataAccessibilityData();
+						const selectedLanguage = accessibilityData?.information?.language || 'en';
+
+						// Map language codes to BCP 47 format for Web Speech API
+						const languageMap = {
+							en: 'en-US',
+							de: 'de-DE',
+							es: 'es-ES',
+							fr: 'fr-FR',
+							it: 'it-IT',
+							pl: 'pl-PL',
+							se: 'sv-SE',
+							fi: 'fi-FI',
+							pt: 'pt-PT',
+							'pt-br': 'pt-BR',
+							ro: 'ro-RO',
+							si: 'sl-SI',
+							sk: 'sk-SK',
+							nl: 'nl-NL',
+							dk: 'da-DK',
+							gr: 'el-GR',
+							cz: 'cs-CZ',
+							hu: 'hu-HU',
+							lt: 'lt-LT',
+							lv: 'lv-LV',
+							ee: 'et-EE',
+							hr: 'hr-HR',
+							ie: 'ga-IE',
+							bg: 'bg-BG',
+							no: 'nb-NO',
+							tr: 'tr-TR',
+							id: 'id-ID',
+							ja: 'ja-JP',
+							ko: 'ko-KR',
+							zh: 'zh-CN',
+							ar: 'ar-SA',
+							ru: 'ru-RU',
+							hi: 'hi-IN',
+							uk: 'uk-UA',
+							sr: 'sr-RS',
+							gb: 'en-GB',
+							ir: 'fa-IR',
+							il: 'he-IL',
+							mk: 'mk-MK',
+							th: 'th-TH',
+							vn: 'vi-VN',
+						};
+
+						// Get the BCP 47 language code, fallback to 'en-US' if not found
+						const speechLanguage = languageMap[ selectedLanguage ] || 'en-US';
+
 						// Use Web Speech API to convert the text to speech
 						const speech = new SpeechSynthesisUtterance( textToSpeak );
+
+						// Set the language for speech synthesis
+						speech.lang = speechLanguage;
 
 						// Remove onetap-highlight when speech ends
 						speech.onend = function() {

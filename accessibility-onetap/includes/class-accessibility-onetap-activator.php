@@ -29,5 +29,9 @@ class Accessibility_Onetap_Activator {
 	 * @since    1.0.0
 	 */
 	public static function activate() {
+		// Store the first activation timestamp for review banner logic.
+		if ( ! get_option( 'onetap_install_timestamp', false ) ) {
+			update_option( 'onetap_install_timestamp', time() );
+		}
 	}
 }

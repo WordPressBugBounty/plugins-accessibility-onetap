@@ -237,7 +237,7 @@ $accessibility_status = array(
 							<span class="protocol">
 								<?php esc_html_e( 'https://', 'accessibility-onetap' ); ?>
 							</span>
-							<input type="text" id="company_website" name="onetap_company_website" value="<?php echo esc_url( $accessibility_status['company_website'] ); ?>" placeholder="<?php echo esc_attr__( 'www.company.com', 'accessibility-onetap' ); ?>" />
+							<input type="text" id="company_website" name="onetap_company_website" value="<?php echo esc_attr( $accessibility_status['company_website'] ); ?>" placeholder="<?php echo esc_attr__( 'www.company.com', 'accessibility-onetap' ); ?>" />
 						</div>					
 
 						<!-- Confirmation Checkbox -->

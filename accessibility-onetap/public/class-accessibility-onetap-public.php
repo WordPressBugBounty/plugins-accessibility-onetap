@@ -128,6 +128,119 @@ class Accessibility_Onetap_Public {
 	}
 
 	/**
+	 * Generate widget position CSS styles.
+	 *
+	 * @since    1.0.0
+	 * @param    string $position              Widget position (middle-right, middle-left, bottom-right, bottom-left, top-right, top-left).
+	 * @param    int    $position_left_right   Left/right margin value.
+	 * @param    int    $position_top_bottom   Top/bottom margin value.
+	 * @param    string $media_query           Media query string.
+	 * @return   string Generated CSS styles.
+	 */
+	private function generate_widget_position_styles( $position, $position_left_right, $position_top_bottom, $media_query ) {
+		// Default to bottom-right if position is empty or invalid.
+		if ( empty( $position ) || ! in_array( $position, array( 'middle-right', 'middle-left', 'bottom-right', 'bottom-left', 'top-right', 'top-left' ), true ) ) {
+			$position = 'bottom-right';
+			// Use default values for fallback.
+			$position_left_right = $position_left_right ? $position_left_right : 20;
+			$position_top_bottom = $position_top_bottom ? $position_top_bottom : 20;
+		}
+
+		// Check if this is mobile device (max-width: 576px).
+		$is_mobile = strpos( $media_query, 'max-width: 576px' ) !== false;
+
+		// Parse position to get vertical and horizontal parts.
+		$parts      = explode( '-', $position );
+		$vertical   = $parts[0]; // top, middle, bottom.
+		$horizontal = $parts[1]; // left, right.
+
+		// Initialize CSS properties.
+		$toggle_styles         = array();
+		$nav_closed_side       = '';
+		$nav_open_side         = '';
+		$close_button_position = '';
+
+		// Set horizontal position (left or right).
+		if ( 'left' === $horizontal ) {
+			$toggle_styles[] = 'left: 0 !important;';
+			$toggle_styles[] = "margin-left: {$position_left_right}px !important;";
+			$toggle_styles[] = 'right: unset !important;';
+			$toggle_styles[] = 'margin-right: unset !important;';
+			$nav_closed_side = 'left: -580px !important;';
+			$nav_open_side   = 'left: 0 !important;';
+			// Mobile uses right positioning for close button, tablet/desktop use left.
+			$close_button_position = $is_mobile ? 'right: 20px !important;' : 'left: calc(530px - 20px) !important;';
+		} else { // right.
+			$toggle_styles[]       = 'right: 0 !important;';
+			$toggle_styles[]       = "margin-right: {$position_left_right}px !important;";
+			$toggle_styles[]       = 'left: unset !important;';
+			$toggle_styles[]       = 'margin-left: unset !important;';
+			$nav_closed_side       = 'right: -580px !important;';
+			$nav_open_side         = 'right: 0 !important;';
+			$close_button_position = 'right: 20px !important;';
+		}
+
+		// Set vertical position (top, middle, bottom).
+		if ( 'top' === $vertical ) {
+			$toggle_styles[] = 'top: 0 !important;';
+			$toggle_styles[] = "margin-top: {$position_top_bottom}px !important;";
+			$toggle_styles[] = 'bottom: unset !important;';
+			$toggle_styles[] = 'margin-bottom: unset !important;';
+		} elseif ( 'middle' === $vertical ) {
+			$toggle_styles[] = 'bottom: 50% !important;';
+			$toggle_styles[] = "margin-bottom: {$position_top_bottom}px !important;";
+			$toggle_styles[] = 'top: unset !important;';
+			$toggle_styles[] = 'margin-top: unset !important;';
+		} else { // bottom.
+			$toggle_styles[] = 'bottom: 0 !important;';
+			$toggle_styles[] = "margin-bottom: {$position_top_bottom}px !important;";
+			$toggle_styles[] = 'top: unset !important;';
+			$toggle_styles[] = 'margin-top: unset !important;';
+		}
+
+		// Build CSS string.
+		$toggle_css = implode( "\n\t\t\t\t\t", $toggle_styles );
+
+		// Generate RTL-specific CSS for left positions.
+		$rtl_css = '';
+		if ( 'left' === $horizontal ) {
+			// For RTL + left position, nav should appear from the left side.
+			$rtl_css = '
+			nav.onetap-accessibility.onetap-plugin-onetap.onetap-rtl {
+				right: unset !important;
+				left: -580px !important;
+			}
+			nav.onetap-accessibility.onetap-plugin-onetap.onetap-rtl.onetap-toggle-open {
+				right: unset !important;
+				left: 0 !important;
+			}
+			nav.onetap-accessibility.onetap-plugin-onetap.onetap-rtl .onetap-container .onetap-accessibility-settings header.onetap-header-top .onetap-close {
+				right: unset !important;
+				left: calc(530px - 20px) !important;
+			}
+			';
+		}
+
+		return "
+		{$media_query} {
+			.onetap-container-toggle .onetap-toggle {
+				{$toggle_css}
+			}
+			nav.onetap-accessibility.onetap-plugin-onetap {
+				{$nav_closed_side}
+			}
+			nav.onetap-accessibility.onetap-plugin-onetap.onetap-toggle-open {
+				{$nav_open_side}
+			}
+			nav.onetap-accessibility.onetap-plugin-onetap .onetap-container .onetap-accessibility-settings header.onetap-header-top .onetap-close {
+				{$close_button_position}
+			}
+			{$rtl_css}
+		}
+		";
+	}
+
+	/**
 	 * Register the stylesheets for the public-facing side of the site.
 	 *
 	 * @since    1.0.0
@@ -203,6 +316,11 @@ class Accessibility_Onetap_Public {
 		nav.onetap-accessibility.onetap-plugin-onetap .onetap-container .toolbar-hide-duration .box-hide-duration form label:hover {
 			border: 2px solid {$onetap_setting_color} !important;
 			outline: none !important;
+		}		
+		nav.onetap-accessibility.onetap-plugin-onetap .onetap-container .accessibility-status-wrapper .accessibility-status-text button:focus,			
+		nav.onetap-accessibility.onetap-plugin-onetap .onetap-container .toolbar-hide-duration .box-hide-duration .box-btn-action button:focus {
+			border: 1px solid {$onetap_setting_color} !important;
+			outline: none !important;
 		}			
 		nav.onetap-accessibility.onetap-plugin-onetap .onetap-container .onetap-accessibility-settings div.onetap-multi-functional-feature .onetap-box-functions .onetap-functional-feature .onetap-right .box-swich label.switch:focus .slider,			
 		nav.onetap-accessibility.onetap-plugin-onetap .onetap-container .onetap-accessibility-settings .onetap-reset-settings button:focus {
@@ -232,149 +350,12 @@ class Accessibility_Onetap_Public {
 			';
 		}
 
-		if ( 'middle-right' === $onetap_setting_widget_position_mobile ) {
-			$style .= "
-			@media only screen and (max-width: 576px) {
-				.onetap-container-toggle .onetap-toggle {
-					right: 0 !important;
-					margin-right: {$onetap_setting_position_left_right_mobile}px !important;
-					bottom: 50% !important;
-					margin-bottom: {$onetap_setting_position_top_bottom_mobile}px !important;
-				}
-				nav.onetap-accessibility.onetap-plugin-onetap {
-					right: -580px !important;
-				}
-				nav.onetap-accessibility.onetap-plugin-onetap.onetap-toggle-open {
-					right: 0 !important;
-				}
-				nav.onetap-accessibility.onetap-plugin-onetap .onetap-container .onetap-accessibility-settings header.onetap-header-top .onetap-close {
-					right: 20px !important;
-				}			
-			}			
-			";
-		} elseif ( 'middle-left' === $onetap_setting_widget_position_mobile ) {
-			$style .= "
-			@media only screen and (max-width: 576px) {
-				.onetap-container-toggle .onetap-toggle {
-					left: 0 !important;
-					margin-left: {$onetap_setting_position_left_right_mobile}px !important;				
-					bottom: 50% !important;
-					margin-bottom: {$onetap_setting_position_top_bottom_mobile}px !important;
-				}
-				nav.onetap-accessibility.onetap-plugin-onetap {
-					left: -580px !important;
-				}
-				nav.onetap-accessibility.onetap-plugin-onetap.onetap-toggle-open {
-					left: 0 !important;
-				}			
-				nav.onetap-accessibility.onetap-plugin-onetap .onetap-container .onetap-accessibility-settings header.onetap-header-top .onetap-close {
-					right: 20px !important;
-				}
-			}
-			";
-		} elseif ( 'bottom-right' === $onetap_setting_widget_position_mobile ) {
-			$style .= "
-			@media only screen and (max-width: 576px) {
-				.onetap-container-toggle .onetap-toggle {
-					right: 0 !important;
-					margin-right: {$onetap_setting_position_left_right_mobile}px !important;					
-					bottom: 0 !important;
-					margin-bottom: {$onetap_setting_position_top_bottom_mobile}px !important;
-				}
-				nav.onetap-accessibility.onetap-plugin-onetap {
-					right: -580px !important;
-				}
-				nav.onetap-accessibility.onetap-plugin-onetap.onetap-toggle-open {
-					right: 0 !important;
-				}			
-				nav.onetap-accessibility.onetap-plugin-onetap .onetap-container .onetap-accessibility-settings header.onetap-header-top .onetap-close {
-					right: 20px !important;
-				}			
-			}			
-			";
-		} elseif ( 'bottom-left' === $onetap_setting_widget_position_mobile ) {
-			$style .= "
-			@media only screen and (max-width: 576px) {
-				.onetap-container-toggle .onetap-toggle {
-					left: 0 !important;
-					margin-left: {$onetap_setting_position_left_right_mobile}px !important;					
-					bottom: 0 !important;
-					margin-bottom: {$onetap_setting_position_top_bottom_mobile}px !important;
-				}
-				nav.onetap-accessibility.onetap-plugin-onetap {
-					left: -580px !important;
-				}
-				nav.onetap-accessibility.onetap-plugin-onetap.onetap-toggle-open {
-					left: 0 !important;
-				}			
-				nav.onetap-accessibility.onetap-plugin-onetap .onetap-container .onetap-accessibility-settings header.onetap-header-top .onetap-close {
-					right: 20px !important;
-				}			
-			}			
-			";
-		} elseif ( 'top-right' === $onetap_setting_widget_position_mobile ) {
-			$style .= "
-			@media only screen and (max-width: 576px) {
-				.onetap-container-toggle .onetap-toggle {
-					bottom: unset !important;
-					top: 0 !important;
-					margin-top: {$onetap_setting_position_top_bottom_mobile}px !important;
-					right: 0 !important;
-					margin-right: {$onetap_setting_position_left_right_mobile}px !important;				
-				}
-				nav.onetap-accessibility.onetap-plugin-onetap {
-					right: -580px !important;
-				}
-				nav.onetap-accessibility.onetap-plugin-onetap.onetap-toggle-open {
-					right: 0 !important;
-				}			
-				nav.onetap-accessibility.onetap-plugin-onetap .onetap-container .onetap-accessibility-settings header.onetap-header-top .onetap-close {
-					right: 20px !important;
-				}			
-			}			
-			";
-		} elseif ( 'top-left' === $onetap_setting_widget_position_mobile ) {
-			$style .= "
-			@media only screen and (max-width: 576px) {
-				.onetap-container-toggle .onetap-toggle {
-					bottom: unset !important;
-					top: 0 !important;
-					margin-top: {$onetap_setting_position_top_bottom_mobile}px !important;
-					left: 0 !important;
-					margin-left: {$onetap_setting_position_left_right_mobile}px !important;					
-				}
-				nav.onetap-accessibility.onetap-plugin-onetap {
-					left: -580px !important;
-				}
-				nav.onetap-accessibility.onetap-plugin-onetap.onetap-toggle-open {
-					left: 0 !important;
-				}			
-				nav.onetap-accessibility.onetap-plugin-onetap .onetap-container .onetap-accessibility-settings header.onetap-header-top .onetap-close {
-					right: 20px !important;
-				}			
-			}			
-			";
-		} else {
-			$style .= "
-			@media only screen and (max-width: 576px) {
-				.onetap-container-toggle .onetap-toggle {
-					right: 0 !important;
-					margin-right: {$onetap_setting_position_left_right_mobile}px !important;					
-					bottom: 0 !important;
-					margin-bottom: {$onetap_setting_position_top_bottom_mobile}px !important;
-				}
-				nav.onetap-accessibility.onetap-plugin-onetap {
-					right: -580px !important;
-				}
-				nav.onetap-accessibility.onetap-plugin-onetap.onetap-toggle-open {
-					right: 0 !important;
-				}			
-				nav.onetap-accessibility.onetap-plugin-onetap .onetap-container .onetap-accessibility-settings header.onetap-header-top .onetap-close {
-					right: 20px !important;
-				}			
-			}			
-			";
-		}
+		$style .= $this->generate_widget_position_styles(
+			$onetap_setting_widget_position_mobile,
+			$onetap_setting_position_left_right_mobile,
+			$onetap_setting_position_top_bottom_mobile,
+			'@media only screen and (max-width: 576px)'
+		);
 
 		// Tablet.
 		if ( 'on' === $onetap_setting_toggle_device_position_tablet ) {
@@ -387,149 +368,12 @@ class Accessibility_Onetap_Public {
 			';
 		}
 
-		if ( 'middle-right' === $onetap_setting_widget_position_tablet ) {
-			$style .= "
-			@media only screen and (min-width: 576px) and (max-width: 991.98px) {
-				.onetap-container-toggle .onetap-toggle {
-					right: 0 !important;
-					margin-right: {$onetap_setting_position_left_right_tablet}px !important;
-					bottom: 50% !important;
-					margin-bottom: {$onetap_setting_position_top_bottom_tablet}px !important;
-				}
-				nav.onetap-accessibility.onetap-plugin-onetap {
-					right: -580px !important;
-				}
-				nav.onetap-accessibility.onetap-plugin-onetap.onetap-toggle-open {
-					right: 0 !important;
-				}
-				nav.onetap-accessibility.onetap-plugin-onetap .onetap-container .onetap-accessibility-settings header.onetap-header-top .onetap-close {
-					right: 20px !important;
-				}			
-			}			
-			";
-		} elseif ( 'middle-left' === $onetap_setting_widget_position_tablet ) {
-			$style .= "
-			@media only screen and (min-width: 576px) and (max-width: 991.98px) {
-				.onetap-container-toggle .onetap-toggle {
-					left: 0 !important;
-					margin-left: {$onetap_setting_position_left_right_tablet}px !important;				
-					bottom: 50% !important;
-					margin-bottom: {$onetap_setting_position_top_bottom_tablet}px !important;
-				}
-				nav.onetap-accessibility.onetap-plugin-onetap {
-					left: -580px !important;
-				}
-				nav.onetap-accessibility.onetap-plugin-onetap.onetap-toggle-open {
-					left: 0 !important;
-				}			
-				nav.onetap-accessibility.onetap-plugin-onetap .onetap-container .onetap-accessibility-settings header.onetap-header-top .onetap-close {
-					left: calc(530px - 20px) !important;
-				}
-			}
-			";
-		} elseif ( 'bottom-right' === $onetap_setting_widget_position_tablet ) {
-			$style .= "
-			@media only screen and (min-width: 576px) and (max-width: 991.98px) {
-				.onetap-container-toggle .onetap-toggle {
-					right: 0 !important;
-					margin-right: {$onetap_setting_position_left_right_tablet}px !important;					
-					bottom: 0 !important;
-					margin-bottom: {$onetap_setting_position_top_bottom_tablet}px !important;
-				}
-				nav.onetap-accessibility.onetap-plugin-onetap {
-					right: -580px !important;
-				}
-				nav.onetap-accessibility.onetap-plugin-onetap.onetap-toggle-open {
-					right: 0 !important;
-				}			
-				nav.onetap-accessibility.onetap-plugin-onetap .onetap-container .onetap-accessibility-settings header.onetap-header-top .onetap-close {
-					right: 20px !important;
-				}			
-			}			
-			";
-		} elseif ( 'bottom-left' === $onetap_setting_widget_position_tablet ) {
-			$style .= "
-			@media only screen and (min-width: 576px) and (max-width: 991.98px) {
-				.onetap-container-toggle .onetap-toggle {
-					left: 0 !important;
-					margin-left: {$onetap_setting_position_left_right_tablet}px !important;					
-					bottom: 0 !important;
-					margin-bottom: {$onetap_setting_position_top_bottom_tablet}px !important;
-				}
-				nav.onetap-accessibility.onetap-plugin-onetap {
-					left: -580px !important;
-				}
-				nav.onetap-accessibility.onetap-plugin-onetap.onetap-toggle-open {
-					left: 0 !important;
-				}			
-				nav.onetap-accessibility.onetap-plugin-onetap .onetap-container .onetap-accessibility-settings header.onetap-header-top .onetap-close {
-					left: calc(530px - 20px) !important;
-				}			
-			}			
-			";
-		} elseif ( 'top-right' === $onetap_setting_widget_position_tablet ) {
-			$style .= "
-			@media only screen and (min-width: 576px) and (max-width: 991.98px) {
-				.onetap-container-toggle .onetap-toggle {
-					bottom: unset !important;
-					top: 0 !important;
-					margin-top: {$onetap_setting_position_top_bottom_tablet}px !important;
-					right: 0 !important;
-					margin-right: {$onetap_setting_position_left_right_tablet}px !important;				
-				}
-				nav.onetap-accessibility.onetap-plugin-onetap {
-					right: -580px !important;
-				}
-				nav.onetap-accessibility.onetap-plugin-onetap.onetap-toggle-open {
-					right: 0 !important;
-				}			
-				nav.onetap-accessibility.onetap-plugin-onetap .onetap-container .onetap-accessibility-settings header.onetap-header-top .onetap-close {
-					right: 20px !important;
-				}			
-			}			
-			";
-		} elseif ( 'top-left' === $onetap_setting_widget_position_tablet ) {
-			$style .= "
-			@media only screen and (min-width: 576px) and (max-width: 991.98px) {
-				.onetap-container-toggle .onetap-toggle {
-					bottom: unset !important;
-					top: 0 !important;
-					margin-top: {$onetap_setting_position_top_bottom_tablet}px !important;
-					left: 0 !important;
-					margin-left: {$onetap_setting_position_left_right_tablet}px !important;					
-				}
-				nav.onetap-accessibility.onetap-plugin-onetap {
-					left: -580px !important;
-				}
-				nav.onetap-accessibility.onetap-plugin-onetap.onetap-toggle-open {
-					left: 0 !important;
-				}			
-				nav.onetap-accessibility.onetap-plugin-onetap .onetap-container .onetap-accessibility-settings header.onetap-header-top .onetap-close {
-					left: calc(530px - 20px) !important;
-				}			
-			}			
-			";
-		} else {
-			$style .= '
-			@media only screen and (min-width: 576px) and (max-width: 991.98px) {
-				.onetap-container-toggle .onetap-toggle {
-					right: 0 !important;
-					margin-right: 20px !important;					
-					bottom: 0 !important;
-					margin-bottom: 20px !important;
-				}
-				nav.onetap-accessibility.onetap-plugin-onetap {
-					right: -580px !important;
-				}
-				nav.onetap-accessibility.onetap-plugin-onetap.onetap-toggle-open {
-					right: 0 !important;
-				}			
-				nav.onetap-accessibility.onetap-plugin-onetap .onetap-container .onetap-accessibility-settings header.onetap-header-top .onetap-close {
-					right: 20px !important;
-				}			
-			}			
-			';
-		}
+		$style .= $this->generate_widget_position_styles(
+			$onetap_setting_widget_position_tablet,
+			$onetap_setting_position_left_right_tablet,
+			$onetap_setting_position_top_bottom_tablet,
+			'@media only screen and (min-width: 576px) and (max-width: 991.98px)'
+		);
 
 		// Desktop.
 		if ( 'on' === $onetap_setting_toggle_device_position_desktop ) {
@@ -542,149 +386,12 @@ class Accessibility_Onetap_Public {
 			';
 		}
 
-		if ( 'middle-right' === $onetap_setting_widget_position ) {
-			$style .= "
-			@media only screen and (min-width: 992px) {
-				.onetap-container-toggle .onetap-toggle {
-					right: 0 !important;
-					margin-right: {$onetap_setting_position_left_right}px !important;
-					bottom: 50% !important;
-					margin-bottom: {$onetap_setting_position_top_bottom}px !important;
-				}
-				nav.onetap-accessibility.onetap-plugin-onetap {
-					right: -580px !important;
-				}
-				nav.onetap-accessibility.onetap-plugin-onetap.onetap-toggle-open {
-					right: 0 !important;
-				}
-				nav.onetap-accessibility.onetap-plugin-onetap .onetap-container .onetap-accessibility-settings header.onetap-header-top .onetap-close {
-					right: 20px !important;
-				}			
-			}			
-			";
-		} elseif ( 'middle-left' === $onetap_setting_widget_position ) {
-			$style .= "
-			@media only screen and (min-width: 992px) {
-				.onetap-container-toggle .onetap-toggle {
-					left: 0 !important;
-					margin-left: {$onetap_setting_position_left_right}px !important;				
-					bottom: 50% !important;
-					margin-bottom: {$onetap_setting_position_top_bottom}px !important;
-				}
-				nav.onetap-accessibility.onetap-plugin-onetap {
-					left: -580px !important;
-				}
-				nav.onetap-accessibility.onetap-plugin-onetap.onetap-toggle-open {
-					left: 0 !important;
-				}			
-				nav.onetap-accessibility.onetap-plugin-onetap .onetap-container .onetap-accessibility-settings header.onetap-header-top .onetap-close {
-					left: calc(530px - 20px) !important;
-				}
-			}
-			";
-		} elseif ( 'bottom-right' === $onetap_setting_widget_position ) {
-			$style .= "
-			@media only screen and (min-width: 992px) {
-				.onetap-container-toggle .onetap-toggle {
-					right: 0 !important;
-					margin-right: {$onetap_setting_position_left_right}px !important;	
-					bottom: 0 !important;
-					margin-bottom: {$onetap_setting_position_top_bottom}px !important;
-				}
-				nav.onetap-accessibility.onetap-plugin-onetap {
-					right: -580px !important;
-				}
-				nav.onetap-accessibility.onetap-plugin-onetap.onetap-toggle-open {
-					right: 0 !important;
-				}			
-				nav.onetap-accessibility.onetap-plugin-onetap .onetap-container .onetap-accessibility-settings header.onetap-header-top .onetap-close {
-					right: 20px !important;
-				}			
-			}			
-			";
-		} elseif ( 'bottom-left' === $onetap_setting_widget_position ) {
-			$style .= "
-			@media only screen and (min-width: 992px) {
-				.onetap-container-toggle .onetap-toggle {
-					left: 0 !important;
-					margin-left: {$onetap_setting_position_left_right}px !important;					
-					bottom: 0 !important;
-					margin-bottom: {$onetap_setting_position_top_bottom}px !important;
-				}
-				nav.onetap-accessibility.onetap-plugin-onetap {
-					left: -580px !important;
-				}
-				nav.onetap-accessibility.onetap-plugin-onetap.onetap-toggle-open {
-					left: 0 !important;
-				}			
-				nav.onetap-accessibility.onetap-plugin-onetap .onetap-container .onetap-accessibility-settings header.onetap-header-top .onetap-close {
-					left: calc(530px - 20px) !important;
-				}			
-			}			
-			";
-		} elseif ( 'top-right' === $onetap_setting_widget_position ) {
-			$style .= "
-			@media only screen and (min-width: 992px) {			
-				.onetap-container-toggle .onetap-toggle {
-					bottom: unset !important;
-					top: 0 !important;
-					margin-top: {$onetap_setting_position_top_bottom}px !important;
-					right: 0 !important;
-					margin-right: {$onetap_setting_position_left_right}px !important;				
-				}
-				nav.onetap-accessibility.onetap-plugin-onetap {
-					right: -580px !important;
-				}
-				nav.onetap-accessibility.onetap-plugin-onetap.onetap-toggle-open {
-					right: 0 !important;
-				}			
-				nav.onetap-accessibility.onetap-plugin-onetap .onetap-container .onetap-accessibility-settings header.onetap-header-top .onetap-close {
-					right: 20px !important;
-				}			
-			}			
-			";
-		} elseif ( 'top-left' === $onetap_setting_widget_position ) {
-			$style .= "
-			@media only screen and (min-width: 992px) {					
-				.onetap-container-toggle .onetap-toggle {
-					bottom: unset !important;
-					top: 0 !important;
-					margin-top: {$onetap_setting_position_top_bottom}px !important;
-					left: 0 !important;
-					margin-left: {$onetap_setting_position_left_right}px !important;					
-				}
-				nav.onetap-accessibility.onetap-plugin-onetap {
-					left: -580px !important;
-				}
-				nav.onetap-accessibility.onetap-plugin-onetap.onetap-toggle-open {
-					left: 0 !important;
-				}			
-				nav.onetap-accessibility.onetap-plugin-onetap .onetap-container .onetap-accessibility-settings header.onetap-header-top .onetap-close {
-					left: calc(530px - 20px) !important;
-				}			
-			}			
-			";
-		} else {
-			$style .= '
-			@media only screen and (min-width: 992px) {
-				.onetap-container-toggle .onetap-toggle {
-					right: 0 !important;
-					margin-right: 20px !important;					
-					bottom: 0 !important;
-					margin-bottom: 20px !important;
-				}
-				nav.onetap-accessibility.onetap-plugin-onetap {
-					right: -580px !important;
-				}
-				nav.onetap-accessibility.onetap-plugin-onetap.onetap-toggle-open {
-					right: 0 !important;
-				}			
-				nav.onetap-accessibility.onetap-plugin-onetap .onetap-container .onetap-accessibility-settings header.onetap-header-top .onetap-close {
-					right: 20px !important;
-				}			
-			}			
-			';
-		}
+		$style .= $this->generate_widget_position_styles(
+			$onetap_setting_widget_position,
+			$onetap_setting_position_left_right,
+			$onetap_setting_position_top_bottom,
+			'@media only screen and (min-width: 992px)'
+		);
 
 		// If accessibility_profiles OFF.
 		if ( 'on' !== $module_settings['accessibility_profiles'] ) {

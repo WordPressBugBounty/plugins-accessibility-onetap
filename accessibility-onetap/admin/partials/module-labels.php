@@ -241,7 +241,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 			</span>
 		</a>
 
-		<a href="<?php echo esc_url( admin_url() . 'admin.php?page=accessibility-onetap-settings' ); ?>" class="change-language">
+		<a href="<?php echo esc_url( admin_url() . 'admin.php?page=accessibility-onetap-settings#change-language' ); ?>" class="button outline change-language">
 			<?php esc_html_e( 'Change Language', 'accessibility-onetap' ); ?>
 		</a>
 	</div>	

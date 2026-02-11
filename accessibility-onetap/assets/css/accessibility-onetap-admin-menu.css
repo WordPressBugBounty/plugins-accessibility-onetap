@@ -1,3 +1,5 @@
+@charset "UTF-8";
+
 /**
  * Toggle Switch Placeholder
  * Provides consistent styling for toggle switch components
@@ -13,6 +15,11 @@
   display: none;
 }
 
+.wrap form .mycontainer .left-column .box-control-switch .box-swich label.switch input:not(:checked) + .slider:hover, .setting-control.switch .boxes .box .right .box-swich label.switch input:not(:checked) + .slider:hover, .setting-control.language-select-toggles .boxes .box .language-select-dropdown .language-select-options .language-select-option .box-swich label.switch input:not(:checked) + .slider:hover {
+  background: #d1d5db;
+  transition: background-color 0.01s ease-out;
+}
+
 .wrap form .mycontainer .left-column .box-control-switch .box-swich label.switch .slider, .setting-control.switch .boxes .box .right .box-swich label.switch .slider, .setting-control.language-select-toggles .boxes .box .language-select-dropdown .language-select-options .language-select-option .box-swich label.switch .slider {
   position: absolute;
   cursor: pointer;
@@ -20,7 +27,7 @@
   left: 0;
   right: 0;
   bottom: 0;
-  background: #ddd;
+  background: #e5e7eb;
   transition: 0.4s;
   margin: 0;
 }
@@ -42,6 +49,11 @@
   border-radius: 50px;
 }
 
+.wrap form .mycontainer .left-column .box-control-switch .box-swich label.switch input:checked + .slider:hover, .setting-control.switch .boxes .box .right .box-swich label.switch input:checked + .slider:hover, .setting-control.language-select-toggles .boxes .box .language-select-dropdown .language-select-options .language-select-option .box-swich label.switch input:checked + .slider:hover {
+  background: #023fdc;
+  transition: background-color 0.08s ease-out;
+}
+
 .wrap form .mycontainer .left-column .box-control-switch .box-swich label.switch input:focus + .slider, .setting-control.switch .boxes .box .right .box-swich label.switch input:focus + .slider, .setting-control.language-select-toggles .boxes .box .language-select-dropdown .language-select-options .language-select-option .box-swich label.switch input:focus + .slider {
   border-radius: 50px;
 }
@@ -61,7 +73,7 @@
  * Usage: @extend %form-label;
  */
 .label {
-  color: #414651;
+  color: #181D27;
   font-size: 14px;
   font-style: normal;
   font-weight: 500;
@@ -75,17 +87,19 @@
  */
 .wrap form .mycontainer .left-column .language-select-dropdown .language-select-trigger, .setting-control.widget-position .boxes .box .widget-position-dropdown .widget-position-trigger, .setting-control.language-select-toggles .boxes .box .language-select-dropdown .language-select-trigger, .setting-control.language-select-simple .boxes .box .language-select-dropdown .language-select-trigger, body.wp-admin .wrap .options-wrapper input,
 body.wp-admin .wrap .options-wrapper select {
-  padding: 12px;
   border-radius: 8px;
   border: 1px solid #d5d7da;
+  padding: 10px 14px;
+  border-color: #e5e7eb;
   box-shadow: 0 1px 2px 0 rgba(10, 13, 18, 0.05);
   overflow: hidden;
   color: #717680;
   text-overflow: ellipsis;
-  font-size: 16px;
+  font-size: 14px;
   font-style: normal;
   font-weight: 400;
   line-height: 24px;
+  line-height: 20px;
   width: 100%;
   max-width: 100%;
   height: auto;
@@ -101,7 +115,7 @@ body.wp-admin .wrap .options-wrapper select {
   color: #181D27;
   font-size: 18px;
   font-style: normal;
-  font-weight: 600;
+  font-weight: 500;
   line-height: 28px;
   display: block;
 }
@@ -113,7 +127,7 @@ body.wp-admin .wrap .options-wrapper select {
  */
 .wrap form .mycontainer .right-column .box-information .setting-description, body.wp-admin .wrap .options-wrapper .setting-description {
   overflow: hidden;
-  color: #535862;
+  color: #4b5563;
   text-overflow: ellipsis;
   font-size: 14px;
   font-style: normal;
@@ -127,6 +141,21 @@ body.wp-admin .wrap .options-wrapper select {
 
 .wrap form .mycontainer .right-column .box-information .setting-description a, body.wp-admin .wrap .options-wrapper .setting-description a {
   color: #0048FE;
+  text-decoration: none;
+  border-bottom: solid 1px;
+}
+
+.wrap form .mycontainer .right-column .box-information .setting-description a:hover, body.wp-admin .wrap .options-wrapper .setting-description a:hover {
+  border-bottom: solid 2px;
+}
+
+.wrap form .mycontainer .right-column .box-information .setting-description a:focus, body.wp-admin .wrap .options-wrapper .setting-description a:focus {
+  color: #0048FE;
+  text-decoration: none;
+  border-bottom: solid 2px;
+  border-top: solid 0;
+  border-right: solid 0;
+  border-left: solid 0;
 }
 
 /**
@@ -149,23 +178,6 @@ body.wp-admin .wrap .options-wrapper .control-heading {
  * Provides consistent styling for primary button components
  * Usage: @extend %button-primary;
  */
-.setting-control.feature_card .boxes .box .right .box-button-link button,
-.setting-control.feature_card .boxes .box .right .box-button-link a {
-  cursor: pointer;
-  border: 1px solid #d5d7da;
-  background: #fff;
-  border-radius: 8px;
-  display: flex;
-  flex-wrap: wrap;
-  gap: 6px;
-  padding: 10px 16px;
-  color: #414651;
-  font-size: 14px;
-  font-weight: 600;
-  line-height: 20px;
-  text-decoration: none;
-}
-
 .wrap .settings-container .settings-row .sidebar-preview .devices-tabs, .setting-control.devices .boxes .box .devices-tabs {
   display: flex;
   justify-content: space-between;
@@ -173,8 +185,8 @@ body.wp-admin .wrap .options-wrapper .control-heading {
   padding: 4px;
   gap: 4px;
   border-radius: 10px;
-  border: 1px solid #E9EAEB;
-  background: #F2F2F7;
+  border: none;
+  background: #f3f4f6;
 }
 
 .wrap .settings-container .settings-row .sidebar-preview .devices-tabs button, .setting-control.devices .boxes .box .devices-tabs button {
@@ -185,10 +197,10 @@ body.wp-admin .wrap .options-wrapper .control-heading {
   align-items: center;
   gap: 8px;
   border-radius: 6px;
-  background: #F2F2F7;
   border: none;
   width: 33%;
   cursor: pointer;
+  background: #f3f4f6;
   font-size: 14px;
   font-style: normal;
   line-height: 20px;
@@ -225,7 +237,7 @@ body.wp-admin .wrap .options-wrapper .control-heading {
   font-weight: 500;
   line-height: 18px;
   position: absolute;
-  top: 12.5px;
+  top: 9px;
   right: 36px;
   left: auto;
   max-width: 80px;
@@ -250,7 +262,7 @@ body.wp-admin .wrap .options-wrapper .control-heading {
   border-radius: 8px;
   list-style: none;
   margin: 0;
-  padding: 13px 16px;
+  padding: 3px 6px;
   z-index: 99;
   display: block;
   max-height: 300px;
@@ -271,13 +283,12 @@ body.wp-admin .wrap .options-wrapper .control-heading {
   display: flex;
   align-items: center;
   gap: 8px;
-  padding: 8px 10px;
+  padding: 8px 12px;
   cursor: pointer;
-  transition: all 0.3s ease;
+  transition: all 0.015s ease;
   position: relative;
-  margin: 0;
-  margin-bottom: 5px;
-  border-radius: 6px;
+  margin: 3px 0;
+  border-radius: 8px;
 }
 
 .wrap form .mycontainer .left-column .language-select-dropdown .language-select-options .language-select-option:hover, .setting-control.widget-position .boxes .box .widget-position-dropdown .widget-position-options .widget-position-option:hover, .setting-control.language-select-toggles .boxes .box .language-select-dropdown .language-select-options .language-select-option:hover, .setting-control.language-select-simple .boxes .box .language-select-dropdown .language-select-options .language-select-option:hover {
@@ -354,7 +365,7 @@ body.wp-admin #wpfooter {
 
 body.wp-admin .wrap {
   box-sizing: border-box;
-  background: #f2f2f7;
+  background: #f0f0f1;
   padding: 0;
   margin: 0;
 }
@@ -382,6 +393,11 @@ body.wp-admin .wrap .options-wrapper {
 
 body.wp-admin .wrap .options-wrapper .save-changes {
   margin-top: 20px;
+}
+
+body.wp-admin .wrap .options-wrapper input,
+body.wp-admin .wrap .options-wrapper select {
+  padding: 10px 14px;
 }
 
 body.wp-admin .wrap .options-wrapper input:focus,
@@ -417,6 +433,7 @@ body.wp-admin .wrap .options-wrapper form table tr td .settings-group.hide-setti
   padding-bottom: 20px;
   margin-bottom: 20px;
   border-bottom: 1px solid #E9EAEB;
+  font-weight: 500;
 }
 
 body.wp-admin .wrap .options-wrapper form table tr td .settings-group .setting-control {
@@ -445,6 +462,7 @@ body.wp-admin .wrap .options-wrapper form table tr td .settings-group .last-cont
 
 body.wp-admin .wrap .options-wrapper form table tr td .settings-group .last-control .boxes .box {
   border: none;
+  box-shadow: none;
 }
 
 body.wp-admin .wrap .options-wrapper form table tr td .settings-group .first-control.last-control {
@@ -474,6 +492,7 @@ body.wp-admin .wrap .options-wrapper form table tr.submit {
     padding-bottom: 15px;
     margin-bottom: 15px;
     border-bottom: 1px solid #E9EAEB;
+    font-weight: 500;
   }
 
   body.wp-admin .wrap .options-wrapper form table tr td .settings-group .setting-control {
@@ -562,7 +581,7 @@ body .wrap {
 
 .box-current-language a.current-language .text-current-language {
   margin: 0;
-  color: #535862;
+  color: #4b5563;
   font-size: 14px;
   font-style: normal;
   font-weight: 400;
@@ -662,6 +681,28 @@ body .wrap {
   border-color: #0048FE;
 }
 
+.button.get-pro {
+  cursor: pointer;
+  border: 2px solid rgba(255, 255, 255, 0.12);
+  border: none;
+  background: #0048FE;
+  color: #fff;
+  font-size: 14px;
+  line-height: 20px;
+  outline: none;
+  margin: 0;
+  font-weight: 500;
+  padding: 10px 14px;
+  border-radius: 10px;
+  box-shadow: 0 0 0 1px #0048fe inset, 0 -2px 0 rgba(10, 13, 18, 0.05) inset, 0 1px 2px rgba(10, 13, 18, 0.05);
+}
+
+.button.get-pro:hover {
+  background: #2057d1;
+  background: #023FDC;
+  color: #fff;
+}
+
 .save-changes.onetap-button-loading,
 .onetap-button-loading {
   position: relative;
@@ -697,7 +738,7 @@ body .wrap {
 }
 
 .footer .container span {
-  color: #535862;
+  color: #4b5563;
   text-overflow: ellipsis;
   font-size: 14px;
   line-height: 20px;
@@ -705,7 +746,14 @@ body .wrap {
 }
 
 .footer .container a {
-  color: #535862;
+  color: #4b5563;
+}
+
+body.wp-admin[class*="accessibility-onetap"] #wpbody-content,
+body.wp-admin[class*="apop-settings"] #wpbody-content,
+body.wp-admin[class*="onetap-pro"] #wpbody-content,
+body.wp-admin[class*="apop-module-labels"] #wpbody-content {
+  overflow: clip;
 }
 
 @media only screen and (max-width: 768px) {
@@ -715,31 +763,142 @@ body .wrap {
   }
 }
 
-.header-nav-link {
-  border: 1px solid transparent;
-  color: #414651;
-  font-size: 14px;
+.button.outline,
+.buttons.button.outline,
+.wp-core-ui .button.outline {
+  border: none;
+  color: #1f2937;
+  padding: 10px 14px;
   font-weight: 500;
+  border-radius: 8px;
+  box-shadow: 0 0 0 1px #e5e7eb inset, 0 -2px 0 rgba(10, 13, 18, 0.05) inset, 0 1px 2px rgba(10, 13, 18, 0.05);
+}
+
+/* Outline button – hover & focus */
+.button.outline:hover,
+.buttons.button.outline:hover,
+.wp-core-ui .button.outline:hover,
+.button.outline:focus,
+.buttons.button.outline:focus,
+.wp-core-ui .button.outline:focus {
+  box-shadow: 0 0 0 1px #d1d5db inset, 0 -2px 0 rgba(10, 13, 18, 0.05) inset, 0 1px 2px rgba(10, 13, 18, 0.05);
+  background: #f9fafb;
+}
+
+.edit-labels.button.outline {
+  border: 1px solid transparent;
+}
+
+.mce-toolbar .mce-btn-group {
+  background: #fff;
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.05), 0 4px 6px -4px rgba(0, 0, 0, 0.05);
+  border-radius: 12px;
+  padding: 6px;
+  border: 1px solid #e9eaeb;
+}
+
+.mce-toolbar .mce-btn-group .mce-btn, .qt-dfw {
+  border: 1px solid transparent;
+  margin: 2px;
+  background: #fff;
+  padding: 4px !important;
+  border-radius: 8px !important;
+}
+
+.mce-toolbar .mce-btn-group .mce-btn:hover {
+  background: #e9eaeb !important;
+  box-shadow: none !important;
+  border-radius: 8px !important;
+}
+
+.mce-toolbar .mce-btn-group .mce-btn:focus,
+.mce-toolbar .mce-btn-group .mce-btn:hover,
+.qt-dfw:focus,
+.qt-dfw:hover {
+  background: #d1d5db;
+  color: #1d2327;
+  box-shadow: none !important;
+  outline: unset !important;
+  border: solid 1px transparent !important;
+}
+
+.mce-toolbar .mce-btn-group .mce-btn.mce-active,
+.mce-toolbar .mce-btn-group .mce-btn:active,
+.qt-dfw.active {
+  border-color: transparent !important;
+}
+
+.mce-toolbar .mce-btn i {
+  color: #374151;
+}
+
+.mce-toolbar .mce-btn-group {
+  padding: 4px !important;
+}
+
+.wrap {
+  background: #f0f0f1;
+}
+
+.wrap input,
+.wrap select {
+  padding: 10px 14px;
+  border-color: #e5e7eb;
+  color: #181D27;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 20px;
+}
+
+body.wp-admin .wrap .options-wrapper input:focus,
+body.wp-admin .wrap .options-wrapper select:focus {
+  border: 1px solid #0048FE;
+  box-shadow: 0 0 0 1px #0048FE;
+}
+
+.header-nav-link {
+  font-size: 14px;
   display: inline-block;
   padding: 8px 12px;
   text-decoration: none;
+  color: #181D27;
+  font-weight: 400;
+  border-radius: 8px;
+  transition: background-color 0.1s ease, border-color 0.1s ease;
+  border: 1px solid transparent;
 }
 
 .header-nav-link:hover {
-  color: #2057d1;
-}
-
-.header-nav-link.active {
-  border: 1px solid #d5d7da;
-  border-radius: 8px;
-  color: #2057d1;
+  background: #f9fafb;
+  border: 1px solid #f9fafb;
+  color: #181D27;
 }
 
 .header-nav-link:focus {
-  border: 1px solid #2057d1;
   box-shadow: none;
   outline: none;
   border-radius: 8px;
+  background: #f3f4f6;
+  border: 1px solid #f3f4f6;
+}
+
+.header-nav-link:active {
+  background: #f3f4f6;
+  border: 1px solid #f3f4f6;
+  color: #181D27;
+}
+
+.header-nav-link.active {
+  border-radius: 8px;
+  color: #181D27;
+  background: #f3f4f6;
+  border: 1px solid #f3f4f6;
+  font-weight: 500;
+}
+
+body.wp-admin .wrap a.header-nav-link:focus {
+  border: 1px solid transparent;
+  color: #181D27;
 }
 
 header {
@@ -778,6 +937,10 @@ header .mycontainer .myrow.one .box-logo {
   align-items: center;
 }
 
+header .mycontainer .myrow.one .box-logo img {
+  width: 120px;
+}
+
 header .mycontainer .myrow.one .box-menu ul {
   display: flex;
   flex-wrap: wrap;
@@ -790,26 +953,6 @@ header .mycontainer .myrow.one .box-menu ul li {
 
 header .mycontainer .myrow.one .box-menu ul li:nth-child(2) {
   margin-left: 12px;
-}
-
-header .mycontainer .myrow.one .box-menu ul li .get-pro {
-  cursor: pointer;
-  border-radius: 8px;
-  border: 2px solid rgba(255, 255, 255, 0.12);
-  border: none;
-  background: #0048FE;
-  color: #fff;
-  font-size: 14px;
-  font-weight: 600;
-  line-height: 20px;
-  outline: none;
-  padding: 10px 16px;
-  margin: 0;
-}
-
-header .mycontainer .myrow.one .box-menu ul li .get-pro:hover {
-  background: #2057d1;
-  background: #023FDC;
 }
 
 header .mycontainer .myrow.two {
@@ -887,17 +1030,18 @@ header .mycontainer .myrow.two .box-save-changes {
 .fake-save-changes,
 .save-changes {
   cursor: pointer;
-  border-radius: 8px;
   border: 2px solid rgba(255, 255, 255, 0.12);
   border: none;
   background: #0048FE;
   color: #fff;
   font-size: 14px;
-  font-weight: 600;
   line-height: 20px;
   outline: none;
-  padding: 10px 16px;
   margin: 0;
+  font-weight: 500;
+  padding: 10px 14px;
+  border-radius: 8px;
+  box-shadow: 0 0 0 1px #0048fe inset, 0 -2px 0 rgba(10, 13, 18, 0.05) inset, 0 1px 2px rgba(10, 13, 18, 0.05);
 }
 
 .fake-save-changes:hover,
@@ -906,10 +1050,17 @@ header .mycontainer .myrow.two .box-save-changes {
   background: #023FDC;
 }
 
+.fake-save-changes:active,
+.save-changes:active {
+  background: #003ACB;
+}
+
 .fake-save-changes.license-active,
 .save-changes.license-active {
-  background-color: #e3e9f1;
   color: #596575;
+  background: #fff;
+  border: solid 1px #e3e9f1;
+  box-shadow: none;
 }
 
 .fake-save-changes.license-active:hover,
@@ -939,11 +1090,18 @@ header .mycontainer .myrow.two .box-save-changes {
   width: 111px;
   height: auto;
   text-align: center;
-  line-height: 1.2;
+  font-family: Inter, sans-serif;
+  font-size: 14px;
+  line-height: 24px;
 }
 
 .setting-control.color .boxes .box1 .wp-picker-clear {
   margin-left: 0;
+  width: auto;
+  color: #1f2937;
+  border-radius: 8px;
+  box-shadow: 0 0 0 1px #e5e7eb inset, 0 -2px 0 rgba(10, 13, 18, 0.05) inset, 0 1px 2px rgba(10, 13, 18, 0.05);
+  border: none;
 }
 
 .setting-control.color .boxes .box1 .wp-picker-container button.wp-color-result {
@@ -985,6 +1143,12 @@ header .mycontainer .myrow.two .box-save-changes {
   border: 1px solid #d5d7da;
   padding: 8px 12px;
   border-radius: 8px;
+  border-color: #e5e7eb;
+  box-shadow: 0 1px 2px 0 rgba(10, 13, 18, 0.05);
+}
+
+.setting-control.color .boxes .box2 .color-result:hover {
+  border-color: #d1d5db;
 }
 
 .setting-control.color .boxes .box3 ul {
@@ -1000,7 +1164,7 @@ header .mycontainer .myrow.two .box-save-changes {
   height: 28px;
   border-radius: 100%;
   border: 1px solid rgba(0, 0, 0, 0.1);
-  background: #535862;
+  background: #4b5563;
   margin: 0;
   cursor: pointer;
 }
@@ -1054,13 +1218,13 @@ header .mycontainer .myrow.two .box-save-changes {
 }
 
 .setting-control.copyable_text .boxes .box .left .text span.feature-name {
-  color: #414651;
-  font-size: 16px;
   font-style: normal;
-  font-weight: 600;
-  line-height: 24px;
   display: block;
   position: relative;
+  color: #181D27;
+  font-size: 14px;
+  line-height: 20px;
+  font-weight: 500;
 }
 
 .setting-control.copyable_text .boxes .box .left .text span.feature-name .pro {
@@ -1082,12 +1246,12 @@ header .mycontainer .myrow.two .box-save-changes {
 
 .setting-control.copyable_text .boxes .box .left .text span.feature-desc {
   overflow: hidden;
-  color: #414651;
   text-overflow: ellipsis;
   font-size: 14px;
   font-style: normal;
   font-weight: 400;
   line-height: 20px;
+  color: #6b7280;
 }
 
 .setting-control.copyable_text .boxes .box .right {
@@ -1178,16 +1342,12 @@ header .mycontainer .myrow.two .box-save-changes {
 .setting-control.copyable_text .boxes .box .right .box-copy-text button {
   cursor: pointer;
   border: none;
+  border-radius: 0;
   border-left: 1px solid #d5d7da;
-  background: #fff;
+  box-shadow: none;
   display: flex;
   flex-wrap: wrap;
   gap: 6px;
-  padding: 10px 14px;
-  color: #414651;
-  font-size: 14px;
-  font-weight: 600;
-  line-height: 20px;
 }
 
 @media only screen and (max-width: 768px) {
@@ -1250,13 +1410,13 @@ header .mycontainer .myrow.two .box-save-changes {
 }
 
 .setting-control.feature_card .boxes .box .left .text span.feature-name {
-  color: #414651;
-  font-size: 16px;
   font-style: normal;
-  font-weight: 600;
-  line-height: 24px;
   display: block;
   position: relative;
+  color: #181D27;
+  font-size: 14px;
+  line-height: 20px;
+  font-weight: 500;
 }
 
 .setting-control.feature_card .boxes .box .left .text span.feature-name .pro {
@@ -1278,12 +1438,12 @@ header .mycontainer .myrow.two .box-save-changes {
 
 .setting-control.feature_card .boxes .box .left .text span.feature-desc {
   overflow: hidden;
-  color: #414651;
   text-overflow: ellipsis;
   font-size: 14px;
   font-style: normal;
   font-weight: 400;
   line-height: 20px;
+  color: #6b7280;
 }
 
 .setting-control.feature_card .boxes .box .right {
@@ -1375,6 +1535,7 @@ header .mycontainer .myrow.two .box-save-changes {
 .setting-control.language-select-simple .boxes .box .language-select-dropdown {
   position: relative;
   width: 100%;
+  padding-left: 0;
 }
 
 .setting-control.language-select-simple .boxes .box .language-select-dropdown .language-select-input {
@@ -1431,6 +1592,18 @@ header .mycontainer .myrow.two .box-save-changes {
   justify-content: space-between;
   background: #fff;
   cursor: pointer;
+  padding: 10px 14px;
+  border-color: #e5e7eb;
+  color: #181D27;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 20px;
+}
+
+.setting-control.language-select-simple .boxes .box .language-select-dropdown .language-select-trigger:hover {
+  padding: 10px 14px;
+  border-color: #d1d5db;
+  transition: border-color 0.1s ease-out, background-color 0.1s ease-out, box-shadow 0.1s ease-out;
 }
 
 .setting-control.language-select-simple .boxes .box .language-select-dropdown .language-select-trigger:focus {
@@ -1468,12 +1641,12 @@ header .mycontainer .myrow.two .box-save-changes {
 
 .setting-control.language-select-simple .boxes .box .language-select-dropdown .language-select-trigger .language-select-selected .language-select-label {
   overflow: hidden;
-  color: #181D27;
   text-overflow: ellipsis;
-  font-size: 16px;
-  font-weight: 500;
-  line-height: 24px;
   white-space: nowrap;
+  color: #181D27;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 20px;
 }
 
 .setting-control.language-select-simple .boxes .box .language-select-dropdown .language-select-trigger .language-select-chevron {
@@ -1515,12 +1688,12 @@ header .mycontainer .myrow.two .box-save-changes {
 }
 
 .setting-control.language-select-simple .boxes .box .language-select-dropdown .language-select-options .language-select-option .language-select-option-label {
-  color: #414651;
   font-size: 14px;
   font-style: normal;
-  font-weight: 500;
   line-height: 20px;
   flex: 1;
+  color: #181D27;
+  font-weight: 400;
 }
 
 .setting-control.language-select-simple .boxes .box .language-select-dropdown .language-select-options .language-select-option .language-select-check-icon {
@@ -1563,7 +1736,13 @@ header .mycontainer .myrow.two .box-save-changes {
 .setting-control.language-select-simple .boxes .box .language-select-dropdown.display-options-active .language-select-options .language-select-option.selected .language-select-option-default-label {
   display: inline-block;
   right: 10px;
-  top: 5.5px;
+  top: 9px;
+}
+
+.setting-control.language-select-simple .boxes .box .language-select-dropdown:hover {
+  padding-left: 0;
+  border-color: #d1d5db;
+  transition: border-color 0.1s ease-out, background-color 0.1s ease-out, box-shadow 0.1s ease-out;
 }
 
 .setting-control.language-select-toggles {
@@ -1633,6 +1812,17 @@ header .mycontainer .myrow.two .box-save-changes {
   justify-content: space-between;
   background: #fff;
   cursor: pointer;
+  padding: 10px 14px;
+  border-color: #e5e7eb;
+  color: #181D27;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 20px;
+}
+
+.setting-control.language-select-toggles .boxes .box .language-select-dropdown .language-select-trigger:hover {
+  border-color: #d1d5db;
+  transition: border-color 0.1s ease-out, background-color 0.1s ease-out, box-shadow 0.1s ease-out;
 }
 
 .setting-control.language-select-toggles .boxes .box .language-select-dropdown .language-select-trigger:focus {
@@ -1670,12 +1860,12 @@ header .mycontainer .myrow.two .box-save-changes {
 
 .setting-control.language-select-toggles .boxes .box .language-select-dropdown .language-select-trigger .language-select-selected .language-select-label {
   overflow: hidden;
-  color: #181D27;
   text-overflow: ellipsis;
-  font-size: 16px;
-  font-weight: 500;
-  line-height: 24px;
   white-space: nowrap;
+  color: #181D27;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 20px;
 }
 
 .setting-control.language-select-toggles .boxes .box .language-select-dropdown .language-select-trigger .language-select-chevron {
@@ -1724,7 +1914,7 @@ header .mycontainer .myrow.two .box-save-changes {
 .setting-control.language-select-toggles .boxes .box .language-select-dropdown .language-select-options .language-select-option .language-select-option-default-label {
   display: none;
   right: 10px;
-  top: 5.5px;
+  top: 9px;
 }
 
 .setting-control.language-select-toggles .boxes .box .language-select-dropdown .language-select-options .language-select-option .box-swich {
@@ -1755,6 +1945,10 @@ header .mycontainer .myrow.two .box-save-changes {
   transform: translateX(19px);
 }
 
+.setting-control.language-select-toggles .boxes .box .language-select-dropdown .language-select-options .language-select-option .box-swich label.switch input:checked + .slider:hover {
+  background: #023fdc;
+}
+
 .setting-control.language-select-toggles .boxes .box .language-select-dropdown .language-select-options .language-select-option.selected .language-select-option-default-label {
   display: block;
 }
@@ -1772,7 +1966,7 @@ header .mycontainer .myrow.two .box-save-changes {
   padding-right: 42px;
   padding-right: 24px;
   position: absolute;
-  top: calc(100% + 289px + 42px);
+  top: calc(100% + 289px + 22px);
   left: 0;
   right: 0;
   background: #fff;
@@ -1806,6 +2000,11 @@ header .mycontainer .myrow.two .box-save-changes {
   display: flex;
 }
 
+.setting-control.language-select-toggles .boxes .box .language-select-dropdown:hover {
+  border-color: #d1d5db;
+  transition: border-color 0.1s ease-out, background-color 0.1s ease-out, box-shadow 0.1s ease-out;
+}
+
 .settings-group.license {
   position: relative;
 }
@@ -1834,6 +2033,10 @@ header .mycontainer .myrow.two .box-save-changes {
   border: 1px solid #ABEFC6;
   background: #ECFDF3;
   color: #067647;
+}
+
+.settings-group.license .setting-control .setting-title {
+  font-weight: 500;
 }
 
 .settings-group.license .setting-control .setting-title .license-status-label {
@@ -1906,10 +2109,10 @@ header .mycontainer .myrow.two .box-save-changes {
   position: absolute;
   padding: 2px 6px;
   align-items: center;
-  border-radius: 6px;
-  border: 1px solid #E9EAEB;
-  background: #f2f2f7;
-  color: #0048FE;
+  border-radius: 999px;
+  border: none;
+  background: #111;
+  color: #fff;
   text-align: center;
   font-size: 12px;
   font-style: normal;
@@ -2028,24 +2231,26 @@ header .mycontainer .myrow.two .box-save-changes {
 
 .setting-control.module-labels .boxes .box .right .save-changes {
   position: absolute;
-  right: 1px;
-  top: 0;
-  padding: 10px 14px;
   align-items: center;
-  border-radius: 0 8px 8px 0;
-  border: 1px solid #d5d7da;
   background: #fff;
   color: #414651;
   font-size: 14px;
   font-style: normal;
-  font-weight: 600;
   margin: 0;
+  font-weight: 500;
+  padding: 8px 14px;
+  border-radius: 0 8px 8px 0;
+  border: none;
+  border-left: 1px solid #d5d7da;
+  box-shadow: none;
+  top: 1px;
+  right: 2px;
 }
 
 .setting-control.module-labels .boxes .box.switch2 {
-  border-radius: 12px;
+  border-radius: 9px;
   border: 1px solid #E9EAEB;
-  padding: 16px;
+  padding: 8px 0;
 }
 
 .setting-control.module-labels .boxes .box.switch2 .left .icon {
@@ -2106,7 +2311,9 @@ header .mycontainer .myrow.two .box-save-changes {
 }
 
 .setting-control.number-slider .boxes .box .box-range {
-  width: calc(100% - 100px - 54px);
+  width: calc(100% - 60px - 54px);
+  height: 6px;
+  box-shadow: none;
 }
 
 .setting-control.number-slider .boxes .box .box-range input {
@@ -2114,11 +2321,15 @@ header .mycontainer .myrow.two .box-save-changes {
   -moz-appearance: none;
        appearance: none;
   width: 100%;
-  height: 8px;
+  height: 6px;
+  box-shadow: none;
   background: linear-gradient(to right, #0048FE 20%, #E9EAEB 20%);
   border-radius: 9999px;
   outline: 0;
   cursor: pointer;
+  padding: 0;
+  overflow: unset;
+  border: 0;
 }
 
 .setting-control.number-slider .boxes .box .box-range input[type="range"] {
@@ -2156,12 +2367,16 @@ header .mycontainer .myrow.two .box-save-changes {
 
 .setting-control.number-slider .boxes .box .box-number {
   border-radius: 8px;
-  border: 1px solid #E9EAEB;
   background: #fff;
   box-shadow: 0 1px 2px 0 rgba(10, 13, 18, 0.05);
   position: relative;
-  padding: 10px 14px;
-  width: 100px;
+  border: 1px solid #e5e6ea;
+  padding: 8px 12px;
+  width: 60px;
+}
+
+.setting-control.number-slider .boxes .box .box-number:hover {
+  border-color: #d1d5db;
 }
 
 .setting-control.number-slider .boxes .box .box-number input {
@@ -2172,12 +2387,12 @@ header .mycontainer .myrow.two .box-save-changes {
   margin: 0;
   min-height: auto;
   overflow: hidden;
-  color: #717680;
   text-overflow: ellipsis;
-  font-size: 16px;
   font-style: normal;
   font-weight: 400;
-  line-height: 24px;
+  color: #4b5462;
+  font-size: 14px;
+  line-height: 20px;
 }
 
 .setting-control.number-slider .boxes .box .box-number input[type="number"]::-webkit-inner-spin-button,
@@ -2192,13 +2407,14 @@ header .mycontainer .myrow.two .box-save-changes {
 
 .setting-control.number-slider .boxes .box .box-number .unit {
   position: absolute;
-  right: 14px;
-  top: 10px;
   display: block;
-  color: #535862;
-  font-size: 16px;
   font-style: normal;
   font-weight: 400;
+  right: 12px;
+  top: 7px;
+  color: #4b5462;
+  font-size: 14px;
+  line-height: 20px;
 }
 
 @media only screen and (max-width: 768px) {
@@ -2254,12 +2470,13 @@ header .mycontainer .myrow.two .box-save-changes {
 }
 
 .setting-control.radio-image .boxes .box label img {
-  border: 1px solid #d5d7da;
   background: #0048FE;
   height: 30px;
   width: 30px;
   border-radius: 100%;
   padding: 15px;
+  border: 0;
+  box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.1803921569);
 }
 
 .setting-control.radio-image .boxes .box label input {
@@ -2363,23 +2580,23 @@ header .mycontainer .myrow.two .box-save-changes {
 }
 
 .setting-control.switch .boxes .box .left .text span.feature-name {
-  font-size: 16px;
   font-style: normal;
-  line-height: 24px;
   display: block;
   position: relative;
   font-weight: 500;
-  color: #181D27;
+  font-size: 14px;
+  line-height: 20px;
+  color: #030712;
 }
 
 .setting-control.switch .boxes .box .left .text span.feature-name .pro {
   position: absolute;
   padding: 2px 6px;
   align-items: center;
-  border-radius: 6px;
-  border: 1px solid #E9EAEB;
-  background: #f2f2f7;
-  color: #0048FE;
+  border-radius: 999px;
+  border: none;
+  background: #111;
+  color: #fff;
   text-align: center;
   font-size: 12px;
   font-style: normal;
@@ -2391,12 +2608,12 @@ header .mycontainer .myrow.two .box-save-changes {
 
 .setting-control.switch .boxes .box .left .text span.feature-desc {
   overflow: hidden;
-  color: #414651;
   text-overflow: ellipsis;
   font-size: 14px;
   font-style: normal;
   font-weight: 400;
   line-height: 20px;
+  color: #6b7280;
 }
 
 .setting-control.switch .boxes .box .right {
@@ -2470,9 +2687,9 @@ header .mycontainer .myrow.two .box-save-changes {
 }
 
 .setting-control.switch .boxes .box.switch2 {
-  border-radius: 12px;
+  border-radius: 9px;
   border: 1px solid #E9EAEB;
-  padding: 16px 0;
+  padding: 8px 0;
 }
 
 .setting-control.switch .boxes .box.switch2 .left .icon {
@@ -2534,11 +2751,23 @@ header .mycontainer .myrow.two .box-save-changes {
   justify-content: space-between;
   background: #fff;
   cursor: pointer;
+  padding: 10px 14px;
+  border-color: #e5e7eb;
+  color: #181D27;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 20px;
 }
 
 .setting-control.widget-position .boxes .box .widget-position-dropdown .widget-position-trigger:focus {
   border: 1px solid #0048FE;
   box-shadow: 0 0 0 1px #0048FE;
+}
+
+.setting-control.widget-position .boxes .box .widget-position-dropdown .widget-position-trigger:hover {
+  padding: 10px 14px;
+  border-color: #d1d5db;
+  transition: border-color 0.1s ease-out, background-color 0.1s ease-out, box-shadow 0.1s ease-out;
 }
 
 .setting-control.widget-position .boxes .box .widget-position-dropdown .widget-position-trigger[aria-expanded="true"] .widget-position-chevron {
@@ -2562,9 +2791,9 @@ header .mycontainer .myrow.two .box-save-changes {
   overflow: hidden;
   color: #181D27;
   text-overflow: ellipsis;
-  font-size: 16px;
-  font-weight: 500;
-  line-height: 24px;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 20px;
 }
 
 .setting-control.widget-position .boxes .box .widget-position-dropdown .widget-position-trigger .widget-position-chevron {
@@ -2581,6 +2810,15 @@ header .mycontainer .myrow.two .box-save-changes {
   visibility: visible;
   pointer-events: auto;
   transform: translateY(0);
+  padding: 3px 6px 3px 6px;
+}
+
+.setting-control.widget-position .boxes .box .widget-position-dropdown .widget-position-options .widget-position-option {
+  margin-top: 3px;
+  margin-bottom: 3px;
+  margin-left: 0;
+  margin-right: 0;
+  padding: 8px 12px;
 }
 
 .setting-control.widget-position .boxes .box .widget-position-dropdown .widget-position-options .widget-position-option.selected .widget-position-checkmark {
@@ -2597,11 +2835,11 @@ header .mycontainer .myrow.two .box-save-changes {
 }
 
 .setting-control.widget-position .boxes .box .widget-position-dropdown .widget-position-options .widget-position-option .widget-position-option-label {
-  color: #414651;
   font-size: 14px;
   font-style: normal;
-  font-weight: 500;
   line-height: 20px;
+  color: #181D27;
+  font-weight: 400;
 }
 
 .setting-control.widget-position .boxes .box .widget-position-dropdown .widget-position-options .widget-position-option .widget-position-checkmark {
@@ -2613,11 +2851,15 @@ header .mycontainer .myrow.two .box-save-changes {
   margin-left: auto;
 }
 
+.setting-control.widget-position .boxes .box .widget-position-dropdown .widget-position-options .widget-position-option:not(.selected):hover {
+  background: #f3f4f6;
+}
+
 .setting-control.widget-position .boxes .box .widget-position-dropdown .widget-position-options hr {
   border: none;
   height: 1px;
   background: #d5d7da;
-  margin: 4px 0;
+  margin: 6px 0;
   width: 100%;
 }
 /* stylelint-disable selector-id-pattern */
@@ -2626,6 +2868,7 @@ header .mycontainer .myrow.two .box-save-changes {
   border-bottom: 1px solid #E9EAEB;
   padding-bottom: 20px;
   margin-bottom: 20px;
+  font-weight: 500;
 }
 
 /* stylelint-enable selector-id-pattern */
@@ -2734,7 +2977,7 @@ header .mycontainer .myrow.two .box-save-changes {
 }
 
 .wrap .box-image-alt .table-body {
-  color: #535862;
+  color: #4b5563;
   font-size: 14px;
   line-height: 20px;
   text-align: left;
@@ -2954,18 +3197,20 @@ header .mycontainer .myrow.two .box-save-changes {
   align-items: center;
   justify-content: space-between;
   gap: 15px;
+  font-weight: 500;
 }
 
 #apop_module_labels .settings-group.accessibility-adjustments .setting-control .setting-title,
 #apop_module_labels .settings-group.bigger-text .setting-control .setting-title,
-#apop_module_labels .settings-group.invert-colors .setting-control .setting-title,
+#apop_module_labels .settings-group.dark-contrast .setting-control .setting-title,
 #apop_module_labels .settings-group.reading-line .setting-control .setting-title,
 #onetap_module_labels .settings-group.accessibility-adjustments .setting-control .setting-title,
 #onetap_module_labels .settings-group.bigger-text .setting-control .setting-title,
-#onetap_module_labels .settings-group.invert-colors .setting-control .setting-title,
+#onetap_module_labels .settings-group.dark-contrast .setting-control .setting-title,
 #onetap_module_labels .settings-group.reading-line .setting-control .setting-title {
   border-bottom: 1px solid #E9EAEB;
   padding-bottom: 16px;
+  font-weight: 500;
 }
 
 #apop_module_labels .settings-group .setting-control.module-labels .boxes .box:hover .left .text .feature-name,
@@ -3002,6 +3247,7 @@ header .mycontainer .myrow.two .box-save-changes {
 #onetap_modules .settings-group.reading-line .setting-control .setting-title {
   border-bottom: 1px solid #E9EAEB;
   padding-bottom: 16px;
+  font-weight: 500;
 }
 
 /* stylelint-enable selector-id-pattern */
@@ -3017,6 +3263,7 @@ header .mycontainer .myrow.two .box-save-changes {
 #onetap_general_settings .settings-group.alt-text-ai .setting-control .setting-title {
   border-bottom: 1px solid #E9EAEB;
   padding-bottom: 16px;
+  font-weight: 500;
 }
 
 /* stylelint-enable selector-id-pattern */
@@ -3085,32 +3332,34 @@ header .mycontainer .myrow.two .box-save-changes {
   transform: translateX(16px);
 }
 
+.wrap form .mycontainer .left-column .box-control-switch .label {
+  color: #181D27;
+  font-weight: 500;
+}
+
 .wrap form .mycontainer .left-column .box-control-company-website {
   position: relative;
 }
 
 .wrap form .mycontainer .left-column .box-control-company-website .protocol {
   display: flex;
+  display: none;
   flex-wrap: wrap;
   align-items: center;
   position: absolute;
-  color: #535862;
+  color: #4b5563;
   font-size: 16px;
   font-style: normal;
   font-weight: 400;
   line-height: 24px;
   padding: 10px 14px;
-  height: 30px;
+  height: 26px;
   border: none;
   border-right: 1px solid #d5d7da;
 }
 
 .wrap form .mycontainer .left-column .box-control-company-website .protocol.focus {
   border-right: 2px solid #2057d1;
-}
-
-.wrap form .mycontainer .left-column .box-control-company-website input {
-  padding-left: 92px;
 }
 
 .wrap form .mycontainer .left-column .box-control-confirm {
@@ -3141,9 +3390,10 @@ header .mycontainer .myrow.two .box-save-changes {
 }
 
 .wrap form .mycontainer .left-column .box-control-confirm label {
-  color: #535862;
   font-size: 12px;
   line-height: 16px;
+  color: #4b5563;
+  font-weight: 400;
 }
 
 .wrap form .mycontainer .left-column .custom-box-controls label {
@@ -3171,10 +3421,20 @@ header .mycontainer .myrow.two .box-save-changes {
   justify-content: space-between;
   background: #fff;
   cursor: pointer;
-  padding: 10px 14px;
   border: 1px solid #d5d7da;
   border-radius: 8px;
   transition: all 0.2s ease;
+  padding: 10px 14px;
+  border-color: #e5e7eb;
+  color: #181D27;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 20px;
+}
+
+.wrap form .mycontainer .left-column .language-select-dropdown .language-select-trigger:hover {
+  border-color: #d1d5db;
+  transition: border-color 0.1s ease-out, background-color 0.1s ease-out, box-shadow 0.1s ease-out;
 }
 
 .wrap form .mycontainer .left-column .language-select-dropdown .language-select-trigger:focus {
@@ -3213,12 +3473,12 @@ header .mycontainer .myrow.two .box-save-changes {
 
 .wrap form .mycontainer .left-column .language-select-dropdown .language-select-trigger .language-select-selected .language-select-label {
   overflow: hidden;
-  color: #181D27;
   text-overflow: ellipsis;
-  font-size: 16px;
-  font-weight: 500;
-  line-height: 24px;
   white-space: nowrap;
+  color: #181D27;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 20px;
 }
 
 .wrap form .mycontainer .left-column .language-select-dropdown .language-select-trigger .language-select-chevron {
@@ -3278,6 +3538,11 @@ header .mycontainer .myrow.two .box-save-changes {
   margin-left: auto;
 }
 
+.wrap form .mycontainer .left-column .language-select-dropdown:hover {
+  border-color: #d1d5db;
+  transition: border-color 0.1s ease-out, background-color 0.1s ease-out, box-shadow 0.1s ease-out;
+}
+
 .wrap form .mycontainer .left-column button.generate-accessibility-statement {
   display: flex;
   flex-wrap: wrap;
@@ -3286,9 +3551,7 @@ header .mycontainer .myrow.two .box-save-changes {
   align-items: center;
   gap: 6px;
   border-radius: 8px;
-  border: 2px solid rgba(255, 255, 255, 0.12);
   background: #0048FE;
-  box-shadow: 0 0 0 1px var(--Colors-Effects-Shadows-shadow-skeumorphic-inner-border, rgba(10, 13, 18, 0.18)) inset, 0 -2px 0 0 var(--Colors-Effects-Shadows-shadow-skeumorphic-inner, rgba(10, 13, 18, 0.05)) inset, 0 1px 2px 0 var(--Colors-Effects-Shadows-shadow-xs, rgba(10, 13, 18, 0.05));
   color: #fff;
   font-size: 16px;
   font-style: normal;
@@ -3296,6 +3559,8 @@ header .mycontainer .myrow.two .box-save-changes {
   line-height: 24px;
   width: 100%;
   margin-top: 0;
+  border: none;
+  box-shadow: none;
 }
 
 .wrap form .mycontainer .left-column button.generate-accessibility-statement:hover {
@@ -3310,7 +3575,7 @@ header .mycontainer .myrow.two .box-save-changes {
   padding-right: 58px;
   width: 368px;
   display: block;
-  color: #535862;
+  color: #4b5563;
   font-size: 14px;
   font-style: normal;
   font-weight: 400;
@@ -3324,6 +3589,14 @@ header .mycontainer .myrow.two .box-save-changes {
   background: #fff;
 }
 
+.wrap form .mycontainer .right-column .box-information .setting-title {
+  font-weight: 500;
+}
+
+.wrap form .mycontainer .right-column .box-information .setting-description {
+  color: #6b7280;
+}
+
 .wrap form .mycontainer .right-column .box-editor .wp-editor-wrap .wp-editor-container {
   border: none;
 }
@@ -3331,7 +3604,8 @@ header .mycontainer .myrow.two .box-save-changes {
 .wrap form .mycontainer .right-column .box-editor .wp-editor-wrap .wp-editor-container .mce-toolbar-grp.mce-panel {
   border: none;
   background: none;
-  margin-bottom: 24px;
+  padding: 12px 0;
+  margin-bottom: 0;
 }
 
 .wrap form .mycontainer .right-column .box-editor .wp-editor-wrap .wp-editor-container .mce-top-part::before {
@@ -3340,10 +3614,10 @@ header .mycontainer .myrow.two .box-save-changes {
 }
 
 .wrap form .mycontainer .right-column .box-editor .wp-editor-wrap .wp-editor-container .mce-edit-area {
-  outline: 1px solid #d5d7da;
-  border-radius: 8px;
-  padding: 12px 14px;
   margin-bottom: 0;
+  outline: 1px solid #E9EAEB;
+  padding: 24px;
+  border-radius: 20px;
 }
 
 .wrap form .mycontainer .right-column .box-editor .wp-editor-wrap .wp-editor-container .mce-resizehandle,
@@ -3401,6 +3675,10 @@ header .mycontainer .myrow.two .box-save-changes {
   width: calc(100% - 350px - 132px);
 }
 
+.wrap .settings-container .settings-row .options-wrapper .settings-group.size .boxes .box {
+  box-shadow: none;
+}
+
 .wrap .settings-container .settings-row .options-wrapper .settings-group.size .boxes .box label {
   display: flex;
   flex-wrap: wrap;
@@ -3439,7 +3717,49 @@ header .mycontainer .myrow.two .box-save-changes {
 .wrap .settings-container .settings-row .options-wrapper .settings-group.position-left-right .setting-control .control-heading,
 .wrap .settings-container .settings-row .options-wrapper .settings-group.position-left-right-tablet .setting-control .control-heading,
 .wrap .settings-container .settings-row .options-wrapper .settings-group.position-left-right-mobile .setting-control .control-heading {
-  padding-bottom: 0;
+  padding: 20px 0 12px 0;
+}
+
+.wrap .settings-container .settings-row .options-wrapper .settings-group.position-top-bottom .setting-control input[type="range"]::-webkit-slider-thumb,
+.wrap .settings-container .settings-row .options-wrapper .settings-group.position-top-bottom-tablet .setting-control input[type="range"]::-webkit-slider-thumb,
+.wrap .settings-container .settings-row .options-wrapper .settings-group.position-top-bottom-mobile .setting-control input[type="range"]::-webkit-slider-thumb,
+.wrap .settings-container .settings-row .options-wrapper .settings-group.position-left-right .setting-control input[type="range"]::-webkit-slider-thumb,
+.wrap .settings-container .settings-row .options-wrapper .settings-group.position-left-right-tablet .setting-control input[type="range"]::-webkit-slider-thumb,
+.wrap .settings-container .settings-row .options-wrapper .settings-group.position-left-right-mobile .setting-control input[type="range"]::-webkit-slider-thumb {
+  width: 21px;
+  height: 21px;
+  -webkit-transition: transform 0.12s ease;
+  transition: transform 0.12s ease;
+}
+
+.wrap .settings-container .settings-row .options-wrapper .settings-group.position-top-bottom .setting-control input[type="range"]:hover::-webkit-slider-thumb,
+.wrap .settings-container .settings-row .options-wrapper .settings-group.position-top-bottom-tablet .setting-control input[type="range"]:hover::-webkit-slider-thumb,
+.wrap .settings-container .settings-row .options-wrapper .settings-group.position-top-bottom-mobile .setting-control input[type="range"]:hover::-webkit-slider-thumb,
+.wrap .settings-container .settings-row .options-wrapper .settings-group.position-left-right .setting-control input[type="range"]:hover::-webkit-slider-thumb,
+.wrap .settings-container .settings-row .options-wrapper .settings-group.position-left-right-tablet .setting-control input[type="range"]:hover::-webkit-slider-thumb,
+.wrap .settings-container .settings-row .options-wrapper .settings-group.position-left-right-mobile .setting-control input[type="range"]:hover::-webkit-slider-thumb {
+  transform: scale(1.15);
+}
+
+.wrap .settings-container .settings-row .options-wrapper .settings-group.position-top-bottom .setting-control input[type="range"]::-moz-range-thumb,
+.wrap .settings-container .settings-row .options-wrapper .settings-group.position-top-bottom-tablet .setting-control input[type="range"]::-moz-range-thumb,
+.wrap .settings-container .settings-row .options-wrapper .settings-group.position-top-bottom-mobile .setting-control input[type="range"]::-moz-range-thumb,
+.wrap .settings-container .settings-row .options-wrapper .settings-group.position-left-right .setting-control input[type="range"]::-moz-range-thumb,
+.wrap .settings-container .settings-row .options-wrapper .settings-group.position-left-right-tablet .setting-control input[type="range"]::-moz-range-thumb,
+.wrap .settings-container .settings-row .options-wrapper .settings-group.position-left-right-mobile .setting-control input[type="range"]::-moz-range-thumb {
+  width: 21px;
+  height: 21px;
+  -moz-transition: transform 0.12s ease;
+  transition: transform 0.12s ease;
+}
+
+.wrap .settings-container .settings-row .options-wrapper .settings-group.position-top-bottom .setting-control input[type="range"]:hover::-moz-range-thumb,
+.wrap .settings-container .settings-row .options-wrapper .settings-group.position-top-bottom-tablet .setting-control input[type="range"]:hover::-moz-range-thumb,
+.wrap .settings-container .settings-row .options-wrapper .settings-group.position-top-bottom-mobile .setting-control input[type="range"]:hover::-moz-range-thumb,
+.wrap .settings-container .settings-row .options-wrapper .settings-group.position-left-right .setting-control input[type="range"]:hover::-moz-range-thumb,
+.wrap .settings-container .settings-row .options-wrapper .settings-group.position-left-right-tablet .setting-control input[type="range"]:hover::-moz-range-thumb,
+.wrap .settings-container .settings-row .options-wrapper .settings-group.position-left-right-mobile .setting-control input[type="range"]:hover::-moz-range-thumb {
+  transform: scale(1.15);
 }
 
 .wrap .settings-container .settings-row .sidebar-preview {
@@ -3458,7 +3778,7 @@ header .mycontainer .myrow.two .box-save-changes {
 .wrap .settings-container .settings-row .sidebar-preview .box-title h3 {
   color: #181D27;
   font-size: 18px;
-  font-weight: 600;
+  font-weight: 500;
   line-height: 28px;
   margin: 0;
   margin-bottom: 22px;
@@ -3472,7 +3792,7 @@ header .mycontainer .myrow.two .box-save-changes {
   height: 270px;
   border-radius: 16px;
   padding: 12px;
-  background: #f2f2f7;
+  background: #f3f4f6;
 }
 
 .wrap .settings-container .settings-row .sidebar-preview .preview-frame .preview-container .preview-viewport {

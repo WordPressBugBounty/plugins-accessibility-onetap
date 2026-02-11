@@ -173,7 +173,7 @@
 	}
 
 	// Event listeners for all device types
-	$( '.settings-group.widge-position.desktop select' ).on( 'change', function() {
+	$( '.settings-group.widge-position.desktop .widget-position-input' ).on( 'change', function() {
 		const selectedPosition = $( this ).val();
 		updateWidgetPosition( selectedPosition, 'desktop' );
 
@@ -189,7 +189,7 @@
 		}
 	} );
 
-	$( '.settings-group.widge-position-tablet.tablet select' ).on( 'change', function() {
+	$( '.settings-group.widge-position-tablet.tablet .widget-position-input' ).on( 'change', function() {
 		const selectedPosition = $( this ).val();
 		updateWidgetPosition( selectedPosition, 'tablet' );
 
@@ -205,7 +205,7 @@
 		}
 	} );
 
-	$( '.settings-group.widge-position-mobile.mobile select' ).on( 'change', function() {
+	$( '.settings-group.widge-position-mobile.mobile .widget-position-input' ).on( 'change', function() {
 		const selectedPosition = $( this ).val();
 		updateWidgetPosition( selectedPosition, 'mobile' );
 
@@ -236,11 +236,11 @@
 		// Get the correct selector for widget position based on device type
 		let widgetPositionSelector;
 		if ( deviceType === 'desktop' ) {
-			widgetPositionSelector = `.settings-group.widge-position.${ deviceType } select`;
+			widgetPositionSelector = `.settings-group.widge-position.${ deviceType } .widget-position-input`;
 		} else if ( deviceType === 'tablet' ) {
-			widgetPositionSelector = `.settings-group.widge-position-tablet.${ deviceType } select`;
+			widgetPositionSelector = `.settings-group.widge-position-tablet.${ deviceType } .widget-position-input`;
 		} else if ( deviceType === 'mobile' ) {
-			widgetPositionSelector = `.settings-group.widge-position-mobile.${ deviceType } select`;
+			widgetPositionSelector = `.settings-group.widge-position-mobile.${ deviceType } .widget-position-input`;
 		}
 
 		const selectedPosition = $( widgetPositionSelector ).val();
@@ -428,11 +428,11 @@
 			// Get the correct selector for widget position based on device type
 			let widgetPositionSelector;
 			if ( deviceType === 'desktop' ) {
-				widgetPositionSelector = `.settings-group.widge-position.${ deviceType } select`;
+				widgetPositionSelector = `.settings-group.widge-position.${ deviceType } .widget-position-input`;
 			} else if ( deviceType === 'tablet' ) {
-				widgetPositionSelector = `.settings-group.widge-position-tablet.${ deviceType } select`;
+				widgetPositionSelector = `.settings-group.widge-position-tablet.${ deviceType } .widget-position-input`;
 			} else if ( deviceType === 'mobile' ) {
-				widgetPositionSelector = `.settings-group.widge-position-mobile.${ deviceType } select`;
+				widgetPositionSelector = `.settings-group.widge-position-mobile.${ deviceType } .widget-position-input`;
 			}
 
 			const selectedPosition = $( widgetPositionSelector ).val();
@@ -756,11 +756,21 @@
 
 		// Prevent form submission if fields are not valid
 		$submitButton.on( 'click', function( e ) {
-			const selectLanguage = ( $selectLanguage.val() || '' ).trim();
+			const selectLanguage = ( $selectLanguage.val() || 'en' ).trim();
 			const companyName = ( $companyName.val() || '' ).trim();
-			const companyWebsite = ( $companyWebsite.val() || '' ).trim();
+			let companyWebsite = ( $companyWebsite.val() || '' ).trim();
 			const businessEmail = ( $businessEmail.val() || '' ).trim();
 			const confirm = $confirmationCheckbox.is( ':checked' );
+
+			// Sanitize company website
+			// Remove trailing slash
+			companyWebsite = companyWebsite.replace( /\/$/, '' );
+			// Trim any remaining whitespace
+			companyWebsite = companyWebsite.trim();
+			// Ensure URL has protocol: if missing, prepend https://
+			if ( companyWebsite && ! /^https?:\/\//i.test( companyWebsite ) ) {
+				companyWebsite = 'https://' + companyWebsite;
+			}
 
 			// Validate that all required fields are filled before proceeding
 			if ( ! selectLanguage || ! companyName || ! companyWebsite || ! businessEmail || ! confirm ) {
@@ -1583,4 +1593,41 @@
 
 	// Initialize Accessibility Status language dropdown.
 	initAccessibilityStatusLanguageDropdown();
+
+	/**
+	 * ============================================================================
+	 * SCROLL TO LANGUAGE ROW ON #change-language HASH
+	 * ============================================================================
+	 * Scroll smoothly to the language settings row when URL contains #change-language
+	 */
+	function scrollToBottomOnLanguageChange() {
+		// Check if URL contains #change-language hash
+		if ( window.location.hash === '#change-language' ) {
+			// Try to scroll to the specific language settings row
+			const $targetRow = $( 'tr.language' );
+
+			if ( $targetRow.length ) {
+				const offsetTop = $targetRow.offset().top || 0;
+
+				// Scroll to the language row (a bit above it for nicer view)
+				$( 'html, body' ).animate(
+					{
+						scrollTop: Math.max( offsetTop - 120, 0 ),
+					},
+					800, // Animation duration in milliseconds
+					'swing' // Easing function
+				);
+			}
+		}
+	}
+
+	// Execute scroll on page load
+	$( document ).ready( function() {
+		scrollToBottomOnLanguageChange();
+	} );
+
+	// Also execute when hash changes (in case user navigates with hash)
+	$( window ).on( 'hashchange', function() {
+		scrollToBottomOnLanguageChange();
+	} );
 }( jQuery ) );

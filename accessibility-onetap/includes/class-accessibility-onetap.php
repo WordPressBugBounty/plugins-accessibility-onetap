@@ -80,6 +80,13 @@ class Accessibility_Onetap {
 		}
 		$this->plugin_name = 'accessibility-onetap';
 
+		// Ensure install timestamp exists for review banner logic.
+		// For existing users (first load after update), set timestamp to now
+		// so they see the banner after 14 days, same as new users after install.
+		if ( ! get_option( 'onetap_install_timestamp', false ) ) {
+			update_option( 'onetap_install_timestamp', time() );
+		}
+
 		$this->load_dependencies();
 		$this->set_locale();
 		$this->define_admin_hooks();
@@ -194,6 +201,10 @@ class Accessibility_Onetap {
 			$this->loader->add_action( 'wp_ajax_onetap_action_dismiss_notice', $plugin_admin, 'dismiss_notice_ajax_callback' );
 			$this->loader->add_filter( 'plugin_row_meta', $plugin_admin, 'add_row_meta', 10, 2 );
 			$this->loader->add_action( 'admin_init', $plugin_admin, 'register_settings_for_accessibility_status' );
+			$this->loader->add_action( 'admin_notices', $plugin_admin, 'display_review_banner' );
+			$this->loader->add_action( 'wp_ajax_onetap_review_leave_review', $plugin_admin, 'ajax_handle_leave_review' );
+			$this->loader->add_action( 'wp_ajax_onetap_review_maybe_later', $plugin_admin, 'ajax_handle_maybe_later' );
+			$this->loader->add_action( 'wp_ajax_onetap_review_dont_show_again', $plugin_admin, 'ajax_handle_dont_show_again' );
 
 		}
 	}

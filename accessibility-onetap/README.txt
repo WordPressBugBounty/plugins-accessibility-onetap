@@ -1,9 +1,9 @@
 === Accessibility Widget by OneTap – Easy One-Click Accessibility Toolbar ===
-Contributors: wponetap, yukyhendiawan
+Contributors: wponetap
 Tags: accessibility widget, web accessibility, wcag, ada, wp accessibility
 Requires at least: 6.6
 Tested up to:      6.9
-Stable tag:        2.8.0
+Stable tag:        2.9.0
 Requires PHP:      7.4
 License:           GPL-2.0-or-later
 License URI:       https://www.gnu.org/licenses/gpl-2.0.html
@@ -127,6 +127,10 @@ OneTap is the best WordPress plugin for accessibility and offers a stable and cl
 🇹🇭 ไทย
 🇻🇳 Tiếng Việt
 
+### Show or hide languages
+
+You decide which languages your visitors see. Simply hide the ones you don’t need. This keeps your menu clean and makes it easy for your customers to find the right language.
+
 ### See What Our Users Have to Say
 
 *OneTap Accessibility has greatly improved our site’s usability—super easy to install with so many helpful features!”* ★★★★★ (Aisha Patel)
@@ -200,6 +204,21 @@ Absolutely! Excellent customer support is vital for a quality product, and we’
 4. Screenshot 4.
 
 == Changelog ==
+
+= 2.9.0 =
+* refactor: Design & UI Improvements
+* fix: Icon Sizes (Frontend)
+* feat: Review Banner
+* fix: Default Label Translation Fix
+* fix: Change Language Button
+* fix: Text Size Fixes
+* refactor: Added new images and updated plugin description.
+* fix: Bugfixes / Customer Feedback
+* fix: default value position
+* fix: light contrast conflict
+* fix(admin): sanitize company website input to remove protocol prefixes
+* fix(statement): default value select language 
+* feat(speech): add language support for text-to-speech based on value
 
 = 2.8.0 =
 * Compatibility (wp 6.9)

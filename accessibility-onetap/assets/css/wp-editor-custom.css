@@ -80,7 +80,16 @@
   line-height: 1.6;
   margin-bottom: 16px;
   margin-top: 0;
+  margin-left: 0;
   padding-left: 32px;
+}
+
+.mce-content-body ul {
+  list-style: disc;
+}
+
+.mce-content-body ol {
+  list-style: decimal;
 }
 
 .mce-content-body li {

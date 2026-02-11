@@ -179,6 +179,305 @@ class Accessibility_Onetap_Admin {
 		}
 
 		wp_enqueue_script( $this->plugin_name . '-admin-global', ACCESSIBILITY_ONETAP_PLUGINS_URL . 'assets/js/admin-global.min.js', array( 'jquery' ), $this->version, true );
+
+		// Localize admin-global script for all admin pages.
+		wp_localize_script(
+			$this->plugin_name . '-admin-global',
+			'adminLocalize',
+			array(
+				'ajaxUrl'         => admin_url( 'admin-ajax.php' ),
+				'ajaxNonce'       => wp_create_nonce( 'onetap-ajax-verification' ),
+				'adminUrl'        => esc_url( admin_url() ),
+				'pluginUrl'       => ACCESSIBILITY_ONETAP_PLUGINS_URL,
+				'localizedLabels' => get_option( 'apop_localized_labels' ),
+			)
+		);
+	}
+
+	/**
+	 * Display review banner.
+	 *
+	 * Shown only on the Dashboard (Home) submenu. Shows a review banner with three action buttons:
+	 * - "Leave a Review": Redirects to review page and permanently disables banner
+	 * - "Maybe later": Dismisses banner and sets next show date to +14 days
+	 * - "Don't show again": Dismisses banner and permanently disables it
+	 *
+	 * The banner respects existing database options and will not reset on plugin updates.
+	 */
+	public function display_review_banner() {
+		// Show only on Dashboard (Home) submenu.
+		$screen = get_current_screen();
+		if ( ! $screen || 'dashboard' !== $screen->id ) {
+			return;
+		}
+
+		// Ensure the plugin has been in use for at least 14 days.
+		$install_timestamp = (int) get_option( 'onetap_install_timestamp', 0 );
+		if ( ! $install_timestamp ) {
+			return;
+		}
+
+		$current_time = time();
+		if ( ( $current_time - $install_timestamp ) < ( 14 * DAY_IN_SECONDS ) ) {
+			return;
+		}
+
+		// Check if banner is permanently disabled (kill-switch).
+		$banner_disabled = get_option( 'onetap_review_banner_disabled', false );
+		if ( $banner_disabled ) {
+			return;
+		}
+
+		// Check if we should show the banner based on next show date.
+		$next_show_date = get_option( 'onetap_review_banner_next_show', '' );
+		if ( ! empty( $next_show_date ) ) {
+			$show_timestamp = strtotime( $next_show_date );
+			if ( $current_time < $show_timestamp ) {
+				return; // Not time to show yet.
+			}
+		}
+
+		?>
+		<div class="notice notice-onetap-review notice-info is-dismissible" id="onetap-review-banner" style="display: none;">
+			<div class="onetap-review-notice onetap-review-notice--dismissible">
+				<div class="onetap-review-notice__content">
+					<div class="onetap-review-icon">
+						<?php echo '<img  src="' . esc_url( ACCESSIBILITY_ONETAP_PLUGINS_URL . 'assets/images/admin/global/icon.png' ) . '" alt="toggle icon" />'; ?>
+					</div>
+					<h3>
+						<?php esc_html_e( 'Enjoying OneTap? If it makes your work easier, we’d love to get a quick review on WordPress.org – it would mean a lot to us and helps us keep improving the plugin for you ', 'accessibility-onetap' ); ?>
+					</h3>
+				</div>
+				<div class="onetap-review-notice__actions">
+					<button id="onetap-review-dont-show" type="button" class="onetap-review-button onetap-review-button-link button outline">
+						<?php esc_html_e( 'Don\'t show again', 'accessibility-onetap' ); ?>
+					</button>					
+					<button id="onetap-review-maybe-later" type="button" class="onetap-review-button onetap-review-button-link button outline">
+						<?php esc_html_e( 'Maybe later', 'accessibility-onetap' ); ?>
+					</button>
+					<a id="onetap-review-leave-review" href="https://wordpress.org/support/plugin/accessibility-onetap/reviews/#new-post" target="_blank" class="onetap-review-button onetap-review-button-primary button fake-save-changes">
+						<?php esc_html_e( 'Leave a Review', 'accessibility-onetap' ); ?>
+					</a>					
+				</div>
+			</div>
+		</div>
+		<style>
+		.notice.notice-onetap-review {
+			margin: 0 !important;
+			padding: 12px !important;
+			border: 1px solid #00000014 !important;
+			max-width: 100% !important;
+			background: #fff !important;
+			border-radius: 12px !important;
+			box-shadow: none !important;
+			overflow: hidden !important;
+			display: none !important;
+		}
+
+		.notice.notice-onetap-review .button.outline,
+		.notice.notice-onetap-review .buttons.button.outline,
+		.notice.notice-onetap-review .wp-core-ui .button.outline {
+			border: none !important;
+			color: #1f2937 !important;
+			padding: 10px 14px !important;
+			font-weight: 500 !important;
+			border-radius: 10px !important;
+			box-shadow:
+				0 0 0 1px #e5e7eb inset,
+				0 -2px 0 rgba(10,13,18,0.05) inset,
+				0 1px 2px rgba(10,13,18,0.05) !important;
+
+			min-height: 30px !important;
+			background: 0 0 !important;
+			font-size: 14px !important;
+			margin: 0 !important;
+			text-decoration: none !important;
+			display: inline-block !important;
+			height: 40px !important;		
+			line-height: inherit !important;		
+		}
+
+		/* Outline button – hover & focus */
+		.notice.notice-onetap-review .button.outline:hover,
+		.notice.notice-onetap-review .buttons.button.outline:hover,
+		.notice.notice-onetap-review .wp-core-ui .button.outline:hover,
+		.notice.notice-onetap-review .button.outline:focus,
+		.notice.notice-onetap-review .buttons.button.outline:focus,
+		.notice.notice-onetap-review .wp-core-ui .button.outline:focus {
+			box-shadow:
+				0 0 0 1px #d1d5db inset,
+				0 -2px 0 rgba(10,13,18,0.05) inset,
+				0 1px 2px rgba(10,13,18,0.05);
+			background: #f9fafb !important;
+		} 
+
+		.notice.notice-onetap-review .fake-save-changes {
+			cursor: pointer !important;
+			border: 2px solid rgba(255, 255, 255, 0.12) !important;
+			border: none !important;
+			background: #0048FE !important;
+			color: #fff !important;
+			font-size: 14px !important;
+			line-height: 20px !important;
+			outline: none !important;
+			margin: 0 !important;
+			font-weight: 500 !important;
+			padding: 10px 14px !important;
+			border-radius: 10px !important;
+			box-shadow:
+				0 0 0 1px #0048fe inset,
+				0 -2px 0 rgba(10,13,18,0.05) inset,
+				0 1px 2px rgba(10,13,18,0.05) !important;
+			height: 40px !important;
+		}
+
+		.notice.notice-onetap-review .fake-save-changes:hover {
+			background: #023FDC !important;
+		}
+
+		.notice.notice-onetap-review .fake-save-changes:active {
+			background: #003ACB !important;
+		}
+
+		.notice.notice-onetap-review .notice-dismiss {
+			display: none !important;
+		}
+
+		.notice.notice-onetap-review .onetap-review-notice {
+			display: flex !important;
+			justify-content: space-between !important;
+			gap: 16px !important;
+		}
+
+		.notice.notice-onetap-review .onetap-review-notice .onetap-review-notice__content {
+			display: flex !important;
+			align-items: center !important;
+			gap: 16px !important;
+		}
+
+		.onetap-review-icon {
+			display: flex !important;
+			flex-wrap: wrap !important;
+			align-items: center !important;
+		}
+
+		.notice.notice-onetap-review .onetap-review-notice .onetap-review-notice__content .onetap-review-icon img {
+			width: 36px !important;
+			height: auto !important;
+		}
+
+		.notice.notice-onetap-review .onetap-review-notice .onetap-review-notice__content h3 {
+			font-size: 14px !important;
+			line-height: 20px !important;
+			font-weight: 400 !important;
+			color: #181D27 !important;
+			margin: 0 !important;
+			padding: 0 !important;
+		}
+
+		.notice.notice-onetap-review .onetap-review-notice .onetap-review-notice__content h3 span {
+			font-weight: 500 !important;
+		}
+
+		.notice.notice-onetap-review .onetap-review-notice .onetap-review-notice__actions {
+			display: flex !important;
+			justify-content: space-between !important;
+			align-items: center !important;
+			gap: 12px !important;
+		}
+		@media only screen and (max-width: 998px) {
+			.notice.notice-onetap-review .onetap-review-notice {
+				flex-wrap: wrap !important;
+			}
+		}
+
+		@media only screen and (max-width: 480px) {
+			.notice.notice-onetap-review .onetap-review-notice .onetap-review-notice__actions {
+				flex-direction: column !important;
+				justify-content: left !important;
+				align-items: flex-start !important;
+			}
+		}
+
+		</style>
+		<script>
+		(function() {
+			// Show banner after 1 second delay.
+			setTimeout(function() {
+				var banner = document.getElementById('onetap-review-banner');
+				if (banner) {
+					banner.style.setProperty('display', 'block', 'important');
+				}
+			}, 1500);
+		})();
+		</script>
+		<?php
+	}
+
+	/**
+	 * AJAX handler for "Leave a Review" action.
+	 *
+	 * Sets a permanent flag to disable the banner forever.
+	 * This acts as a kill-switch and will not be reset on plugin updates.
+	 */
+	public function ajax_handle_leave_review() {
+		// Security check: Ensure nonce is valid.
+		check_ajax_referer( 'onetap-ajax-verification', 'mynonce' );
+
+		// Check if already disabled - respect existing value (update-proof).
+		$existing_value = get_option( 'onetap_review_banner_disabled', false );
+		if ( ! $existing_value ) {
+			// Only update if not already set - prevents reset on updates.
+			update_option( 'onetap_review_banner_disabled', true );
+		}
+
+		// Terminate the AJAX request.
+		wp_send_json( array( 'success' => true ) );
+		wp_die();
+	}
+
+	/**
+	 * AJAX handler for "Maybe later" action.
+	 *
+	 * Sets the next show date to +14 days from today.
+	 * This value is preserved and checked before showing the banner.
+	 */
+	public function ajax_handle_maybe_later() {
+		// Security check: Ensure nonce is valid.
+		check_ajax_referer( 'onetap-ajax-verification', 'mynonce' );
+
+		// Calculate next show date: +14 days from today.
+		$next_show_date = gmdate( 'Y-m-d H:i:s', strtotime( '+14 days' ) );
+
+		// Update the next show date option.
+		// This will be checked in display_review_banner() before showing.
+		update_option( 'onetap_review_banner_next_show', $next_show_date );
+
+		// Terminate the AJAX request.
+		wp_send_json( array( 'success' => true ) );
+		wp_die();
+	}
+
+	/**
+	 * AJAX handler for "Don't show again" action.
+	 *
+	 * Sets a permanent flag to disable the banner forever.
+	 * This acts as a kill-switch and will not be reset on plugin updates.
+	 */
+	public function ajax_handle_dont_show_again() {
+		// Security check: Ensure nonce is valid.
+		check_ajax_referer( 'onetap-ajax-verification', 'mynonce' );
+
+		// Check if already disabled - respect existing value (update-proof).
+		$existing_value = get_option( 'onetap_review_banner_disabled', false );
+		if ( ! $existing_value ) {
+			// Only update if not already set - prevents reset on updates.
+			update_option( 'onetap_review_banner_disabled', true );
+		}
+
+		// Terminate the AJAX request.
+		wp_send_json( array( 'success' => true ) );
+		wp_die();
 	}
 
 	/**
@@ -551,7 +850,7 @@ class Accessibility_Onetap_Admin {
 			'onetap_company_website',
 			array(
 				'type'              => 'string',
-				'sanitize_callback' => 'esc_url_raw',
+				'sanitize_callback' => array( $this, 'sanitize_company_website' ),
 			)
 		);
 
@@ -615,5 +914,31 @@ class Accessibility_Onetap_Admin {
 	 */
 	public function sanitize_select_language( $value ) {
 		return in_array( $value, self::ALLOWED_LANGUAGES, true ) ? $value : 'en';
+	}
+
+	/**
+	 * Sanitize company website input by removing protocol prefixes.
+	 *
+	 * Removes "https://" or "http://" from the beginning of the URL
+	 * and sanitizes the remaining value.
+	 *
+	 * @since 1.0.0
+	 * @access public
+	 *
+	 * @param string $value The company website URL value.
+	 * @return string Sanitized website URL without protocol.
+	 */
+	public function sanitize_company_website( $value ) {
+		// Convert to string and trim whitespace.
+		$value = trim( (string) $value );
+
+		// Remove "https://" or "http://" from the beginning (case-insensitive).
+		$value = preg_replace( '#^https?://#i', '', $value );
+
+		// Remove any trailing slashes.
+		$value = rtrim( $value, '/' );
+
+		// Sanitize the remaining value.
+		return sanitize_text_field( $value );
 	}
 }
