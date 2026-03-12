@@ -25,13 +25,13 @@
 						</a>
 					</li>
 					<li>
-						<a target="_blank" href="<?php echo esc_url( 'https://wponetap.com/?utm_source=plugin-guru.com&utm_medium=link&utm_campaign=dashboard-pro' ); ?>" class="button get-pro">
+						<a target="_blank" href="<?php echo esc_url( 'https://wponetap.com/pricing/?utm_source=dashboard-link&utm_medium=link&utm_campaign=ref-link-toolbar' ); ?>" class="button primary get-pro">
 							<?php esc_html_e( 'Get PRO', 'accessibility-onetap' ); ?>
 							<svg style="margin-left: 6px;" width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M1 11L11 1M11 1H1M11 1V11" stroke="#C8E0FF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
 						</a>
 					</li>					
 					<li>
-						<a style="display: flex;flex-wrap: wrap;align-items: center;gap: 6px; box-shadow: 0 0 0 1px rgba(10, 13, 18, 0.18) inset, 0 -2px 0 0 rgba(10, 13, 18, 0.05) inset, 0 1px 2px 0 rgba(10, 13, 18, 0.05); display: none;" target="_blank" href="<?php echo esc_url( 'https://wponetap.com/pricing/' ); ?>" class="button solid">
+						<a style="display: flex;flex-wrap: wrap;align-items: center;gap: 6px; box-shadow: 0 0 0 1px rgba(10, 13, 18, 0.18) inset, 0 -2px 0 0 rgba(10, 13, 18, 0.05) inset, 0 1px 2px 0 rgba(10, 13, 18, 0.05); display: none;" target="_blank" href="<?php echo esc_url( 'https://wponetap.com/pricing/?utm_source=dashboard-link&utm_medium=link&utm_campaign=ref-link-toolbar' ); ?>" class="button solid">
 							<?php esc_html_e( 'Get PRO', 'accessibility-onetap' ); ?>
 							<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none">
 								<path d="M5 15L15 5M15 5H5M15 5V15" stroke="#C8E0FF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
@@ -79,7 +79,7 @@
 				<?php endif; ?>
 				
 				<?php if ( 'accessibility-onetap-alt-text' !== $onetap_current_page ) : ?>
-					<button type="button" class="save-changes">
+					<button type="button" class="button primary save-changes">
 						<?php esc_html_e( 'Save changes', 'accessibility-onetap' ); ?>
 					</button>
 				<?php endif; ?>

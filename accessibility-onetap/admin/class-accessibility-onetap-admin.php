@@ -772,7 +772,7 @@ class Accessibility_Onetap_Admin {
 		// Check if we are in the admin and on admin.php.
 		if ( is_admin() && 'admin.php' === $pagenow && 'accessibility-onetap-pro' === $plugin_page ) {
 			// Redirect.
-			wp_safe_redirect( 'https://wponetap.com/pricing/', 301 );
+			wp_safe_redirect( 'https://wponetap.com/pricing/?utm_source=dashboard-link&utm_medium=link&utm_campaign=ref-link-toolbar', 301 );
 			exit;
 		}
 	}

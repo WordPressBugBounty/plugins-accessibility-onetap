@@ -330,6 +330,7 @@
 	function toggleButtonVisibility( deviceType, isChecked ) {
 		const $previewButton = $( `.sidebar-preview .viewport-${ deviceType } button` );
 		$previewButton.css( 'display', isChecked ? 'none' : 'block' );
+		$( `.sidebar-preview .viewport-${ deviceType } .box-visibility-toggle-icon` ).css( 'display', isChecked ? 'flex' : 'none' );
 	}
 
 	// Event listeners for position adjustments
@@ -706,6 +707,20 @@
 				$button.removeClass( 'copied' );
 			}, 2000 );
 		} );
+	} );
+
+	/**
+	 * Copyable text box: add/remove focus class on .box-copy-text
+	 * Add focus when .box-copy-text is clicked; remove when clicking outside.
+	 */
+	$( document ).on( 'click', '.setting-control.copyable_text .box-copy-text', function( e ) {
+		e.stopPropagation();
+		$( '.setting-control.copyable_text .box-copy-text' ).removeClass( 'focus' );
+		$( this ).addClass( 'focus' );
+	} );
+
+	$( document ).on( 'click', function() {
+		$( '.setting-control.copyable_text .box-copy-text' ).removeClass( 'focus' );
 	} );
 
 	/**
@@ -1630,4 +1645,29 @@
 	$( window ).on( 'hashchange', function() {
 		scrollToBottomOnLanguageChange();
 	} );
+
+	/**
+	 * ============================================================================
+	 * HIDE RANK MATH SEO NOTICES
+	 * ============================================================================
+	 * Hide Rank Math notices using JavaScript as additional fallback.
+	 */
+	// Function to hide Rank Math notices
+	function hideRankMathNotices() {
+		const notices = document.querySelectorAll( '.notice' );
+		notices.forEach( function( notice ) {
+			notice.remove();
+		} );
+	}
+
+	// Run immediately and after DOM is ready
+	if ( document.readyState === 'loading' ) {
+		document.addEventListener( 'DOMContentLoaded', hideRankMathNotices );
+	} else {
+		hideRankMathNotices();
+	}
+
+	// Also run after a short delay to catch dynamically added notices
+	setTimeout( hideRankMathNotices, 500 );
+	setTimeout( hideRankMathNotices, 1000 );
 }( jQuery ) );

@@ -72,12 +72,53 @@
 	const onetapLanguageList = $( '.onetap-accessibility-settings .onetap-list-of-languages' );
 	const onetapSkipElements = '.onetap-plugin-onetap, .onetap-plugin-onetap *, .onetap-toggle, .onetap-toggle *, #wpadminbar, #wpadminbar *, rs-fullwidth-wrap, rs-fullwidth-wrap *, rs-module-wrap, rs-module-wrap *, sr7-module, sr7-module *, .onetap-markup-reading-mask';
 
+	/**
+	 * Set or remove the inert attribute on the accessibility nav so that when the panel
+	 * is closed it is skipped in keyboard tab order; when open it can be navigated.
+	 *
+	 * @param {boolean} isOpen - True when panel is open (remove inert), false when closed (set inert).
+	 */
+	function onetapSetAccessibilityNavInert( isOpen ) {
+		if ( ! onetapAccessibility.length ) {
+			return;
+		}
+		const nav = onetapAccessibility[ 0 ];
+		if ( isOpen ) {
+			nav.removeAttribute( 'inert' );
+		} else {
+			nav.setAttribute( 'inert', '' );
+		}
+	}
+
+	/**
+	 * Load flag images for the language list on demand by copying
+	 * the URL from `data-src` into `src`. This prevents the browser
+	 * from requesting all language flag images on initial page load.
+	 */
+	function onetapLoadLanguageImages() {
+		if ( ! onetapLanguageList.length ) {
+			return;
+		}
+
+		onetapLanguageList.find( 'img[data-src]' ).each( function() {
+			const $img = $( this );
+			// Only set src if it hasn't been set before.
+			if ( ! $img.attr( 'src' ) ) {
+				$img.attr( 'src', $img.attr( 'data-src' ) );
+			}
+		} );
+	}
+
 	// Ensure body has required classes even if theme doesn't output body_class
 	$( function() {
+		// When panel is closed, nav is inert (skipped in tab order); when open, navigable.
+		onetapSetAccessibilityNavInert( onetapAccessibility.hasClass( 'onetap-toggle-open' ) );
+
 		// Open Accessibility (delegated to handle timing/dynamic DOM)
 		$( document ).on( 'click', '.onetap-accessibility-plugin .onetap-toggle', function( event ) {
 			event.stopPropagation();
 			$( '.onetap-accessibility-plugin .onetap-accessibility' ).removeClass( 'onetap-toggle-close' ).addClass( 'onetap-toggle-open' );
+			onetapSetAccessibilityNavInert( true );
 			$( '.onetap-accessibility-plugin .onetap-close' ).show( 100 );
 			$( '.onetap-accessibility-plugin .onetap-languages' ).focus();
 		} );
@@ -86,6 +127,7 @@
 	$( 'a[href="#onetap-toolbar"], #onetap-toolbar' ).on( 'click', function( event ) {
 		event.stopPropagation();
 		onetapAccessibility.removeClass( 'onetap-toggle-close' ).addClass( 'onetap-toggle-open' );
+		onetapSetAccessibilityNavInert( true );
 		onetapToggleClose.show( 100 );
 		onetapToggleLanguages.focus();
 	} );
@@ -106,6 +148,7 @@
 
 			// Open the accessibility panel
 			onetapAccessibility.removeClass( 'onetap-toggle-close' ).addClass( 'onetap-toggle-open' );
+			onetapSetAccessibilityNavInert( true );
 			onetapToggleClose.show( 100 ); // Show the close button
 			onetapToggleLanguages.focus(); // Focus on the language toggle
 		}
@@ -115,6 +158,7 @@
 	onetapToggleClose.click( function( event ) {
 		event.stopPropagation();
 		onetapAccessibility.removeClass( 'onetap-toggle-open' ).addClass( 'onetap-toggle-close' );
+		onetapSetAccessibilityNavInert( false );
 		onetapToggleClose.hide( 100 );
 		onetapToggleOpen.focus();
 	} );
@@ -126,6 +170,7 @@
 			e.preventDefault();
 
 			onetapAccessibility.removeClass( 'onetap-toggle-open' ).addClass( 'onetap-toggle-close' );
+			onetapSetAccessibilityNavInert( false );
 			onetapToggleClose.hide( 100 );
 			onetapToggleOpen.focus();
 		}
@@ -192,6 +237,10 @@
 	// Toggle list of languages.
 	onetapToggleLanguages.click( function( event ) {
 		event.stopPropagation();
+
+		// Load flag images only when the dropdown is interacted with.
+		onetapLoadLanguageImages();
+
 		// Toggle aria-expanded true/false
 		const isExpanded = $( this ).attr( 'aria-expanded' ) === 'true';
 		$( this ).attr( 'aria-expanded', ! isExpanded );
@@ -208,6 +257,7 @@
 		// If clicking outside the accessibility panel, close accessibility
 		if ( ! isClickInsideAccessibility ) {
 			onetapAccessibility.removeClass( 'onetap-toggle-open' ).addClass( 'onetap-toggle-close' );
+			onetapSetAccessibilityNavInert( false );
 			onetapToggleClose.hide( 100 );
 		}
 
@@ -350,11 +400,33 @@
 	// Updates the country flag based on the selected language.
 	updateLanguageFlag();
 	function updateLanguageFlag() {
-		// Remove the 'onetap-active' class from all country flag images
-		$( 'nav.onetap-accessibility .onetap-accessibility-settings .onetap-languages .onetap-icon img' ).removeClass( 'onetap-active' );
+		const data = getDataAccessibilityData();
+		if ( ! data || ! data.information || ! data.information.language ) {
+			return;
+		}
 
-		// Add the 'onetap-active' class to the image with the alt attribute matching the selected language
-		$( 'nav.onetap-accessibility .onetap-accessibility-settings .onetap-languages .onetap-icon img[alt="' + getDataAccessibilityData().information.language + '"]' ).addClass( 'onetap-active' );
+		const currentLanguage = data.information.language;
+		const $headerFlags = $( 'nav.onetap-accessibility .onetap-accessibility-settings .onetap-languages .onetap-icon img' );
+
+		if ( ! $headerFlags.length ) {
+			return;
+		}
+
+		$headerFlags.removeClass( 'onetap-active' );
+
+		$headerFlags.each( function() {
+			const $img = $( this );
+			if ( $img.attr( 'alt' ) === currentLanguage ) {
+				// Ensure the active language image actually has a src so the flag is visible.
+				if ( ! $img.attr( 'src' ) ) {
+					const dataSrc = $img.attr( 'data-src' );
+					if ( dataSrc ) {
+						$img.attr( 'src', dataSrc );
+					}
+				}
+				$img.addClass( 'onetap-active' );
+			}
+		} );
 	}
 
 	// Event handler for language selection
@@ -367,11 +439,22 @@
 		const selectedLanguage = $( this ).attr( 'data-language' ); // Get the selected language from the data attribute
 		const languageName = $( this ).text(); // Get the name of the selected language
 
-		// Remove active class from the images
-		$( 'nav.onetap-accessibility .onetap-accessibility-settings .onetap-languages .onetap-icon img' ).removeClass( 'onetap-active' );
+		// Update header flag: switch active class and ensure src is set for the selected language.
+		const $headerFlags = $( 'nav.onetap-accessibility .onetap-accessibility-settings .onetap-languages .onetap-icon img' );
+		$headerFlags.removeClass( 'onetap-active' );
 
-		// Add active class from the images
-		$( 'nav.onetap-accessibility .onetap-accessibility-settings .onetap-languages .onetap-icon img[alt="' + selectedLanguage + '"]' ).addClass( 'onetap-active' );
+		$headerFlags.each( function() {
+			const $img = $( this );
+			if ( $img.attr( 'alt' ) === selectedLanguage ) {
+				if ( ! $img.attr( 'src' ) ) {
+					const dataSrc = $img.attr( 'data-src' );
+					if ( dataSrc ) {
+						$img.attr( 'src', dataSrc );
+					}
+				}
+				$img.addClass( 'onetap-active' );
+			}
+		} );
 
 		// Remove active class from the language toggle
 		$( onetapToggleLanguages ).removeClass( 'onetap-active' );
@@ -2615,6 +2698,7 @@
 					// If clicking outside the accessibility panel, close accessibility
 					if ( ! isClickInsideAccessibility ) {
 						onetapAccessibility.removeClass( 'onetap-toggle-open' ).addClass( 'onetap-toggle-close' );
+						onetapSetAccessibilityNavInert( false );
 						onetapToggleClose.hide( 100 );
 					}
 
@@ -3529,8 +3613,13 @@
 
 			// Save the expiration time in localStorage and hide the toolbar
 			localStorage.setItem( key, expireAt );
-			$( '.onetap-container-toggle' ).hide();
-			$( '.onetap-accessibility' ).hide();
+			$( '.onetap-container-toggle' ).each( function() {
+				this.style.setProperty( 'display', 'none', 'important' );
+			} );
+
+			$( '.onetap-accessibility' ).each( function() {
+				this.style.setProperty( 'display', 'none', 'important' );
+			} );
 		}
 	} );
 

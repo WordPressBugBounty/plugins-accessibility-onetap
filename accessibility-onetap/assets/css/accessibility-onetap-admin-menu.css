@@ -1,5 +1,3 @@
-@charset "UTF-8";
-
 /**
  * Toggle Switch Placeholder
  * Provides consistent styling for toggle switch components
@@ -88,12 +86,12 @@
 .wrap form .mycontainer .left-column .language-select-dropdown .language-select-trigger, .setting-control.widget-position .boxes .box .widget-position-dropdown .widget-position-trigger, .setting-control.language-select-toggles .boxes .box .language-select-dropdown .language-select-trigger, .setting-control.language-select-simple .boxes .box .language-select-dropdown .language-select-trigger, body.wp-admin .wrap .options-wrapper input,
 body.wp-admin .wrap .options-wrapper select {
   border-radius: 8px;
-  border: 1px solid #d5d7da;
+  border: 1px solid #d1d5db;
   padding: 10px 14px;
-  border-color: #e5e7eb;
+  border-color: #d1d5db;
   box-shadow: 0 1px 2px 0 rgba(10, 13, 18, 0.05);
   overflow: hidden;
-  color: #717680;
+  color: #374151;
   text-overflow: ellipsis;
   font-size: 14px;
   font-style: normal;
@@ -178,6 +176,104 @@ body.wp-admin .wrap .options-wrapper .control-heading {
  * Provides consistent styling for primary button components
  * Usage: @extend %button-primary;
  */
+.save-changes,
+.fake-save-changes, .wp-core-ui .button,
+.buttons.button,
+.button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 600;
+  border-radius: 10px;
+  cursor: pointer;
+  border: 1px solid transparent !important;
+  white-space: nowrap;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+          user-select: none;
+  box-sizing: border-box;
+  font-size: 14px;
+  padding: 12px 18px;
+  line-height: 1.3333333333;
+  background: #0048FE !important;
+  color: #fff !important;
+  min-height: unset;
+  margin: 0;
+  vertical-align: unset;
+  box-shadow: none !important;
+  outline: none !important;
+  text-decoration: none !important;
+}
+
+.primary.save-changes,
+.primary.fake-save-changes,
+.primary.button {
+  background: #0048FE !important;
+  color: #fff !important;
+  border: 1px solid transparent !important;
+  box-shadow: none !important;
+  outline: none !important;
+  text-decoration: none !important;
+}
+
+.primary.save-changes:hover,
+.primary.fake-save-changes:hover,
+.primary.button:hover {
+  background: #003cd5 !important;
+  color: #fff !important;
+  border: 1px solid transparent !important;
+  box-shadow: none !important;
+  outline: none !important;
+  text-decoration: none !important;
+}
+
+.outline.save-changes,
+.outline.fake-save-changes,
+.outline.button {
+  background: #fff !important;
+  color: #374151 !important;
+  border: 1px solid #d1d5db !important;
+  box-shadow: none !important;
+  outline: none !important;
+  text-decoration: none !important;
+}
+
+.outline.save-changes:hover,
+.outline.fake-save-changes:hover,
+.outline.button:hover {
+  background: #f3f4f6 !important;
+}
+
+.large.save-changes,
+.large.fake-save-changes,
+.large.button {
+  font-size: 16px;
+  padding: 12px 24px;
+  width: 100%;
+}
+
+.license-active.save-changes,
+.license-active.fake-save-changes,
+.license-active.button {
+  background: #fff !important;
+  color: #374151 !important;
+  border: 1px solid #d1d5db !important;
+  box-shadow: none !important;
+  outline: none !important;
+  text-decoration: none !important;
+}
+
+.license-active.save-changes:hover,
+.license-active.fake-save-changes:hover,
+.license-active.button:hover {
+  background: #fff !important;
+  color: #374151 !important;
+  border: 1px solid #d1d5db !important;
+  box-shadow: none !important;
+  outline: none !important;
+  text-decoration: none !important;
+}
+
 .wrap .settings-container .settings-row .sidebar-preview .devices-tabs, .setting-control.devices .boxes .box .devices-tabs {
   display: flex;
   justify-content: space-between;
@@ -221,6 +317,28 @@ body.wp-admin .wrap .options-wrapper .control-heading {
 }
 
 /**
+ * Pro Badge Placeholder
+ * Provides consistent styling for small "Pro" badges next to feature names
+ * Usage: @extend %pro-badge;
+ */
+.setting-control.switch .boxes .box .left .text span.feature-name .pro, .setting-control.module-labels .boxes .box .left .text span.feature-name .pro, .setting-control.feature_card .boxes .box .left .text span.feature-name .pro, .setting-control.copyable_text .boxes .box .left .text span.feature-name .pro {
+  position: absolute;
+  align-items: center;
+  border-radius: 999px;
+  background: #111;
+  color: #fff;
+  text-align: center;
+  font-style: normal;
+  font-weight: 500;
+  margin-left: 10px;
+  bottom: 0;
+  padding: 4px 8px;
+  font-size: 10px;
+  line-height: 1.3333333333;
+  border: solid 1px #181D27;
+}
+
+/**
  * Default Label Placeholder
  * Provides consistent styling for default label text in dropdown inputs
  * Usage: @extend %default-label;
@@ -257,7 +375,7 @@ body.wp-admin .wrap .options-wrapper .control-heading {
   left: 0;
   right: 0;
   background: #fff;
-  border: 1px solid #d5d7da;
+  border: 1px solid #d1d5db;
   box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1019607843), 0 2px 4px -2px rgba(0, 0, 0, 0.1019607843);
   border-radius: 8px;
   list-style: none;
@@ -309,6 +427,10 @@ body.wp-admin .wrap .options-wrapper .control-heading {
 
 .hide {
   display: none !important;
+}
+
+.notice {
+  display: none;
 }
 
 .swal-modal .swal-title {
@@ -602,24 +724,6 @@ body .wrap {
   outline: 0 !important;
 }
 
-.box-current-language a.change-language {
-  display: flex;
-  padding: 10px 14px;
-  justify-content: center;
-  align-items: center;
-  gap: 4px;
-  border-radius: 8px;
-  border: 1px solid #D5D7DA;
-  background: #fff;
-  box-shadow: 0 0 0 1px rgba(10, 13, 18, 0.18) inset, 0 -2px 0 0 varrgba(10, 13, 18, 0.05) inset, 0 1px 2px 0 rgba(10, 13, 18, 0.05);
-  color: #414651;
-  font-size: 14px;
-  font-style: normal;
-  font-weight: 600;
-  line-height: 20px;
-  text-decoration: none;
-}
-
 @media only screen and (max-width: 1200px) {
 
   .box-current-language a.current-language {
@@ -631,76 +735,6 @@ body .wrap {
     position: relative;
     top: 6px;
   }
-}
-
-.wp-core-ui .button,
-.buttons.button,
-.button {
-  font-weight: 600;
-  font-size: 14px;
-  line-height: 20px;
-  color: #414651;
-  padding: 10px 16px;
-  margin: 0;
-  border: 1px solid #0048FE;
-  border-radius: 8px;
-  background: transparent;
-  text-decoration: none;
-  display: inline-block;
-  height: auto;
-}
-
-.wp-core-ui .button:hover,
-.buttons.button:hover,
-.button:hover {
-  background: #2057d1;
-  background: #023FDC;
-}
-
-.wp-core-ui .button.outline,
-.buttons.button.outline,
-.button.outline {
-  border: 1px solid #D5D7DA;
-  background: transparent;
-  color: #414651;
-}
-
-.wp-core-ui .button.outline:focus,
-.buttons.button.outline:focus,
-.button.outline:focus {
-  box-shadow: none;
-  outline: 2px solid transparent;
-  border: 1px solid #2057d1;
-}
-
-.wp-core-ui .button.solid,
-.buttons.button.solid,
-.button.solid {
-  background: #0048FE;
-  color: #fff;
-  border-color: #0048FE;
-}
-
-.button.get-pro {
-  cursor: pointer;
-  border: 2px solid rgba(255, 255, 255, 0.12);
-  border: none;
-  background: #0048FE;
-  color: #fff;
-  font-size: 14px;
-  line-height: 20px;
-  outline: none;
-  margin: 0;
-  font-weight: 500;
-  padding: 10px 14px;
-  border-radius: 10px;
-  box-shadow: 0 0 0 1px #0048fe inset, 0 -2px 0 rgba(10, 13, 18, 0.05) inset, 0 1px 2px rgba(10, 13, 18, 0.05);
-}
-
-.button.get-pro:hover {
-  background: #2057d1;
-  background: #023FDC;
-  color: #fff;
 }
 
 .save-changes.onetap-button-loading,
@@ -761,28 +795,6 @@ body.wp-admin[class*="apop-module-labels"] #wpbody-content {
   .footer {
     padding: 0 15px;
   }
-}
-
-.button.outline,
-.buttons.button.outline,
-.wp-core-ui .button.outline {
-  border: none;
-  color: #1f2937;
-  padding: 10px 14px;
-  font-weight: 500;
-  border-radius: 8px;
-  box-shadow: 0 0 0 1px #e5e7eb inset, 0 -2px 0 rgba(10, 13, 18, 0.05) inset, 0 1px 2px rgba(10, 13, 18, 0.05);
-}
-
-/* Outline button – hover & focus */
-.button.outline:hover,
-.buttons.button.outline:hover,
-.wp-core-ui .button.outline:hover,
-.button.outline:focus,
-.buttons.button.outline:focus,
-.wp-core-ui .button.outline:focus {
-  box-shadow: 0 0 0 1px #d1d5db inset, 0 -2px 0 rgba(10, 13, 18, 0.05) inset, 0 1px 2px rgba(10, 13, 18, 0.05);
-  background: #f9fafb;
 }
 
 .edit-labels.button.outline {
@@ -1027,48 +1039,6 @@ header .mycontainer .myrow.two .box-save-changes {
   }
 }
 
-.fake-save-changes,
-.save-changes {
-  cursor: pointer;
-  border: 2px solid rgba(255, 255, 255, 0.12);
-  border: none;
-  background: #0048FE;
-  color: #fff;
-  font-size: 14px;
-  line-height: 20px;
-  outline: none;
-  margin: 0;
-  font-weight: 500;
-  padding: 10px 14px;
-  border-radius: 8px;
-  box-shadow: 0 0 0 1px #0048fe inset, 0 -2px 0 rgba(10, 13, 18, 0.05) inset, 0 1px 2px rgba(10, 13, 18, 0.05);
-}
-
-.fake-save-changes:hover,
-.save-changes:hover {
-  background: #2057d1;
-  background: #023FDC;
-}
-
-.fake-save-changes:active,
-.save-changes:active {
-  background: #003ACB;
-}
-
-.fake-save-changes.license-active,
-.save-changes.license-active {
-  color: #596575;
-  background: #fff;
-  border: solid 1px #e3e9f1;
-  box-shadow: none;
-}
-
-.fake-save-changes.license-active:hover,
-.save-changes.license-active:hover {
-  background: #023fdc;
-  color: #fff;
-}
-
 .setting-control.color .boxes {
   display: flex;
   flex-wrap: wrap;
@@ -1082,7 +1052,7 @@ header .mycontainer .myrow.two .box-save-changes {
 .setting-control.color .boxes .box1 .color-picker-field,
 .setting-control.color .boxes .box1 .wp-picker-clear {
   border-radius: 8px;
-  border: 1px solid #d5d7da;
+  border: 1px solid #d1d5db;
   background: #fff;
   box-shadow: 0 1px 2px 0 rgba(10, 13, 18, 0.05);
   padding: 8px 12px;
@@ -1140,10 +1110,11 @@ header .mycontainer .myrow.two .box-save-changes {
 }
 
 .setting-control.color .boxes .box2 .color-result {
-  border: 1px solid #d5d7da;
+  color: #374151;
+  border: 1px solid #d1d5db;
   padding: 8px 12px;
   border-radius: 8px;
-  border-color: #e5e7eb;
+  border-color: #d1d5db;
   box-shadow: 0 1px 2px 0 rgba(10, 13, 18, 0.05);
 }
 
@@ -1227,23 +1198,6 @@ header .mycontainer .myrow.two .box-save-changes {
   font-weight: 500;
 }
 
-.setting-control.copyable_text .boxes .box .left .text span.feature-name .pro {
-  position: absolute;
-  padding: 2px 6px;
-  align-items: center;
-  border-radius: 6px;
-  border: 1px solid #E9EAEB;
-  background: #f2f2f7;
-  color: #0048FE;
-  text-align: center;
-  font-size: 12px;
-  font-style: normal;
-  font-weight: 500;
-  line-height: 18px;
-  margin-left: 10px;
-  bottom: 0;
-}
-
 .setting-control.copyable_text .boxes .box .left .text span.feature-desc {
   overflow: hidden;
   text-overflow: ellipsis;
@@ -1324,30 +1278,40 @@ header .mycontainer .myrow.two .box-save-changes {
   flex-wrap: wrap;
   justify-content: space-between;
   align-items: center;
-  border-radius: 8px;
-  border: 1px solid #d5d7da;
+  position: relative;
   background: #fff;
   overflow: hidden;
-  color: #717680;
+  color: #374151;
   text-overflow: ellipsis;
-  font-size: 16px;
-  line-height: 24px;
+  line-height: inherit;
   min-width: 300px;
+  font-size: 14px;
+  padding: 12px 16px;
+  border: 1px solid #d1d5db;
+  border-radius: 10px;
+  outline: none;
 }
 
-.setting-control.copyable_text .boxes .box .right .box-copy-text .copy-text {
-  padding: 8px 12px;
+.setting-control.copyable_text .boxes .box .right .box-copy-text.focus {
+  border-color: #0048FE;
+  box-shadow: 0;
+}
+
+.setting-control.copyable_text .boxes .box .right .box-copy-text.focus button {
+  border-color: #0048FE !important;
 }
 
 .setting-control.copyable_text .boxes .box .right .box-copy-text button {
-  cursor: pointer;
-  border: none;
-  border-radius: 0;
-  border-left: 1px solid #d5d7da;
-  box-shadow: none;
+  border: none !important;
+  border-radius: 0 !important;
+  border-left: 1px solid #d1d5db !important;
   display: flex;
   flex-wrap: wrap;
   gap: 6px;
+  padding: 0 20px;
+  position: absolute;
+  right: 0;
+  height: 44px;
 }
 
 @media only screen and (max-width: 768px) {
@@ -1417,23 +1381,6 @@ header .mycontainer .myrow.two .box-save-changes {
   font-size: 14px;
   line-height: 20px;
   font-weight: 500;
-}
-
-.setting-control.feature_card .boxes .box .left .text span.feature-name .pro {
-  position: absolute;
-  padding: 2px 6px;
-  align-items: center;
-  border-radius: 6px;
-  border: 1px solid #E9EAEB;
-  background: #f2f2f7;
-  color: #0048FE;
-  text-align: center;
-  font-size: 12px;
-  font-style: normal;
-  font-weight: 500;
-  line-height: 18px;
-  margin-left: 10px;
-  bottom: 0;
 }
 
 .setting-control.feature_card .boxes .box .left .text span.feature-desc {
@@ -1593,8 +1540,6 @@ header .mycontainer .myrow.two .box-save-changes {
   background: #fff;
   cursor: pointer;
   padding: 10px 14px;
-  border-color: #e5e7eb;
-  color: #181D27;
   font-size: 14px;
   font-weight: 400;
   line-height: 20px;
@@ -1643,7 +1588,7 @@ header .mycontainer .myrow.two .box-save-changes {
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
-  color: #181D27;
+  color: #374151;
   font-size: 14px;
   font-weight: 400;
   line-height: 20px;
@@ -1692,7 +1637,7 @@ header .mycontainer .myrow.two .box-save-changes {
   font-style: normal;
   line-height: 20px;
   flex: 1;
-  color: #181D27;
+  color: #374151;
   font-weight: 400;
 }
 
@@ -1903,7 +1848,7 @@ header .mycontainer .myrow.two .box-save-changes {
 }
 
 .setting-control.language-select-toggles .boxes .box .language-select-dropdown .language-select-options .language-select-option .language-select-option-label {
-  color: #414651;
+  color: #374151;
   font-size: 14px;
   font-style: normal;
   font-weight: 500;
@@ -1971,7 +1916,7 @@ header .mycontainer .myrow.two .box-save-changes {
   right: 0;
   background: #fff;
   border-radius: 0 0 8px 8px;
-  border: 1px solid #d5d7da;
+  border: 1px solid #d1d5db;
   box-shadow: 0 1px 2px 0 rgba(10, 13, 18, 0.05);
   z-index: 999;
   margin-top: 0;
@@ -1992,7 +1937,7 @@ header .mycontainer .myrow.two .box-save-changes {
 
 .setting-control.language-select-toggles .boxes .box .language-select-dropdown .language-select-options.open {
   border-radius: 8px 8px 0 0;
-  border: 1px solid #d5d7da;
+  border: 1px solid #d1d5db;
   box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1019607843), 0 2px 4px -2px rgba(0, 0, 0, 0.1019607843);
 }
 
@@ -2105,23 +2050,6 @@ header .mycontainer .myrow.two .box-save-changes {
   position: relative;
 }
 
-.setting-control.module-labels .boxes .box .left .text span.feature-name .pro {
-  position: absolute;
-  padding: 2px 6px;
-  align-items: center;
-  border-radius: 999px;
-  border: none;
-  background: #111;
-  color: #fff;
-  text-align: center;
-  font-size: 12px;
-  font-style: normal;
-  font-weight: 500;
-  line-height: 18px;
-  margin-left: 10px;
-  bottom: 0;
-}
-
 .setting-control.module-labels .boxes .box .left .text span.feature-desc {
   overflow: hidden;
   color: #414651;
@@ -2200,51 +2128,63 @@ header .mycontainer .myrow.two .box-save-changes {
 
 .setting-control.module-labels .boxes .box .right input {
   width: 350px;
-  padding: 8px 12px;
-  padding-right: 95px;
-  border-radius: 8px;
-  border-top: 1px solid #d5d7da;
-  border-bottom: 1px solid #d5d7da;
-  border-left: 1px solid #d5d7da;
   background: #fff;
+  line-height: inherit;
+  font-size: 14px;
+  padding: 12px 16px;
+  padding-right: 95px;
+  border: 1px solid #d1d5db;
+  border-right: none;
+  border-radius: 10px;
+  outline: none;
+  color: #374151;
 }
 
 .setting-control.module-labels .boxes .box .right input::-moz-placeholder {
   overflow: hidden;
   color: #717680;
   text-overflow: ellipsis;
-  font-size: 16px;
+  font-size: 14px;
   font-style: normal;
   font-weight: 400;
-  line-height: 24px;
+  line-height: inherit;
 }
 
 .setting-control.module-labels .boxes .box .right input::placeholder {
   overflow: hidden;
   color: #717680;
   text-overflow: ellipsis;
-  font-size: 16px;
+  font-size: 14px;
   font-style: normal;
   font-weight: 400;
-  line-height: 24px;
+  line-height: inherit;
+}
+
+.setting-control.module-labels .boxes .box .right input:focus {
+  border: 1px solid #0048FE !important;
+  box-shadow: none !important;
 }
 
 .setting-control.module-labels .boxes .box .right .save-changes {
-  position: absolute;
-  align-items: center;
-  background: #fff;
-  color: #414651;
   font-size: 14px;
-  font-style: normal;
+  font-weight: 600;
   margin: 0;
-  font-weight: 500;
-  padding: 8px 14px;
-  border-radius: 0 8px 8px 0;
-  border: none;
-  border-left: 1px solid #d5d7da;
-  box-shadow: none;
-  top: 1px;
-  right: 2px;
+  padding: 0 20px;
+  border-radius: 0 10px 10px 0;
+  position: absolute;
+  right: 0;
+  top: 0;
+  height: 100%;
+  border: 1px solid #d1d5db;
+}
+
+.setting-control.module-labels .boxes .box .right:focus-within input {
+  border: 1px solid #0048FE !important;
+  box-shadow: none !important;
+}
+
+.setting-control.module-labels .boxes .box .right:focus-within .save-changes {
+  border: 1px solid #0048FE !important;
 }
 
 .setting-control.module-labels .boxes .box.switch2 {
@@ -2441,7 +2381,7 @@ header .mycontainer .myrow.two .box-save-changes {
 
 .setting-control.radio-image .boxes .box label {
   border-radius: 10px;
-  border: 1px solid #d5d7da;
+  border: 1px solid #d1d5db;
   outline: none;
   background: #fff;
   padding: 28px;
@@ -2587,23 +2527,6 @@ header .mycontainer .myrow.two .box-save-changes {
   font-size: 14px;
   line-height: 20px;
   color: #030712;
-}
-
-.setting-control.switch .boxes .box .left .text span.feature-name .pro {
-  position: absolute;
-  padding: 2px 6px;
-  align-items: center;
-  border-radius: 999px;
-  border: none;
-  background: #111;
-  color: #fff;
-  text-align: center;
-  font-size: 12px;
-  font-style: normal;
-  font-weight: 500;
-  line-height: 18px;
-  margin-left: 10px;
-  bottom: 0;
 }
 
 .setting-control.switch .boxes .box .left .text span.feature-desc {
@@ -2752,8 +2675,8 @@ header .mycontainer .myrow.two .box-save-changes {
   background: #fff;
   cursor: pointer;
   padding: 10px 14px;
-  border-color: #e5e7eb;
-  color: #181D27;
+  border-color: #d1d5db;
+  color: #374151;
   font-size: 14px;
   font-weight: 400;
   line-height: 20px;
@@ -2789,7 +2712,7 @@ header .mycontainer .myrow.two .box-save-changes {
 
 .setting-control.widget-position .boxes .box .widget-position-dropdown .widget-position-trigger .widget-position-selected .widget-position-label {
   overflow: hidden;
-  color: #181D27;
+  color: #374151;
   text-overflow: ellipsis;
   font-size: 14px;
   font-weight: 400;
@@ -2838,7 +2761,7 @@ header .mycontainer .myrow.two .box-save-changes {
   font-size: 14px;
   font-style: normal;
   line-height: 20px;
-  color: #181D27;
+  color: #374151;
   font-weight: 400;
 }
 
@@ -3368,7 +3291,7 @@ header .mycontainer .myrow.two .box-save-changes {
 
 .wrap form .mycontainer .left-column .box-control-confirm input {
   margin: 6px 0 6px 0;
-  border: 1px solid #d5d7da;
+  border: 1px solid #d1d5db;
   border-radius: 6px;
   width: 20px;
   height: 20px;
@@ -3421,12 +3344,12 @@ header .mycontainer .myrow.two .box-save-changes {
   justify-content: space-between;
   background: #fff;
   cursor: pointer;
-  border: 1px solid #d5d7da;
+  border: 1px solid #d1d5db;
   border-radius: 8px;
   transition: all 0.2s ease;
   padding: 10px 14px;
-  border-color: #e5e7eb;
-  color: #181D27;
+  border-color: #d1d5db;
+  color: #374151;
   font-size: 14px;
   font-weight: 400;
   line-height: 20px;
@@ -3475,7 +3398,7 @@ header .mycontainer .myrow.two .box-save-changes {
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
-  color: #181D27;
+  color: #374151;
   font-size: 14px;
   font-weight: 400;
   line-height: 20px;
@@ -3520,7 +3443,7 @@ header .mycontainer .myrow.two .box-save-changes {
 }
 
 .wrap form .mycontainer .left-column .language-select-dropdown .language-select-options .language-select-option .language-select-option-label {
-  color: #414651;
+  color: #374151;
   font-size: 14px;
   font-style: normal;
   font-weight: 500;
@@ -3543,29 +3466,10 @@ header .mycontainer .myrow.two .box-save-changes {
   transition: border-color 0.1s ease-out, background-color 0.1s ease-out, box-shadow 0.1s ease-out;
 }
 
-.wrap form .mycontainer .left-column button.generate-accessibility-statement {
-  display: flex;
-  flex-wrap: wrap;
-  padding: 12px 18px;
-  justify-content: center;
-  align-items: center;
-  gap: 6px;
-  border-radius: 8px;
-  background: #0048FE;
-  color: #fff;
-  font-size: 16px;
-  font-style: normal;
-  font-weight: 600;
-  line-height: 24px;
-  width: 100%;
-  margin-top: 0;
-  border: none;
-  box-shadow: none;
-}
-
-.wrap form .mycontainer .left-column button.generate-accessibility-statement:hover {
-  background: #2057d1;
-  background: #023FDC;
+.wrap form .mycontainer .left-column button.generate-accessibility-statement svg {
+  margin-right: 8px;
+  width: 17px;
+  height: 17px;
 }
 
 .wrap form .mycontainer .left-column .note {
@@ -3810,6 +3714,29 @@ header .mycontainer .myrow.two .box-save-changes {
   transform-origin: top left;
   width: 1200px;
   height: 1000px;
+}
+
+.wrap .settings-container .settings-row .sidebar-preview .preview-frame .preview-container .preview-viewport .box-visibility-toggle-icon {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+}
+
+.wrap .settings-container .settings-row .sidebar-preview .preview-frame .preview-container .preview-viewport .box-visibility-toggle-icon svg {
+  width: 60px;
+  height: 60px;
+  padding: 30px;
+  border-radius: 16px;
+  border: 1px solid #d1d5db;
+  background: #fff;
+  box-shadow: 0 0 8px 8px rgba(210, 210, 210, 0.15);
+}
+
+.wrap .settings-container .settings-row .sidebar-preview .preview-frame .preview-container .preview-viewport .box-visibility-toggle-icon.hide-on-desktop, .wrap .settings-container .settings-row .sidebar-preview .preview-frame .preview-container .preview-viewport .box-visibility-toggle-icon.hide-on-tablet, .wrap .settings-container .settings-row .sidebar-preview .preview-frame .preview-container .preview-viewport .box-visibility-toggle-icon.hide-on-mobile {
+  display: none;
 }
 
 .wrap .settings-container .settings-row .sidebar-preview .preview-frame .preview-container .preview-viewport button {

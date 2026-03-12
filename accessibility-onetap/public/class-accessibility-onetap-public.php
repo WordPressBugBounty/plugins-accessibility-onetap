@@ -278,6 +278,27 @@ class Accessibility_Onetap_Public {
 		// Get module settings using helper method.
 		$module_settings = $this->get_module_settings();
 
+		// Load font stylesheets only when the corresponding module is enabled (more efficient).
+		if ( ! empty( $module_settings['readable_font'] ) && 'off' !== $module_settings['readable_font'] ) {
+			wp_enqueue_style(
+				$this->plugin_name . '-fonts-readable',
+				plugins_url( $this->plugin_name ) . '/assets/css/onetap-fonts-readable.min.css',
+				array( $this->plugin_name ),
+				$this->version,
+				'all'
+			);
+		}
+
+		if ( ! empty( $module_settings['dyslexic_font'] ) && 'off' !== $module_settings['dyslexic_font'] ) {
+			wp_enqueue_style(
+				$this->plugin_name . '-fonts-dyslexic',
+				plugins_url( $this->plugin_name ) . '/assets/css/onetap-fonts-dyslexic.min.css',
+				array( $this->plugin_name ),
+				$this->version,
+				'all'
+			);
+		}
+
 		// Define custom CSS to apply the color setting to specific elements.
 		$style = "
 		.onetap-container-toggle .onetap-toggle svg,
@@ -313,17 +334,20 @@ class Accessibility_Onetap_Public {
 		}
 
 		nav.onetap-accessibility.onetap-plugin-onetap .onetap-container .toolbar-hide-duration .box-hide-duration form label.active,
+		nav.onetap-accessibility.onetap-plugin-onetap .onetap-container .toolbar-hide-duration .box-hide-duration form label:focus-visible,
 		nav.onetap-accessibility.onetap-plugin-onetap .onetap-container .toolbar-hide-duration .box-hide-duration form label:hover {
-			border: 2px solid {$onetap_setting_color} !important;
 			outline: none !important;
+			border: 1px solid {$onetap_setting_color} !important;
+			box-shadow: 0 0 0 1px {$onetap_setting_color} !important;
 		}		
 		nav.onetap-accessibility.onetap-plugin-onetap .onetap-container .accessibility-status-wrapper .accessibility-status-text button:focus,			
 		nav.onetap-accessibility.onetap-plugin-onetap .onetap-container .toolbar-hide-duration .box-hide-duration .box-btn-action button:focus {
-			border: 1px solid {$onetap_setting_color} !important;
-			outline: none !important;
+			outline: 2px solid {$onetap_setting_color} !important;
+			outline-offset: 2px !important;
 		}			
 		nav.onetap-accessibility.onetap-plugin-onetap .onetap-container .onetap-accessibility-settings div.onetap-multi-functional-feature .onetap-box-functions .onetap-functional-feature .onetap-right .box-swich label.switch:focus .slider,			
-		nav.onetap-accessibility.onetap-plugin-onetap .onetap-container .onetap-accessibility-settings .onetap-reset-settings button:focus {
+		nav.onetap-accessibility.onetap-plugin-onetap .onetap-container .onetap-accessibility-settings .onetap-reset-settings button:focus,
+		nav.onetap-accessibility.onetap-plugin-onetap .onetap-container .onetap-accessibility-settings header.onetap-header-top .onetap-list-of-languages ul li button:focus {
 			outline: 2px solid {$onetap_setting_color} !important;
 		}
 		nav.onetap-accessibility.onetap-plugin-onetap .onetap-container .onetap-accessibility-settings .onetap-features-container .onetap-features .onetap-box-features .onetap-box-feature:hover,
@@ -338,6 +362,12 @@ class Accessibility_Onetap_Public {
 		nav.onetap-accessibility.onetap-plugin-onetap .onetap-container .toolbar-hide-duration .box-hide-duration .box-btn-action button.hide-toolbar {
 			border-color: {$onetap_setting_color} !important;
 		}";
+
+		if ( '#0048FE' === $onetap_setting_color ) {
+			$style .= 'nav.onetap-accessibility.onetap-plugin-onetap .onetap-container .onetap-accessibility-settings .onetap-reset-settings button:hover {
+				background: #003cd5 !important;
+			}';
+		}
 
 		// Mobile.
 		if ( 'on' === $onetap_setting_toggle_device_position_mobile ) {
@@ -5058,7 +5088,19 @@ class Accessibility_Onetap_Public {
 						<button id="onetap-language-list" aria-controls="onetap-language-list" type="button" role="combobox" aria-expanded="false" aria-haspopup="listbox" class="onetap-languages<?php echo ( 1 === $enabled_count ) ? ' onetap-disable' : ''; ?>" aria-label="Select language">
 							<div class="onetap-icon">
 								<?php foreach ( $enabled_languages as $lang_code => $lang_data ) : ?>
-									<img src="<?php echo esc_url( ACCESSIBILITY_ONETAP_PLUGINS_URL . 'assets/images/' . $lang_data['flag'] ); ?>" class="<?php echo ( $lang_code === $active_language ) ? 'onetap-active' : ''; ?>" alt="<?php echo esc_attr( $lang_code ); ?>">
+									<?php
+									$flag_url  = esc_url( ACCESSIBILITY_ONETAP_PLUGINS_URL . 'assets/images/' . $lang_data['flag'] );
+									$is_active = ( $lang_code === $active_language );
+									?>
+									<img
+										<?php if ( $is_active ) : ?>
+											src="<?php echo esc_url( $flag_url ); ?>"
+										<?php else : ?>
+											data-src="<?php echo esc_url( $flag_url ); ?>"
+										<?php endif; ?>
+										class="<?php echo $is_active ? 'onetap-active' : ''; ?>"
+										alt="<?php echo esc_attr( $lang_code ); ?>"
+									>
 								<?php endforeach; ?>
 							</div>
 							<p class="onetap-text">
@@ -5076,7 +5118,7 @@ class Accessibility_Onetap_Public {
 									<li role="listitem" data-language="<?php echo esc_attr( $lang_code ); ?>" class="<?php echo ( $lang_code === $active_language ) ? 'onetap-active' : ''; ?>">
 										<button type="button">
 											<?php echo esc_html( $lang_data['name'] ); ?>
-											<img src="<?php echo esc_url( ACCESSIBILITY_ONETAP_PLUGINS_URL . 'assets/images/' . $lang_data['flag'] ); ?>" alt="flag">
+											<img data-src="<?php echo esc_url( ACCESSIBILITY_ONETAP_PLUGINS_URL . 'assets/images/' . $lang_data['flag'] ); ?>" alt="flag">
 										</button>
 									</li>
 								<?php endforeach; ?>
@@ -5107,7 +5149,7 @@ class Accessibility_Onetap_Public {
 											<span>
 												<?php esc_html_e( 'Powered by', 'accessibility-onetap' ); ?>
 											</span>
-											<a href="<?php echo esc_url( 'https://wponetap.com/?utm_source=plugin-guru.com&utm_medium=link&utm_campaign=ref-link-toolbar' ); ?>" target="_blank">
+											<a href="<?php echo esc_url( 'https://wponetap.com/?utm_source=frontend-link&utm_medium=link&utm_campaign=ref-link-toolbar' ); ?>" target="_blank">
 												<?php esc_html_e( 'OneTap', 'accessibility-onetap' ); ?>
 											</a>
 										</p>
@@ -5180,12 +5222,11 @@ class Accessibility_Onetap_Public {
 										</span>
 									</label>
 								</fieldset>
+								<div class="box-btn-action">
+									<button type="button" class="close-box-hide-duration"><?php esc_html_e( 'Not Now', 'accessibility-onetap' ); ?></button>
+									<button type="button" class="hide-toolbar"><?php esc_html_e( 'Hide Toolbar', 'accessibility-onetap' ); ?></button>
+								</div>
 							</form>
-
-							<div class="box-btn-action">
-								<button type="button" class="close-box-hide-duration"><?php esc_html_e( 'Not Now', 'accessibility-onetap' ); ?></button>
-								<button type="button" class="hide-toolbar"><?php esc_html_e( 'Hide Toolbar', 'accessibility-onetap' ); ?></button>
-							</div>
 						</div>
 					</div>							
 

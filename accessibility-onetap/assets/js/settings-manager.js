@@ -158,10 +158,17 @@
 	$( '.color-picker-field' ).wpColorPicker( {
 		change( event, ui ) {
 			const color = ui.color.toString();
-			const $boxes = $( this ).closest( '.boxes' );
+			const $input = $( this );
+			const $boxes = $input.closest( '.boxes' );
 
 			// Update background color of .box1
 			$boxes.find( '.box1' ).css( '--outline-color', color );
+
+			// Keep visible input value in sync (what user sees)
+			$input.val( color ).attr( 'value', color );
+
+			// Also sync the text preview value
+			$boxes.find( '.color-result' ).text( color );
 
 			// TODO: This code will be removed in future updates - preview functionality will be handled differently
 			$( '.setting-control.color .boxes .box1 .wp-picker-container button.wp-color-result' ).css( 'outline-color', color );
@@ -205,6 +212,49 @@
 				} );
 			}
 		},
+	} );
+
+	// Ensure the color picker result button uses onetap-button class on initial load
+	$( '.color-picker-field' ).each( function() {
+		const $boxes = $( this ).closest( '.boxes' );
+		const $clearButton = $boxes.find( '.wp-picker-clear' );
+
+		$boxes.find( '.wp-picker-container button.wp-color-result' )
+			.removeClass( 'button' )
+			.addClass( 'onetap-button' );
+
+		if ( $clearButton.length ) {
+			// Store the default Clear label for later restoration
+			if ( ! $clearButton.data( 'default-label' ) ) {
+				$clearButton.data( 'default-label', $clearButton.val() );
+			}
+
+			// Remove default wpColorPicker clear handler and replace with our own
+			$clearButton.off( 'click.wpcolorpicker' ).off( 'click' ).on( 'click', function( event ) {
+				event.preventDefault();
+
+				const $btn = $( this );
+				const $localBoxes = $btn.closest( '.boxes' );
+				const $input = $localBoxes.find( '.color-picker-field' );
+				const $box1 = $localBoxes.find( '.box1' );
+				const defaultColor = $box1.data( 'default-color' ) || '';
+				const clearLabel = $btn.data( 'default-label' ) || $btn.val() || 'Clear';
+
+				// Reset to default color (or empty string if no default)
+				$input.val( defaultColor ).attr( 'value', defaultColor ).trigger( 'change' );
+
+				// Sync UI pieces explicitly
+				$box1.css( '--outline-color', defaultColor );
+				$localBoxes.find( '.box1 .wp-color-result' ).css( {
+					'outline-color': defaultColor,
+					'background-color': defaultColor || '',
+				} );
+				$localBoxes.find( '.color-result' ).text( defaultColor );
+
+				// Ensure the Clear button text remains visible
+				$btn.val( clearLabel );
+			} );
+		}
 	} );
 
 	// Open color picker when clicking on color result display

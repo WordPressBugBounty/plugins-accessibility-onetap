@@ -270,9 +270,10 @@ class Accessibility_Onetap_Settings_Manager {
 				'data-image-id' => array(),
 			),
 			'div'      => array(
-				'class'       => array(),
-				'style'       => array(),
-				'data-device' => array(),
+				'class'              => array(),
+				'style'              => array(),
+				'data-device'        => array(),
+				'data-default-color' => array(),
 			),
 			'ul'       => array(
 				'class' => array(),
@@ -566,7 +567,7 @@ class Accessibility_Onetap_Settings_Manager {
 		$pro_title     = isset( $args['pro_title'] ) ? esc_html( $args['pro_title'] ) : __( 'This is a PRO Feature', 'accessibility-onetap' );
 		$pro_desc      = isset( $args['pro_desc'] ) ? esc_html( $args['pro_desc'] ) : __( ' to use this Feature.', 'accessibility-onetap' );
 		$pro_link_text = isset( $args['pro_link_text'] ) ? esc_html( $args['pro_link_text'] ) : __( 'Upgrade to Pro', 'accessibility-onetap' );
-		$upgrade_link  = isset( $args['upgrade_link'] ) ? esc_url( $args['upgrade_link'] ) : 'https://wponetap.com/pricing/';
+		$upgrade_link  = isset( $args['upgrade_link'] ) ? esc_url( $args['upgrade_link'] ) : 'https://wponetap.com/pricing/?utm_source=dashboard-link&utm_medium=link&utm_campaign=ref-link-toolbar';
 
 		// Check if label exists and is not empty, then add padding-top-0 class (except for switch2 style).
 		$label_class = ( isset( $args['label'] ) && ! empty( $args['label'] ) && 'switch2' !== $switch_style ) ? ' padding-top-0' : '';
@@ -851,7 +852,7 @@ class Accessibility_Onetap_Settings_Manager {
 		$pro_title     = isset( $args['pro_title'] ) ? esc_html( $args['pro_title'] ) : __( 'This is a PRO Feature', 'accessibility-onetap' );
 		$pro_desc      = isset( $args['pro_desc'] ) ? esc_html( $args['pro_desc'] ) : __( ' to use this Feature.', 'accessibility-onetap' );
 		$pro_link_text = isset( $args['pro_link_text'] ) ? esc_html( $args['pro_link_text'] ) : __( 'Upgrade to Pro', 'accessibility-onetap' );
-		$upgrade_link  = isset( $args['upgrade_link'] ) ? esc_url( $args['upgrade_link'] ) : 'https://wponetap.com/pricing/';
+		$upgrade_link  = isset( $args['upgrade_link'] ) ? esc_url( $args['upgrade_link'] ) : 'https://wponetap.com/pricing/?utm_source=dashboard-link&utm_medium=link&utm_campaign=ref-link-toolbar';
 
 		// Check if label exists and is not empty, then add padding-top-0 class (except for style2 style).
 		$label_class = ( isset( $args['label'] ) && ! empty( $args['label'] ) && 'style2' !== $copyable_style ) ? ' padding-top-0' : '';
@@ -939,7 +940,7 @@ class Accessibility_Onetap_Settings_Manager {
 		$pro_title     = isset( $args['pro_title'] ) ? esc_html( $args['pro_title'] ) : __( 'This is a PRO Feature', 'accessibility-onetap' );
 		$pro_desc      = isset( $args['pro_desc'] ) ? esc_html( $args['pro_desc'] ) : __( ' to use this Feature.', 'accessibility-onetap' );
 		$pro_link_text = isset( $args['pro_link_text'] ) ? esc_html( $args['pro_link_text'] ) : __( 'Upgrade to Pro', 'accessibility-onetap' );
-		$upgrade_link  = isset( $args['upgrade_link'] ) ? esc_url( $args['upgrade_link'] ) : 'https://wponetap.com/pricing/';
+		$upgrade_link  = isset( $args['upgrade_link'] ) ? esc_url( $args['upgrade_link'] ) : 'https://wponetap.com/pricing/?utm_source=dashboard-link&utm_medium=link&utm_campaign=ref-link-toolbar';
 
 		// Check if label exists and is not empty, then add padding-top-0 class (except for switch2 style).
 		$label_class = ( isset( $args['label'] ) && ! empty( $args['label'] ) && 'switch2' !== $module_style ) ? ' padding-top-0' : '';
@@ -989,7 +990,7 @@ class Accessibility_Onetap_Settings_Manager {
 
 		$input_html .= '<input type="text" class="text ' . esc_attr( $camel_case_id ) . '" id="' . esc_attr( $args['section'] ) . '[' . esc_attr( $args['id'] ) . ']" name="' . esc_attr( $args['section'] ) . '[' . esc_attr( $args['id'] ) . ']" placeholder="' . esc_attr( $placeholder_text ) . '"/>';
 
-		$input_html .= '<button type="submit" class="save-changes">';
+		$input_html .= '<button type="submit" class="button outline save-changes">';
 		$input_html .= esc_html__( 'Save', 'accessibility-onetap' );
 		$input_html .= '</button>';
 
@@ -1937,9 +1938,12 @@ class Accessibility_Onetap_Settings_Manager {
 		$parsed_args = $this->parse_template_args( $args );
 		$color_list  = isset( $args['color_list'] ) ? $args['color_list'] : array();
 
+		// Default color untuk fallback & tombol Clear (std dari config).
+		$default_color = isset( $args['std'] ) ? $args['std'] : $parsed_args['value'];
+
 		// Build color picker HTML.
-		$color_html  = '<div class="box box1" style="--outline-color:' . esc_attr( $parsed_args['value'] ) . '">';
-		$color_html .= '<input type="text" class="color-picker-field" id="' . esc_attr( $args['section'] ) . '[' . esc_attr( $args['id'] ) . ']" name="' . esc_attr( $args['section'] ) . '[' . esc_attr( $args['id'] ) . ']" value="' . esc_attr( $parsed_args['value'] ) . '" data-default-color="' . esc_attr( $args['std'] ) . '" />';
+		$color_html  = '<div class="box box1" style="--outline-color:' . esc_attr( $parsed_args['value'] ) . '" data-default-color="' . esc_attr( $default_color ) . '">';
+		$color_html .= '<input type="text" class="color-picker-field" id="' . esc_attr( $args['section'] ) . '[' . esc_attr( $args['id'] ) . ']" name="' . esc_attr( $args['section'] ) . '[' . esc_attr( $args['id'] ) . ']" value="' . esc_attr( $parsed_args['value'] ) . '" />';
 		$color_html .= '</div>';
 		$color_html .= '<div class="box box2">';
 		$color_html .= '<span class="color-result">' . esc_attr( $parsed_args['value'] ) . '</span>';
@@ -1981,7 +1985,7 @@ class Accessibility_Onetap_Settings_Manager {
 		$pro_title     = isset( $args['pro_title'] ) ? esc_html( $args['pro_title'] ) : __( 'This is a PRO Feature', 'accessibility-onetap' );
 		$pro_desc      = isset( $args['pro_desc'] ) ? esc_html( $args['pro_desc'] ) : __( ' to use this Feature.', 'accessibility-onetap' );
 		$pro_link_text = isset( $args['pro_link_text'] ) ? esc_html( $args['pro_link_text'] ) : __( 'Upgrade to Pro', 'accessibility-onetap' );
-		$upgrade_link  = isset( $args['upgrade_link'] ) ? esc_url( $args['upgrade_link'] ) : 'https://wponetap.com/pricing/';
+		$upgrade_link  = isset( $args['upgrade_link'] ) ? esc_url( $args['upgrade_link'] ) : 'https://wponetap.com/pricing/?utm_source=dashboard-link&utm_medium=link&utm_campaign=ref-link-toolbar';
 
 		// Build button attributes.
 		$button_text  = isset( $args['button_text'] ) ? esc_html( $args['button_text'] ) : '';
@@ -2142,7 +2146,7 @@ class Accessibility_Onetap_Settings_Manager {
 			. '/>';
 
 		// License activation button.
-		$button_class = 'save-changes license';
+		$button_class = 'button primary save-changes license';
 		if ( $license_status['status'] ) {
 			$button_class .= ' license-active';
 		}
