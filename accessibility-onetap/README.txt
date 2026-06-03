@@ -3,7 +3,7 @@ Contributors: wponetap
 Tags: accessibility widget, web accessibility, wcag, ada, wp accessibility
 Requires at least: 6.6
 Tested up to:      6.9
-Stable tag:        2.10.0
+Stable tag:        2.11.0
 Requires PHP:      7.4
 License:           GPL-2.0-or-later
 License URI:       https://www.gnu.org/licenses/gpl-2.0.html
@@ -204,6 +204,36 @@ Absolutely! Excellent customer support is vital for a quality product, and we’
 4. Screenshot 4.
 
 == Changelog ==
+
+= 2.11.0 =
+Feature: Added "Skip to Content" functionality for improved keyboard navigation and accessibility
+Feature: New Text Align Control — a single toggle module cycling through Align Left, Align Center, Align Right, and Off on each click
+Fix: Added missing period after "labels" in the translation editing hint text
+Fix: Resolved broken toggle button styling on affected sites
+Fix: Fixed image upload/reset issue where the old button remained visible and reset caused uploaded images to disappear
+Fix: Corrected brief grey background flash when scrolling up quickly in dropdowns — now correctly displays white
+Fix: Unified dropdown styling between Statement Generator and Widget, including font weight, hover effects, and overall consistency
+Fix: Cleaned up box shadow rendering on affected sites
+Fix: Prevented selection indicator dots from turning blue on click/focus
+Fix: Resolved reset issue causing hero images to disappear when multiple modules were active
+
+= 2.10.0 =
+* Fix: Widget color
+* Fix(a11y): Add focus style to the language selector button
+* Fix(accessibility-status): Ensure the company website uses HTTPS when the protocol is missing
+* Fix(admin-menu): Scroll to the language row when using the #change-language hash
+* Fix(admin): Widget color
+* Fix(front-end): Radio buttons
+* Fix(statement): Generate text
+* Style: Toolbar header
+* Style: Toolbar header focus state
+* Style: Pro badge
+* Style(front-end): Unify button and field styles
+* Style(statement): Generate text button
+* Perf(fonts): Load readable and dyslexic fonts only when the module is enabled
+* Perf(lang): Lazy-load flag images when the dropdown opens
+* Feat: Add preview hint
+* Refactor(admin): Add sales banner
 
 = 2.9.0 =
 * refactor: Design & UI Improvements

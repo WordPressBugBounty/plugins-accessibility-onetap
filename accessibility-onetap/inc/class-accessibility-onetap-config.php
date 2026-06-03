@@ -23,26 +23,27 @@ class Accessibility_Onetap_Config {
 	 * @var array
 	 */
 	public static $settings = array(
-		'icons'                      => 'design1',
-		'size'                       => 'design-size2',
-		'border'                     => 'design-border2',
-		'language'                   => 'en',
-		'language_toggles'           => 'en',
-		'color'                      => '#0048FE',
-		'position_top_bottom'        => 15,
-		'position_left_right'        => 15,
-		'widget_position'            => 'bottom-right',
-		'position_top_bottom_tablet' => 15,
-		'position_left_right_tablet' => 15,
-		'widget_position_tablet'     => 'bottom-right',
-		'position_top_bottom_mobile' => 15,
-		'position_left_right_mobile' => 15,
-		'widget_position_mobile'     => 'bottom-right',
-		'hide_powered_by_onetap'     => 'off',
-		'hide_on_desktop'            => 'off',
-		'hide_on_tablet'             => 'off',
-		'hide_on_mobile'             => 'off',
-		'license'                    => '',
+		'icons'                            => 'design1',
+		'size'                             => 'design-size2',
+		'border'                           => 'design-border2',
+		'language'                         => 'en',
+		'language_toggles'                 => 'en',
+		'color'                            => '#0048FE',
+		'toggle-widget-button-focus-style' => 'off',
+		'position_top_bottom'              => 15,
+		'position_left_right'              => 15,
+		'widget_position'                  => 'bottom-right',
+		'position_top_bottom_tablet'       => 15,
+		'position_left_right_tablet'       => 15,
+		'widget_position_tablet'           => 'bottom-right',
+		'position_top_bottom_mobile'       => 15,
+		'position_left_right_mobile'       => 15,
+		'widget_position_mobile'           => 'bottom-right',
+		'hide_powered_by_onetap'           => 'off',
+		'hide_on_desktop'                  => 'off',
+		'hide_on_tablet'                   => 'off',
+		'hide_on_mobile'                   => 'off',
+		'license'                          => '',
 	);
 
 	/**
@@ -76,6 +77,7 @@ class Accessibility_Onetap_Config {
 		'highlight_titles'       => 'off',
 		'highlight_all'          => 'on',
 		'stop_animations'        => 'on',
+		'skip_to_content'        => 'on',
 	);
 
 	/**

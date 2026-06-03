@@ -48,6 +48,7 @@
 					// Get current page parameter safely.
 					// phpcs:ignore WordPress.Security.NonceVerification.Recommended
 					$onetap_current_page = isset( $_GET['page'] ) ? sanitize_text_field( wp_unslash( $_GET['page'] ) ) : '';
+					$alt_url             = admin_url( 'admin.php?page=accessibility-onetap-alt-text' );
 					?>
 					<li>
 						<a class="header-nav-link<?php echo ( 'accessibility-onetap-settings' === $onetap_current_page ) ? ' active' : ''; ?>" href="<?php echo esc_url( admin_url( 'admin.php?page=accessibility-onetap-settings' ) ); ?>">
@@ -63,7 +64,7 @@
 						<a class="header-nav-link<?php echo ( 'accessibility-onetap-accessibility-status' === $onetap_current_page ) ? ' active' : ''; ?>" href="<?php echo esc_url( admin_url( 'admin.php?page=accessibility-onetap-accessibility-status' ) ); ?>">
 							<?php esc_html_e( 'Statement', 'accessibility-onetap' ); ?>
 						</a>
-					</li>			
+					</li>
 					<li>
 						<a class="header-nav-link<?php echo ( 'accessibility-onetap-general-settings' === $onetap_current_page ) ? ' active' : ''; ?>" href="<?php echo esc_url( admin_url( 'admin.php?page=accessibility-onetap-general-settings' ) ); ?>">
 							<?php esc_html_e( 'Settings', 'accessibility-onetap' ); ?>
