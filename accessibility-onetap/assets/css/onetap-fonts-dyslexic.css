@@ -1,5 +1,4 @@
 @charset "UTF-8";
-
 /**
  * Dyslexic Font (OpenDyslexic) – loaded only when Dyslexic Font module is enabled.
  * Keeps main bundle smaller when the feature is off.
@@ -11,7 +10,6 @@
   src: local("OpenDyslexic"), url(../fonts/open_dyslexic/OpenDyslexic-Regular.otf) format("truetype");
   font-display: swap;
 }
-
 @font-face {
   font-family: OpenDyslexic;
   font-style: normal;
@@ -19,7 +17,6 @@
   src: local("OpenDyslexic"), url(../fonts/open_dyslexic/OpenDyslexic-Bold.otf) format("truetype");
   font-display: swap;
 }
-
 @font-face {
   font-family: OpenDyslexic;
   font-style: normal;
@@ -27,7 +24,6 @@
   src: local("OpenDyslexic"), url(../fonts/open_dyslexic/OpenDyslexicAlta-Bold.otf) format("truetype");
   font-display: swap;
 }
-
 @font-face {
   font-family: OpenDyslexic;
   font-style: italic;
@@ -35,7 +31,6 @@
   src: local("OpenDyslexic"), url(../fonts/open_dyslexic/OpenDyslexic-Italic.otf) format("truetype");
   font-display: swap;
 }
-
 @font-face {
   font-family: OpenDyslexic;
   font-style: italic;
@@ -43,7 +38,6 @@
   src: local("OpenDyslexic"), url(../fonts/open_dyslexic/OpenDyslexic-BoldItalic.otf) format("truetype");
   font-display: swap;
 }
-
 @font-face {
   font-family: OpenDyslexic;
   font-style: italic;

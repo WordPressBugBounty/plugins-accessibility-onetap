@@ -89,6 +89,75 @@ class Accessibility_Onetap_Settings_Options {
 	}
 
 	/**
+	 * The vector path data for the OneTap menu icon (viewBox 0 0 160.7 160.7).
+	 *
+	 * @var string
+	 */
+	const MENU_ICON_PATH = 'M80.3,0C36,0,0,36,0,80.3s36,80.3,80.3,80.3,80.3-36,80.3-80.3S124.7,0,80.3,0ZM68.4,32.4c1.1-4.6,5.3-8.4,10.2-9.2,3.9-.6,8.4,1.1,11,4.1,1.2,1.5,2.2,3.2,2.7,5.1.3,2.1.3,4.2,0,6.2-1,3.8-4.1,7-8,8.4-2.2.8-5.4.8-7.6,0-4-1.4-7.2-4.9-8.1-8.7-.3-1.9-.3-3.9,0-5.9h0ZM128.9,56.4c-1.3,1.4-.8,1.2-12.4,3.8-17.3,3.9-20.2,4.6-20.8,4.8-1.2.5-1.4,1.5-1.3,5.7.6,14.2,2.1,24.3,5.3,35.5,1.5,5.4,2.4,8,5.2,15.6,1.3,3.5,2.4,6.9,2.5,7.5,0,1.4-.5,3.5-1.4,4.8-.7,1.1-.9,1.2-3,2.6-1.2.8-1.4.8-2.7.7-2.8-.3-5-1.7-6.1-3.8-.5-1-2.8-7.1-7.9-20.8-5.7-15.2-5.9-16-6.1-16s-2,5-4.3,11.2c-7.2,19.2-9.3,24.8-9.9,25.8-1.1,1.9-3.6,3.1-6.4,3.1s-4.7-1.2-5.9-3.5c-1.1-2.3-1.1-3.8.5-8,6.2-17.2,8.8-26.8,10.5-39,1-6.8,1.7-19.1,1.2-20.3-.5-1.1-1.4-1.4-14.2-4.2-10-2.2-17.4-4-18.3-4.5-1.2-.6-2.7-2.1-3.2-3.3-.5-1.1-.6-3.1-.2-4.5.3-1.1,1.8-2.8,3-3.4.7-.3,1.4-.5,2.2-.5s6.4.7,12.6,1.6c17.6,2.6,19.5,2.8,26.3,3.1,7.5.3,16.9,0,22.2-.7,2-.3,8.3-1.2,14-2,12.6-1.8,14.6-2.1,15.7-1.9,1.3.2,2.8,1.2,3.6,2.5,1.8,2.8,1.5,5.9-.7,8.1h0Z';
+
+	/**
+	 * Build the admin menu icon as a base64-encoded SVG data URI.
+	 *
+	 * Passing the icon as an inline SVG (instead of a static .svg file URL) lets
+	 * WordPress' svg-painter.js recolor it to match the active admin color scheme,
+	 * and the server-side fill below already matches that color so there is no
+	 * white flicker on load.
+	 *
+	 * @return string The SVG data URI.
+	 */
+	private function get_menu_icon() {
+		$fill = esc_attr( $this->get_menu_icon_color() );
+
+		$svg = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160.7 160.7">' .
+			'<path fill="' . $fill . '" fill-rule="evenodd" d="' . self::MENU_ICON_PATH . '"/>' .
+			'</svg>';
+
+		return 'data:image/svg+xml;base64,' . base64_encode( $svg ); // phpcs:ignore WordPress.PHP.DiscouragedPHPFunctions.obfuscation_base64_encode -- Required to build an SVG data URI for the admin menu icon.
+	}
+
+	/**
+	 * Resolve the menu icon fill color from the current user's admin color scheme.
+	 *
+	 * Returns the scheme's "current" color (active state) when viewing any of the
+	 * plugin's own admin pages, and the "base" color otherwise. Falls back to the
+	 * default "fresh" scheme colors when the scheme cannot be resolved.
+	 *
+	 * @return string A hex color value.
+	 */
+	private function get_menu_icon_color() {
+		global $_wp_admin_css_colors;
+
+		// The admin menu is built on `admin_menu`, which runs before
+		// `register_admin_color_schemes()` (hooked to `admin_init`), so the
+		// schemes may not be registered yet. Register them now so the baked
+		// fill matches the user's scheme on the very first paint (svg-painter.js
+		// recolors it at runtime regardless, but this avoids any flicker).
+		if ( empty( $_wp_admin_css_colors ) && function_exists( 'register_admin_color_schemes' ) ) {
+			register_admin_color_schemes();
+		}
+
+		$scheme = get_user_option( 'admin_color' );
+
+		if ( ! $scheme || ! isset( $_wp_admin_css_colors[ $scheme ] ) ) {
+			$scheme = 'fresh';
+		}
+
+		$icon_colors = isset( $_wp_admin_css_colors[ $scheme ]->icon_colors )
+			? $_wp_admin_css_colors[ $scheme ]->icon_colors
+			: array();
+
+		// phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Read-only check to pick the icon color, no state change.
+		$current_page = isset( $_GET['page'] ) ? sanitize_key( wp_unslash( $_GET['page'] ) ) : '';
+		$is_onetap    = ( 0 === strpos( $current_page, 'accessibility-onetap' ) ) || ( 0 === strpos( $current_page, 'onetap-' ) );
+
+		if ( $is_onetap ) {
+			return isset( $icon_colors['current'] ) ? $icon_colors['current'] : '#ffffff';
+		}
+
+		return isset( $icon_colors['base'] ) ? $icon_colors['base'] : '#a7aaad';
+	}
+
+	/**
 	 * Registers the top-level admin menu page and adds a submenu page for 'OneTap'.
 	 *
 	 * This function uses the WordPress add_menu_page() and add_submenu_page() functions to create
@@ -104,7 +173,7 @@ class Accessibility_Onetap_Settings_Options {
 			'manage_options', // Capability required.
 			'accessibility-onetap-settings', // Menu slug.
 			array( $this, 'callback_template_for_settings' ), // Callback function.
-			ACCESSIBILITY_ONETAP_PLUGINS_URL . 'assets/images/admin/menu.svg', // URL icon SVG.
+			$this->get_menu_icon(), // Inline SVG icon that adapts to the admin color scheme.
 			30 // $position.
 		);
 
@@ -134,6 +203,18 @@ class Accessibility_Onetap_Settings_Options {
 			'accessibility-onetap-accessibility-status', // Menu slug.
 			array( $this, 'callback_template_for_accessibility_status' ) // Callback function.
 		);
+
+		// Only register the Alt Text submenu when the feature is not hidden.
+		if ( ! Accessibility_Onetap_Config::is_alt_text_feature_hidden() ) {
+			add_submenu_page(
+				'accessibility-onetap-settings', // Parent menu slug.
+				__( 'Alt Text', 'accessibility-onetap' ), // Page title.
+				__( 'Alt Text', 'accessibility-onetap' ), // Menu title.
+				'manage_options', // Capability required.
+				'accessibility-onetap-alt-text', // Menu slug.
+				array( $this, 'callback_template_for_alt_text' ) // Callback function.
+			);
+		}
 
 		add_submenu_page(
 			'accessibility-onetap-settings', // Parent menu slug.
@@ -838,6 +919,20 @@ class Accessibility_Onetap_Settings_Options {
 					'sanitize_callback' => 'sanitize_text_field',
 				),
 				array(
+					'name'              => 'hide_alt_text_feature',
+					'feature_name'      => __( 'Hide Alt Text Feature', 'accessibility-onetap' ),
+					'feature_desc'      => __( 'Hide the Alt Text submenu, its navigation link, and the "Missing Alt-Text" dashboard widget.', 'accessibility-onetap' ),
+					'first_control'     => false,
+					'last_control'      => false,
+					'show_save_button'  => false,
+					'type'              => 'switch',
+					'callback'          => 'callback_template_switch',
+					'switch_style'      => 'switch1',
+					'is_pro'            => false,
+					'default'           => Accessibility_Onetap_Config::get_general_setting( 'hide_alt_text_feature' ),
+					'sanitize_callback' => 'sanitize_text_field',
+				),
+				array(
 					'name'              => 'open_with_url',
 					'feature_name'      => __( 'Open with URL', 'accessibility-onetap' ),
 					'feature_desc'      => __( 'Open the OneTap Toolbar with URL', 'accessibility-onetap' ),
@@ -898,60 +993,17 @@ class Accessibility_Onetap_Settings_Options {
 					'switch_style'      => 'switch1',
 				),
 				array(
-					'name'              => 'skip-to-content',
+					'name'              => 'bigger-text',
 					'setting_title'     => __( 'Content Modules', 'accessibility-onetap' ),
-					'feature_name'      => __( 'Skip To Content', 'accessibility-onetap' ),
-					'feature_desc'      => __( 'Let visitors jump to main content, navigation, or footer landmarks.', 'accessibility-onetap' ),
-					'switch_icon'       => ACCESSIBILITY_ONETAP_PLUGINS_URL . 'assets/images/admin/modules/skip-to-content.svg',
-					'is_beta'           => true,
+					'feature_name'      => __( 'Font Size', 'accessibility-onetap' ),
+					'feature_desc'      => __( 'Easily enlarge text for improved readability and accessibility for all', 'accessibility-onetap' ),
+					'switch_icon'       => ACCESSIBILITY_ONETAP_PLUGINS_URL . 'assets/images/admin/modules/bigger-text.svg',
 					'first_control'     => true,
 					'last_control'      => false,
 					'show_save_button'  => false,
 					'type'              => 'switch',
 					'callback'          => 'callback_template_switch',
-					'default'           => Accessibility_Onetap_Config::get_module( 'skip_to_content' ),
-					'sanitize_callback' => 'sanitize_text_field',
-					'switch_style'      => 'switch1',
-				),
-				array(
-					'name'              => 'bigger-text',
-					'feature_name'      => __( 'Font Size', 'accessibility-onetap' ),
-					'feature_desc'      => __( 'Easily enlarge text for improved readability and accessibility for all', 'accessibility-onetap' ),
-					'switch_icon'       => ACCESSIBILITY_ONETAP_PLUGINS_URL . 'assets/images/admin/modules/bigger-text.svg',
-					'first_control'     => false,
-					'last_control'      => false,
-					'show_save_button'  => false,
-					'type'              => 'switch',
-					'callback'          => 'callback_template_switch',
 					'default'           => Accessibility_Onetap_Config::get_module( 'bigger_text' ),
-					'sanitize_callback' => 'sanitize_text_field',
-					'switch_style'      => 'switch1',
-				),
-				array(
-					'name'              => 'highlight-links',
-					'feature_name'      => __( 'Highlight Links', 'accessibility-onetap' ),
-					'feature_desc'      => __( 'Easily identify clickable links with visual enhancements for better navigation', 'accessibility-onetap' ),
-					'switch_icon'       => ACCESSIBILITY_ONETAP_PLUGINS_URL . 'assets/images/admin/modules/highlight-links.svg',
-					'first_control'     => false,
-					'last_control'      => false,
-					'show_save_button'  => false,
-					'type'              => 'switch',
-					'callback'          => 'callback_template_switch',
-					'default'           => Accessibility_Onetap_Config::get_module( 'highlight_links' ),
-					'sanitize_callback' => 'sanitize_text_field',
-					'switch_style'      => 'switch1',
-				),
-				array(
-					'name'              => 'line-height',
-					'feature_name'      => __( 'Line Height', 'accessibility-onetap' ),
-					'feature_desc'      => __( 'Adjust line spacing for better readability and improved text clarity', 'accessibility-onetap' ),
-					'switch_icon'       => ACCESSIBILITY_ONETAP_PLUGINS_URL . 'assets/images/admin/modules/line-height.svg',
-					'first_control'     => false,
-					'last_control'      => false,
-					'show_save_button'  => false,
-					'type'              => 'switch',
-					'callback'          => 'callback_template_switch',
-					'default'           => Accessibility_Onetap_Config::get_module( 'line_height' ),
 					'sanitize_callback' => 'sanitize_text_field',
 					'switch_style'      => 'switch1',
 				),
@@ -966,6 +1018,20 @@ class Accessibility_Onetap_Settings_Options {
 					'type'              => 'switch',
 					'callback'          => 'callback_template_switch',
 					'default'           => Accessibility_Onetap_Config::get_module( 'readable_font' ),
+					'sanitize_callback' => 'sanitize_text_field',
+					'switch_style'      => 'switch1',
+				),
+				array(
+					'name'              => 'line-height',
+					'feature_name'      => __( 'Line Height', 'accessibility-onetap' ),
+					'feature_desc'      => __( 'Adjust line spacing for better readability and improved text clarity', 'accessibility-onetap' ),
+					'switch_icon'       => ACCESSIBILITY_ONETAP_PLUGINS_URL . 'assets/images/admin/modules/line-height.svg',
+					'first_control'     => false,
+					'last_control'      => false,
+					'show_save_button'  => false,
+					'type'              => 'switch',
+					'callback'          => 'callback_template_switch',
+					'default'           => Accessibility_Onetap_Config::get_module( 'line_height' ),
 					'sanitize_callback' => 'sanitize_text_field',
 					'switch_style'      => 'switch1',
 				),
@@ -1014,20 +1080,6 @@ class Accessibility_Onetap_Settings_Options {
 					'switch_style'      => 'switch1',
 				),
 				array(
-					'name'              => 'text-align',
-					'feature_name'      => __( 'Align Text', 'accessibility-onetap' ),
-					'feature_desc'      => __( 'Adjust text alignment for improved structure and readability', 'accessibility-onetap' ),
-					'switch_icon'       => ACCESSIBILITY_ONETAP_PLUGINS_URL . 'assets/images/admin/modules/text-align.svg',
-					'first_control'     => false,
-					'last_control'      => false,
-					'show_save_button'  => false,
-					'type'              => 'switch',
-					'callback'          => 'callback_template_switch',
-					'default'           => Accessibility_Onetap_Config::get_module( 'text_align' ),
-					'sanitize_callback' => 'sanitize_text_field',
-					'switch_style'      => 'switch1',
-				),
-				array(
 					'name'              => 'letter-spacing',
 					'feature_name'      => __( 'Letter Spacing', 'accessibility-onetap' ),
 					'feature_desc'      => __( 'Adjust letter spacing for improved readability', 'accessibility-onetap' ),
@@ -1038,6 +1090,20 @@ class Accessibility_Onetap_Settings_Options {
 					'type'              => 'switch',
 					'callback'          => 'callback_template_switch',
 					'default'           => Accessibility_Onetap_Config::get_module( 'letter_spacing' ),
+					'sanitize_callback' => 'sanitize_text_field',
+					'switch_style'      => 'switch1',
+				),
+				array(
+					'name'              => 'text-align',
+					'feature_name'      => __( 'Align Text', 'accessibility-onetap' ),
+					'feature_desc'      => __( 'Adjust text alignment for improved structure and readability', 'accessibility-onetap' ),
+					'switch_icon'       => ACCESSIBILITY_ONETAP_PLUGINS_URL . 'assets/images/admin/modules/text-align.svg',
+					'first_control'     => false,
+					'last_control'      => false,
+					'show_save_button'  => false,
+					'type'              => 'switch',
+					'callback'          => 'callback_template_switch',
+					'default'           => Accessibility_Onetap_Config::get_module( 'text_align' ),
 					'sanitize_callback' => 'sanitize_text_field',
 					'switch_style'      => 'switch1',
 				),
@@ -1251,11 +1317,41 @@ class Accessibility_Onetap_Settings_Options {
 					'feature_desc'      => __( 'Disable animations to reduce distractions', 'accessibility-onetap' ),
 					'switch_icon'       => ACCESSIBILITY_ONETAP_PLUGINS_URL . 'assets/images/admin/modules/stop-animations.svg',
 					'first_control'     => false,
-					'last_control'      => true,
+					'last_control'      => false,
 					'show_save_button'  => false,
 					'type'              => 'switch',
 					'callback'          => 'callback_template_switch',
 					'default'           => Accessibility_Onetap_Config::get_module( 'stop_animations' ),
+					'sanitize_callback' => 'sanitize_text_field',
+					'switch_style'      => 'switch1',
+				),
+				array(
+					'name'              => 'highlight-links',
+					'feature_name'      => __( 'Highlight Links', 'accessibility-onetap' ),
+					'feature_desc'      => __( 'Easily identify clickable links with visual enhancements for better navigation', 'accessibility-onetap' ),
+					'switch_icon'       => ACCESSIBILITY_ONETAP_PLUGINS_URL . 'assets/images/admin/modules/highlight-links.svg',
+					'first_control'     => false,
+					'last_control'      => true,
+					'show_save_button'  => false,
+					'type'              => 'switch',
+					'callback'          => 'callback_template_switch',
+					'default'           => Accessibility_Onetap_Config::get_module( 'highlight_links' ),
+					'sanitize_callback' => 'sanitize_text_field',
+					'switch_style'      => 'switch1',
+				),
+				array(
+					'name'              => 'skip-to-content',
+					'setting_title'     => __( 'Skip To Content', 'accessibility-onetap' ),
+					'feature_name'      => __( 'Skip To Content', 'accessibility-onetap' ),
+					'feature_desc'      => __( 'Let visitors jump to main content, navigation, or footer landmarks.', 'accessibility-onetap' ),
+					'switch_icon'       => ACCESSIBILITY_ONETAP_PLUGINS_URL . 'assets/images/admin/modules/skip-to-content.svg',
+					'is_beta'           => true,
+					'first_control'     => true,
+					'last_control'      => true,
+					'show_save_button'  => false,
+					'type'              => 'switch',
+					'callback'          => 'callback_template_switch',
+					'default'           => Accessibility_Onetap_Config::get_module( 'skip_to_content' ),
 					'sanitize_callback' => 'sanitize_text_field',
 					'switch_style'      => 'switch1',
 				),
@@ -1675,7 +1771,7 @@ class Accessibility_Onetap_Settings_Options {
 					'feature_name'        => __( 'Font weight', 'accessibility-onetap' ),
 					'feature_desc'        => __( 'Adjust font weight for improved readability', 'accessibility-onetap' ),
 					'first_control'       => false,
-					'last_control'        => true,
+					'last_control'        => false,
 					'show_save_button'    => false,
 					'is_pro'              => true,
 					'type'                => 'module-labels',

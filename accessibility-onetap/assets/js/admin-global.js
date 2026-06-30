@@ -1,4 +1,16 @@
 ( function( $ ) {
+	// PRO upgrade banner: dismiss button.
+	$( document ).on( 'click', '#onetap-pro-banner-close', function() {
+		// Collapse the banner smoothly so the content below moves up seamlessly.
+		$( '#onetap-pro-banner' ).slideUp( 300, function() {
+			$( this ).remove();
+		} );
+
+		// Keep the banner hidden for 1 week.
+		const oneWeekInSeconds = 7 * 24 * 60 * 60;
+		document.cookie = 'onetap_pro_banner_dismissed=1; max-age=' + oneWeekInSeconds + '; path=/; SameSite=Lax';
+	} );
+
 	// Notice close.
 	$( document ).on( 'click', '.notice-onetap .notice-dismiss, .notice-onetap .already-did', function() {
 		// Hide notice.

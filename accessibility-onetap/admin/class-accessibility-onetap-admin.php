@@ -953,6 +953,11 @@ class Accessibility_Onetap_Admin {
 			return;
 		}
 
+		// Skip the widget when the Alt Text feature is hidden.
+		if ( Accessibility_Onetap_Config::is_alt_text_feature_hidden() ) {
+			return;
+		}
+
 		wp_add_dashboard_widget(
 			'onetap_missing_alt_text',
 			__( 'Missing Alt-Text', 'accessibility-onetap' ),

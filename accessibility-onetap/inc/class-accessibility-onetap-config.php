@@ -87,6 +87,7 @@ class Accessibility_Onetap_Config {
 	 */
 	public static $general_settings = array(
 		'hide_powered_by_onetap' => 'off',
+		'hide_alt_text_feature'  => 'off',
 	);
 
 	/**
@@ -117,6 +118,25 @@ class Accessibility_Onetap_Config {
 	 */
 	public static function get_general_setting( $key ) {
 		return isset( self::$general_settings[ $key ] ) ? self::$general_settings[ $key ] : null; // Return general setting value or null.
+	}
+
+	/**
+	 * Determine whether the Alt Text feature should be hidden.
+	 *
+	 * Reads the saved 'onetap_general_settings' option and falls back to the
+	 * default value when the option is not set. When this returns true the
+	 * Alt Text submenu, its navigation link, and the "Missing Alt-Text"
+	 * dashboard widget are all hidden.
+	 *
+	 * @return bool True when the Alt Text feature is hidden, false otherwise.
+	 */
+	public static function is_alt_text_feature_hidden() {
+		$general_settings = get_option( 'onetap_general_settings' );
+		$value            = is_array( $general_settings ) && isset( $general_settings['hide_alt_text_feature'] )
+			? $general_settings['hide_alt_text_feature']
+			: self::get_general_setting( 'hide_alt_text_feature' );
+
+		return 'on' === $value;
 	}
 }
 

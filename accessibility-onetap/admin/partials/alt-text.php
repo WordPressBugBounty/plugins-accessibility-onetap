@@ -44,7 +44,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 				$apop_altpilot_rel = ( '_blank' === $apop_altpilot_cta['target'] ) ? 'noopener noreferrer' : '';
 				?>
 				<div class="link">
-					<a href="<?php echo esc_url( $apop_altpilot_cta['url'] ); ?>" class="button-alt-pilot"<?php echo $apop_altpilot_cta['target'] ? ' target="' . esc_attr( $apop_altpilot_cta['target'] ) . '" rel="' . esc_attr( $apop_altpilot_rel ) . '"' : ''; ?>><?php esc_html_e( 'Start with AltPilot.ai', 'accessibility-onetap' ); ?></a>
+					<a href="<?php echo esc_url( $apop_altpilot_cta['url'] ); ?>" class="button-alt-pilot"<?php echo $apop_altpilot_cta['target'] ? ' target="' . esc_attr( $apop_altpilot_cta['target'] ) . '" rel="' . esc_attr( $apop_altpilot_rel ) . '"' : ''; ?>><?php esc_html_e( 'Generate with AI', 'accessibility-onetap' ); ?></a>
 				</div>				
 			</div>
 		</div>

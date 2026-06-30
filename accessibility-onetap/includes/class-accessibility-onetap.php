@@ -205,6 +205,7 @@ class Accessibility_Onetap {
 			$this->loader->add_action( 'wp_ajax_onetap_review_leave_review', $plugin_admin, 'ajax_handle_leave_review' );
 			$this->loader->add_action( 'wp_ajax_onetap_review_maybe_later', $plugin_admin, 'ajax_handle_maybe_later' );
 			$this->loader->add_action( 'wp_ajax_onetap_review_dont_show_again', $plugin_admin, 'ajax_handle_dont_show_again' );
+			$this->loader->add_action( 'wp_dashboard_setup', $plugin_admin, 'register_missing_alt_text_dashboard_widget' );
 			$this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'enqueue_dashboard_missing_alt_widget_styles' );
 		}
 	}

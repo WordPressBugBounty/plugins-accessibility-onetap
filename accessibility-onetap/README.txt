@@ -2,8 +2,8 @@
 Contributors: wponetap
 Tags: accessibility widget, web accessibility, wcag, ada, wp accessibility
 Requires at least: 6.6
-Tested up to:      6.9
-Stable tag:        2.11.0
+Tested up to:      7.0
+Stable tag:        2.12.0
 Requires PHP:      7.4
 License:           GPL-2.0-or-later
 License URI:       https://www.gnu.org/licenses/gpl-2.0.html
@@ -204,6 +204,26 @@ Absolutely! Excellent customer support is vital for a quality product, and we’
 4. Screenshot 4.
 
 == Changelog ==
+
+= 2.12.0 =
+Compatibility: Verified compatibility with WordPress 7.0
+Feature: Added a "Hide Alt Text feature" toggle in Settings that removes the Alt Text submenu, navigation link and the "Missing Alt-Text" dashboard widget
+Feature: Alt Text list now shows a friendly empty state when there are no images to fix
+Feature: Language list now always shows the default language first
+Feature: Hide the accessibility widget in print view
+Feature: Translated the banner and Alt Text strings into 40 languages
+Fix: Admin menu icon color now adapts to the active WordPress admin color scheme
+Fix: Sticky header behavior on the settings pages
+Fix(a11y): The Escape key now only closes the toolbar when the panel is open
+Fix(RTL): Corrected the close button position in RTL mode
+Fix: Skip to Content link color
+Fix: Dark contrast SVG rendering
+Fix: Force highlighted link SVG icons to black for proper contrast
+Fix: Centered the default-language badge vertically in the language display options
+Refactor: Reordered modules and refined the high-contrast value
+Style: New buttons and improved action button hover states
+Style: Refreshed logo, PRO label, module label inputs, menu icon and focus states
+Style: Mobile container optimization
 
 = 2.11.0 =
 Feature: Added "Skip to Content" functionality for improved keyboard navigation and accessibility

@@ -254,8 +254,10 @@
 	} );
 
 	$( document ).on( 'keydown', function( e ) {
-		// Close the accessibility panel with Escape key
-		if ( e.key === 'Escape' ) {
+		// Close the accessibility panel with Escape key, but only when the panel
+		// is actually open. Otherwise let the event pass through so it doesn't
+		// interfere with other scripts or native dialogs (e.g. HTML5 <dialog>).
+		if ( e.key === 'Escape' && onetapAccessibility.hasClass( 'onetap-toggle-open' ) ) {
 			e.stopPropagation();
 			e.preventDefault();
 
@@ -2212,6 +2214,26 @@
 				// Set the updated style attribute back to the element
 				$( this ).attr( 'style', currentStyle );
 			} );
+
+			// SVG icons inside links are colored through `fill`/`stroke`
+			$( 'a svg, a img[src*=".svg" i]' ).not( onetapSkipElements ).each( function() {
+				let svgStyle = $( this ).attr( 'style' ) || '';
+
+				// Always remove a previously injected color first so toggling the
+				// feature off restores the original icon colors.
+				svgStyle = svgStyle.replace( /color:\s*#000\s*!important;?/g, '' );
+
+				if ( accessibilityDataKey ) {
+					// Ensure the existing style ends with a semicolon before appending.
+					if ( svgStyle.trim() && ! /;$/.test( svgStyle.trim() ) ) {
+						svgStyle += ';';
+					}
+					svgStyle += ' color: #000 !important;';
+				}
+
+				svgStyle = svgStyle.trim();
+				$( this ).attr( 'style', svgStyle );
+			} );
 		}
 	}
 
@@ -2386,7 +2408,7 @@
 						currentStyle += ';';
 					}
 
-					const contrastValue = 'contrast(80%) !important;';
+					const contrastValue = 'contrast(120%) !important;';
 					if ( /filter:\s*[^;]+;?/.test( currentStyle ) ) {
 						// If it exists, replace the existing filter with the new value
 						currentStyle = currentStyle.replace( /filter:\s*[^;]+;?/, 'filter: ' + contrastValue );

@@ -104,6 +104,12 @@ body.wp-admin .wrap .options-wrapper select {
   min-height: auto;
 }
 
+.wrap form .mycontainer .left-column .language-select-dropdown .language-select-trigger:focus, .setting-control.widget-position .boxes .box .widget-position-dropdown .widget-position-trigger:focus, .setting-control.language-select-toggles .boxes .box .language-select-dropdown .language-select-trigger:focus, .setting-control.language-select-simple .boxes .box .language-select-dropdown .language-select-trigger:focus, body.wp-admin .wrap .options-wrapper input:focus,
+body.wp-admin .wrap .options-wrapper select:focus {
+  border: 1px solid #0048FE;
+  box-shadow: 0 0 0 1px #0048FE;
+}
+
 /**
  * Setting Title Placeholder
  * Provides consistent styling for setting section titles
@@ -193,8 +199,8 @@ body.wp-admin .wrap .options-wrapper .control-heading {
           user-select: none;
   box-sizing: border-box;
   font-size: 14px;
-  padding: 12px 18px;
-  line-height: 1.3333333333;
+  padding: 8px 12px;
+  line-height: 20px;
   background: #0048FE !important;
   color: #fff !important;
   min-height: unset;
@@ -247,8 +253,6 @@ body.wp-admin .wrap .options-wrapper .control-heading {
 .large.save-changes,
 .large.fake-save-changes,
 .large.button {
-  font-size: 16px;
-  padding: 12px 24px;
   width: 100%;
 }
 
@@ -325,8 +329,8 @@ body.wp-admin .wrap .options-wrapper .control-heading {
   position: absolute;
   align-items: center;
   border-radius: 999px;
-  background: #111;
-  color: #fff;
+  background: #fcd34d;
+  color: #451A08;
   text-align: center;
   font-style: normal;
   font-weight: 500;
@@ -335,7 +339,7 @@ body.wp-admin .wrap .options-wrapper .control-heading {
   padding: 4px 8px;
   font-size: 10px;
   line-height: 1.3333333333;
-  border: solid 1px #181D27;
+  border: solid 1px #fcd34d;
 }
 
 /**
@@ -541,12 +545,6 @@ body.wp-admin .wrap .options-wrapper .save-changes {
 body.wp-admin .wrap .options-wrapper input,
 body.wp-admin .wrap .options-wrapper select {
   padding: 10px 14px;
-}
-
-body.wp-admin .wrap .options-wrapper input:focus,
-body.wp-admin .wrap .options-wrapper select:focus {
-  border: 1px solid #0048FE;
-  box-shadow: 0 0 0 1px #0048FE;
 }
 
 body.wp-admin .wrap .options-wrapper select {
@@ -934,9 +932,78 @@ body.wp-admin .wrap a.header-nav-link:focus {
   color: #181D27;
 }
 
+.onetap-pro-banner {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 12px 48px;
+  background: #d1d5db;
+  color: #111;
+  overflow: hidden;
+}
+
+.onetap-pro-banner .onetap-pro-banner__link {
+  display: inline-flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  color: #111;
+  font-size: 15px;
+  line-height: 1.4;
+  text-decoration: none;
+  text-align: center;
+}
+
+.onetap-pro-banner .onetap-pro-banner__link:hover .onetap-pro-banner__cta, .onetap-pro-banner .onetap-pro-banner__link:focus .onetap-pro-banner__cta {
+  text-decoration-thickness: 2px;
+}
+
+.onetap-pro-banner .onetap-pro-banner__link:focus, .onetap-pro-banner .onetap-pro-banner__link:active {
+  border: none !important;
+  outline: none;
+  box-shadow: none;
+}
+
+.onetap-pro-banner .onetap-pro-banner__sep {
+  opacity: 0.85;
+}
+
+.onetap-pro-banner .onetap-pro-banner__cta {
+  font-weight: 700;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.onetap-pro-banner .onetap-pro-banner__close {
+  position: absolute;
+  top: 50%;
+  right: 16px;
+  transform: translateY(-50%);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 30px;
+  height: 30px;
+  padding: 0;
+  border: 0;
+  border-radius: 6px;
+  background: transparent;
+  color: #111;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.onetap-pro-banner .onetap-pro-banner__close:hover, .onetap-pro-banner .onetap-pro-banner__close:focus {
+  background: rgba(0, 0, 0, 0.08);
+}
+
 header {
   position: sticky;
-  top: -43px;
+  top: -13px;
   z-index: 1;
   margin-bottom: 18px;
 }
@@ -988,13 +1055,23 @@ header .mycontainer .myrow.one .box-menu ul li:nth-child(2) {
   margin-left: 12px;
 }
 
+header .mycontainer .myrow.one .box-menu ul .button.primary.get-pro {
+  background: #fcd34d !important;
+  color: #451A08 !important;
+}
+
+header .mycontainer .myrow.one .box-menu ul .button.primary.get-pro:hover, header .mycontainer .myrow.one .box-menu ul .button.primary.get-pro:focus {
+  background: #fbbf24 !important;
+  color: #451A08 !important;
+}
+
 header .mycontainer .myrow.two {
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
   align-items: center;
-  padding-top: 20px;
-  padding-bottom: 20px;
+  padding-top: 12px;
+  padding-bottom: 12px;
 }
 
 header .mycontainer .myrow.two .box-navigation {
@@ -1402,12 +1479,12 @@ header .mycontainer .myrow.two .box-save-changes {
 }
 
 .setting-control.copyable_text .boxes .box .right .box-copy-text.focus {
-  border-color: #0048FE;
-  box-shadow: 0;
+  border: 1px solid #0048FE;
+  box-shadow: 0 0 0 1px #0048FE;
 }
 
 .setting-control.copyable_text .boxes .box .right .box-copy-text.focus button {
-  border-color: #0048FE !important;
+  border-left: 2px solid #0048FE !important;
 }
 
 .setting-control.copyable_text .boxes .box .right .box-copy-text button {
@@ -1656,13 +1733,7 @@ header .mycontainer .myrow.two .box-save-changes {
 
 .setting-control.language-select-simple .boxes .box .language-select-dropdown .language-select-trigger:hover {
   padding: 10px 14px;
-  border-color: #d1d5db;
   transition: border-color 0.1s ease-out, background-color 0.1s ease-out, box-shadow 0.1s ease-out;
-}
-
-.setting-control.language-select-simple .boxes .box .language-select-dropdown .language-select-trigger:focus {
-  border: 1px solid #0048FE;
-  box-shadow: 0 0 0 1px #0048FE;
 }
 
 .setting-control.language-select-simple .boxes .box .language-select-dropdown .language-select-trigger[aria-expanded="true"] .language-select-chevron {
@@ -1790,12 +1861,12 @@ header .mycontainer .myrow.two .box-save-changes {
 .setting-control.language-select-simple .boxes .box .language-select-dropdown.display-options-active .language-select-options .language-select-option.selected .language-select-option-default-label {
   display: inline-block;
   right: 10px;
-  top: 9px;
+  top: 50%;
+  transform: translateY(-50%);
 }
 
 .setting-control.language-select-simple .boxes .box .language-select-dropdown:hover {
   padding-left: 0;
-  border-color: #d1d5db;
   transition: border-color 0.1s ease-out, background-color 0.1s ease-out, box-shadow 0.1s ease-out;
 }
 
@@ -1875,13 +1946,7 @@ header .mycontainer .myrow.two .box-save-changes {
 }
 
 .setting-control.language-select-toggles .boxes .box .language-select-dropdown .language-select-trigger:hover {
-  border-color: #d1d5db;
   transition: border-color 0.1s ease-out, background-color 0.1s ease-out, box-shadow 0.1s ease-out;
-}
-
-.setting-control.language-select-toggles .boxes .box .language-select-dropdown .language-select-trigger:focus {
-  border: 1px solid #0048FE;
-  box-shadow: 0 0 0 1px #0048FE;
 }
 
 .setting-control.language-select-toggles .boxes .box .language-select-dropdown .language-select-trigger[aria-expanded="true"] .language-select-chevron {
@@ -1968,7 +2033,8 @@ header .mycontainer .myrow.two .box-save-changes {
 .setting-control.language-select-toggles .boxes .box .language-select-dropdown .language-select-options .language-select-option .language-select-option-default-label {
   display: none;
   right: 10px;
-  top: 9px;
+  top: 50%;
+  transform: translateY(-50%);
 }
 
 .setting-control.language-select-toggles .boxes .box .language-select-dropdown .language-select-options .language-select-option .box-swich {
@@ -2055,7 +2121,6 @@ header .mycontainer .myrow.two .box-save-changes {
 }
 
 .setting-control.language-select-toggles .boxes .box .language-select-dropdown:hover {
-  border-color: #d1d5db;
   transition: border-color 0.1s ease-out, background-color 0.1s ease-out, box-shadow 0.1s ease-out;
 }
 
@@ -2186,7 +2251,7 @@ header .mycontainer .myrow.two .box-save-changes {
   position: absolute;
   bottom: -9px;
   right: 363px;
-  height: 38px;
+  height: auto;
   width: 200px;
   z-index: 999;
 }
@@ -2247,6 +2312,7 @@ header .mycontainer .myrow.two .box-save-changes {
   font-size: 14px;
   padding: 12px 16px;
   padding-right: 95px;
+  padding-right: 103px;
   border: 1px solid #d1d5db;
   border-right: none;
   border-radius: 10px;
@@ -2274,11 +2340,6 @@ header .mycontainer .myrow.two .box-save-changes {
   line-height: inherit;
 }
 
-.setting-control.module-labels .boxes .box .right input:focus {
-  border: 1px solid #0048FE !important;
-  box-shadow: none !important;
-}
-
 .setting-control.module-labels .boxes .box .right .save-changes {
   font-size: 14px;
   font-weight: 600;
@@ -2294,11 +2355,12 @@ header .mycontainer .myrow.two .box-save-changes {
 
 .setting-control.module-labels .boxes .box .right:focus-within input {
   border: 1px solid #0048FE !important;
-  box-shadow: none !important;
+  box-shadow: 0 0 0 1px #0048FE !important;
 }
 
 .setting-control.module-labels .boxes .box .right:focus-within .save-changes {
   border: 1px solid #0048FE !important;
+  border-left-width: 1px !important;
 }
 
 .setting-control.module-labels .boxes .box.switch2 {
@@ -2415,10 +2477,6 @@ header .mycontainer .myrow.two .box-save-changes {
   box-shadow: 0 4px 6px -1px rgba(10, 13, 18, 0.1), 0 2px 4px -2px rgba(10, 13, 18, 0.06);
 }
 
-.setting-control.number-slider .boxes .box .box-range input:focus {
-  border: none;
-}
-
 .setting-control.number-slider .boxes .box .box-number {
   border-radius: 8px;
   background: #fff;
@@ -2427,10 +2485,6 @@ header .mycontainer .myrow.two .box-save-changes {
   border: 1px solid #e5e6ea;
   padding: 8px 12px;
   width: 60px;
-}
-
-.setting-control.number-slider .boxes .box .box-number:hover {
-  border-color: #d1d5db;
 }
 
 .setting-control.number-slider .boxes .box .box-number input {
@@ -2801,14 +2855,8 @@ header .mycontainer .myrow.two .box-save-changes {
   line-height: 20px;
 }
 
-.setting-control.widget-position .boxes .box .widget-position-dropdown .widget-position-trigger:focus {
-  border: 1px solid #0048FE;
-  box-shadow: 0 0 0 1px #0048FE;
-}
-
 .setting-control.widget-position .boxes .box .widget-position-dropdown .widget-position-trigger:hover {
   padding: 10px 14px;
-  border-color: #d1d5db;
   transition: border-color 0.1s ease-out, background-color 0.1s ease-out, box-shadow 0.1s ease-out;
 }
 
@@ -3038,14 +3086,14 @@ header .mycontainer .myrow.two .box-save-changes {
   background: #fff;
   border-radius: 8px;
   border: 1px solid #d5d7da;
-  padding: 10px 18px;
+  font-size: 14px;
+  padding: 8px 12px;
+  line-height: 20px;
 }
 
 .wrap .box-alt-pilot .mycontainer .myrow .link a {
   color: #414651;
-  font-size: 16px;
   font-weight: 600;
-  line-height: 24px;
   text-decoration: none;
   border: none;
 }
@@ -3135,6 +3183,11 @@ header .mycontainer .myrow.two .box-save-changes {
   width: 100%;
 }
 
+.wrap .box-image-alt .table-body .row .col.alt-text textarea:focus {
+  border: 1px solid #0048FE;
+  box-shadow: 0 0 0 1px #0048FE;
+}
+
 .wrap .box-image-alt .table-body .row .col.actions .action-buttons {
   display: flex;
   align-items: center;
@@ -3170,6 +3223,20 @@ header .mycontainer .myrow.two .box-save-changes {
   box-shadow: none;
 }
 
+.wrap .box-image-alt .table-body .row .col.actions .action-buttons a.button.outline.ai-btn:hover,
+.wrap .box-image-alt .table-body .row .col.actions .action-buttons button.button.outline.ai-btn:hover {
+  background: #f9fafb !important;
+  color: #181D27 !important;
+  border-radius: 6px 0 0 6px !important;
+}
+
+.wrap .box-image-alt .table-body .row .col.actions .action-buttons a.button.outline.edit-btn:hover,
+.wrap .box-image-alt .table-body .row .col.actions .action-buttons button.button.outline.edit-btn:hover {
+  background: #f9fafb !important;
+  color: #181D27 !important;
+  border-radius: 0 6px 6px 0 !important;
+}
+
 .wrap .box-image-alt .table-body .row .col.actions .action-buttons a.button.outline {
   border-right: 1px solid #d5d7da !important;
   border-radius: 0;
@@ -3184,6 +3251,47 @@ header .mycontainer .myrow.two .box-save-changes {
 .wrap .box-image-alt .table-body .row .col.actions .action-buttons .save-btn:hover {
   background: #E9EAEB;
   border-radius: 0 5px 5px 0;
+}
+
+.wrap .box-image-alt .table-body .row.no-images {
+  border-bottom: none;
+}
+
+.wrap .box-image-alt .table-body .row.no-images .col.empty-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  padding: 56px 24px;
+  text-align: center;
+}
+
+.wrap .box-image-alt .table-body .row.no-images .empty-state__media {
+  margin-bottom: 20px;
+}
+
+.wrap .box-image-alt .table-body .row.no-images .empty-state__media .empty-state__image {
+  display: block;
+  width: 120px;
+  height: 120px;
+  max-width: 100%;
+}
+
+.wrap .box-image-alt .table-body .row.no-images .empty-state__title {
+  margin: 0 0 6px;
+  color: #181D27;
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 24px;
+}
+
+.wrap .box-image-alt .table-body .row.no-images .empty-state__text {
+  margin: 0;
+  max-width: 360px;
+  color: #717680;
+  font-size: 14px;
+  line-height: 20px;
 }
 
 .wrap .box-navigation {
@@ -3360,11 +3468,13 @@ header .mycontainer .myrow.two .box-save-changes {
 #apop_modules .settings-group.accessibility-profiles .boxes .box,
 #apop_modules .settings-group.font-weight .boxes .box,
 #apop_modules .settings-group.saturation .boxes .box,
-#apop_modules .settings-group.stop-animations .boxes .box,
+#apop_modules .settings-group.highlight-links .boxes .box,
+#apop_modules .settings-group.skip-to-content .boxes .box,
 #onetap_modules .settings-group.accessibility-profiles .boxes .box,
 #onetap_modules .settings-group.font-weight .boxes .box,
 #onetap_modules .settings-group.saturation .boxes .box,
-#onetap_modules .settings-group.stop-animations .boxes .box {
+#onetap_modules .settings-group.highlight-links .boxes .box,
+#onetap_modules .settings-group.skip-to-content .boxes .box {
   padding-bottom: 0;
   border: none;
 }
@@ -3565,13 +3675,10 @@ header .mycontainer .myrow.two .box-save-changes {
 }
 
 .wrap form .mycontainer .left-column .language-select-dropdown .language-select-trigger:hover {
-  border-color: #d1d5db;
   transition: border-color 0.1s ease-out, background-color 0.1s ease-out, box-shadow 0.1s ease-out;
 }
 
 .wrap form .mycontainer .left-column .language-select-dropdown .language-select-trigger:focus {
-  border: 1px solid #0048FE;
-  box-shadow: 0 0 0 1px #0048FE;
   outline: none;
 }
 
@@ -3671,7 +3778,6 @@ header .mycontainer .myrow.two .box-save-changes {
 }
 
 .wrap form .mycontainer .left-column .language-select-dropdown:hover {
-  border-color: #d1d5db;
   transition: border-color 0.1s ease-out, background-color 0.1s ease-out, box-shadow 0.1s ease-out;
 }
 

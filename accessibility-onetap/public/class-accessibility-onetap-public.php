@@ -216,8 +216,8 @@ class Accessibility_Onetap_Public {
 				left: 0 !important;
 			}
 			nav.onetap-accessibility.onetap-plugin-onetap.onetap-rtl .onetap-container .onetap-accessibility-settings header.onetap-header-top .onetap-close {
-				right: unset !important;
-				left: calc(530px - 20px) !important;
+				right: 20px !important;
+				left: unset !important;
 			}
 			';
 		}
@@ -5434,6 +5434,13 @@ class Accessibility_Onetap_Public {
 						$active_language = $default_language;
 						if ( ! isset( $enabled_languages[ $active_language ] ) ) {
 							$active_language = key( $enabled_languages );
+						}
+
+						// Always display the configured default language first; remaining languages keep their normal order.
+						// The union operator preserves the order of the left operand keys, so the active language is moved
+						// to the top while all other entries follow in their original sequence.
+						if ( isset( $enabled_languages[ $active_language ] ) ) {
+							$enabled_languages = array( $active_language => $enabled_languages[ $active_language ] ) + $enabled_languages;
 						}
 						?>
 						

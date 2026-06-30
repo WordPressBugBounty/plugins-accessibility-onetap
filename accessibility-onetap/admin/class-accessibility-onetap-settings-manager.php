@@ -258,6 +258,9 @@ class Accessibility_Onetap_Settings_Manager {
 	 */
 	protected function get_allowed_html() {
 		return array(
+			'h3'       => array(
+				'class' => array(),
+			),
 			'h4'       => array(
 				'class' => array(),
 			),
@@ -1834,9 +1837,19 @@ class Accessibility_Onetap_Settings_Manager {
 			$empty_msg  = 'all' === $alt_filter
 				? __( 'No images found in Media Library.', 'accessibility-onetap' )
 				: __( 'No images match this filter.', 'accessibility-onetap' );
+			$empty_hint = 'all' === $alt_filter
+				? __( 'Upload images to your Media Library to start managing their alt text here.', 'accessibility-onetap' )
+				: __( 'Try choosing a different filter to see more of your images.', 'accessibility-onetap' );
+
+			$empty_image = ACCESSIBILITY_ONETAP_PLUGINS_URL . 'assets/images/admin/no-images-placeholder.svg';
+
 			$list_html .= '<div class="row no-images">';
-			$list_html .= '<div class="col" style="text-align: center; padding: 40px;">';
-			$list_html .= '<p>' . esc_html( $empty_msg ) . '</p>';
+			$list_html .= '<div class="col empty-state">';
+			$list_html .= '<div class="empty-state__media">';
+			$list_html .= '<img class="empty-state__image" src="' . esc_url( $empty_image ) . '" alt="" />';
+			$list_html .= '</div>';
+			$list_html .= '<h3 class="empty-state__title">' . esc_html( $empty_msg ) . '</h3>';
+			$list_html .= '<p class="empty-state__text">' . esc_html( $empty_hint ) . '</p>';
 			$list_html .= '</div>';
 			$list_html .= '</div>';
 		}
