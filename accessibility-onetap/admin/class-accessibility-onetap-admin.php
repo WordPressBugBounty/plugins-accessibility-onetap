@@ -146,6 +146,13 @@ class Accessibility_Onetap_Admin {
 	 */
 	public function enqueue_scripts( $hook ) {
 
+		// Both localize calls below expose the same `adminLocalize` JS object, and the
+		// last one printed wins - so every one of them has to carry these strings.
+		$i18n = array(
+			'warning'           => __( 'Warning!', 'accessibility-onetap' ),
+			'completeAllFields' => __( 'Please complete all fields.', 'accessibility-onetap' ),
+		);
+
 		if ( 'toplevel_page_accessibility-onetap-settings' === $hook ||
 			'onetap_page_accessibility-onetap-general-settings' === $hook ||
 			'onetap_page_accessibility-onetap-alt-text' === $hook ||
@@ -174,6 +181,7 @@ class Accessibility_Onetap_Admin {
 					'pluginUrl'       => ACCESSIBILITY_ONETAP_PLUGINS_URL,
 					'activeLanguage'  => $language,
 					'localizedLabels' => get_option( 'apop_localized_labels' ),
+					'i18n'            => $i18n,
 				)
 			);
 		}
@@ -190,6 +198,7 @@ class Accessibility_Onetap_Admin {
 				'adminUrl'        => esc_url( admin_url() ),
 				'pluginUrl'       => ACCESSIBILITY_ONETAP_PLUGINS_URL,
 				'localizedLabels' => get_option( 'apop_localized_labels' ),
+				'i18n'            => $i18n,
 			)
 		);
 	}

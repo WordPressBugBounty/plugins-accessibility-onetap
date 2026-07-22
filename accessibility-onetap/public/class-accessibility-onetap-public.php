@@ -555,6 +555,21 @@ class Accessibility_Onetap_Public {
 		}
 
 		// Add the custom inline CSS to the previously enqueued plugin stylesheet.
+		// Visually hide the switch label text: it names the control for screen
+		// readers while the slider stays the only visible affordance.
+		$style .= '
+		nav.onetap-accessibility.onetap-plugin-onetap .onetap-visually-hidden {
+			position: absolute !important;
+			width: 1px !important;
+			height: 1px !important;
+			padding: 0 !important;
+			margin: -1px !important;
+			overflow: hidden !important;
+			clip: rect(0, 0, 0, 0) !important;
+			white-space: nowrap !important;
+			border: 0 !important;
+		}';
+
 		wp_add_inline_style( $this->plugin_name, $style );
 	}
 
@@ -734,11 +749,11 @@ class Accessibility_Onetap_Public {
 			),
 			'si'    => array(
 				'name'  => 'Slovenian',
-				'image' => 'slowakia.png',
+				'image' => 'slowenien.png',
 			),
 			'sk'    => array(
 				'name'  => 'Slovak',
-				'image' => 'slowenien.png',
+				'image' => 'slowakia.png',
 			),
 			'nl'    => array(
 				'name'  => 'Dutch',
@@ -952,9 +967,9 @@ class Accessibility_Onetap_Public {
 							'textMagnifier'      => 'Text Magnifier',
 							'dyslexicFont'       => 'Dyslexic Font',
 							'alignDefault'       => 'Align Text',
-							'alignLeft'          => 'Align Left',
-							'alignCenter'        => 'Align Center',
-							'alignRight'         => 'Align Right',
+							'alignLeft'          => 'Left',
+							'alignCenter'        => 'Centered',
+							'alignRight'         => 'Right',
 							'letterSpacing'      => 'Letter Spacing',
 							'fontWeight'         => 'Font Weight',
 							'darkContrast'       => 'Dark Contrast',
@@ -1053,9 +1068,9 @@ class Accessibility_Onetap_Public {
 							'textMagnifier'      => 'Textvergrößerung',
 							'dyslexicFont'       => 'Dyslexische Schriftart',
 							'alignDefault'       => 'Ausrichten',
-							'alignLeft'          => 'Linksbündig',
-							'alignCenter'        => 'Zentriert ausrichten',
-							'alignRight'         => 'Rechtsbündig',
+							'alignLeft'          => 'Links',
+							'alignCenter'        => 'Zentriert',
+							'alignRight'         => 'Rechts',
 							'letterSpacing'      => 'Buchstabenabstand',
 							'fontWeight'         => 'Schriftstärke',
 							'darkContrast'       => 'Dunkler Kontrast',
@@ -1154,9 +1169,9 @@ class Accessibility_Onetap_Public {
 							'textMagnifier'      => 'Lupa de texto',
 							'dyslexicFont'       => 'Fuente para dislexia',
 							'alignDefault'       => 'Alinear texto',
-							'alignLeft'          => 'Alinear a la izquierda',
-							'alignCenter'        => 'Alinear al centro',
-							'alignRight'         => 'Alinear a la derecha',
+							'alignLeft'          => 'Izquierda',
+							'alignCenter'        => 'Centrado',
+							'alignRight'         => 'Derecha',
 							'letterSpacing'      => 'Espaciado de letras',
 							'fontWeight'         => 'Grosor de fuente',
 							'darkContrast'       => 'Contraste oscuro',
@@ -1255,9 +1270,9 @@ class Accessibility_Onetap_Public {
 							'textMagnifier'      => 'Loupe de texte',
 							'dyslexicFont'       => 'Police pour dyslexie',
 							'alignDefault'       => 'Aligner le texte',
-							'alignLeft'          => 'Aligner à gauche',
-							'alignCenter'        => 'Aligner au centre',
-							'alignRight'         => 'Aligner à droite',
+							'alignLeft'          => 'Gauche',
+							'alignCenter'        => 'Centré',
+							'alignRight'         => 'Droite',
 							'letterSpacing'      => 'Espacement des lettres',
 							'fontWeight'         => 'Épaisseur de police',
 							'darkContrast'       => 'Contraste sombre',
@@ -1356,9 +1371,9 @@ class Accessibility_Onetap_Public {
 							'textMagnifier'      => 'Lente di ingrandimento del testo',
 							'dyslexicFont'       => 'Carattere per dislessia',
 							'alignDefault'       => 'Allinea testo',
-							'alignLeft'          => 'Allinea a sinistra',
-							'alignCenter'        => 'Allinea al centro',
-							'alignRight'         => 'Allinea a destra',
+							'alignLeft'          => 'Sinistra',
+							'alignCenter'        => 'Centrato',
+							'alignRight'         => 'Destra',
 							'letterSpacing'      => 'Spaziatura delle lettere',
 							'fontWeight'         => 'Spessore del carattere',
 							'darkContrast'       => 'Contrasto scuro',
@@ -1457,9 +1472,9 @@ class Accessibility_Onetap_Public {
 							'textMagnifier'      => 'Lupa tekstu',
 							'dyslexicFont'       => 'Czcionka dla dyslektyków',
 							'alignDefault'       => 'Wyrównaj tekst',
-							'alignLeft'          => 'Wyrównaj do lewej',
-							'alignCenter'        => 'Wyśrodkuj',
-							'alignRight'         => 'Wyrównaj do prawej',
+							'alignLeft'          => 'Do lewej',
+							'alignCenter'        => 'Wyśrodkowany',
+							'alignRight'         => 'Do prawej',
 							'letterSpacing'      => 'Odstępy między literami',
 							'fontWeight'         => 'Grubość czcionki',
 							'darkContrast'       => 'Ciemny kontrast',
@@ -1558,9 +1573,9 @@ class Accessibility_Onetap_Public {
 							'textMagnifier'      => 'Textförstorare',
 							'dyslexicFont'       => 'Font för dyslexi',
 							'alignDefault'       => 'Justera text',
-							'alignLeft'          => 'Vänsterjustera',
-							'alignCenter'        => 'Centrera',
-							'alignRight'         => 'Högerjustera',
+							'alignLeft'          => 'Vänster',
+							'alignCenter'        => 'Centrerad',
+							'alignRight'         => 'Höger',
 							'letterSpacing'      => 'Bokstavsavstånd',
 							'fontWeight'         => 'Teckenvikt',
 							'darkContrast'       => 'Mörk kontrast',
@@ -1659,9 +1674,9 @@ class Accessibility_Onetap_Public {
 							'textMagnifier'      => 'Tekstin suurennuslasia',
 							'dyslexicFont'       => 'Dyslektikon fontti',
 							'alignDefault'       => 'Tasaa teksti',
-							'alignLeft'          => 'Tasaa vasemmalle',
-							'alignCenter'        => 'Keskitä',
-							'alignRight'         => 'Tasaa oikealle',
+							'alignLeft'          => 'Vasen',
+							'alignCenter'        => 'Keskitetty',
+							'alignRight'         => 'Oikea',
 							'letterSpacing'      => 'Kirjainväli',
 							'fontWeight'         => 'Fontin paksuus',
 							'darkContrast'       => 'Tumma kontrasti',
@@ -1760,9 +1775,9 @@ class Accessibility_Onetap_Public {
 							'textMagnifier'      => 'Lupa de Texto',
 							'dyslexicFont'       => 'Fonte para Dislexia',
 							'alignDefault'       => 'Alinhar texto',
-							'alignLeft'          => 'Alinhar à esquerda',
-							'alignCenter'        => 'Centralizar',
-							'alignRight'         => 'Alinhar à direita',
+							'alignLeft'          => 'Esquerda',
+							'alignCenter'        => 'Centralizado',
+							'alignRight'         => 'Direita',
 							'letterSpacing'      => 'Espaçamento das Letras',
 							'fontWeight'         => 'Peso da Fonte',
 							'darkContrast'       => 'Contraste Escuro',
@@ -1861,9 +1876,9 @@ class Accessibility_Onetap_Public {
 							'textMagnifier'      => 'Lupă text',
 							'dyslexicFont'       => 'Font pentru dislexie',
 							'alignDefault'       => 'Aliniere text',
-							'alignLeft'          => 'Aliniere la stânga',
-							'alignCenter'        => 'Centrare',
-							'alignRight'         => 'Aliniere la dreapta',
+							'alignLeft'          => 'Stânga',
+							'alignCenter'        => 'Centrat',
+							'alignRight'         => 'Dreapta',
 							'letterSpacing'      => 'Spațierea literelor',
 							'fontWeight'         => 'Grosimea fontului',
 							'darkContrast'       => 'Contrast întunecat',
@@ -1962,9 +1977,9 @@ class Accessibility_Onetap_Public {
 							'textMagnifier'      => 'Lupa besedila',
 							'dyslexicFont'       => 'Pisava za disleksijo',
 							'alignDefault'       => 'Poravnaj besedilo',
-							'alignLeft'          => 'Leva poravnava',
-							'alignCenter'        => 'Sredinska poravnava',
-							'alignRight'         => 'Desna poravnava',
+							'alignLeft'          => 'Levo',
+							'alignCenter'        => 'Sredinsko',
+							'alignRight'         => 'Desno',
 							'letterSpacing'      => 'Razmik med črkami',
 							'fontWeight'         => 'Debelina pisave',
 							'darkContrast'       => 'Temen kontrast',
@@ -2063,9 +2078,9 @@ class Accessibility_Onetap_Public {
 							'textMagnifier'      => 'Lupa textu',
 							'dyslexicFont'       => 'Font pre dyslexiu',
 							'alignDefault'       => 'Zarovnať text',
-							'alignLeft'          => 'Zarovnať doľava',
-							'alignCenter'        => 'Vycentrovať',
-							'alignRight'         => 'Zarovnať doprava',
+							'alignLeft'          => 'Vľavo',
+							'alignCenter'        => 'Na stred',
+							'alignRight'         => 'Vpravo',
 							'letterSpacing'      => 'Medzera medzi písmenami',
 							'fontWeight'         => 'Hrúbka písma',
 							'darkContrast'       => 'Tmavý kontrast',
@@ -2164,9 +2179,9 @@ class Accessibility_Onetap_Public {
 							'textMagnifier'      => 'Tekst vergrootglas',
 							'dyslexicFont'       => 'Lettertype voor dyslexie',
 							'alignDefault'       => 'Tekst uitlijnen',
-							'alignLeft'          => 'Links uitlijnen',
-							'alignCenter'        => 'Centreren',
-							'alignRight'         => 'Rechts uitlijnen',
+							'alignLeft'          => 'Links',
+							'alignCenter'        => 'Gecentreerd',
+							'alignRight'         => 'Rechts',
 							'letterSpacing'      => 'Letterafstand',
 							'fontWeight'         => 'Lettergewicht',
 							'darkContrast'       => 'Donker contrast',
@@ -2265,9 +2280,9 @@ class Accessibility_Onetap_Public {
 							'textMagnifier'      => 'Tekstforstørrelse',
 							'dyslexicFont'       => 'Skrifttype til dysleksi',
 							'alignDefault'       => 'Juster tekst',
-							'alignLeft'          => 'Juster venstre',
-							'alignCenter'        => 'Centrer',
-							'alignRight'         => 'Juster højre',
+							'alignLeft'          => 'Venstre',
+							'alignCenter'        => 'Centreret',
+							'alignRight'         => 'Højre',
 							'letterSpacing'      => 'Bogstavafstand',
 							'fontWeight'         => 'Skriftvægt',
 							'darkContrast'       => 'Mørk kontrast',
@@ -2366,9 +2381,9 @@ class Accessibility_Onetap_Public {
 							'textMagnifier'      => 'Μεγεθυντικό φακό κειμένου',
 							'dyslexicFont'       => 'Γραμματοσειρά για δυσλεξία',
 							'alignDefault'       => 'Στοίχιση κειμένου',
-							'alignLeft'          => 'Αριστερή στοίχιση',
-							'alignCenter'        => 'Κεντράρισμα',
-							'alignRight'         => 'Δεξιά στοίχιση',
+							'alignLeft'          => 'Αριστερά',
+							'alignCenter'        => 'Κεντραρισμένο',
+							'alignRight'         => 'Δεξιά',
 							'letterSpacing'      => 'Απόσταση γραμμάτων',
 							'fontWeight'         => 'Βάρος γραμματοσειράς',
 							'darkContrast'       => 'Σκούρη αντίθεση',
@@ -2467,9 +2482,9 @@ class Accessibility_Onetap_Public {
 							'textMagnifier'      => 'Lupa na text',
 							'dyslexicFont'       => 'Font pro dyslexii',
 							'alignDefault'       => 'Zarovnat text',
-							'alignLeft'          => 'Zarovnat doleva',
-							'alignCenter'        => 'Vycentrovat',
-							'alignRight'         => 'Zarovnat doprava',
+							'alignLeft'          => 'Vlevo',
+							'alignCenter'        => 'Na střed',
+							'alignRight'         => 'Vpravo',
 							'letterSpacing'      => 'Mezera mezi písmeny',
 							'fontWeight'         => 'Tloušťka písma',
 							'darkContrast'       => 'Tmavý kontrast',
@@ -2568,9 +2583,9 @@ class Accessibility_Onetap_Public {
 							'textMagnifier'      => 'Szöveg nagyító',
 							'dyslexicFont'       => 'Diszlexiás betűtípus',
 							'alignDefault'       => 'Szövegigazítás',
-							'alignLeft'          => 'Balra igazítás',
-							'alignCenter'        => 'Középre igazítás',
-							'alignRight'         => 'Jobbra igazítás',
+							'alignLeft'          => 'Balra',
+							'alignCenter'        => 'Középre',
+							'alignRight'         => 'Jobbra',
 							'letterSpacing'      => 'Betűköz',
 							'fontWeight'         => 'Betűvastagság',
 							'darkContrast'       => 'Sötét kontraszt',
@@ -2669,9 +2684,9 @@ class Accessibility_Onetap_Public {
 							'textMagnifier'      => 'Teksto didinamoji lupa',
 							'dyslexicFont'       => 'Dysleksijai pritaikytas šriftas',
 							'alignDefault'       => 'Lygiuoti tekstą',
-							'alignLeft'          => 'Lygiuoti į kairę',
-							'alignCenter'        => 'Centruoti',
-							'alignRight'         => 'Lygiuoti į dešinę',
+							'alignLeft'          => 'Kairėje',
+							'alignCenter'        => 'Centruota',
+							'alignRight'         => 'Dešinėje',
 							'letterSpacing'      => 'Rašto tarpai',
 							'fontWeight'         => 'Šrifto storis',
 							'darkContrast'       => 'Tamsus kontrastas',
@@ -2770,9 +2785,9 @@ class Accessibility_Onetap_Public {
 							'textMagnifier'      => 'Teksta palielinātājs',
 							'dyslexicFont'       => 'Dysleksijas fonts',
 							'alignDefault'       => 'Izlīdzināt tekstu',
-							'alignLeft'          => 'Izlīdzināt pa kreisi',
-							'alignCenter'        => 'Centrēt',
-							'alignRight'         => 'Izlīdzināt pa labi',
+							'alignLeft'          => 'Pa kreisi',
+							'alignCenter'        => 'Centrēts',
+							'alignRight'         => 'Pa labi',
 							'letterSpacing'      => 'Burbu attālums',
 							'fontWeight'         => 'Fonta biezums',
 							'darkContrast'       => 'Tumšs kontrasts',
@@ -2871,9 +2886,9 @@ class Accessibility_Onetap_Public {
 							'textMagnifier'      => 'Teksti suurendaja',
 							'dyslexicFont'       => 'Düslia font',
 							'alignDefault'       => 'Joonda tekst',
-							'alignLeft'          => 'Joonda vasakule',
-							'alignCenter'        => 'Keskendada',
-							'alignRight'         => 'Joonda paremale',
+							'alignLeft'          => 'Vasakule',
+							'alignCenter'        => 'Keskele',
+							'alignRight'         => 'Paremale',
 							'letterSpacing'      => 'Tähe vaheline kaugus',
 							'fontWeight'         => 'Fondi paksus',
 							'darkContrast'       => 'Tume kontrast',
@@ -2972,9 +2987,9 @@ class Accessibility_Onetap_Public {
 							'textMagnifier'      => 'Povećalo za tekst',
 							'dyslexicFont'       => 'Font za disleksiju',
 							'alignDefault'       => 'Poravnanje teksta',
-							'alignLeft'          => 'Poravnanje lijevo',
-							'alignCenter'        => 'Centriranje',
-							'alignRight'         => 'Poravnanje desno',
+							'alignLeft'          => 'Lijevo',
+							'alignCenter'        => 'Centrirano',
+							'alignRight'         => 'Desno',
 							'letterSpacing'      => 'Razmak između slova',
 							'fontWeight'         => 'Debljina fonta',
 							'darkContrast'       => 'Tamni kontrast',
@@ -3073,9 +3088,9 @@ class Accessibility_Onetap_Public {
 							'textMagnifier'      => 'Méadaí Téacs',
 							'dyslexicFont'       => 'Cló do Dhiolachas',
 							'alignDefault'       => 'Ailínigh téacs',
-							'alignLeft'          => 'Ailínigh ar chlé',
-							'alignCenter'        => 'Lárú',
-							'alignRight'         => 'Ailínigh ar dheis',
+							'alignLeft'          => 'Ar chlé',
+							'alignCenter'        => 'Láraithe',
+							'alignRight'         => 'Ar dheis',
 							'letterSpacing'      => 'Spásáil Litreach',
 							'fontWeight'         => 'Tromas Cló',
 							'darkContrast'       => 'Codarsnacht Dorcha',
@@ -3175,7 +3190,7 @@ class Accessibility_Onetap_Public {
 							'dyslexicFont'       => 'Шрифт за дислексия',
 							'alignDefault'       => 'Подравняване',
 							'alignLeft'          => 'Наляво',
-							'alignCenter'        => 'Центриране',
+							'alignCenter'        => 'Центрирано',
 							'alignRight'         => 'Надясно',
 							'letterSpacing'      => 'Разстояние между буквите',
 							'fontWeight'         => 'Дебелина на шрифта',
@@ -3275,9 +3290,9 @@ class Accessibility_Onetap_Public {
 							'textMagnifier'      => 'Tekstforstørrelse',
 							'dyslexicFont'       => 'Dysleksivennlig skrifttype',
 							'alignDefault'       => 'Juster tekst',
-							'alignLeft'          => 'Juster venstre',
-							'alignCenter'        => 'Senter',
-							'alignRight'         => 'Juster høyre',
+							'alignLeft'          => 'Venstre',
+							'alignCenter'        => 'Sentrert',
+							'alignRight'         => 'Høyre',
 							'letterSpacing'      => 'Bokstavavstand',
 							'fontWeight'         => 'Skriftvekt',
 							'darkContrast'       => 'Mørk kontrast',
@@ -3376,9 +3391,9 @@ class Accessibility_Onetap_Public {
 							'textMagnifier'      => 'Metin Büyüteci',
 							'dyslexicFont'       => 'Disleksi Dostu Yazı Tipi',
 							'alignDefault'       => 'Metni hizala',
-							'alignLeft'          => 'Sola hizala',
-							'alignCenter'        => 'Ortala',
-							'alignRight'         => 'Sağa hizala',
+							'alignLeft'          => 'Sol',
+							'alignCenter'        => 'Ortalanmış',
+							'alignRight'         => 'Sağ',
 							'letterSpacing'      => 'Harf Aralığı',
 							'fontWeight'         => 'Yazı Kalınlığı',
 							'darkContrast'       => 'Koyu Kontrast',
@@ -3477,9 +3492,9 @@ class Accessibility_Onetap_Public {
 							'textMagnifier'      => 'Pembesar Teks',
 							'dyslexicFont'       => 'Font Ramah Disleksia',
 							'alignDefault'       => 'Ratakan teks',
-							'alignLeft'          => 'Rata kiri',
+							'alignLeft'          => 'Kiri',
 							'alignCenter'        => 'Tengah',
-							'alignRight'         => 'Rata kanan',
+							'alignRight'         => 'Kanan',
 							'letterSpacing'      => 'Jarak Huruf',
 							'fontWeight'         => 'Ketebalan Font',
 							'darkContrast'       => 'Kontras Gelap',
@@ -3578,9 +3593,9 @@ class Accessibility_Onetap_Public {
 							'textMagnifier'      => 'Lupa de Texto',
 							'dyslexicFont'       => 'Fonte para Dislexia',
 							'alignDefault'       => 'Alinhar texto',
-							'alignLeft'          => 'Alinhar à esquerda',
-							'alignCenter'        => 'Centralizar',
-							'alignRight'         => 'Alinhar à direita',
+							'alignLeft'          => 'Esquerda',
+							'alignCenter'        => 'Centralizado',
+							'alignRight'         => 'Direita',
 							'letterSpacing'      => 'Espaçamento de Letras',
 							'fontWeight'         => 'Peso da Fonte',
 							'darkContrast'       => 'Contraste Escuro',
@@ -3679,9 +3694,9 @@ class Accessibility_Onetap_Public {
 							'textMagnifier'      => 'テキスト拡大鏡',
 							'dyslexicFont'       => 'ディスレクシア用フォント',
 							'alignDefault'       => 'テキストの配置',
-							'alignLeft'          => '左揃え',
-							'alignCenter'        => '中央揃え',
-							'alignRight'         => '右揃え',
+							'alignLeft'          => '左',
+							'alignCenter'        => '中央',
+							'alignRight'         => '右',
 							'letterSpacing'      => '文字間隔',
 							'fontWeight'         => 'フォントの太さ',
 							'darkContrast'       => 'ダークコントラスト',
@@ -3780,9 +3795,9 @@ class Accessibility_Onetap_Public {
 							'textMagnifier'      => '텍스트 확대경',
 							'dyslexicFont'       => '디스렉시아용 글꼴',
 							'alignDefault'       => '텍스트 정렬',
-							'alignLeft'          => '왼쪽 정렬',
-							'alignCenter'        => '가운데 정렬',
-							'alignRight'         => '오른쪽 정렬',
+							'alignLeft'          => '왼쪽',
+							'alignCenter'        => '가운데',
+							'alignRight'         => '오른쪽',
 							'letterSpacing'      => '글자 간격',
 							'fontWeight'         => '글꼴 굵기',
 							'darkContrast'       => '어두운 대비',
@@ -3885,9 +3900,9 @@ class Accessibility_Onetap_Public {
 							'textMagnifier'      => '文本放大器',
 							'dyslexicFont'       => '阅读障碍字体',
 							'alignDefault'       => '文字对齐',
-							'alignLeft'          => '左对齐',
-							'alignCenter'        => '居中对齐',
-							'alignRight'         => '右对齐',
+							'alignLeft'          => '左',
+							'alignCenter'        => '居中',
+							'alignRight'         => '右',
 							'letterSpacing'      => '字母间距',
 							'fontWeight'         => '字体粗细',
 							'darkContrast'       => '深色对比',
@@ -3990,9 +4005,9 @@ class Accessibility_Onetap_Public {
 							'textMagnifier'      => 'مكبر النص',
 							'dyslexicFont'       => 'خط مخصص لمرضى الديسلكسيا',
 							'alignDefault'       => 'محاذاة النص',
-							'alignLeft'          => 'محاذاة اليسار',
-							'alignCenter'        => 'محاذاة الوسط',
-							'alignRight'         => 'محاذاة اليمين',
+							'alignLeft'          => 'يسار',
+							'alignCenter'        => 'توسيط',
+							'alignRight'         => 'يمين',
 							'letterSpacing'      => 'تباعد الحروف',
 							'fontWeight'         => 'سمك الخط',
 							'darkContrast'       => 'تباين داكن',
@@ -4095,9 +4110,9 @@ class Accessibility_Onetap_Public {
 							'textMagnifier'      => 'Увеличитель текста',
 							'dyslexicFont'       => 'Шрифт для людей с дислексией',
 							'alignDefault'       => 'Выравнивание текста',
-							'alignLeft'          => 'По левому краю',
-							'alignCenter'        => 'Выравнивание по центру',
-							'alignRight'         => 'По правому краю',
+							'alignLeft'          => 'Слева',
+							'alignCenter'        => 'По центру',
+							'alignRight'         => 'Справа',
 							'letterSpacing'      => 'Межбуквенный интервал',
 							'fontWeight'         => 'Толщина шрифта',
 							'darkContrast'       => 'Темный контраст',
@@ -4200,9 +4215,9 @@ class Accessibility_Onetap_Public {
 							'textMagnifier'      => 'पाठ मैग्नीफायर',
 							'dyslexicFont'       => 'डिस्लेक्सिक फ़ॉन्ट',
 							'alignDefault'       => 'पाठ संरेखण',
-							'alignLeft'          => 'बाईं ओर संरेखण',
-							'alignCenter'        => 'केंद्र संरेखण',
-							'alignRight'         => 'दाईं ओर संरेखण',
+							'alignLeft'          => 'बाएं',
+							'alignCenter'        => 'केंद्रित',
+							'alignRight'         => 'दाएं',
 							'letterSpacing'      => 'अक्षर स्पेसिंग',
 							'fontWeight'         => 'फ़ॉन्ट वजन',
 							'darkContrast'       => 'गहरा कांट्रास्ट',
@@ -4305,9 +4320,9 @@ class Accessibility_Onetap_Public {
 							'textMagnifier'      => 'Магніфікатор тексту',
 							'dyslexicFont'       => 'Шрифт для дислексії',
 							'alignDefault'       => 'Вирівнювання тексту',
-							'alignLeft'          => 'По лівому краю',
-							'alignCenter'        => 'Вирівнювання по центру',
-							'alignRight'         => 'По правому краю',
+							'alignLeft'          => 'Ліворуч',
+							'alignCenter'        => 'По центру',
+							'alignRight'         => 'Праворуч',
 							'letterSpacing'      => 'Міжлітерний інтервал',
 							'fontWeight'         => 'Товщина шрифту',
 							'darkContrast'       => 'Темний контраст',
@@ -4410,9 +4425,9 @@ class Accessibility_Onetap_Public {
 							'textMagnifier'      => 'Magnifikator teksta',
 							'dyslexicFont'       => 'Font za disleksiju',
 							'alignDefault'       => 'Poravnanje teksta',
-							'alignLeft'          => 'Poravnanje lijevo',
-							'alignCenter'        => 'Poravnanje po centru',
-							'alignRight'         => 'Poravnanje desno',
+							'alignLeft'          => 'Lijevo',
+							'alignCenter'        => 'Centrirano',
+							'alignRight'         => 'Desno',
 							'letterSpacing'      => 'Razmak između slova',
 							'fontWeight'         => 'Debljina fonta',
 							'darkContrast'       => 'Tamni kontrast',
@@ -4515,9 +4530,9 @@ class Accessibility_Onetap_Public {
 							'textMagnifier'      => 'Text Magnifier',
 							'dyslexicFont'       => 'Dyslexic Font',
 							'alignDefault'       => 'Align Text',
-							'alignLeft'          => 'Align Left',
-							'alignCenter'        => 'Align Centre',
-							'alignRight'         => 'Align Right',
+							'alignLeft'          => 'Left',
+							'alignCenter'        => 'Centred',
+							'alignRight'         => 'Right',
 							'letterSpacing'      => 'Letter Spacing',
 							'fontWeight'         => 'Font Weight',
 							'darkContrast'       => 'Dark Contrast',
@@ -4616,9 +4631,9 @@ class Accessibility_Onetap_Public {
 							'textMagnifier'      => 'ذره‌بین متن',
 							'dyslexicFont'       => 'فونت دیسلکسی',
 							'alignDefault'       => 'تراز متن',
-							'alignLeft'          => 'تراز چپ',
-							'alignCenter'        => 'تراز وسط',
-							'alignRight'         => 'تراز راست',
+							'alignLeft'          => 'چپ',
+							'alignCenter'        => 'وسط‌چین',
+							'alignRight'         => 'راست',
 							'letterSpacing'      => 'فاصله حروف',
 							'fontWeight'         => 'ضخامت فونت',
 							'darkContrast'       => 'کنتراست تیره',
@@ -4717,9 +4732,9 @@ class Accessibility_Onetap_Public {
 							'textMagnifier'      => 'זכוכית מגדלת לטקסט',
 							'dyslexicFont'       => 'גופן לדיסלקציה',
 							'alignDefault'       => 'יישור טקסט',
-							'alignLeft'          => 'יישור שמאל',
-							'alignCenter'        => 'יישור למרכז',
-							'alignRight'         => 'יישור ימין',
+							'alignLeft'          => 'שמאל',
+							'alignCenter'        => 'ממורכז',
+							'alignRight'         => 'ימין',
 							'letterSpacing'      => 'מרווח אותיות',
 							'fontWeight'         => 'עובי גופן',
 							'darkContrast'       => 'ניגודיות כהה',
@@ -4818,9 +4833,9 @@ class Accessibility_Onetap_Public {
 							'textMagnifier'      => 'Лупа за текст',
 							'dyslexicFont'       => 'Фонт за дислексија',
 							'alignDefault'       => 'Порамнување',
-							'alignLeft'          => 'Лево порамнување',
-							'alignCenter'        => 'Центрирај',
-							'alignRight'         => 'Десно порамнување',
+							'alignLeft'          => 'Лево',
+							'alignCenter'        => 'Центрирано',
+							'alignRight'         => 'Десно',
 							'letterSpacing'      => 'Растојание меѓу букви',
 							'fontWeight'         => 'Дебелина на фонт',
 							'darkContrast'       => 'Темен контраст',
@@ -4919,9 +4934,9 @@ class Accessibility_Onetap_Public {
 							'textMagnifier'      => 'แว่นขยายข้อความ',
 							'dyslexicFont'       => 'ฟอนต์สำหรับผู้บกพร่องทางการอ่าน',
 							'alignDefault'       => 'จัดข้อความ',
-							'alignLeft'          => 'จัดชิดซ้าย',
-							'alignCenter'        => 'จัดกึ่งกลาง',
-							'alignRight'         => 'จัดชิดขวา',
+							'alignLeft'          => 'ซ้าย',
+							'alignCenter'        => 'กึ่งกลาง',
+							'alignRight'         => 'ขวา',
 							'letterSpacing'      => 'ระยะห่างตัวอักษร',
 							'fontWeight'         => 'ความหนาฟอนต์',
 							'darkContrast'       => 'คอนทราสต์เข้ม',
@@ -5020,9 +5035,9 @@ class Accessibility_Onetap_Public {
 							'textMagnifier'      => 'Kính lúp Văn bản',
 							'dyslexicFont'       => 'Phông chữ cho Chứng khó đọc',
 							'alignDefault'       => 'Căn chỉnh văn bản',
-							'alignLeft'          => 'Căn trái',
-							'alignCenter'        => 'Căn giữa',
-							'alignRight'         => 'Căn phải',
+							'alignLeft'          => 'Trái',
+							'alignCenter'        => 'Giữa',
+							'alignRight'         => 'Phải',
 							'letterSpacing'      => 'Khoảng cách Chữ cái',
 							'fontWeight'         => 'Độ đậm Phông chữ',
 							'darkContrast'       => 'Tương phản Tối',
@@ -5282,11 +5297,11 @@ class Accessibility_Onetap_Public {
 							),
 							'si'    => array(
 								'name' => __( 'Slovenščina', 'accessibility-onetap' ),
-								'flag' => 'slowakia.png',
+								'flag' => 'slowenien.png',
 							),
 							'sk'    => array(
 								'name' => __( 'Slovenčina', 'accessibility-onetap' ),
-								'flag' => 'slowenien.png',
+								'flag' => 'slowakia.png',
 							),
 							'nl'    => array(
 								'name' => __( 'Nederlands', 'accessibility-onetap' ),
@@ -5618,9 +5633,10 @@ class Accessibility_Onetap_Public {
 								</div>
 								<div class="onetap-right">
 									<div class="box-swich">
-										<label class="switch label-mode-switch" tabindex="0" aria-label="<?php esc_html_e( 'Vision Impaired Mode', 'accessibility-onetap' ); ?>">
+										<label class="switch label-mode-switch" for="onetap-box-vision-impaired-mode" tabindex="0" role="switch" aria-checked="false" aria-label="<?php esc_html_e( 'Vision Impaired Mode', 'accessibility-onetap' ); ?>">
 											<input type="checkbox" name="onetap-box-vision-impaired-mode" id="onetap-box-vision-impaired-mode" value="1" role="switch" aria-checked="false">
 											<span class="slider round"></span>
+											<span class="onetap-visually-hidden"><?php esc_html_e( 'Vision Impaired Mode', 'accessibility-onetap' ); ?></span>
 										</label>
 									</div>
 								</div>
@@ -5647,9 +5663,10 @@ class Accessibility_Onetap_Public {
 								</div>
 								<div class="onetap-right">
 									<div class="box-swich">
-										<label class="switch label-mode-switch" tabindex="0" aria-label="<?php esc_html_e( 'Seizure Safe Profile', 'accessibility-onetap' ); ?>">
+										<label class="switch label-mode-switch" for="onetap-box-seizure-safe-profile" tabindex="0" role="switch" aria-checked="false" aria-label="<?php esc_html_e( 'Seizure Safe Profile', 'accessibility-onetap' ); ?>">
 											<input type="checkbox" name="onetap-box-seizure-safe-profile" id="onetap-box-seizure-safe-profile" value="1" role="switch" aria-checked="false">
 											<span class="slider round"></span>
+											<span class="onetap-visually-hidden"><?php esc_html_e( 'Seizure Safe Profile', 'accessibility-onetap' ); ?></span>
 										</label>
 									</div>
 								</div>
@@ -5676,9 +5693,10 @@ class Accessibility_Onetap_Public {
 								</div>
 								<div class="onetap-right">
 									<div class="box-swich">
-										<label class="switch label-mode-switch" tabindex="0" aria-label="<?php esc_html_e( 'ADHD Friendly Mode', 'accessibility-onetap' ); ?>">
+										<label class="switch label-mode-switch" for="onetap-box-adhd-friendly-mode" tabindex="0" role="switch" aria-checked="false" aria-label="<?php esc_html_e( 'ADHD Friendly Mode', 'accessibility-onetap' ); ?>">
 											<input type="checkbox" name="onetap-box-adhd-friendly-mode" id="onetap-box-adhd-friendly-mode" value="1" role="switch" aria-checked="false">
 											<span class="slider round"></span>
+											<span class="onetap-visually-hidden"><?php esc_html_e( 'ADHD Friendly Mode', 'accessibility-onetap' ); ?></span>
 										</label>
 									</div>
 								</div>
@@ -5705,9 +5723,10 @@ class Accessibility_Onetap_Public {
 								</div>
 								<div class="onetap-right">
 									<div class="box-swich">
-										<label class="switch label-mode-switch" tabindex="0" aria-label="<?php esc_html_e( 'Blindness Mode', 'accessibility-onetap' ); ?>">
+										<label class="switch label-mode-switch" for="onetap-box-blindness-mode" tabindex="0" role="switch" aria-checked="false" aria-label="<?php esc_html_e( 'Blindness Mode', 'accessibility-onetap' ); ?>">
 											<input type="checkbox" name="onetap-box-blindness-mode" id="onetap-box-blindness-mode" value="1" role="switch" aria-checked="false">
 											<span class="slider round"></span>
+											<span class="onetap-visually-hidden"><?php esc_html_e( 'Blindness Mode', 'accessibility-onetap' ); ?></span>
 										</label>
 									</div>
 								</div>
@@ -5734,9 +5753,10 @@ class Accessibility_Onetap_Public {
 								</div>
 								<div class="onetap-right">
 									<div class="box-swich">
-										<label class="switch label-mode-switch" tabindex="0" aria-label="<?php esc_html_e( 'Epilepsy Safe Mode', 'accessibility-onetap' ); ?>">
+										<label class="switch label-mode-switch" for="onetap-box-epilepsy-safe-mode" tabindex="0" role="switch" aria-checked="false" aria-label="<?php esc_html_e( 'Epilepsy Safe Mode', 'accessibility-onetap' ); ?>">
 											<input type="checkbox" name="onetap-box-epilepsy-safe-mode" id="onetap-box-epilepsy-safe-mode" value="1" role="switch" aria-checked="false">
 											<span class="slider round"></span>
+											<span class="onetap-visually-hidden"><?php esc_html_e( 'Epilepsy Safe Mode', 'accessibility-onetap' ); ?></span>
 										</label>
 									</div>
 								</div>

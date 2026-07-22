@@ -81,13 +81,13 @@ if ( ! defined( 'ABSPATH' ) ) {
 				<li role="listitem" data-language="si">
 					<button type="button">
 						<?php esc_html_e( 'Slovenščina', 'accessibility-onetap' ); ?>
-						<img src="<?php echo esc_url( ACCESSIBILITY_ONETAP_PLUGINS_URL . 'assets/images/slowakia.png' ); ?>" alt="flag">	
+						<img src="<?php echo esc_url( ACCESSIBILITY_ONETAP_PLUGINS_URL . 'assets/images/slowenien.png' ); ?>" alt="flag">	
 					</button>
 				</li>
 				<li role="listitem" data-language="sk">
 					<button type="button">
 						<?php esc_html_e( 'Slovenčina', 'accessibility-onetap' ); ?>
-						<img src="<?php echo esc_url( ACCESSIBILITY_ONETAP_PLUGINS_URL . 'assets/images/slowenien.png' ); ?>" alt="flag">	
+						<img src="<?php echo esc_url( ACCESSIBILITY_ONETAP_PLUGINS_URL . 'assets/images/slowakia.png' ); ?>" alt="flag">	
 					</button>
 				</li>					
 				<li role="listitem" data-language="nl">

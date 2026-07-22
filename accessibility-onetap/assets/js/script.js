@@ -590,6 +590,19 @@
 		epilepsySafeMode: '#onetap-box-epilepsy-safe-mode',
 	};
 
+	/**
+	 * Mirrors a mode-preset checkbox state onto its switch label.
+	 * The checkbox is display:none, so assistive tech never sees it - the
+	 * focusable label is the real control and must carry the checked state.
+	 *
+	 * @param {Object}  $checkbox - jQuery-wrapped mode preset checkbox.
+	 * @param {boolean} isChecked - True when the mode is enabled.
+	 */
+	function onetapSyncSwitchState( $checkbox, isChecked ) {
+		$checkbox.attr( 'aria-checked', isChecked );
+		$checkbox.closest( '.label-mode-switch' ).attr( 'aria-checked', isChecked );
+	}
+
 	// Function to initialize checkboxes based on saved settings
 	function initializeModePresetToggle() {
 		$.each( featureModes, function( key, selector ) {
@@ -599,9 +612,9 @@
 			if ( getDataLocalStorage.dynamicFeatureSet[ key ] ) {
 				checkbox.prop( 'checked', true ).val( 1 );
 				$( selector ).closest( '.onetap-functional-feature' ).addClass( 'onetap-active' );
-				$( selector ).attr( 'aria-checked', true );
+				onetapSyncSwitchState( $( selector ), true );
 			} else {
-				$( selector ).attr( 'aria-checked', false );
+				onetapSyncSwitchState( $( selector ), false );
 			}
 		} );
 	}
@@ -654,7 +667,7 @@
 
 				// Set the checkbox state based on user action (checked or unchecked)
 				$( this ).prop( 'checked', isChecked ).val( isChecked ? 1 : 0 );
-				$( this ).attr( 'aria-checked', isChecked );
+				onetapSyncSwitchState( $( this ), isChecked );
 
 				// Manage the onetap-active class on the container
 				if ( isChecked ) {
@@ -1022,7 +1035,10 @@
 
 				// Update aria-label for all multi-functional feature title spans
 				if ( update.selector && update.selector.includes( '.onetap-multi-functional-feature' ) && update.selector.includes( '.onetap-title span' ) ) {
-					$( update.selector ).parent().parent().parent().parent().find( '.onetap-right .label-mode-switch' ).attr( 'aria-label', update.text );
+					const $switchLabel = $( update.selector ).parent().parent().parent().parent().find( '.onetap-right .label-mode-switch' );
+					$switchLabel.attr( 'aria-label', update.text );
+					// Keep the visually hidden label text in sync so the control keeps a real label.
+					$switchLabel.find( '.onetap-visually-hidden' ).text( update.text );
 				}
 
 				// Check if update.selectorOn exist.

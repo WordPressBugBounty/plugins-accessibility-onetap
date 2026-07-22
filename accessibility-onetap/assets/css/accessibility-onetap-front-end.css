@@ -406,6 +406,10 @@ nav.onetap-accessibility.onetap-plugin-onetap.onetap-rtl .onetap-container .onet
   unicode-bidi: embed !important;
   text-align: right !important;
 }
+nav.onetap-accessibility.onetap-plugin-onetap.onetap-rtl .onetap-container .onetap-accessibility-settings .onetap-features-container .onetap-features .onetap-skip-content-control select {
+  background-position: left 12px center !important;
+  padding-left: 36px !important;
+}
 
 .onetap-container-toggle button {
   border: 2px solid transparent !important;
@@ -1379,6 +1383,7 @@ nav.onetap-accessibility.onetap-plugin-onetap .onetap-container .onetap-accessib
   border-radius: 100%;
   padding: 10px !important;
   background: #fff !important;
+  border: 1px solid #f3f4f6;
 }
 nav.onetap-accessibility.onetap-plugin-onetap .onetap-container .onetap-accessibility-settings .onetap-features-container .onetap-features .onetap-box-features .onetap-box-feature .onetap-icon .onetap-text-align-icons {
   position: relative !important;

@@ -862,9 +862,10 @@
 			if ( ! selectLanguage || ! companyName || ! companyWebsite || ! businessEmail || ! confirm ) {
 				e.preventDefault();
 				// Show warning using SweetAlert
+				const i18n = ( typeof adminLocalize !== 'undefined' && adminLocalize.i18n ) || {};
 				swal( {
-					title: 'Warning!',
-					text: 'Please complete all fields.',
+					title: i18n.warning || 'Warning!',
+					text: i18n.completeAllFields || 'Please complete all fields.',
 					icon: 'info',
 					showCloseButton: true,
 				} );

@@ -7,7 +7,6 @@
   margin: 3px 10px 0;
   text-align: center;
 }
-
 #adminmenu .wp-submenu a[href="admin.php?page=accessibility-onetap-pro"]:hover,
 #adminmenu .wp-submenu a[href="admin.php?page=accessibility-onetap-pro"]:focus {
   background: #fbbf24;

@@ -570,6 +570,18 @@ body.wp-admin .wrap .options-wrapper form table tr td {
   margin: 0;
 }
 
+body.wp-admin .wrap .options-wrapper form table tr td .settings-group.automatic-language-detection {
+  background: #fff;
+  padding-top: 20px;
+  border-radius: 0 0 16px 16px;
+}
+
+body.wp-admin .wrap .options-wrapper form table tr td .settings-group.automatic-language-detection .setting-control .boxes .box {
+  border-radius: 0;
+  padding-top: 20px;
+  border-top: 1px solid #E9EAEB;
+}
+
 body.wp-admin .wrap .options-wrapper form table tr td .settings-group.hide-setting-description .setting-title {
   padding-bottom: 20px;
   margin-bottom: 20px;
@@ -621,6 +633,61 @@ body.wp-admin .wrap .options-wrapper form table tr td .settings-group.active {
 
 body.wp-admin .wrap .options-wrapper form table tr.submit {
   display: none;
+}
+
+body.wp-admin.rtl .wrap header .mycontainer .myrow.one .box-menu ul li:nth-child(2) {
+  margin-right: 12px;
+  margin-left: 0;
+}
+
+body.wp-admin.rtl .wrap .options-wrapper .accessibility-status-container input {
+  text-align: right;
+}
+
+body.wp-admin.rtl .wrap .options-wrapper .accessibility-status-container .left-column .box-control-confirm input::before {
+  top: 2px;
+  left: 0;
+  right: 2px;
+}
+
+body.wp-admin.rtl .wrap .options-wrapper form table tr td .settings-group .setting-control.switch .boxes .box .left .text span.feature-name .onetap-admin-beta-badge,
+body.wp-admin.rtl .wrap .options-wrapper form table tr td .settings-group .setting-control.switch .boxes .box .left .text span.feature-name .pro,
+body.wp-admin.rtl .wrap .options-wrapper form table tr td .settings-group .setting-control.module-labels .boxes .box .left .text span.feature-name .onetap-admin-beta-badge,
+body.wp-admin.rtl .wrap .options-wrapper form table tr td .settings-group .setting-control.module-labels .boxes .box .left .text span.feature-name .pro {
+  margin-right: 10px;
+}
+
+body.wp-admin.rtl .wrap .options-wrapper form table tr td .settings-group .setting-control.widget-position .boxes .box .widget-position-dropdown .widget-label-default,
+body.wp-admin.rtl .wrap .options-wrapper form table tr td .settings-group .setting-control.widget-position .boxes .box .widget-position-dropdown .language-label-default,
+body.wp-admin.rtl .wrap .options-wrapper form table tr td .settings-group .setting-control.widget-position .boxes .box .language-select-dropdown .widget-label-default,
+body.wp-admin.rtl .wrap .options-wrapper form table tr td .settings-group .setting-control.widget-position .boxes .box .language-select-dropdown .language-label-default,
+body.wp-admin.rtl .wrap .options-wrapper form table tr td .settings-group .setting-control.language-select-simple .boxes .box .widget-position-dropdown .widget-label-default,
+body.wp-admin.rtl .wrap .options-wrapper form table tr td .settings-group .setting-control.language-select-simple .boxes .box .widget-position-dropdown .language-label-default,
+body.wp-admin.rtl .wrap .options-wrapper form table tr td .settings-group .setting-control.language-select-simple .boxes .box .language-select-dropdown .widget-label-default,
+body.wp-admin.rtl .wrap .options-wrapper form table tr td .settings-group .setting-control.language-select-simple .boxes .box .language-select-dropdown .language-label-default {
+  right: 136px;
+}
+
+body.wp-admin.rtl .wrap .options-wrapper form table tr td .settings-group .setting-control.number-slider .boxes .box .box-number .unit {
+  left: 12px;
+  right: unset;
+}
+
+body.wp-admin.rtl .wrap .options-wrapper form table tr td .settings-group .setting-control.copyable_text .boxes .box .right .box-copy-text {
+  justify-content: end;
+}
+
+body.wp-admin.rtl .wrap .options-wrapper form table tr td .settings-group.color .setting-control .boxes .box2 {
+  margin-left: 40px;
+  margin-right: 12px;
+}
+
+@media only screen and (min-width: 1200px) {
+
+  body.wp-admin.rtl .wrap .settings-container .settings-row .sidebar-preview {
+    margin-left: 28px;
+    margin-right: 0;
+  }
 }
 
 @media only screen and (max-width: 768px) {
@@ -2106,6 +2173,10 @@ header .mycontainer .myrow.two .box-save-changes {
   cursor: pointer;
 }
 
+.setting-control.language-select-toggles .boxes .box .language-select-dropdown .language-select-actions .language-enable-all {
+  background: #4b5563 !important;
+}
+
 .setting-control.language-select-toggles .boxes .box .language-select-dropdown .language-select-check-icon {
   display: none;
 }
@@ -2360,7 +2431,7 @@ header .mycontainer .myrow.two .box-save-changes {
 
 .setting-control.module-labels .boxes .box .right:focus-within .save-changes {
   border: 1px solid #0048FE !important;
-  border-left-width: 1px !important;
+  box-shadow: 0 0 0 1px #0048FE !important;
 }
 
 .setting-control.module-labels .boxes .box.switch2 {

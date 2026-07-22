@@ -3,7 +3,7 @@ Contributors: wponetap
 Tags: accessibility widget, web accessibility, wcag, ada, wp accessibility
 Requires at least: 6.6
 Tested up to:      7.0
-Stable tag:        2.12.0
+Stable tag:        2.13.0
 Requires PHP:      7.4
 License:           GPL-2.0-or-later
 License URI:       https://www.gnu.org/licenses/gpl-2.0.html
@@ -204,6 +204,21 @@ Absolutely! Excellent customer support is vital for a quality product, and we’
 4. Screenshot 4.
 
 == Changelog ==
+
+= 2.13.0 =
+Feature: Automatic browser language detection — the widget now follows the visitor's browser language when no language has been selected
+Feature: Translated the automatic language detection and form validation strings into all supported languages
+Fix(a11y): Profile mode switches now expose an accessible name, role and state to screen readers
+Fix(RTL): Corrected layout issues on the admin settings options screen
+Fix(RTL): Corrected the select/dropdown rendering in RTL mode
+Fix: Corrected the swapped Slovenia and Slovakia flag images and their references
+Fix: Border radius on the automatic language detection option
+Fix: Even focus ring on the module label input group
+Fix: Corrected the Dark Contrast control position in the Color Modules group
+Refactor: Shortened the text align option labels across all languages
+Refactor: SweetAlert form validation messages are now localized
+Style: Refreshed the front-end toolbar icon
+Style: New background for the default language button
 
 = 2.12.0 =
 Compatibility: Verified compatibility with WordPress 7.0
