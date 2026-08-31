@@ -2,8 +2,8 @@
 Contributors: wponetap
 Tags: accessibility widget, web accessibility, wcag, ada, wp accessibility
 Requires at least: 6.6
-Tested up to:      7.0
-Stable tag:        2.13.0
+Tested up to:      7.1
+Stable tag:        2.14.0
 Requires PHP:      7.4
 License:           GPL-2.0-or-later
 License URI:       https://www.gnu.org/licenses/gpl-2.0.html
@@ -29,7 +29,7 @@ OneTap is the best WordPress plugin for accessibility and offers a stable and cl
 - **Accessibility Modules** – Enable or disable specific accessibility modules based on your design needs.
 - **Responsive Design** – Optimized for all devices, ensuring accessibility on mobile, tablet, and desktop.
 - **Lightweight & Fast** – Keeps your site’s speed top-notch while adding powerful accessibility features.
-- **40 Languages** – OneTap accessibility module supports 40 languages – all of the EU and English. More coming soon.
+- **44 Languages** – OneTap accessibility module supports 44 languages – all of the EU and English. More coming soon.
 - **Modern Design** – Enhance your site’s appeal with a sleek, modern design that fits seamlessly into any layout.
 - **Toolbar Customization** – Adjust the toolbar’s position on desktop, tablet, and smartphone.
 - **Icon Customization** – Choose your preferred accessibility icon, adjust its size, and enable or disable a border.
@@ -83,7 +83,7 @@ OneTap is the best WordPress plugin for accessibility and offers a stable and cl
 - **Blindness Mode** – Reduces distractions. (Pro ♛)
 - **Epilepsy Safe Mode** – Dims colors. (Pro ♛)
 
-### 40 Languages of the Accessibility Toolbar
+### 44 Languages of the Accessibility Toolbar
 
 🇺🇸 English (USA)
 🇩🇪 Deutsch
@@ -121,11 +121,14 @@ OneTap is the best WordPress plugin for accessibility and offers a stable and cl
 🇺🇦 Українська
 🇷🇸 Српски
 🇬🇧 British English
-🇮🇷 فارسی (für إيران)
+🇮🇷 فارسی
 🇮🇱 עברית
 🇲🇰 Македонски
 🇹🇭 ไทย
 🇻🇳 Tiếng Việt
+🇧🇩 বাংলা
+🇵🇭 Filipino
+🇵🇰 اردو
 
 ### Show or hide languages
 
@@ -204,6 +207,22 @@ Absolutely! Excellent customer support is vital for a quality product, and we’
 4. Screenshot 4.
 
 == Changelog ==
+
+= 2.14.0 =
+Feature: Install AltPilot for free straight from the Alt Text screen — the button installs the plugin through WordPress and turns into "Activate" without leaving the page
+Feature: Stop Animations now also freezes animated GIFs and pauses video that plays by itself, including YouTube and Vimeo embeds
+Feature: Added Bengali, Filipino and Urdu to the toolbar languages
+Performance: The toolbar now only loads the dictionaries for the languages you enabled instead of all of them on every page
+Fix: Admin text is no longer partly English when a translate.wordpress.org language pack is incomplete — the bundled translations now fill the gaps
+Fix: Every language in the picker is written in its own language and no longer changes with the site language
+Fix: Resynced all 40 translation catalogues with the current strings
+Fix: Keyboard navigation no longer gets stuck on an element that cannot take focus
+Fix: Removed the stray separator dots in the toolbar footer when an entry is hidden
+Fix: Corrected the circle color on hover in the hide-toolbar dialog
+Fix: Corrected the spacing of the module group on the settings screen
+Fix(a11y): Profile switches now carry their role and state on the control itself
+Fix(a11y): Decorative toolbar icons are now hidden from screen readers
+Fix(a11y): Language flag images now name the country they show instead of announcing "flag" or a raw language code
 
 = 2.13.0 =
 Feature: Automatic browser language detection — the widget now follows the visitor's browser language when no language has been selected

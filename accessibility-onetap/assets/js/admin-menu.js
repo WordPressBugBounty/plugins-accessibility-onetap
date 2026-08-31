@@ -1724,4 +1724,78 @@
 	// Also run after a short delay to catch dynamically added notices
 	setTimeout( hideRankMathNotices, 500 );
 	setTimeout( hideRankMathNotices, 1000 );
+
+	/**
+	 * ============================================================================
+	 * ALTPILOT ONE-CLICK INSTALL (ALT TEXT SCREEN)
+	 * ============================================================================
+	 * Hands the install over to the updater that ships with WordPress so the
+	 * admin never leaves the Alt Text page, then turns the button into the
+	 * activation link WordPress hands back.
+	 *
+	 * The button already links to update.php, so everything here is an upgrade
+	 * on top of a working link: with no JavaScript, or on a WordPress where the
+	 * updater script is unavailable, clicking it still installs AltPilot through
+	 * the regular WordPress installer screen.
+	 */
+	function initAltPilotInstall() {
+		const $button = $( '[data-onetap-altpilot-install]' );
+
+		if ( ! $button.length || ! window.wp || ! wp.updates || ! wp.updates.installPlugin ) {
+			return;
+		}
+
+		const $feedback = $button.closest( '.myrow' ).find( '.button-alt-pilot-feedback' );
+		const installLabel = $button.text();
+
+		$button.on( 'click', function( event ) {
+			// A plain click would open update.php; the install runs here instead.
+			event.preventDefault();
+
+			if ( $button.hasClass( 'is-busy' ) ) {
+				return;
+			}
+
+			$button
+				.addClass( 'is-busy' )
+				.attr( 'aria-disabled', 'true' )
+				.text( $button.data( 'busy-label' ) );
+			$feedback.text( '' );
+
+			wp.updates.installPlugin( {
+				slug: $button.data( 'slug' ),
+
+				success( response ) {
+					// WordPress returns the activation link, nonce included, so
+					// the customer only has to click once more.
+					$button
+						.removeClass( 'is-busy' )
+						.removeAttr( 'aria-disabled' )
+						.removeAttr( 'data-onetap-altpilot-install' )
+						.text( $button.data( 'done-label' ) )
+						.off( 'click' );
+
+					if ( response && response.activateUrl ) {
+						$button.attr( 'href', response.activateUrl );
+					}
+				},
+
+				error( response ) {
+					// Written to our own element rather than a .notice, which the
+					// notice sweeper above would delete.
+					$button
+						.removeClass( 'is-busy' )
+						.removeAttr( 'aria-disabled' )
+						.text( installLabel );
+
+					$feedback.text(
+						( response && response.errorMessage ) ||
+							adminLocalize.i18n.altPilotInstallFailed
+					);
+				},
+			} );
+		} );
+	}
+
+	$( initAltPilotInstall );
 }( jQuery ) );

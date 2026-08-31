@@ -78,47 +78,50 @@ $accessibility_status = array(
 							<label class="label" for="select_language"><?php esc_html_e( 'Select Language', 'accessibility-onetap' ); ?></label>
 							<?php
 							$apop_languages = array(
-								'en'    => __( 'English', 'accessibility-onetap' ),
-								'de'    => __( 'Deutsch', 'accessibility-onetap' ),
-								'es'    => __( 'Español', 'accessibility-onetap' ),
-								'fr'    => __( 'Français', 'accessibility-onetap' ),
-								'it'    => __( 'Italiano', 'accessibility-onetap' ),
-								'pl'    => __( 'Polski', 'accessibility-onetap' ),
-								'se'    => __( 'Svenska', 'accessibility-onetap' ),
-								'fi'    => __( 'Suomi', 'accessibility-onetap' ),
-								'pt'    => __( 'Português', 'accessibility-onetap' ),
-								'ro'    => __( 'Română', 'accessibility-onetap' ),
-								'si'    => __( 'Slovenščina', 'accessibility-onetap' ),
-								'sk'    => __( 'Slovenčina', 'accessibility-onetap' ),
-								'nl'    => __( 'Nederlands', 'accessibility-onetap' ),
-								'dk'    => __( 'Dansk', 'accessibility-onetap' ),
-								'gr'    => __( 'Ελληνικά', 'accessibility-onetap' ),
-								'cz'    => __( 'Čeština', 'accessibility-onetap' ),
-								'hu'    => __( 'Magyar', 'accessibility-onetap' ),
-								'lt'    => __( 'Lietuvių', 'accessibility-onetap' ),
-								'lv'    => __( 'Latviešu', 'accessibility-onetap' ),
-								'ee'    => __( 'Eesti', 'accessibility-onetap' ),
-								'hr'    => __( 'Hrvatski', 'accessibility-onetap' ),
-								'ie'    => __( 'Gaeilge', 'accessibility-onetap' ),
-								'bg'    => __( 'Български', 'accessibility-onetap' ),
-								'no'    => __( 'Norsk', 'accessibility-onetap' ),
-								'tr'    => __( 'Türkçe', 'accessibility-onetap' ),
-								'id'    => __( 'Bahasa Indonesia', 'accessibility-onetap' ),
-								'pt-br' => __( 'Português (Brasil)', 'accessibility-onetap' ),
-								'ja'    => __( '日本語', 'accessibility-onetap' ),
-								'ko'    => __( '한국어', 'accessibility-onetap' ),
-								'zh'    => __( '简体中文', 'accessibility-onetap' ),
-								'ar'    => __( 'العربية', 'accessibility-onetap' ),
-								'ru'    => __( 'Русский', 'accessibility-onetap' ),
-								'hi'    => __( 'हिन्दी', 'accessibility-onetap' ),
-								'uk'    => __( 'Українська', 'accessibility-onetap' ),
-								'sr'    => __( 'Srpski', 'accessibility-onetap' ),
-								'gb'    => __( 'English (UK)', 'accessibility-onetap' ),
-								'ir'    => __( 'ایران', 'accessibility-onetap' ),
-								'il'    => __( 'ישראל', 'accessibility-onetap' ),
-								'mk'    => __( 'Македонија', 'accessibility-onetap' ),
-								'th'    => __( 'ประเทศไทย', 'accessibility-onetap' ),
-								'vn'    => __( 'Việt Nam', 'accessibility-onetap' ),
+								'en'    => 'English',
+								'de'    => 'Deutsch',
+								'es'    => 'Español',
+								'fr'    => 'Français',
+								'it'    => 'Italiano',
+								'pl'    => 'Polski',
+								'se'    => 'Svenska',
+								'fi'    => 'Suomi',
+								'pt'    => 'Português',
+								'ro'    => 'Română',
+								'si'    => 'Slovenščina',
+								'sk'    => 'Slovenčina',
+								'nl'    => 'Nederlands',
+								'dk'    => 'Dansk',
+								'gr'    => 'Ελληνικά',
+								'cz'    => 'Čeština',
+								'hu'    => 'Magyar',
+								'lt'    => 'Lietuvių',
+								'lv'    => 'Latviešu',
+								'ee'    => 'Eesti',
+								'hr'    => 'Hrvatski',
+								'ie'    => 'Gaeilge',
+								'bg'    => 'Български',
+								'no'    => 'Norsk',
+								'tr'    => 'Türkçe',
+								'id'    => 'Bahasa Indonesia',
+								'pt-br' => 'Português (Brasil)',
+								'ja'    => '日本語',
+								'ko'    => '한국어',
+								'zh'    => '简体中文',
+								'ar'    => 'العربية',
+								'ru'    => 'Русский',
+								'hi'    => 'हिन्दी',
+								'uk'    => 'Українська',
+								'sr'    => 'Srpski',
+								'gb'    => 'English (UK)',
+								'ir'    => 'فارسی',
+								'il'    => 'עברית',
+								'mk'    => 'Македонски',
+								'th'    => 'ไทย',
+								'vn'    => 'Tiếng Việt',
+								'bn'    => 'বাংলা',
+								'tl'    => 'Filipino',
+								'ur'    => 'اردو',
 							);
 
 							// Mapping language codes to flag image filenames.
@@ -164,6 +167,9 @@ $accessibility_status = array(
 								'mk'    => 'macedonia.png',
 								'th'    => 'thailand.png',
 								'vn'    => 'vietnam.png',
+								'bn'    => 'bangladesh.png',
+								'tl'    => 'philippines.png',
+								'ur'    => 'pakistan.png',
 							);
 
 							// Get current selected language.
@@ -1645,6 +1651,105 @@ $accessibility_status = array(
 
 						<strong>Cập nhật lần cuối:</strong> [March 9, 2025]
 					</div>
+					<!-- Bengali -->
+					<div data-content-lang="bn" class="status-message-accessibility" style="display: none;">
+						<h2>[Company Name] এর অ্যাক্সেসিবিলিটি প্রতিশ্রুতি</h2>
+						<strong>[Company Name]</strong>-এ আমরা প্রতিবন্ধী ব্যক্তিসহ সকল ব্যবহারকারীর জন্য আমাদের ডিজিটাল উপস্থিতি যতটা সম্ভব অ্যাক্সেসযোগ্য ও অন্তর্ভুক্তিমূলক করতে প্রতিশ্রুতিবদ্ধ। আমাদের লক্ষ্য হলো <strong>[Company Website]</strong>-এর ব্যবহারযোগ্যতা উন্নত করা এবং সামর্থ্য বা ব্যবহৃত প্রযুক্তি নির্বিশেষে সবার জন্য আরও অ্যাক্সেসযোগ্য অভিজ্ঞতা নিশ্চিত করা।
+
+						<h3>অ্যাক্সেসিবিলিটির প্রতি আমাদের দৃষ্টিভঙ্গি</h3>
+						আমরা ওয়েব কনটেন্ট অ্যাক্সেসিবিলিটি গাইডলাইনস (WCAG) অনুসরণ করার লক্ষ্য রাখি, যা ডিজিটাল অ্যাক্সেসিবিলিটির আন্তর্জাতিকভাবে স্বীকৃত মান নির্ধারণ করে। সম্পূর্ণ সম্মতি সবসময় নিশ্চিত করা সম্ভব না হলেও, আমরা যেখানে সম্ভব উন্নতি বাস্তবায়নের চেষ্টা করি এবং নিয়মিতভাবে আমাদের ওয়েবসাইটের অ্যাক্সেসিবিলিটি-সম্পর্কিত দিকগুলো পর্যালোচনা করি।
+
+						অ্যাক্সেসিবিলিটি একটি চলমান প্রক্রিয়া, এবং প্রযুক্তি, মান ও ব্যবহারকারীর চাহিদা বিকশিত হওয়ার সাথে সাথে আমরা এই অভিজ্ঞতা উন্নত করতে প্রতিশ্রুতিবদ্ধ।
+
+						<h3>অ্যাক্সেসিবিলিটি বৈশিষ্ট্য</h3>
+						অ্যাক্সেসিবিলিটিকে সহায়তা করতে <strong>[Company Website]</strong> OneTap অ্যাক্সেসিবিলিটি টুলবারের মতো সরঞ্জাম ব্যবহার করতে পারে। এই ইন্টারফেস ব্যবহারকারীদের নানা উপযোগী বৈশিষ্ট্য দেয়, যার মধ্যে রয়েছে:
+						<ul>
+							<li>সমন্বয়যোগ্য টেক্সট আকার ও কনট্রাস্ট সেটিংস</li>
+							<li>ভালো দৃশ্যমানতার জন্য লিঙ্ক ও টেক্সট হাইলাইট করা</li>
+							<li>টুলবার ইন্টারফেসের সম্পূর্ণ কীবোর্ড নেভিগেশন</li>
+							<li>কীবোর্ড শর্টকাটের মাধ্যমে দ্রুত চালু: <strong>Alt + .</strong> (Windows) অথবা <strong>⌘ + .</strong> (Mac)</li>
+						</ul>
+						<strong>অনুগ্রহ করে নিম্নলিখিত বিষয়গুলো লক্ষ্য করুন:</strong>
+						<ul>
+							<li>এই বৈশিষ্ট্যগুলোর প্রাপ্যতা ও কার্যকারিতা ওয়েবসাইটের কনফিগারেশন ও নিয়মিত রক্ষণাবেক্ষণের উপর নির্ভর করে।</li>
+							<li>আমরা অ্যাক্সেসিবিলিটি নিশ্চিত করার চেষ্টা করলেও, <strong>[Company Website]</strong>-এর প্রতিটি অংশ সবসময় সম্পূর্ণ অ্যাক্সেসযোগ্য থাকবে বলে আমরা নিশ্চয়তা দিতে পারি না। কিছু কনটেন্ট তৃতীয় পক্ষ সরবরাহ করতে পারে অথবা আমাদের সরাসরি নিয়ন্ত্রণের বাইরের কারিগরি সীমাবদ্ধতায় প্রভাবিত হতে পারে।</li>
+						</ul>
+						<h3>মতামত ও যোগাযোগ</h3>
+						আমরা আপনার মতামতকে স্বাগত জানাই। আপনি যদি কোনো অ্যাক্সেসিবিলিটি প্রতিবন্ধকতার সম্মুখীন হন অথবা উন্নতির জন্য পরামর্শ থাকে, অনুগ্রহ করে আমাদের সাথে যোগাযোগ করুন:
+
+						ইমেইল: <strong>[Company E-Mail]</strong>
+
+						আমরা সব অনুসন্ধান পর্যালোচনা করতে প্রতিশ্রুতিবদ্ধ এবং ৩–৫ কর্মদিবসের মধ্যে উত্তর দেওয়ার লক্ষ্য রাখি। এই ওয়েবসাইটের কোনো অংশে প্রবেশ করতে আপনার সহায়তা প্রয়োজন হলে, অনুরোধের ভিত্তিতে আমরা বিকল্প মাধ্যমে সহায়তা দিতে প্রস্তুত।
+
+						<strong>সর্বশেষ হালনাগাদ:</strong> [March 9, 2025]
+					</div>
+
+					<!-- Filipino -->
+					<div data-content-lang="tl" class="status-message-accessibility" style="display: none;">
+						<h2>Pangako sa Accessibility ng [Company Name]</h2>
+						Sa <strong>[Company Name]</strong>, nakatuon kami sa paggawa ng aming digital na presensya na kasing accessible at inklusibo hangga't makatwirang posible para sa lahat ng user, kabilang ang mga indibidwal na may kapansanan. Layunin naming pahusayin ang usability ng <strong>[Company Website]</strong> at suportahan ang mas accessible na karanasan para sa lahat, anuman ang kanilang kakayahan o ang teknolohiyang ginagamit nila.
+
+						<h3>Ang Aming Paglapit sa Accessibility</h3>
+						Layunin naming sumunod sa Web Content Accessibility Guidelines (WCAG), na nagtatakda ng mga pamantayang kinikilala sa buong mundo para sa digital accessibility. Bagaman hindi laging masisiguro ang ganap na pagsunod, nagsisikap kaming magpatupad ng mga pagpapabuti kung saan posible at regular naming sinusuri ang mga aspetong may kaugnayan sa accessibility ng aming website.
+
+						Ang accessibility ay isang patuloy na proseso, at nakatuon kami sa pagpapabuti ng karanasan sa paglipas ng panahon habang umuunlad ang teknolohiya, mga pamantayan, at pangangailangan ng user.
+
+						<h3>Mga Tampok sa Accessibility</h3>
+						Upang suportahan ang accessibility, maaaring gumamit ang <strong>[Company Website]</strong> ng mga tool tulad ng OneTap accessibility toolbar. Nagbibigay ang interface na ito sa mga user ng iba't ibang kapaki-pakinabang na tampok, kabilang ang:
+						<ul>
+							<li>Naaayos na laki ng teksto at mga setting ng kontrast</li>
+							<li>Pag-highlight ng mga link at teksto para sa mas mahusay na visibility</li>
+							<li>Buong nabigasyon sa keyboard ng interface ng toolbar</li>
+							<li>Mabilis na paglulunsad sa pamamagitan ng keyboard shortcut: <strong>Alt + .</strong> (Windows) o <strong>⌘ + .</strong> (Mac)</li>
+						</ul>
+						<strong>Pakitandaan ang sumusunod:</strong>
+						<ul>
+							<li>Ang availability at bisa ng mga tampok na ito ay nakadepende sa configuration at patuloy na pagpapanatili ng website.</li>
+							<li>Bagaman nagsisikap kaming tiyakin ang accessibility, hindi namin magagarantiya na ang bawat bahagi ng <strong>[Company Website]</strong> ay ganap na accessible sa lahat ng oras. Ang ilang nilalaman ay maaaring ibinibigay ng mga third party o naaapektuhan ng mga teknikal na limitasyon na labas sa aming agarang kontrol.</li>
+						</ul>
+						<h3>Feedback at Kontak</h3>
+						Malugod naming tinatanggap ang inyong feedback. Kung makaranas kayo ng anumang hadlang sa accessibility o may mungkahi para sa pagpapabuti, mangyaring makipag-ugnayan sa amin:
+
+						Email: <strong>[Company E-Mail]</strong>
+
+						Nakatuon kami sa pagsusuri ng lahat ng katanungan at layunin naming tumugon sa loob ng 3–5 araw ng negosyo. Kung kailangan ninyo ng tulong sa pag-access ng anumang bahagi ng website na ito, malugod kaming magbibigay ng suporta sa pamamagitan ng alternatibong mga channel kapag hiniling.
+
+						<strong>Huling na-update:</strong> [March 9, 2025]
+					</div>
+
+					<!-- Urdu -->
+					<div data-content-lang="ur" class="status-message-accessibility" dir="rtl" style="display: none;">
+						<h2>[Company Name] کے لیے رسائی کا عزم</h2>
+						<strong>[Company Name]</strong> میں ہم اپنی ڈیجیٹل موجودگی کو تمام صارفین کے لیے، بشمول معذور افراد، ممکنہ حد تک قابلِ رسائی اور شامل کرنے والا بنانے کے لیے پرعزم ہیں۔ ہمارا مقصد <strong>[Company Website]</strong> کی استعمال پذیری کو بہتر بنانا اور ہر شخص کے لیے زیادہ قابلِ رسائی تجربہ فراہم کرنا ہے، خواہ اس کی صلاحیت یا استعمال کردہ ٹیکنالوجی کچھ بھی ہو۔
+
+						<h3>رسائی کے بارے میں ہمارا نقطۂ نظر</h3>
+						ہم ویب مواد رسائی رہنما اصول (WCAG) کے مطابق چلنے کی کوشش کرتے ہیں، جو ڈیجیٹل رسائی کے بین الاقوامی طور پر تسلیم شدہ معیارات متعین کرتے ہیں۔ اگرچہ مکمل تعمیل کی ہمیشہ ضمانت نہیں دی جا سکتی، ہم جہاں ممکن ہو بہتری لانے کی کوشش کرتے ہیں اور اپنی ویب سائٹ کے رسائی سے متعلق پہلوؤں کا باقاعدگی سے جائزہ لیتے ہیں۔
+
+						رسائی ایک مسلسل عمل ہے، اور جیسے جیسے ٹیکنالوجی، معیارات اور صارفین کی ضروریات بدلتی ہیں، ہم اس تجربے کو بہتر بنانے کے لیے پرعزم ہیں۔
+
+						<h3>رسائی کی خصوصیات</h3>
+						رسائی میں مدد کے لیے <strong>[Company Website]</strong> OneTap رسائی ٹول بار جیسے آلات استعمال کر سکتی ہے۔ یہ انٹرفیس صارفین کو کئی مفید خصوصیات فراہم کرتا ہے، جن میں شامل ہیں:
+						<ul>
+							<li>قابلِ ترمیم متن کا سائز اور کنٹراسٹ کی ترتیبات</li>
+							<li>بہتر نمائش کے لیے لنکس اور متن کو نمایاں کرنا</li>
+							<li>ٹول بار انٹرفیس کی مکمل کی بورڈ نیویگیشن</li>
+							<li>کی بورڈ شارٹ کٹ سے فوری اجرا: <strong>Alt + .</strong> (Windows) یا <strong>⌘ + .</strong> (Mac)</li>
+						</ul>
+						<strong>براہ کرم درج ذیل باتوں کا خیال رکھیں:</strong>
+						<ul>
+							<li>ان خصوصیات کی دستیابی اور افادیت ویب سائٹ کی ترتیب اور مسلسل دیکھ بھال پر منحصر ہے۔</li>
+							<li>اگرچہ ہم رسائی یقینی بنانے کی کوشش کرتے ہیں، ہم اس بات کی ضمانت نہیں دے سکتے کہ <strong>[Company Website]</strong> کا ہر حصہ ہر وقت مکمل طور پر قابلِ رسائی ہوگا۔ کچھ مواد فریقِ ثالث فراہم کر سکتا ہے یا وہ ایسی تکنیکی حدود سے متاثر ہو سکتا ہے جو ہمارے براہِ راست اختیار سے باہر ہیں۔</li>
+						</ul>
+						<h3>رائے اور رابطہ</h3>
+						ہم آپ کی رائے کا خیرمقدم کرتے ہیں۔ اگر آپ کو رسائی میں کوئی رکاوٹ پیش آئے یا بہتری کے لیے کوئی تجویز ہو، تو براہ کرم ہم سے رابطہ کریں:
+
+						ای میل: <strong>[Company E-Mail]</strong>
+
+						ہم تمام استفسارات کا جائزہ لینے کے لیے پرعزم ہیں اور 3–5 کاروباری دنوں کے اندر جواب دینے کا ہدف رکھتے ہیں۔ اگر آپ کو اس ویب سائٹ کے کسی حصے تک رسائی میں مدد درکار ہو تو درخواست پر ہم متبادل ذرائع سے معاونت فراہم کرنے کے لیے تیار ہیں۔
+
+						<strong>آخری تجدید:</strong> [March 9, 2025]
+					</div>
+
 
 					<!-- Information -->
 						<div class="box-information">

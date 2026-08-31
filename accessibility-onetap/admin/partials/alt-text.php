@@ -40,17 +40,43 @@ if ( ! defined( 'ABSPATH' ) ) {
 				</div>
 
 				<?php
-				$apop_altpilot_cta = $this->settings_api->get_altpilot_cta_link_attrs();
+				$apop_altpilot_cta = $this->settings_api->get_altpilot_banner_cta();
 				$apop_altpilot_rel = ( '_blank' === $apop_altpilot_cta['target'] ) ? 'noopener noreferrer' : '';
+
+				// The href alone already installs AltPilot through the WordPress
+				// installer screen. These attributes let the script do the same
+				// step over AJAX so the admin never leaves the Alt Text page.
+				$apop_altpilot_install_attrs = '';
+				if ( 'install' === $apop_altpilot_cta['state'] ) {
+					$apop_altpilot_install_attrs = sprintf(
+						' data-onetap-altpilot-install="1" data-slug="%1$s" data-busy-label="%2$s" data-done-label="%3$s"',
+						esc_attr( $apop_altpilot_cta['slug'] ),
+						esc_attr( $apop_altpilot_cta['busy_label'] ),
+						esc_attr( $apop_altpilot_cta['done_label'] )
+					);
+				}
 				?>
 				<div class="link">
-					<a href="<?php echo esc_url( $apop_altpilot_cta['url'] ); ?>" class="button-alt-pilot"<?php echo $apop_altpilot_cta['target'] ? ' target="' . esc_attr( $apop_altpilot_cta['target'] ) . '" rel="' . esc_attr( $apop_altpilot_rel ) . '"' : ''; ?>><?php esc_html_e( 'Generate with AI', 'accessibility-onetap' ); ?></a>
-				</div>				
+					<a href="<?php echo esc_url( $apop_altpilot_cta['url'] ); ?>" class="button-alt-pilot"<?php echo $apop_altpilot_cta['target'] ? ' target="' . esc_attr( $apop_altpilot_cta['target'] ) . '" rel="' . esc_attr( $apop_altpilot_rel ) . '"' : ''; ?><?php echo $apop_altpilot_install_attrs; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Built from escaped parts just above. ?>><?php echo esc_html( $apop_altpilot_cta['label'] ); ?></a>
+				</div>
+				<p class="button-alt-pilot-feedback" role="status" aria-live="polite"></p>
 			</div>
 		</div>
 	</div>
 	
 	<?php $this->settings_api->show_forms(); ?>
+
+	<?php
+	// Sites that cannot write to the filesystem directly need this dialog before
+	// the install can run; WordPress fills it in and the updates script opens it.
+	// The function lives in an admin include that is not guaranteed to be loaded.
+	if ( 'install' === $apop_altpilot_cta['state'] ) {
+		if ( ! function_exists( 'wp_print_request_filesystem_credentials_modal' ) ) {
+			require_once ABSPATH . 'wp-admin/includes/file.php';
+		}
+		wp_print_request_filesystem_credentials_modal();
+	}
+	?>
 
 	<?php onetap_load_template( 'admin/partials/footer.php' ); ?>
 </div>

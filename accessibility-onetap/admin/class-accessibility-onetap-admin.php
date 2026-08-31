@@ -91,6 +91,15 @@ class Accessibility_Onetap_Admin {
 		'hi',
 		'uk',
 		'sr',
+		'gb',
+		'ir',
+		'il',
+		'mk',
+		'th',
+		'vn',
+		'bn',
+		'tl',
+		'ur',
 	);
 
 	/**
@@ -149,8 +158,9 @@ class Accessibility_Onetap_Admin {
 		// Both localize calls below expose the same `adminLocalize` JS object, and the
 		// last one printed wins - so every one of them has to carry these strings.
 		$i18n = array(
-			'warning'           => __( 'Warning!', 'accessibility-onetap' ),
-			'completeAllFields' => __( 'Please complete all fields.', 'accessibility-onetap' ),
+			'warning'               => __( 'Warning!', 'accessibility-onetap' ),
+			'completeAllFields'     => __( 'Please complete all fields.', 'accessibility-onetap' ),
+			'altPilotInstallFailed' => __( 'AltPilot could not be installed. Please try again from Plugins → Add New.', 'accessibility-onetap' ),
 		);
 
 		if ( 'toplevel_page_accessibility-onetap-settings' === $hook ||
@@ -184,6 +194,14 @@ class Accessibility_Onetap_Admin {
 					'i18n'            => $i18n,
 				)
 			);
+		}
+
+		// The Alt Text screen offers a one-click AltPilot install, which is run by
+		// the updater that ships with WordPress. Loading its script here is what
+		// keeps the install on the page instead of sending the admin to
+		// update.php; without it the button falls back to that screen.
+		if ( 'onetap_page_accessibility-onetap-alt-text' === $hook && current_user_can( 'install_plugins' ) ) {
+			wp_enqueue_script( 'updates' );
 		}
 
 		wp_enqueue_script( $this->plugin_name . '-admin-global', ACCESSIBILITY_ONETAP_PLUGINS_URL . 'assets/js/admin-global.min.js', array( 'jquery' ), $this->version, true );

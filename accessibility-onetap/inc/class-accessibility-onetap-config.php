@@ -88,6 +88,9 @@ class Accessibility_Onetap_Config {
 	public static $general_settings = array(
 		'hide_powered_by_onetap' => 'off',
 		'hide_alt_text_feature'  => 'off',
+		'hide_on_pages'          => array(),
+		'hide_on_post_types'     => array(),
+		'hide_on_posts'          => array(),
 	);
 
 	/**
@@ -118,6 +121,44 @@ class Accessibility_Onetap_Config {
 	 */
 	public static function get_general_setting( $key ) {
 		return isset( self::$general_settings[ $key ] ) ? self::$general_settings[ $key ] : null; // Return general setting value or null.
+	}
+
+	/**
+	 * Whether a language is offered in the toolbar's language picker.
+	 *
+	 * The saved 'toggle-language' map only ever describes the languages that
+	 * existed when the admin last saved, so a language added by a plugin update
+	 * has no entry in it. What that absence means depends on whether the admin
+	 * has curated the list at all:
+	 *
+	 * - No map saved yet: a fresh install, so every language is offered.
+	 * - A map exists: the admin has chosen. A language they have never been
+	 *   shown stays off until they switch it on, because an update must not
+	 *   quietly add languages to a site that deliberately runs one or two.
+	 *
+	 * Read by the toolbar, the dictionaries handed to the browser and the
+	 * Display Options screen, so the three cannot disagree.
+	 *
+	 * @param string $lang_code Language code to test.
+	 * @param array  $toggles   The saved 'toggle-language' map.
+	 * @return bool True when the language is offered.
+	 */
+	public static function is_language_enabled( $lang_code, $toggles ) {
+		if ( ! is_array( $toggles ) || empty( $toggles ) ) {
+			return true;
+		}
+
+		return isset( $toggles[ $lang_code ] ) && 'on' === $toggles[ $lang_code ];
+	}
+
+	/**
+	 * Whether the admin has ever saved the language toggles.
+	 *
+	 * @param array $toggles The saved 'toggle-language' map.
+	 * @return bool True when a choice is on record.
+	 */
+	public static function has_language_toggles( $toggles ) {
+		return is_array( $toggles ) && ! empty( $toggles );
 	}
 
 	/**

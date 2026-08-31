@@ -168,17 +168,54 @@ class Accessibility_Onetap {
 	/**
 	 * Define the locale for this plugin for internationalization.
 	 *
-	 * Note: As of WordPress 4.6, translations are automatically loaded
-	 * when the Text Domain header is set in the main plugin file.
-	 * No manual hook registration is needed.
+	 * WordPress loads the translations on its own as of 4.6, so nothing has to be
+	 * registered for the language pack to work. The hook below only adds the
+	 * bundled translations as a fallback on top of it.
 	 *
 	 * @since    1.0.0
 	 * @access   private
 	 */
 	private function set_locale() {
-		// Translations are automatically loaded by WordPress 4.6+
-		// when Text Domain is set in the plugin header.
-		// No action needed.
+		$this->loader->add_action( 'init', $this, 'load_fallback_translations', 20 );
+	}
+
+	/**
+	 * Fill the gaps left by an incomplete translate.wordpress.org language pack.
+	 *
+	 * Core only looks for translations in `wp-content/languages/plugins` unless a
+	 * plugin registers a directory of its own, so the `.mo` files shipped in
+	 * `languages/` are invisible to it: every string the language pack has not
+	 * translated yet shows up in English even though a complete translation sits
+	 * right there in the package.
+	 *
+	 * Since WordPress 6.5 a text domain can hold several translation files and
+	 * lookups walk them in load order, first hit wins. Loading the language pack
+	 * first and the bundled file second therefore leaves the community
+	 * translation authoritative and falls back to a bundled string only where the
+	 * pack has nothing to offer.
+	 *
+	 * Runs on `init` because WordPress 6.7 warns about text domains loaded any
+	 * earlier.
+	 *
+	 * @since    2.13.1
+	 * @return   void
+	 */
+	public function load_fallback_translations() {
+		$locale  = determine_locale();
+		$bundled = ACCESSIBILITY_ONETAP_DIR_PATH . "languages/{$this->plugin_name}-{$locale}.mo";
+
+		// Nothing bundled for this locale - leave core's just-in-time loading alone.
+		if ( ! is_readable( $bundled ) ) {
+			return;
+		}
+
+		// The pack goes in first so that its strings keep priority over the bundled ones.
+		$pack = WP_LANG_DIR . "/plugins/{$this->plugin_name}-{$locale}.mo";
+		if ( is_readable( $pack ) || is_readable( substr_replace( $pack, '.l10n.php', -3 ) ) ) {
+			load_textdomain( $this->plugin_name, $pack, $locale );
+		}
+
+		load_textdomain( $this->plugin_name, $bundled, $locale );
 	}
 
 	/**

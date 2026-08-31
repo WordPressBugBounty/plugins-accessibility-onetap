@@ -78,6 +78,9 @@
 		navigation: 'nav:not(.onetap-plugin-onetap):not(.post-navigation)',
 		footer: 'footer:not(.onetap-footer-bottom)',
 	};
+	// Toolbar languages written right to left. Read in both places that flip the
+	// `onetap-rtl` class, so a new RTL language only has to be listed once.
+	const onetapRtlLanguages = [ 'ar', 'ir', 'il', 'ur' ];
 	// Standalone `visibility` only (after `^` or `;`) — not `content-visibility`, `backface-visibility`, or `transition: visibility …`.
 	const onetapCssVisibilityDecl = /(^|;)\s*visibility\s*:\s*[^;]+;?/;
 	const onetapCssVisibilityValue = /(?:^|;)\s*visibility\s*:\s*([^;]+);?/;
@@ -508,7 +511,7 @@
 
 		$headerFlags.each( function() {
 			const $img = $( this );
-			if ( $img.attr( 'alt' ) === currentLanguage ) {
+			if ( $img.attr( 'data-language' ) === currentLanguage ) {
 				// Ensure the active language image actually has a src so the flag is visible.
 				if ( ! $img.attr( 'src' ) ) {
 					const dataSrc = $img.attr( 'data-src' );
@@ -537,7 +540,7 @@
 
 		$headerFlags.each( function() {
 			const $img = $( this );
-			if ( $img.attr( 'alt' ) === selectedLanguage ) {
+			if ( $img.attr( 'data-language' ) === selectedLanguage ) {
 				if ( ! $img.attr( 'src' ) ) {
 					const dataSrc = $img.attr( 'data-src' );
 					if ( dataSrc ) {
@@ -571,7 +574,7 @@
 		applyLanguageTranslationsToFeatures( selectedLanguage );
 		applyLanguageTranslationsToFunctionalFeatures( selectedLanguage );
 
-		if ( selectedLanguage === 'il' || selectedLanguage === 'ir' || selectedLanguage === 'ar' ) {
+		if ( onetapRtlLanguages.includes( selectedLanguage ) ) {
 			$( 'nav.onetap-plugin-onetap' ).addClass( 'onetap-rtl' );
 		} else {
 			$( 'nav.onetap-plugin-onetap' ).removeClass( 'onetap-rtl' );
@@ -591,16 +594,15 @@
 	};
 
 	/**
-	 * Mirrors a mode-preset checkbox state onto its switch label.
-	 * The checkbox is display:none, so assistive tech never sees it - the
-	 * focusable label is the real control and must carry the checked state.
+	 * Keeps a mode-preset checkbox's reported state in step with its own
+	 * checked property. The checkbox is the switch - the label around it may
+	 * not carry a role, so it may not carry the state either.
 	 *
 	 * @param {Object}  $checkbox - jQuery-wrapped mode preset checkbox.
 	 * @param {boolean} isChecked - True when the mode is enabled.
 	 */
 	function onetapSyncSwitchState( $checkbox, isChecked ) {
 		$checkbox.attr( 'aria-checked', isChecked );
-		$checkbox.closest( '.label-mode-switch' ).attr( 'aria-checked', isChecked );
 	}
 
 	// Function to initialize checkboxes based on saved settings
@@ -709,20 +711,21 @@
 			}
 		} );
 
-		// Keyboard support: toggle checkbox on Enter or Space key label-mode-switch (mode preset)
-		$( 'nav.onetap-accessibility .label-mode-switch' ).off( 'keydown' );
-		$( 'nav.onetap-accessibility .label-mode-switch' ).on( 'keydown', function( e ) {
-			const key = e.key;
+		// Keyboard support for the mode presets. Focus lands on the checkbox now,
+		// which already toggles on Space, so only Enter has to be wired up to keep
+		// the switches working the way the rest of the toolbar does.
+		const modePresetCheckboxes = 'nav.onetap-accessibility .label-mode-switch input[type="checkbox"]';
 
-			if ( key === 'Enter' || key === ' ' ) {
-				e.preventDefault(); // Prevent page scroll or form submit
-
-				const checkbox = $( this ).find( 'input[type="checkbox"]' )[ 0 ];
-				if ( checkbox ) {
-					checkbox.checked = ! checkbox.checked;
-					$( checkbox ).trigger( 'change' );
-				}
+		$( modePresetCheckboxes ).off( 'keydown' );
+		$( modePresetCheckboxes ).on( 'keydown', function( e ) {
+			if ( e.key !== 'Enter' ) {
+				return;
 			}
+
+			e.preventDefault(); // Prevent form submit.
+
+			this.checked = ! this.checked;
+			$( this ).trigger( 'change' );
 		} );
 	}
 
@@ -901,13 +904,23 @@
 	onetapUpdateContentBasedOnLanguage( getDataAccessibilityData().information.language );
 	function onetapUpdateContentBasedOnLanguage( language ) {
 		// Define a list of valid languages
-		const validLanguages = [ 'en', 'de', 'es', 'fr', 'it', 'pl', 'se', 'fi', 'pt', 'ro', 'si', 'sk', 'nl', 'dk', 'gr', 'cz', 'hu', 'lt', 'lv', 'ee', 'hr', 'ie', 'bg', 'no', 'tr', 'id', 'pt-br', 'ja', 'ko', 'zh', 'ar', 'ru', 'hi', 'uk', 'sr', 'gb', 'ir', 'il', 'mk', 'th', 'vn' ];
+		const validLanguages = [ 'en', 'de', 'es', 'fr', 'it', 'pl', 'se', 'fi', 'pt', 'ro', 'si', 'sk', 'nl', 'dk', 'gr', 'cz', 'hu', 'lt', 'lv', 'ee', 'hr', 'ie', 'bg', 'no', 'tr', 'id', 'pt-br', 'ja', 'ko', 'zh', 'ar', 'ru', 'hi', 'uk', 'sr', 'gb', 'ir', 'il', 'mk', 'th', 'vn', 'bn', 'tl', 'ur' ];
 
 		// Check if the provided language is valid
 		if ( validLanguages.includes( language ) ) {
-			const languageData = onetapAjaxObject.languages[ language ];
+			// Only the languages the admin left enabled are shipped, so a visitor
+			// carrying a language that has since been switched off falls back to
+			// the configured default and then to English.
+			const dictionaries = onetapAjaxObject.languages || {};
+			const languageData = dictionaries[ language ] ||
+				dictionaries[ onetapAjaxObject.activeLanguage ] ||
+				dictionaries.en;
 
-			if ( language === 'il' || language === 'ir' || language === 'ar' ) {
+			if ( ! languageData ) {
+				return;
+			}
+
+			if ( onetapRtlLanguages.includes( language ) ) {
 				$( 'nav.onetap-plugin-onetap' ).addClass( 'onetap-rtl' );
 			} else {
 				$( 'nav.onetap-plugin-onetap' ).removeClass( 'onetap-rtl' );
@@ -2550,6 +2563,42 @@
 		}
 	}
 
+	/**
+	 * Whether an element can actually take focus.
+	 *
+	 * Elements that render no box at all - display:none, a collapsed mobile menu,
+	 * an inert or aria-hidden subtree - silently swallow .focus(). They have to be
+	 * skipped before the next index is worked out, because the index is derived
+	 * from document.activeElement: one unfocusable element in the list otherwise
+	 * pins activeElement to the previous item and the cycle never advances again.
+	 *
+	 * @param {Element} element - Candidate element.
+	 * @return {boolean} True when focus can land on it.
+	 */
+	function onetapCanReceiveFocus( element ) {
+		if ( element.hasAttribute( 'inert' ) || element.closest( '[inert]' ) ) {
+			return false;
+		}
+
+		if ( element.closest( '[aria-hidden="true"]' ) ) {
+			return false;
+		}
+
+		// No layout box: the element itself or one of its ancestors is display:none.
+		if ( ! element.getClientRects().length ) {
+			return false;
+		}
+
+		return 'hidden' !== window.getComputedStyle( element ).visibility;
+	}
+
+	// hotkeys-js appends a new handler every time it is called, and the function
+	// below runs again on every settings change. Registering once keeps a single
+	// keypress from advancing focus once per accumulated registration; the
+	// handlers themselves check the body class, so they go quiet when the feature
+	// is switched off.
+	let onetapHotkeysRegistered = false;
+
 	// This function adjusts the keyboard navigation based on the 'keyboardNavigation'
 	function onetapKeyboardNavigation( key, accessibilityDataKey ) {
 		// if value off, return.
@@ -2617,23 +2666,14 @@
 				// Prevent the default browser behavior
 				event.preventDefault();
 
-				// Select all elements based on the provided selector
-				let elements = document.querySelectorAll( selector );
-
-				// Convert the NodeList to an array to allow filtering
-				elements = Array.from( elements ).filter( ( element ) => {
-				// Exclude elements that have the 'onetap-heading' class
-					return ! element.classList.contains( 'onetap-heading' );
-				} );
-
-				// Iterate through all selected elements
-				elements.forEach( ( element ) => {
-				// Check if the element has the 'onetap-heading' class
-					if ( element.classList.contains( 'onetap-heading' ) ) {
-					// Remove the element from the DOM if it has the 'onetap-heading' class
-						element.remove();
-					}
-				} );
+				// Select all elements based on the provided selector, keeping only the
+				// ones focus can actually land on. The toolbar's own heading is part
+				// of the widget rather than the page, so it stays out of the list.
+				const elements = Array.from( document.querySelectorAll( selector ) ).filter(
+					( element ) =>
+						! element.classList.contains( 'onetap-heading' ) &&
+						onetapCanReceiveFocus( element )
+				);
 
 				if ( ! elements.length ) {
 					console.warn( `No elements found for selector: ${ selector }` );
@@ -2643,20 +2683,35 @@
 				// Determine navigation direction
 				const forward = ! handler.key.startsWith( 'shift+' );
 
-				// Get the currently focused element
-				const currentIndex = Array.from( elements ).findIndex( ( el ) => el === document.activeElement );
+				// Get the currently focused element. When focus is somewhere else
+				// entirely, start just outside the list so the first step lands on the
+				// first element going forward, or the last one going backward.
+				const currentIndex = elements.findIndex( ( el ) => el === document.activeElement );
+				let startIndex = currentIndex;
 
-				// Calculate the next index
-				const nextIndex = forward
-					? ( currentIndex + 1 ) % elements.length
-					: ( currentIndex - 1 + elements.length ) % elements.length;
+				if ( -1 === currentIndex ) {
+					startIndex = forward ? -1 : 0;
+				}
 
-				// Set focus on the next element
-				const nextElement = elements[ nextIndex ];
-				nextElement.setAttribute( 'tabindex', '-1' ); // Ensure element is focusable
-				nextElement.focus();
+				// Walk until focus actually lands. An element can still refuse focus
+				// for reasons the filter cannot see, and stopping after one attempt is
+				// what used to strand the user on a single element.
+				for ( let step = 1; step <= elements.length; step++ ) {
+					const offset = forward ? step : -step;
+					const nextIndex =
+						( ( ( startIndex + offset ) % elements.length ) + elements.length ) %
+						elements.length;
+					const nextElement = elements[ nextIndex ];
 
-				// console.log( `Focused element index: ${ nextIndex }` );
+					nextElement.setAttribute( 'tabindex', '-1' ); // Ensure element is focusable
+					nextElement.focus();
+
+					if ( document.activeElement === nextElement ) {
+						return;
+					}
+				}
+
+				console.warn( `Could not move focus to any element for selector: ${ selector }` );
 			} );
 		}
 
@@ -2686,10 +2741,11 @@
 				$( 'body' ).removeClass( 'onetap-keyboard-navigation' );
 			} else if ( accessibilityDataKey ) {
 				$( 'body' ).addClass( 'onetap-keyboard-navigation' );
-				if ( typeof accessibilityHotkeys !== 'undefined' ) {
-					hotKeys( accessibilityHotkeys );
-				} else {
+				if ( typeof accessibilityHotkeys === 'undefined' ) {
 					console.error( 'accessibilityHotkeys object is undefined.' );
+				} else if ( ! onetapHotkeysRegistered ) {
+					onetapHotkeysRegistered = true;
+					hotKeys( accessibilityHotkeys );
 				}
 			}
 		}
@@ -2990,6 +3046,9 @@
 							mk: 'mk-MK',
 							th: 'th-TH',
 							vn: 'vi-VN',
+							bn: 'bn-BD',
+							tl: 'fil-PH',
+							ur: 'ur-PK',
 						};
 
 						// Get the BCP 47 language code, fallback to 'en-US' if not found
@@ -3065,6 +3124,147 @@
 		}
 	}
 
+	// A GIF cannot be paused, so the only way to stop one is to replace it with a
+	// still picture of its first frame, drawn onto a canvas. The original source
+	// is parked on the element so switching the feature back off can restore it.
+	function onetapFreezeAnimatedGifs() {
+		$( 'img' ).not( onetapSkipElements ).each( function() {
+			const image = this;
+			const source = image.getAttribute( 'src' ) || '';
+
+			// A GIF is recognised by its extension or, when it is inlined, by the
+			// media type it declares. An address that hides the format behind a
+			// query string cannot be judged from here and is left alone.
+			const isGif = /\.gif(\?|#|$)/i.test( source ) || /^data:image\/gif[;,]/i.test( source );
+
+			if ( image.hasAttribute( 'data-onetap-animated-src' ) || ! isGif ) {
+				return;
+			}
+
+			const freeze = function() {
+				// A picture that never loaded has nothing to draw.
+				if ( ! image.naturalWidth || ! image.naturalHeight ) {
+					return;
+				}
+
+				const canvas = document.createElement( 'canvas' );
+				canvas.width = image.naturalWidth;
+				canvas.height = image.naturalHeight;
+
+				try {
+					canvas.getContext( '2d' ).drawImage( image, 0, 0 );
+
+					// Reading back a canvas that holds a picture from another
+					// domain throws, and there is no way around that from here.
+					const stillFrame = canvas.toDataURL();
+
+					image.setAttribute( 'data-onetap-animated-src', source );
+
+					// A srcset would override the still frame we just set.
+					if ( image.getAttribute( 'srcset' ) ) {
+						image.setAttribute( 'data-onetap-animated-srcset', image.getAttribute( 'srcset' ) );
+						image.removeAttribute( 'srcset' );
+					}
+
+					image.setAttribute( 'src', stillFrame );
+				} catch ( error ) {
+					// Cross-origin GIF: leave it playing rather than break it.
+				}
+			};
+
+			if ( image.complete ) {
+				freeze();
+			} else {
+				image.addEventListener( 'load', freeze, { once: true } );
+			}
+		} );
+	}
+
+	// Put the moving pictures back.
+	function onetapRestoreAnimatedGifs() {
+		$( 'img[data-onetap-animated-src]' ).each( function() {
+			const image = this;
+			const srcset = image.getAttribute( 'data-onetap-animated-srcset' );
+
+			image.setAttribute( 'src', image.getAttribute( 'data-onetap-animated-src' ) );
+			image.removeAttribute( 'data-onetap-animated-src' );
+
+			if ( null !== srcset ) {
+				image.setAttribute( 'srcset', srcset );
+				image.removeAttribute( 'data-onetap-animated-srcset' );
+			}
+		} );
+	}
+
+	// Video that starts on its own is exactly what WCAG 2.2.2 asks to be
+	// stoppable. Playback the visitor started themselves is left alone.
+	function onetapPauseAutoplayingMedia() {
+		$( 'video[autoplay]' ).not( onetapSkipElements ).each( function() {
+			const video = this;
+
+			if ( video.hasAttribute( 'data-onetap-autoplay-paused' ) ) {
+				return;
+			}
+
+			// Remember whether it was actually running, so that turning the
+			// feature off does not start a video that was already stopped.
+			video.setAttribute( 'data-onetap-autoplay-paused', video.paused ? 'idle' : 'playing' );
+			video.autoplay = false;
+
+			if ( video.loop ) {
+				video.loop = false;
+				video.setAttribute( 'data-onetap-had-loop', '1' );
+			}
+
+			video.pause();
+		} );
+
+		// Embedded players live on another domain and cannot be reached, but
+		// reloading them without the autoplay flag stops them all the same.
+		$( 'iframe[src*="youtube.com"], iframe[src*="youtube-nocookie.com"], iframe[src*="player.vimeo.com"]' ).each( function() {
+			const frame = this;
+			const source = frame.getAttribute( 'src' ) || '';
+
+			if ( frame.hasAttribute( 'data-onetap-autoplay-src' ) || ! /[?&]autoplay=1/i.test( source ) ) {
+				return;
+			}
+
+			frame.setAttribute( 'data-onetap-autoplay-src', source );
+			frame.setAttribute( 'src', source.replace( /([?&])autoplay=1/gi, '$1autoplay=0' ) );
+		} );
+	}
+
+	// Hand playback back to the page.
+	function onetapResumeAutoplayingMedia() {
+		$( 'video[data-onetap-autoplay-paused]' ).each( function() {
+			const video = this;
+			const wasPlaying = 'playing' === video.getAttribute( 'data-onetap-autoplay-paused' );
+
+			video.autoplay = true;
+			video.removeAttribute( 'data-onetap-autoplay-paused' );
+
+			if ( video.hasAttribute( 'data-onetap-had-loop' ) ) {
+				video.loop = true;
+				video.removeAttribute( 'data-onetap-had-loop' );
+			}
+
+			if ( wasPlaying ) {
+				// Browsers refuse to start unmuted video without a gesture, and
+				// a refusal here is not something the visitor needs to hear about.
+				const resumed = video.play();
+				if ( resumed && 'function' === typeof resumed.catch ) {
+					resumed.catch( function() {} );
+				}
+			}
+		} );
+
+		$( 'iframe[data-onetap-autoplay-src]' ).each( function() {
+			const frame = this;
+			frame.setAttribute( 'src', frame.getAttribute( 'data-onetap-autoplay-src' ) );
+			frame.removeAttribute( 'data-onetap-autoplay-src' );
+		} );
+	}
+
 	// This function adjusts the stop animations based on the 'stopAnimations'
 	function onetapStopAnimations( key, accessibilityDataKey ) {
 		// if value off, return.
@@ -3074,6 +3274,17 @@
 
 		// Check if the key is 'stopAnimations'. If it is, the function will proceed with font size adjustments.
 		if ( 'stopAnimations' === key ) {
+			// A stylesheet only governs CSS animation. GIFs and video that start
+			// by themselves keep moving no matter what is done to the styles, so
+			// they are handled separately.
+			if ( accessibilityDataKey ) {
+				onetapFreezeAnimatedGifs();
+				onetapPauseAutoplayingMedia();
+			} else {
+				onetapRestoreAnimatedGifs();
+				onetapResumeAutoplayingMedia();
+			}
+
 			// Update style for all elements except specific ones
 			$( '*' ).not( onetapSkipElements ).each( function() {
 				// Transition.
@@ -3532,14 +3743,14 @@
 				// Remove the 'onetap-active' class from all country flag images
 				$( 'nav.onetap-accessibility .onetap-accessibility-settings .onetap-languages .onetap-icon img' ).removeClass( 'onetap-active' );
 
-				// Add the 'onetap-active' class to the image with the alt attribute matching the selected language
-				$( 'nav.onetap-accessibility .onetap-accessibility-settings .onetap-languages .onetap-icon img[alt="en"]' ).addClass( 'onetap-active' );
+				// Add the 'onetap-active' class to the image whose data-language matches the selected language
+				$( 'nav.onetap-accessibility .onetap-accessibility-settings .onetap-languages .onetap-icon img[data-language="en"]' ).addClass( 'onetap-active' );
 
 				// Remove the 'onetap-active' class from all country flag images
 				$( 'nav.onetap-accessibility .onetap-accessibility-settings .onetap-languages .onetap-icon img' ).removeClass( 'onetap-active' );
 
-				// Add the 'onetap-active' class to the image with the alt attribute matching the selected language
-				$( 'nav.onetap-accessibility .onetap-accessibility-settings .onetap-languages .onetap-icon img[alt="' + onetapAjaxObject.getSettings.language + '"]' ).addClass( 'onetap-active' );
+				// Add the 'onetap-active' class to the image whose data-language matches the selected language
+				$( 'nav.onetap-accessibility .onetap-accessibility-settings .onetap-languages .onetap-icon img[data-language="' + onetapAjaxObject.getSettings.language + '"]' ).addClass( 'onetap-active' );
 
 				// Reset language
 				onetapUpdateContentBasedOnLanguage( onetapAjaxObject.getSettings.language );

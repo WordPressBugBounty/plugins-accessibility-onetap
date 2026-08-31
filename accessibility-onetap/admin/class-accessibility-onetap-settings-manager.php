@@ -21,6 +21,32 @@
 class Accessibility_Onetap_Settings_Manager {
 
 	/**
+	 * Destination the "PRO" badges link to.
+	 *
+	 * The pricing page, which is where every other upgrade call to action on
+	 * these screens already goes. A badge marks a feature the visitor cannot
+	 * reach, so the plan that unlocks it is the answer to the click; the
+	 * marketing home page is a detour.
+	 *
+	 * @var string
+	 */
+	const PRO_BADGE_URL = 'https://wponetap.com/pricing/?utm_source=dashboard-link&utm_medium=link&utm_campaign=ref-link-toolbar';
+
+	/**
+	 * Slug AltPilot carries on the WordPress.org plugin repository.
+	 *
+	 * @var string
+	 */
+	const ALTPILOT_SLUG = 'altpilot';
+
+	/**
+	 * Marketing site used whenever AltPilot cannot be installed from here.
+	 *
+	 * @var string
+	 */
+	const ALTPILOT_SITE_URL = 'https://www.altpilot.ai/';
+
+	/**
 	 * Settings sections array.
 	 *
 	 * @var array
@@ -219,6 +245,8 @@ class Accessibility_Onetap_Settings_Manager {
 					'section'                  => $section,
 					'select_badge'             => $select_badge,
 					'select_options'           => $select_options,
+					'search_placeholder'       => isset( $option['search_placeholder'] ) ? $option['search_placeholder'] : '',
+					'empty_text'               => isset( $option['empty_text'] ) ? $option['empty_text'] : '',
 					'setting_description'      => $setting_description,
 					'setting_title'            => $setting_title,
 					'show_save_button'         => $show_save_button,
@@ -252,6 +280,19 @@ class Accessibility_Onetap_Settings_Manager {
 	}
 
 	/**
+	 * Build the "PRO" badge that marks a locked feature.
+	 *
+	 * The badge doubles as an upgrade link. "PRO" on its own is not a
+	 * meaningful link name out of context, so the anchor carries an explicit
+	 * aria-label for screen readers while the visible text stays short.
+	 *
+	 * @return string Badge HTML.
+	 */
+	protected function get_pro_badge() {
+		return '<a class="pro" href="' . esc_url( self::PRO_BADGE_URL ) . '" target="_blank" rel="noopener noreferrer" aria-label="' . esc_attr__( 'Upgrade to OneTap PRO', 'accessibility-onetap' ) . '">' . esc_html__( 'PRO', 'accessibility-onetap' ) . '</a>';
+	}
+
+	/**
 	 * Get common allowed HTML tags for wp_kses.
 	 *
 	 * @return array Allowed HTML tags array.
@@ -275,24 +316,35 @@ class Accessibility_Onetap_Settings_Manager {
 				'title'         => array(),
 				'data-image-id' => array(),
 				'aria-current'  => array(),
+				'aria-label'    => array(),
 			),
 			'div'      => array(
 				'class'              => array(),
 				'style'              => array(),
 				'data-device'        => array(),
 				'data-default-color' => array(),
+				'data-name'          => array(),
+				'data-placeholder'   => array(),
 				'role'               => array(),
 				'aria-label'         => array(),
+				'aria-hidden'        => array(),
 			),
 			'ul'       => array(
-				'class' => array(),
+				'class'                => array(),
+				'id'                   => array(),
+				'role'                 => array(),
+				'aria-multiselectable' => array(),
+				'aria-label'           => array(),
 			),
 			'li'       => array(
-				'class'      => array(),
-				'data-color' => array(),
-				'data-value' => array(),
-				'data-lang'  => array(),
-				'style'      => array(),
+				'class'         => array(),
+				'data-color'    => array(),
+				'data-value'    => array(),
+				'data-label'    => array(),
+				'data-lang'     => array(),
+				'style'         => array(),
+				'role'          => array(),
+				'aria-selected' => array(),
 			),
 			'img'      => array(
 				'class' => array(),
@@ -303,6 +355,10 @@ class Accessibility_Onetap_Settings_Manager {
 				'id'             => array(),
 				'class'          => array(),
 				'license-status' => array(),
+				'data-value'     => array(),
+				'aria-hidden'    => array(),
+				'aria-label'     => array(),
+				'role'           => array(),
 			),
 			'label'    => array(
 				'class' => array(),
@@ -325,6 +381,9 @@ class Accessibility_Onetap_Settings_Manager {
 				'readonly'       => array(),
 				'data-lang'      => array(),
 				'data-default'   => array(),
+				'data-name'      => array(),
+				'autocomplete'   => array(),
+				'aria-label'     => array(),
 			),
 			'textarea' => array(
 				'rows'          => array(),
@@ -353,12 +412,20 @@ class Accessibility_Onetap_Settings_Manager {
 				'data-image-id'    => array(),
 				'aria-pressed'     => array(),
 				'aria-expanded'    => array(),
+				'aria-haspopup'    => array(),
+				'disabled'         => array(),
+				'aria-controls'    => array(),
+				'aria-label'       => array(),
 				'data-device-type' => array(),
 				'data-lang'        => array(),
+				'data-value'       => array(),
 			),
 			'svg'      => array(
 				'class'   => array(),
-				'viewBox' => array(),
+				// KSES lower-cases attribute names before matching, so the key has
+				// to be lower case too or viewBox gets stripped from every icon.
+				// The HTML parser maps `viewbox` back to `viewBox` for SVG.
+				'viewbox' => array(),
 				'width'   => array(),
 				'height'  => array(),
 				'fill'    => array(),
@@ -400,7 +467,10 @@ class Accessibility_Onetap_Settings_Manager {
 	 * @return array Parsed arguments.
 	 */
 	protected function parse_template_args( $args ) {
-		$value                    = esc_attr( $this->get_option( $args['id'], $args['section'], $args['std'] ) );
+		// Multi-value controls (e.g. multiselect) store an array, which cannot be
+		// run through esc_attr(). Those callbacks escape each entry themselves.
+		$raw_value                = $this->get_option( $args['id'], $args['section'], $args['std'] );
+		$value                    = is_array( $raw_value ) ? $raw_value : esc_attr( $raw_value );
 		$label                    = isset( $args['label'] ) ? $args['label'] : '';
 		$setting_title            = isset( $args['setting_title'] ) ? $args['setting_title'] : '';
 		$setting_description      = isset( $args['setting_description'] ) ? $args['setting_description'] : '';
@@ -607,7 +677,7 @@ class Accessibility_Onetap_Settings_Manager {
 		if ( ! empty( $feature_name ) ) {
 			$input_html .= '<span class="feature-name">' . $feature_name;
 			if ( $is_pro ) {
-				$input_html .= '<span class="pro">' . esc_html__( 'PRO', 'accessibility-onetap' ) . '</span>';
+				$input_html .= $this->get_pro_badge();
 			}
 			if ( $is_beta ) {
 				$input_html .= '<span class="onetap-admin-beta-badge">' . esc_html__( 'Beta', 'accessibility-onetap' ) . '</span>';
@@ -897,7 +967,7 @@ class Accessibility_Onetap_Settings_Manager {
 
 		// Display feature name - only show if feature_name exists (regardless of is_pro status).
 		if ( ! empty( $feature_name ) ) {
-			$input_html .= '<span class="feature-name">' . $feature_name . ( $is_pro ? '<span class="pro">' . esc_html__( 'PRO', 'accessibility-onetap' ) . '</span>' : '' ) . '</span>';
+			$input_html .= '<span class="feature-name">' . $feature_name . ( $is_pro ? $this->get_pro_badge() : '' ) . '</span>';
 		}
 
 		// Feature description - only show if feature_desc is provided (regardless of is_pro status).
@@ -991,7 +1061,7 @@ class Accessibility_Onetap_Settings_Manager {
 		if ( ! empty( $feature_name ) ) {
 			$input_html .= '<span class="feature-name">' . $feature_name;
 			if ( $is_pro ) {
-				$input_html .= '<span class="pro">' . esc_html__( 'PRO', 'accessibility-onetap' ) . '</span>';
+				$input_html .= $this->get_pro_badge();
 			}
 			if ( $is_beta ) {
 				$input_html .= '<span class="onetap-admin-beta-badge">' . esc_html__( 'Beta', 'accessibility-onetap' ) . '</span>';
@@ -1060,6 +1130,215 @@ class Accessibility_Onetap_Settings_Manager {
 		$select_html .= '</div>';
 
 		$this->render_template( $args, $select_html, 'select' );
+	}
+
+	/**
+	 * Render a searchable multiselect field for settings forms.
+	 *
+	 * Shows the current selection as removable tags above a searchable option
+	 * list, and submits it as a list of hidden inputs (`section[field][]`) so
+	 * it persists as an array.
+	 *
+	 * In this plugin the control is only used for PRO features, so it renders
+	 * with the same locked treatment as the PRO switches: the badge, the
+	 * upgrade tooltip, and a transparent overlay that swallows clicks. There is
+	 * deliberately no script behind it here.
+	 *
+	 * Recognised args on top of the shared ones:
+	 * - select_options      array  Map of value => label to offer.
+	 * - placeholder         string Text shown while nothing is selected.
+	 * - search_placeholder  string Placeholder for the search input.
+	 * - empty_text          string Message shown when the search matches nothing.
+	 *
+	 * @param array $args settings field args.
+	 */
+	public function callback_template_multiselect( $args ) {
+		$select_options = isset( $args['select_options'] ) && is_array( $args['select_options'] ) ? $args['select_options'] : array();
+
+		// Read the saved selection and drop anything that no longer exists so a
+		// deleted page cannot leave an unremovable tag behind.
+		$raw_value = $this->get_option( $args['id'], $args['section'], isset( $args['std'] ) ? $args['std'] : array() );
+		$raw_value = is_array( $raw_value ) ? $raw_value : array();
+
+		$available = array_map( 'strval', array_keys( $select_options ) );
+		$selected  = array();
+		foreach ( $raw_value as $value ) {
+			$value = (string) $value;
+			if ( '' !== $value && in_array( $value, $available, true ) && ! in_array( $value, $selected, true ) ) {
+				$selected[] = $value;
+			}
+		}
+
+		$field_name         = $args['section'] . '[' . $args['id'] . ']';
+		$placeholder        = ! empty( $args['placeholder'] ) ? $args['placeholder'] : __( 'Select…', 'accessibility-onetap' );
+		$search_placeholder = ! empty( $args['search_placeholder'] ) ? $args['search_placeholder'] : __( 'Search…', 'accessibility-onetap' );
+		$empty_text         = ! empty( $args['empty_text'] ) ? $args['empty_text'] : __( 'No results found', 'accessibility-onetap' );
+
+		$feature_name = isset( $args['feature_name'] ) ? $args['feature_name'] : '';
+		$feature_desc = isset( $args['feature_desc'] ) ? $args['feature_desc'] : '';
+
+		// PRO feature information attributes, mirroring callback_template_switch.
+		$is_pro        = isset( $args['is_pro'] ) ? (bool) $args['is_pro'] : false;
+		$pro_title     = isset( $args['pro_title'] ) ? esc_html( $args['pro_title'] ) : __( 'This is a PRO Feature', 'accessibility-onetap' );
+		$pro_desc      = isset( $args['pro_desc'] ) ? esc_html( $args['pro_desc'] ) : __( ' to use this Feature.', 'accessibility-onetap' );
+		$pro_link_text = isset( $args['pro_link_text'] ) ? esc_html( $args['pro_link_text'] ) : __( 'Upgrade to Pro', 'accessibility-onetap' );
+		$upgrade_link  = isset( $args['upgrade_link'] ) ? esc_url( $args['upgrade_link'] ) : 'https://wponetap.com/pricing/?utm_source=dashboard-link&utm_medium=link&utm_campaign=ref-link-toolbar';
+
+		// Reusable icons.
+		$icon_chevron = '<svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M10.6667 6L8 3.33333L5.33333 6" stroke="#A4A7AE" stroke-width="1.33333" stroke-linecap="round" stroke-linejoin="round"/><path d="M5.33333 10L8 12.6667L10.6667 10" stroke="#A4A7AE" stroke-width="1.33333" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+		$icon_search  = '<svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M14 14L11.1 11.1" stroke="#717680" stroke-width="1.33333" stroke-linecap="round" stroke-linejoin="round"/><path d="M12.6667 7.33333C12.6667 10.2789 10.2789 12.6667 7.33333 12.6667C4.38781 12.6667 2 10.2789 2 7.33333C2 4.38781 4.38781 2 7.33333 2C10.2789 2 12.6667 4.38781 12.6667 7.33333Z" stroke="#717680" stroke-width="1.33333" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+		$icon_check   = '<svg width="14" height="10" viewBox="0 0 14 10" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M13 1L4.75 9.25L1 5.5" stroke="#0048FE" stroke-width="1.66667" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+		$icon_remove  = '<svg width="10" height="10" viewBox="0 0 10 10" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M7.5 2.5L2.5 7.5" stroke="#717680" stroke-width="1.33333" stroke-linecap="round" stroke-linejoin="round"/><path d="M2.5 2.5L7.5 7.5" stroke="#717680" stroke-width="1.33333" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+
+		$html = '<div class="box box1' . ( $is_pro ? ' pro' : '' ) . '">';
+
+		// Left column: the feature name and its description.
+		if ( ! empty( $feature_name ) || ! empty( $feature_desc ) ) {
+			$html .= '<div class="left">';
+			$html .= '<div class="text">';
+
+			if ( ! empty( $feature_name ) ) {
+				$html .= '<span class="feature-name">' . esc_html( $feature_name );
+				if ( $is_pro ) {
+					$html .= $this->get_pro_badge();
+				}
+				$html .= '</span>';
+			}
+
+			if ( ! empty( $feature_desc ) ) {
+				$html .= '<span class="feature-desc">' . esc_html( $feature_desc ) . '</span>';
+			}
+
+			$html .= '</div>';
+			$html .= '</div>';
+		}
+
+		// Right column: the combobox itself.
+		$html .= '<div class="right">';
+
+		if ( $is_pro ) {
+			$html .= '<div class="pro-info">';
+			$html .= '<h4 class="pro-title">' . $pro_title . '</h4>';
+			$html .= '<p class="pro-desc">';
+			$html .= '<a target="_blank" href="' . $upgrade_link . '" class="upgrade-link">' . $pro_link_text . '</a> ' . $pro_desc;
+			$html .= '</p>';
+			$html .= '</div>';
+		}
+
+		$html .= '<div class="apop-multiselect" data-name="' . esc_attr( $field_name ) . '" data-placeholder="' . esc_attr( $placeholder ) . '">';
+
+		// Always submit an empty entry so clearing the selection is persisted.
+		$html .= '<input type="hidden" name="' . esc_attr( $field_name ) . '[]" value="" />';
+
+		// Hidden inputs holding the current selection.
+		$html .= '<div class="apop-multiselect-inputs">';
+		foreach ( $selected as $value ) {
+			$html .= '<input type="hidden" class="apop-multiselect-value" name="' . esc_attr( $field_name ) . '[]" value="' . esc_attr( $value ) . '" />';
+		}
+		$html .= '</div>';
+
+		// Trigger showing the selected tags. Locked PRO controls have no script
+		// behind them, so the button is disabled rather than left focusable and
+		// inert — the overlay alone would not keep it out of the tab order.
+		$html .= '<button type="button" class="apop-multiselect-trigger" aria-expanded="false" aria-haspopup="listbox"' . ( $is_pro ? ' disabled' : '' ) . '>';
+		$html .= '<span class="apop-multiselect-tags">';
+
+		$html .= '<span class="apop-multiselect-placeholder"' . ( empty( $selected ) ? '' : ' aria-hidden="true"' ) . '>' . esc_html( $placeholder ) . '</span>';
+
+		foreach ( $selected as $value ) {
+			$label = isset( $select_options[ $value ] ) ? $select_options[ $value ] : $value;
+
+			$html .= '<span class="apop-multiselect-tag" data-value="' . esc_attr( $value ) . '">';
+			$html .= '<span class="apop-multiselect-tag-label">' . esc_html( $label ) . '</span>';
+			/* translators: %s: name of the selected item. */
+			$html .= '<span class="apop-multiselect-tag-remove" data-value="' . esc_attr( $value ) . '" role="button" aria-label="' . esc_attr( sprintf( __( 'Remove %s', 'accessibility-onetap' ), $label ) ) . '">' . $icon_remove . '</span>';
+			$html .= '</span>';
+		}
+
+		$html .= '</span>';
+		$html .= '<span class="apop-multiselect-chevron">' . $icon_chevron . '</span>';
+		$html .= '</button>';
+
+		// Popup with search field and option list.
+		$html .= '<div class="apop-multiselect-popup">';
+		$html .= '<div class="apop-multiselect-search">';
+		$html .= '<span class="apop-multiselect-search-icon">' . $icon_search . '</span>';
+		$html .= '<input type="text" class="apop-multiselect-search-input" placeholder="' . esc_attr( $search_placeholder ) . '" autocomplete="off" aria-label="' . esc_attr( $search_placeholder ) . '" />';
+		$html .= '</div>';
+
+		$html .= '<ul class="apop-multiselect-options" role="listbox" aria-multiselectable="true">';
+		foreach ( $select_options as $key => $label ) {
+			$key         = (string) $key;
+			$is_selected = in_array( $key, $selected, true );
+
+			$html .= '<li class="apop-multiselect-option' . ( $is_selected ? ' selected' : '' ) . '" data-value="' . esc_attr( $key ) . '" data-label="' . esc_attr( $label ) . '" role="option" aria-selected="' . ( $is_selected ? 'true' : 'false' ) . '">';
+			$html .= '<span class="apop-multiselect-check">' . $icon_check . '</span>';
+			$html .= '<span class="apop-multiselect-option-label">' . esc_html( $label ) . '</span>';
+			$html .= '</li>';
+		}
+		$html .= '</ul>';
+
+		$html .= '<div class="apop-multiselect-empty">' . esc_html( $empty_text ) . '</div>';
+		$html .= '</div>'; // .apop-multiselect-popup
+
+		$html .= '</div>'; // .apop-multiselect
+		$html .= '</div>'; // .right
+		$html .= '</div>'; // .box
+
+		$this->render_template( $args, $html, 'multiselect' );
+	}
+
+	/**
+	 * Sanitize a multiselect value that holds numeric IDs (pages, posts).
+	 *
+	 * Declared static so it can be referenced as a string callable from the
+	 * field definitions and resolved by get_sanitize_callback().
+	 *
+	 * @param mixed $value Raw submitted value.
+	 * @return array List of unique, positive integers.
+	 */
+	public static function sanitize_multiselect_ids( $value ) {
+		if ( ! is_array( $value ) ) {
+			return array();
+		}
+
+		$ids = array();
+		foreach ( $value as $item ) {
+			// Reject anything that is not already a plain number so garbage input
+			// cannot be coerced into an unrelated ID (e.g. "-3" becoming 3).
+			if ( ! is_numeric( $item ) ) {
+				continue;
+			}
+
+			$id = absint( $item );
+			if ( $id > 0 && (int) $item === $id && ! in_array( $id, $ids, true ) ) {
+				$ids[] = $id;
+			}
+		}
+
+		return $ids;
+	}
+
+	/**
+	 * Sanitize a multiselect value that holds slugs (post types).
+	 *
+	 * @param mixed $value Raw submitted value.
+	 * @return array List of unique, sanitized slugs.
+	 */
+	public static function sanitize_multiselect_slugs( $value ) {
+		if ( ! is_array( $value ) ) {
+			return array();
+		}
+
+		$slugs = array();
+		foreach ( $value as $item ) {
+			$slug = sanitize_key( $item );
+			if ( '' !== $slug && ! in_array( $slug, $slugs, true ) ) {
+				$slugs[] = $slug;
+			}
+		}
+
+		return $slugs;
 	}
 
 	/**
@@ -1256,6 +1535,9 @@ class Accessibility_Onetap_Settings_Manager {
 			'mk'    => 'macedonia.png',
 			'th'    => 'thailand.png',
 			'vn'    => 'vietnam.png',
+			'bn'    => 'bangladesh.png',
+			'tl'    => 'philippines.png',
+			'ur'    => 'pakistan.png',
 		);
 
 		// Get plugin URL for flag images.
@@ -1423,6 +1705,9 @@ class Accessibility_Onetap_Settings_Manager {
 			'mk'    => 'macedonia.png',
 			'th'    => 'thailand.png',
 			'vn'    => 'vietnam.png',
+			'bn'    => 'bangladesh.png',
+			'tl'    => 'philippines.png',
+			'ur'    => 'pakistan.png',
 		);
 
 		// Get plugin URL for flag images.
@@ -1596,6 +1881,9 @@ class Accessibility_Onetap_Settings_Manager {
 			'mk'    => 'macedonia.png',
 			'th'    => 'thailand.png',
 			'vn'    => 'vietnam.png',
+			'bn'    => 'bangladesh.png',
+			'tl'    => 'philippines.png',
+			'ur'    => 'pakistan.png',
 		);
 
 		// Get plugin URL for flag images.
@@ -1665,19 +1953,11 @@ class Accessibility_Onetap_Settings_Manager {
 			$toggle_id   = 'onetap_settings[toggle-language-' . esc_attr( $key ) . ']';
 			$toggle_name = 'onetap_settings[toggle-language][' . esc_attr( $key ) . ']';
 
-			// Check if this language toggle is saved as active.
-			// Default to ON: if first time, or if language not in saved data, or if saved value is 'on'.
-			// Only OFF if explicitly set to something other than 'on' in saved data.
-			if ( $is_first_time ) {
-				// First time: default all ON.
-				$is_toggle_on = true;
-			} elseif ( ! isset( $language_toggles[ $key ] ) ) {
-				// Language not in saved data: default to ON.
-				$is_toggle_on = true;
-			} else {
-				// Check saved value: ON if 'on', otherwise OFF.
-				$is_toggle_on = 'on' === $language_toggles[ $key ];
-			}
+			// Whether this language is offered, decided by the same rule the
+			// toolbar reads. A language the admin has never been shown - one a
+			// plugin update added - appears here switched off, waiting to be
+			// chosen, rather than turning itself on across their site.
+			$is_toggle_on = $is_first_time || Accessibility_Onetap_Config::is_language_enabled( $key, $language_toggles );
 			$checked_attr = $is_toggle_on ? ' checked="checked"' : '';
 
 			$dropdown_html .= '<li class="language-select-option' . ( $is_selected ? ' selected' : '' ) . '" data-value="' . esc_attr( $key ) . '" data-lang="' . esc_attr( $key ) . '">';
@@ -1951,7 +2231,109 @@ class Accessibility_Onetap_Settings_Manager {
 			);
 		}
 		return array(
-			'url'    => 'https://www.altpilot.ai/',
+			'url'    => self::ALTPILOT_SITE_URL,
+			'target' => '_blank',
+		);
+	}
+
+	/**
+	 * Locate AltPilot among the installed plugins.
+	 *
+	 * The main file is looked up rather than assumed so that the button keeps
+	 * working if AltPilot ever renames it; only the directory has to stay put,
+	 * and that one is fixed by the repository slug.
+	 *
+	 * @since  2.13.1
+	 * @return string Plugin file relative to the plugins directory, empty when not installed.
+	 */
+	private function get_altpilot_plugin_file() {
+		if ( ! function_exists( 'get_plugins' ) ) {
+			require_once ABSPATH . 'wp-admin/includes/plugin.php';
+		}
+
+		foreach ( array_keys( get_plugins() ) as $plugin_file ) {
+			if ( 0 === strpos( $plugin_file, self::ALTPILOT_SLUG . '/' ) ) {
+				return $plugin_file;
+			}
+		}
+
+		return '';
+	}
+
+	/**
+	 * Work out what the AltPilot button on the Alt Text screen should offer.
+	 *
+	 * The banner used to send everyone to altpilot.ai, which is a detour for
+	 * anyone who simply does not have the plugin yet. AltPilot is hosted on the
+	 * WordPress.org repository, so the install can be handed to the installer
+	 * that ships with WordPress instead - OneTap never downloads anything
+	 * itself. The button therefore follows the plugin through its three states:
+	 * install, activate, then open.
+	 *
+	 * Every returned URL is a normal, nonce-protected admin link, so the button
+	 * still works with JavaScript disabled; the script only upgrades the install
+	 * step to happen without leaving the page.
+	 *
+	 * @since  2.13.1
+	 * @return array {
+	 *     @type string $state        One of install|activate|open|external.
+	 *     @type string $label        Text for the button.
+	 *     @type string $url          Where the button points.
+	 *     @type string $target       Link target, empty unless the link leaves wp-admin.
+	 *     @type string $slug         Repository slug, only on the install state.
+	 *     @type string $busy_label   Label shown while installing, only on the install state.
+	 *     @type string $done_label   Label shown once installed, only on the install state.
+	 * }
+	 */
+	public function get_altpilot_banner_cta() {
+		if ( ! function_exists( 'is_plugin_active' ) ) {
+			require_once ABSPATH . 'wp-admin/includes/plugin.php';
+		}
+
+		$plugin_file = $this->get_altpilot_plugin_file();
+
+		if ( $plugin_file && is_plugin_active( $plugin_file ) ) {
+			return array(
+				'state'  => 'open',
+				'label'  => __( 'Generate with AI', 'accessibility-onetap' ),
+				'url'    => admin_url( 'admin.php?page=' . self::ALTPILOT_SLUG ),
+				'target' => '',
+			);
+		}
+
+		if ( $plugin_file && current_user_can( 'activate_plugin', $plugin_file ) ) {
+			return array(
+				'state'  => 'activate',
+				'label'  => __( 'Activate AltPilot', 'accessibility-onetap' ),
+				'url'    => wp_nonce_url(
+					self_admin_url( 'plugins.php?action=activate&plugin=' . rawurlencode( $plugin_file ) ),
+					'activate-plugin_' . $plugin_file
+				),
+				'target' => '',
+			);
+		}
+
+		if ( ! $plugin_file && current_user_can( 'install_plugins' ) ) {
+			return array(
+				'state'      => 'install',
+				'label'      => __( 'Install AltPilot for free', 'accessibility-onetap' ),
+				'url'        => wp_nonce_url(
+					self_admin_url( 'update.php?action=install-plugin&plugin=' . self::ALTPILOT_SLUG ),
+					'install-plugin_' . self::ALTPILOT_SLUG
+				),
+				'target'     => '',
+				'slug'       => self::ALTPILOT_SLUG,
+				'busy_label' => __( 'Installing…', 'accessibility-onetap' ),
+				'done_label' => __( 'Activate AltPilot', 'accessibility-onetap' ),
+			);
+		}
+
+		// Not installed and not allowed to install, or installed and not allowed
+		// to activate: nothing useful can happen here, so point at the site.
+		return array(
+			'state'  => 'external',
+			'label'  => __( 'Generate with AI', 'accessibility-onetap' ),
+			'url'    => self::ALTPILOT_SITE_URL,
 			'target' => '_blank',
 		);
 	}
@@ -2201,7 +2583,7 @@ class Accessibility_Onetap_Settings_Manager {
 
 		// Display feature name - only show if feature_name exists (regardless of is_pro status).
 		if ( ! empty( $feature_name ) ) {
-			$input_html .= '<span class="feature-name">' . $feature_name . ( $is_pro ? '<span class="pro">' . esc_html__( 'PRO', 'accessibility-onetap' ) . '</span>' : '' ) . '</span>';
+			$input_html .= '<span class="feature-name">' . $feature_name . ( $is_pro ? $this->get_pro_badge() : '' ) . '</span>';
 		}
 
 		// Feature description - only show if feature_desc is provided (regardless of is_pro status).

@@ -1,3 +1,5 @@
+@charset "UTF-8";
+
 /**
  * Toggle Switch Placeholder
  * Provides consistent styling for toggle switch components
@@ -83,7 +85,7 @@
  * Provides consistent styling for form input fields
  * Usage: @extend %form-input;
  */
-.wrap form .mycontainer .left-column .language-select-dropdown .language-select-trigger, .setting-control.widget-position .boxes .box .widget-position-dropdown .widget-position-trigger, .setting-control.language-select-toggles .boxes .box .language-select-dropdown .language-select-trigger, .setting-control.language-select-simple .boxes .box .language-select-dropdown .language-select-trigger, body.wp-admin .wrap .options-wrapper input,
+.wrap form .mycontainer .left-column .language-select-dropdown .language-select-trigger, .setting-control.widget-position .boxes .box .widget-position-dropdown .widget-position-trigger, .setting-control.multiselect .apop-multiselect .apop-multiselect-trigger, .setting-control.language-select-toggles .boxes .box .language-select-dropdown .language-select-trigger, .setting-control.language-select-simple .boxes .box .language-select-dropdown .language-select-trigger, body.wp-admin .wrap .options-wrapper input,
 body.wp-admin .wrap .options-wrapper select {
   border-radius: 8px;
   border: 1px solid #d1d5db;
@@ -104,7 +106,7 @@ body.wp-admin .wrap .options-wrapper select {
   min-height: auto;
 }
 
-.wrap form .mycontainer .left-column .language-select-dropdown .language-select-trigger:focus, .setting-control.widget-position .boxes .box .widget-position-dropdown .widget-position-trigger:focus, .setting-control.language-select-toggles .boxes .box .language-select-dropdown .language-select-trigger:focus, .setting-control.language-select-simple .boxes .box .language-select-dropdown .language-select-trigger:focus, body.wp-admin .wrap .options-wrapper input:focus,
+.wrap form .mycontainer .left-column .language-select-dropdown .language-select-trigger:focus, .setting-control.widget-position .boxes .box .widget-position-dropdown .widget-position-trigger:focus, .setting-control.multiselect .apop-multiselect .apop-multiselect-trigger:focus, .setting-control.language-select-toggles .boxes .box .language-select-dropdown .language-select-trigger:focus, .setting-control.language-select-simple .boxes .box .language-select-dropdown .language-select-trigger:focus, body.wp-admin .wrap .options-wrapper input:focus,
 body.wp-admin .wrap .options-wrapper select:focus {
   border: 1px solid #0048FE;
   box-shadow: 0 0 0 1px #0048FE;
@@ -322,10 +324,12 @@ body.wp-admin .wrap .options-wrapper .control-heading {
 
 /**
  * Pro Badge Placeholder
- * Provides consistent styling for small "Pro" badges next to feature names
+ * Provides consistent styling for small "Pro" badges next to feature names.
+ * The badge is an upgrade link, so it also resets the admin anchor styling
+ * and keeps its own hover / focus states.
  * Usage: @extend %pro-badge;
  */
-.setting-control.switch .boxes .box .left .text span.feature-name .pro, .setting-control.module-labels .boxes .box .left .text span.feature-name .pro, .setting-control.feature_card .boxes .box .left .text span.feature-name .pro, .setting-control.copyable_text .boxes .box .left .text span.feature-name .pro {
+.setting-control.switch .boxes .box .left .text span.feature-name .pro, .setting-control.multiselect .boxes .box .left .text span.feature-name .pro, .setting-control.module-labels .boxes .box .left .text span.feature-name .pro, .setting-control.feature_card .boxes .box .left .text span.feature-name .pro, .setting-control.copyable_text .boxes .box .left .text span.feature-name .pro {
   position: absolute;
   align-items: center;
   border-radius: 999px;
@@ -340,6 +344,22 @@ body.wp-admin .wrap .options-wrapper .control-heading {
   font-size: 10px;
   line-height: 1.3333333333;
   border: solid 1px #fcd34d;
+  text-decoration: none;
+  cursor: pointer;
+  box-shadow: none;
+}
+
+.setting-control.switch .boxes .box .left .text span.feature-name .pro:hover, .setting-control.multiselect .boxes .box .left .text span.feature-name .pro:hover, .setting-control.module-labels .boxes .box .left .text span.feature-name .pro:hover, .setting-control.feature_card .boxes .box .left .text span.feature-name .pro:hover, .setting-control.copyable_text .boxes .box .left .text span.feature-name .pro:hover, .setting-control.switch .boxes .box .left .text span.feature-name .pro:focus, .setting-control.multiselect .boxes .box .left .text span.feature-name .pro:focus, .setting-control.module-labels .boxes .box .left .text span.feature-name .pro:focus, .setting-control.feature_card .boxes .box .left .text span.feature-name .pro:focus, .setting-control.copyable_text .boxes .box .left .text span.feature-name .pro:focus {
+  background: #fbbf24;
+  border-color: #fbbf24;
+  color: #451A08;
+  text-decoration: none;
+  box-shadow: none;
+}
+
+.setting-control.switch .boxes .box .left .text span.feature-name .pro:focus-visible, .setting-control.multiselect .boxes .box .left .text span.feature-name .pro:focus-visible, .setting-control.module-labels .boxes .box .left .text span.feature-name .pro:focus-visible, .setting-control.feature_card .boxes .box .left .text span.feature-name .pro:focus-visible, .setting-control.copyable_text .boxes .box .left .text span.feature-name .pro:focus-visible {
+  outline: 2px solid #451A08;
+  outline-offset: 2px;
 }
 
 /**
@@ -373,7 +393,7 @@ body.wp-admin .wrap .options-wrapper .control-heading {
  * Provides consistent styling for dropdown options popup (fade/slide animation)
  * Usage: @extend %dropdown-options-popup;
  */
-.wrap form .mycontainer .left-column .language-select-dropdown .language-select-options, .setting-control.widget-position .boxes .box .widget-position-dropdown .widget-position-options, .setting-control.language-select-toggles .boxes .box .language-select-dropdown .language-select-options, .setting-control.language-select-simple .boxes .box .language-select-dropdown .language-select-options {
+.wrap form .mycontainer .left-column .language-select-dropdown .language-select-options, .setting-control.widget-position .boxes .box .widget-position-dropdown .widget-position-options, .setting-control.multiselect .apop-multiselect .apop-multiselect-popup, .setting-control.language-select-toggles .boxes .box .language-select-dropdown .language-select-options, .setting-control.language-select-simple .boxes .box .language-select-dropdown .language-select-options {
   position: absolute;
   top: calc(100% + 4px);
   left: 0;
@@ -401,7 +421,7 @@ body.wp-admin .wrap .options-wrapper .control-heading {
  * Provides consistent styling for dropdown option items (list items)
  * Usage: @extend %dropdown-option-item;
  */
-.wrap form .mycontainer .left-column .language-select-dropdown .language-select-options .language-select-option, .setting-control.widget-position .boxes .box .widget-position-dropdown .widget-position-options .widget-position-option, .setting-control.language-select-toggles .boxes .box .language-select-dropdown .language-select-options .language-select-option, .setting-control.language-select-simple .boxes .box .language-select-dropdown .language-select-options .language-select-option {
+.wrap form .mycontainer .left-column .language-select-dropdown .language-select-options .language-select-option, .setting-control.widget-position .boxes .box .widget-position-dropdown .widget-position-options .widget-position-option, .setting-control.multiselect .apop-multiselect .apop-multiselect-options .apop-multiselect-option, .setting-control.language-select-toggles .boxes .box .language-select-dropdown .language-select-options .language-select-option, .setting-control.language-select-simple .boxes .box .language-select-dropdown .language-select-options .language-select-option {
   display: flex;
   align-items: center;
   gap: 8px;
@@ -413,11 +433,11 @@ body.wp-admin .wrap .options-wrapper .control-heading {
   border-radius: 8px;
 }
 
-.wrap form .mycontainer .left-column .language-select-dropdown .language-select-options .language-select-option:hover, .setting-control.widget-position .boxes .box .widget-position-dropdown .widget-position-options .widget-position-option:hover, .setting-control.language-select-toggles .boxes .box .language-select-dropdown .language-select-options .language-select-option:hover, .setting-control.language-select-simple .boxes .box .language-select-dropdown .language-select-options .language-select-option:hover {
+.wrap form .mycontainer .left-column .language-select-dropdown .language-select-options .language-select-option:hover, .setting-control.widget-position .boxes .box .widget-position-dropdown .widget-position-options .widget-position-option:hover, .setting-control.multiselect .apop-multiselect .apop-multiselect-options .apop-multiselect-option:hover, .setting-control.language-select-toggles .boxes .box .language-select-dropdown .language-select-options .language-select-option:hover, .setting-control.language-select-simple .boxes .box .language-select-dropdown .language-select-options .language-select-option:hover {
   background: #f2f2f7;
 }
 
-.wrap form .mycontainer .left-column .language-select-dropdown .language-select-options .selected.language-select-option, .setting-control.widget-position .boxes .box .widget-position-dropdown .widget-position-options .selected.widget-position-option, .setting-control.language-select-toggles .boxes .box .language-select-dropdown .language-select-options .selected.language-select-option, .setting-control.language-select-simple .boxes .box .language-select-dropdown .language-select-options .selected.language-select-option {
+.wrap form .mycontainer .left-column .language-select-dropdown .language-select-options .selected.language-select-option, .setting-control.widget-position .boxes .box .widget-position-dropdown .widget-position-options .selected.widget-position-option, .setting-control.multiselect .apop-multiselect .apop-multiselect-options .selected.apop-multiselect-option, .setting-control.language-select-toggles .boxes .box .language-select-dropdown .language-select-options .selected.language-select-option, .setting-control.language-select-simple .boxes .box .language-select-dropdown .language-select-options .selected.language-select-option {
   background: #f2f2f7;
 }
 
@@ -2490,6 +2510,376 @@ header .mycontainer .myrow.two .box-save-changes {
   }
 }
 
+.setting-control.multiselect .boxes .box {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  padding: 24px 0;
+  border-bottom: 1px solid #E9EAEB;
+}
+
+.setting-control.multiselect .boxes .box .left {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  flex: 1 1 auto;
+  min-width: 0;
+}
+
+.setting-control.multiselect .boxes .box .left .text {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.setting-control.multiselect .boxes .box .left .text span.feature-name {
+  font-style: normal;
+  display: block;
+  position: relative;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 20px;
+  color: #030712;
+}
+
+.setting-control.multiselect .boxes .box .left .text span.feature-desc {
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 20px;
+  color: #6b7280;
+}
+
+.setting-control.multiselect .boxes .box .right {
+  position: relative;
+  right: 0;
+  flex-shrink: 0;
+}
+
+.setting-control.multiselect .boxes .box .right .pro-info {
+  display: none;
+  padding: 12px;
+  border-radius: 8px;
+  background: #111;
+  position: absolute;
+  right: calc(100% + 12px);
+  top: 50%;
+  transform: translateY(-50%);
+  height: auto;
+  width: 200px;
+  z-index: 2;
+}
+
+.setting-control.multiselect .boxes .box .right .pro-info::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  right: -10px;
+  transform: translateY(-50%);
+  width: 0;
+  height: 0;
+  border-left: 10px solid #111;
+  border-top: 10px solid transparent;
+  border-bottom: 10px solid transparent;
+}
+
+.setting-control.multiselect .boxes .box .right .pro-info .pro-title {
+  color: #fff;
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 18px;
+  margin: 0;
+  margin-bottom: 2px;
+}
+
+.setting-control.multiselect .boxes .box .right .pro-info .pro-desc {
+  color: #d5d7da;
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 18px;
+  margin: 0;
+}
+
+.setting-control.multiselect .boxes .box .right .pro-info .pro-desc a {
+  color: #d5d7da;
+  text-decoration: underline;
+}
+
+.setting-control.multiselect .boxes .box .right:hover .pro-info {
+  display: block;
+}
+
+.setting-control.multiselect .boxes .box.pro .right::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: transparent;
+  z-index: 1;
+}
+
+.setting-control.multiselect .boxes .box.pro .apop-multiselect-trigger {
+  cursor: default;
+}
+
+.setting-control.multiselect .apop-multiselect {
+  position: relative;
+  width: 320px;
+  max-width: 100%;
+
+  /**
+   * Trigger — renders as a form input holding the selected tags.
+   */
+
+  /**
+   * Selected value tag.
+   */
+
+  /**
+   * Popup — search field plus the option list.
+   */
+}
+
+.setting-control.multiselect .apop-multiselect .apop-multiselect-inputs {
+  display: none;
+}
+
+.setting-control.multiselect .apop-multiselect .apop-multiselect-trigger {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  background: #fff;
+  cursor: pointer;
+  text-align: left;
+  min-height: 40px;
+}
+
+.setting-control.multiselect .apop-multiselect .apop-multiselect-trigger:hover {
+  border-color: #d1d5db;
+}
+
+.setting-control.multiselect .apop-multiselect .apop-multiselect-trigger[aria-expanded="true"] {
+  border-color: #0048FE;
+  box-shadow: 0 0 0 1px #0048FE;
+}
+
+.setting-control.multiselect .apop-multiselect .apop-multiselect-trigger .apop-multiselect-tags {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 6px;
+  flex: 1;
+  min-width: 0;
+}
+
+.setting-control.multiselect .apop-multiselect .apop-multiselect-trigger .apop-multiselect-placeholder {
+  color: #717680;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 20px;
+}
+
+.setting-control.multiselect .apop-multiselect .apop-multiselect-trigger .apop-multiselect-placeholder[aria-hidden="true"] {
+  display: none;
+}
+
+.setting-control.multiselect .apop-multiselect .apop-multiselect-trigger .apop-multiselect-chevron {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 16px;
+  height: 16px;
+  flex-shrink: 0;
+}
+
+.setting-control.multiselect .apop-multiselect .apop-multiselect-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  max-width: 100%;
+  padding: 2px 6px 2px 8px;
+  border: 1px solid #d5d7da;
+  border-radius: 6px;
+  background: #fff;
+}
+
+.setting-control.multiselect .apop-multiselect .apop-multiselect-tag .apop-multiselect-tag-label {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  color: #414651;
+  font-size: 13px;
+  font-weight: 500;
+  line-height: 20px;
+}
+
+.setting-control.multiselect .apop-multiselect .apop-multiselect-tag .apop-multiselect-tag-remove {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 16px;
+  height: 16px;
+  flex-shrink: 0;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.15s ease;
+}
+
+.setting-control.multiselect .apop-multiselect .apop-multiselect-tag .apop-multiselect-tag-remove:hover {
+  background: #f2f2f7;
+}
+
+.setting-control.multiselect .apop-multiselect .apop-multiselect-popup {
+  padding: 0;
+  max-height: none;
+  overflow: visible;
+  transition: opacity 0.3s ease, transform 0.3s ease, visibility 0s linear 0.3s;
+}
+
+.setting-control.multiselect .apop-multiselect .apop-multiselect-popup.open {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+  transform: translateY(0);
+  transition: opacity 0.3s ease, transform 0.3s ease, visibility 0s linear 0s;
+}
+
+.setting-control.multiselect .apop-multiselect .apop-multiselect-popup.drop-up {
+  top: auto;
+  bottom: calc(100% + 4px);
+  transform: translateY(-4px);
+}
+
+.setting-control.multiselect .apop-multiselect .apop-multiselect-popup.drop-up.open {
+  transform: translateY(0);
+}
+
+.setting-control.multiselect .apop-multiselect .apop-multiselect-search {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 12px;
+  border-bottom: 1px solid #E9EAEB;
+}
+
+.setting-control.multiselect .apop-multiselect .apop-multiselect-search .apop-multiselect-search-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 16px;
+  height: 16px;
+  flex-shrink: 0;
+}
+
+.setting-control.multiselect .apop-multiselect .apop-multiselect-search .apop-multiselect-search-input {
+  flex: 1;
+  min-width: 0;
+  border: none;
+  outline: none;
+  box-shadow: none;
+  background: transparent;
+  padding: 0;
+  margin: 0;
+  color: #374151;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 20px;
+}
+
+.setting-control.multiselect .apop-multiselect .apop-multiselect-search .apop-multiselect-search-input:focus {
+  border: none;
+  outline: none;
+  box-shadow: none;
+}
+
+.setting-control.multiselect .apop-multiselect .apop-multiselect-search .apop-multiselect-search-input::-moz-placeholder {
+  color: #717680;
+}
+
+.setting-control.multiselect .apop-multiselect .apop-multiselect-search .apop-multiselect-search-input::placeholder {
+  color: #717680;
+}
+
+.setting-control.multiselect .apop-multiselect .apop-multiselect-options {
+  list-style: none;
+  margin: 0;
+  padding: 3px 6px;
+  max-height: 240px;
+  overflow-y: auto;
+}
+
+.setting-control.multiselect .apop-multiselect .apop-multiselect-options .apop-multiselect-option.is-hidden {
+  display: none;
+}
+
+.setting-control.multiselect .apop-multiselect .apop-multiselect-options .apop-multiselect-option .apop-multiselect-check {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 14px;
+  height: 14px;
+  flex-shrink: 0;
+  opacity: 0;
+  transition: opacity 0.15s ease;
+}
+
+.setting-control.multiselect .apop-multiselect .apop-multiselect-options .apop-multiselect-option.selected .apop-multiselect-check {
+  opacity: 1;
+}
+
+.setting-control.multiselect .apop-multiselect .apop-multiselect-options .apop-multiselect-option.selected .apop-multiselect-option-label {
+  color: #414651;
+  font-weight: 500;
+}
+
+.setting-control.multiselect .apop-multiselect .apop-multiselect-options .apop-multiselect-option .apop-multiselect-option-label {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  color: #414651;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 20px;
+}
+
+.setting-control.multiselect .apop-multiselect .apop-multiselect-empty,
+.setting-control.multiselect .apop-multiselect .apop-multiselect-loading {
+  display: none;
+  padding: 12px;
+  text-align: center;
+  color: #717680;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 20px;
+}
+
+.setting-control.multiselect .apop-multiselect .apop-multiselect-empty.is-visible,
+.setting-control.multiselect .apop-multiselect .apop-multiselect-loading.is-visible {
+  display: block;
+}
+
+@media only screen and (max-width: 768px) {
+
+  .setting-control.multiselect .boxes .box {
+    gap: 15px;
+    padding-top: 0;
+    padding-bottom: 15px;
+  }
+
+  .setting-control.multiselect .apop-multiselect {
+    width: 100%;
+  }
+
+  .setting-control.multiselect.first-control .boxes .box {
+    padding-top: 15px;
+  }
+}
+
 .setting-control.number-slider .boxes .box {
   display: flex;
   flex-wrap: wrap;
@@ -3169,6 +3559,24 @@ header .mycontainer .myrow.two .box-save-changes {
   border: none;
 }
 
+.wrap .box-alt-pilot .mycontainer .myrow .link a.is-busy {
+  opacity: 0.6;
+  cursor: default;
+  pointer-events: none;
+}
+
+.wrap .box-alt-pilot .mycontainer .myrow .button-alt-pilot-feedback {
+  flex-basis: 100%;
+  margin: 0;
+  color: #FFE0E0;
+  font-size: 13px;
+  line-height: 20px;
+}
+
+.wrap .box-alt-pilot .mycontainer .myrow .button-alt-pilot-feedback:empty {
+  display: none;
+}
+
 .wrap .box-image-alt .table-header .row .col.thumbnail,
 .wrap .box-image-alt .table-body .row .col.thumbnail {
   width: 80px;
@@ -3571,8 +3979,10 @@ header .mycontainer .myrow.two .box-save-changes {
 }
 
 #apop_general_settings .settings-group.hide_powered_by_onetap .setting-control .setting-title,
+#apop_general_settings .settings-group.hide_on_pages .setting-control .setting-title,
 #apop_general_settings .settings-group.alt-text-ai .setting-control .setting-title,
 #onetap_general_settings .settings-group.hide_powered_by_onetap .setting-control .setting-title,
+#onetap_general_settings .settings-group.hide_on_pages .setting-control .setting-title,
 #onetap_general_settings .settings-group.alt-text-ai .setting-control .setting-title {
   border-bottom: 1px solid #E9EAEB;
   padding-bottom: 16px;
